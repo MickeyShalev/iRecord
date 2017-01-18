@@ -118,7 +118,7 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Container class="javax.swing.JPanel" name="pnlAgent">
+    <Container class="javax.swing.JPanel" name="pnlArtist">
       <Properties>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
@@ -162,7 +162,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Manage Artists"/>
+            <Property name="text" type="java.lang.String" value="Create Session"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
@@ -177,7 +177,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Add Shows"/>
+            <Property name="text" type="java.lang.String" value="Manage Sessions"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddShowMouseClicked"/>
@@ -236,7 +236,7 @@
     <Component class="javax.swing.JLabel" name="bg">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/gui/images/muzagui.png"/>
+          <Image iconType="3" name="/gui/images/iStudioGui.png"/>
         </Property>
       </Properties>
       <Constraints>

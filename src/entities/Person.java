@@ -5,7 +5,7 @@
  */
 package entities;
 
-import ex2design.utilities.EAuth;
+import iRecord.utilities.EAuth;
 
 /**
  *

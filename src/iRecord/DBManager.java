@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ex2design;
+package iRecord;
 
 import java.sql.*;
-import ex2design.iMuzaMusic;
+import iRecord.iReport;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,15 +20,15 @@ public class DBManager {
     
    
     public DBManager() throws ClassNotFoundException, SQLException{
-        String dbFile = (new File("sources/MM_DB.accdb")).getAbsolutePath();
-        iMuzaMusic.log("DB File: "+dbFile);
+        String dbFile = (new File("sources/iRecord.accdb")).getAbsolutePath();
+        iReport.log("DB File: "+dbFile);
         String driver="net.ucanaccess.jdbc.UcanaccessDriver"; 
         Class.forName(driver); 
         try{
         conn=DriverManager.getConnection("jdbc:ucanaccess://"+dbFile);    
         }
         catch(Exception e){
-            dbFile = (new File("src/sources/MM_DB.accdb")).getAbsolutePath();
+            dbFile = (new File("src/sources/iRecord.accdb")).getAbsolutePath();
             conn=DriverManager.getConnection("jdbc:ucanaccess://"+dbFile);
         }
         
@@ -60,7 +60,7 @@ public class DBManager {
      */
     public int updateReturnID(String SQL){
         int id=-1;
-        iMuzaMusic.log("Sending UPDATE Query: "+SQL);
+        iReport.log("Sending UPDATE Query: "+SQL);
         try {
             Statement stmt=conn.createStatement();
             stmt.executeUpdate(SQL, Statement.RETURN_GENERATED_KEYS);

@@ -5,7 +5,7 @@
  */
 package gui.main;
 
-import ex2design.iMuzaMusic;
+import iRecord.iReport;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -83,15 +83,17 @@ public class LoginGui extends javax.swing.JFrame {
         });
         getContentPane().add(fldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 400, 40));
 
+        fldLogin.setBackground(new Color(0,0,0,0));
         fldLogin.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         fldLogin.setForeground(new java.awt.Color(153, 153, 153));
         fldLogin.setText("Username");
         fldLogin.setBorder(null);
+        fldLogin.setOpaque(false);
         fldLogin.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 fldLoginCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         fldLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +201,7 @@ public class LoginGui extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
-        iMuzaMusic.log("Exiting application...");
+        iReport.log("Exiting application...");
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 
@@ -242,15 +244,15 @@ public class LoginGui extends javax.swing.JFrame {
     }
 
     public void submitForm() throws SQLException {
-        iMuzaMusic.log("Submitted");
-        iMuzaMusic.log("User: " + fldLogin.getText() + " Password: " + fldPassword.getText());
+        iReport.log("Submitted");
+        iReport.log("User: " + fldLogin.getText() + " Password: " + fldPassword.getText());
 
-        if (iMuzaMusic.logIn(fldLogin.getText(), fldPassword.getText())) {
+        if (iReport.logIn(fldLogin.getText(), fldPassword.getText())) {
             //Open main gui if successfull    
             setVisible(false);
             dispose();
 
-            iMuzaMusic.log("Initiating main UI");
+            iReport.log("Initiating main UI");
 
             MainGui tmp = new MainGui();
             tmp.setVisible(true);

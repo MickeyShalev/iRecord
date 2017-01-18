@@ -5,13 +5,11 @@
  */
 package gui.main;
 
-import ex2design.iMuzaMusic;
+import gui.internal.frmCreateSession;
+import iRecord.iReport;
 import java.sql.SQLException;
-import ex2design.utilities.EAuth;
+import iRecord.utilities.EAuth;
 import gui.internal.frmCreateShow;
-import gui.internal.frmManageArtists;
-import gui.internal.frmViewReport;
-import gui.internal.frmWatchArtists;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.sql.ResultSet;
@@ -52,7 +50,7 @@ public class MainGui extends javax.swing.JFrame {
         lblUsernames = new javax.swing.JLabel();
         lblUserType = new javax.swing.JLabel();
         ContentFrame = new javax.swing.JPanel();
-        pnlAgent = new javax.swing.JPanel();
+        pnlArtist = new javax.swing.JPanel();
         btnManageArtists = new javax.swing.JLabel();
         btnAddShow = new javax.swing.JLabel();
         pnlRep = new javax.swing.JPanel();
@@ -104,11 +102,11 @@ public class MainGui extends javax.swing.JFrame {
 
         getContentPane().add(ContentFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 830, 690));
 
-        pnlAgent.setOpaque(false);
+        pnlArtist.setOpaque(false);
 
         btnManageArtists.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnManageArtists.setForeground(new java.awt.Color(255, 255, 255));
-        btnManageArtists.setText("Manage Artists");
+        btnManageArtists.setText("Create Session");
         btnManageArtists.setToolTipText("");
         btnManageArtists.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -118,27 +116,27 @@ public class MainGui extends javax.swing.JFrame {
 
         btnAddShow.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnAddShow.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddShow.setText("Add Shows");
+        btnAddShow.setText("Manage Sessions");
         btnAddShow.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddShowMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout pnlAgentLayout = new javax.swing.GroupLayout(pnlAgent);
-        pnlAgent.setLayout(pnlAgentLayout);
-        pnlAgentLayout.setHorizontalGroup(
-            pnlAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAgentLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlArtistLayout = new javax.swing.GroupLayout(pnlArtist);
+        pnlArtist.setLayout(pnlArtistLayout);
+        pnlArtistLayout.setHorizontalGroup(
+            pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlArtistLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAddShow, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnManageArtists, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
-        pnlAgentLayout.setVerticalGroup(
-            pnlAgentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAgentLayout.createSequentialGroup()
+        pnlArtistLayout.setVerticalGroup(
+            pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlArtistLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(btnManageArtists, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -146,7 +144,7 @@ public class MainGui extends javax.swing.JFrame {
                 .addContainerGap(274, Short.MAX_VALUE))
         );
 
-        getContentPane().add(pnlAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
+        getContentPane().add(pnlArtist, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
 
         pnlRep.setOpaque(false);
 
@@ -179,7 +177,7 @@ public class MainGui extends javax.swing.JFrame {
 
         getContentPane().add(pnlRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
 
-        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/images/muzagui.png"))); // NOI18N
+        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/images/iStudioGui.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 1020, 770));
 
         btnExit.setText("jButton1");
@@ -213,51 +211,51 @@ public class MainGui extends javax.swing.JFrame {
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
         // TODO add your handling code here:
-        iMuzaMusic.log("Logging out..");
-        iMuzaMusic.setLoggedUser(null);
+        iReport.log("Logging out..");
+        iReport.setLoggedUser(null);
         dispose();
        
-        iMuzaMusic.log("Successfully logged out");
+        iReport.log("Successfully logged out");
         
         LoginGui tmp = new LoginGui();
-        iMuzaMusic.log("Activating login screen");
+        iReport.log("Activating login screen");
         tmp.setVisible(true);
     }//GEN-LAST:event_btnLogoutMouseClicked
 
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
         // TODO add your handling code here:
-        iMuzaMusic.log("Quitting MuzaMusic");
+        iReport.log("Quitting MuzaMusic");
         System.exit(0);
     }//GEN-LAST:event_btnExitMouseClicked
 
     private void btnManageArtistsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManageArtistsMouseClicked
         // TODO add your handling code here:
-        frmManageArtists add = new frmManageArtists();
+      frmCreateSession add = new frmCreateSession();
         iWindow.openWin(add);
     }//GEN-LAST:event_btnManageArtistsMouseClicked
 
     private void btnAddShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddShowMouseClicked
         // TODO add your handling code here:
-        frmCreateShow add = new frmCreateShow();
-        iWindow.openWin(add);
+      //  frmCreateSession add = new frmCreateSession();
+      //  iWindow.openWin(add);
     }//GEN-LAST:event_btnAddShowMouseClicked
 
     private void btnViewReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewReportMouseClicked
         // TODO add your handling code here:
-       frmViewReport add = new frmViewReport();
-       iWindow.openWin(add);
+      // frmViewReport add = new frmViewReport();
+      // iWindow.openWin(add);
     }//GEN-LAST:event_btnViewReportMouseClicked
 
 
     public void refreshVars() {
         lblTitle.setText("Homepage");
-        lblUserType.setText("" + iMuzaMusic.getLoggedUser().getUserAuth());
-        lblUsernames.setText(iMuzaMusic.getLoggedUser().getFirstName() + " " + iMuzaMusic.getLoggedUser().getLastName());
-        pnlAgent.setVisible(false);
+        lblUserType.setText("" + iReport.getLoggedUser().getUserAuth());
+        lblUsernames.setText(iReport.getLoggedUser().getFirstName() + " " + iReport.getLoggedUser().getLastName());
+        pnlArtist.setVisible(false);
         pnlRep.setVisible(false);
-        switch (iMuzaMusic.getLoggedUser().getUserAuth()) {
-            case Agent:
-                pnlAgent.setVisible(true);
+        switch (iReport.getLoggedUser().getUserAuth()) {
+            case Artist:
+                pnlArtist.setVisible(true);
                 break;
                 
             case Representative:
@@ -280,7 +278,7 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUserType;
     private javax.swing.JLabel lblUsernames;
-    private javax.swing.JPanel pnlAgent;
+    private javax.swing.JPanel pnlArtist;
     private javax.swing.JPanel pnlRep;
     // End of variables declaration//GEN-END:variables
 

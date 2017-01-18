@@ -1,0 +1,11 @@
+=================  iMuzaMusic v1.0 - Wed Jan 18 17:10:17 IST 2017 ==================
+17:10:17	Attempting connection to MS Access DB
+17:10:17	DB File: C:\Users\nisan\Documents\Git\iRecord\sources\iRecord.accdb
+17:10:18	Successfully connected to MS Access DB.
+17:10:18	Opening Login Window through iWindow
+17:10:21	Submitted
+17:10:21	User: admin Password: 1111
+17:10:21	Attempting login using admin/1111
+17:10:21	Artist logged in
+17:10:21	Initiating main UI
+17:10:45	Quitting MuzaMusic

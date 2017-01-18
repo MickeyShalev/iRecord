@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ex2design;
+package iRecord;
 
 import gui.main.LoginGui;
 import gui.main.iWindow;
 import javax.swing.JFrame;
-import ex2design.utilities.EAuth;
+import iRecord.utilities.EAuth;
 
 /**
  *
@@ -18,10 +18,10 @@ public class MainClass {
       public static void main(String[] args) {
           
             //Initiate Main Project
-            iMuzaMusic project = new iMuzaMusic();
+            iReport project = new iReport();
             //Initiate GUI
             //JFrame LoginGui = new LoginGui();
-            iMuzaMusic.log("Opening Login Window through iWindow");
+            iReport.log("Opening Login Window through iWindow");
             iWindow.openLogin();
             
         }

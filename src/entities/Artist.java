@@ -5,8 +5,9 @@
  */
 package entities;
 
-import ex2design.utilities.EArtistStatus;
-import ex2design.utilities.EAuth;
+import iRecord.utilities.EArtistStatus;
+import iRecord.utilities.EAuth;
+import java.sql.Date;
 
 /**
  *
@@ -14,50 +15,30 @@ import ex2design.utilities.EAuth;
  */
 public class Artist extends Person {
 
-    public String getEmailAddr() {
-        return emailAddr;
-    }
+    
 
-    public void setEmailAddr(String emailAddr) {
-        this.emailAddr = emailAddr;
-    }
-    private String biography = "";
-    private String stageName = "";
-    private String fbAddr = "";
-    private EArtistStatus arStatus = null;
     private String emailAddr = "";
-    public Artist(String ID, String strFirstName, String strLastName, String strPasswd, EAuth userAuth, String biography, String stageName, String fbAddr, EArtistStatus arStatus, String emailAddr){
-        super(ID, strFirstName, strLastName, strPasswd, userAuth);
-        this.biography=biography;
-        this.stageName=stageName;
-        this.fbAddr=fbAddr;
-        this.arStatus=arStatus;
-        this.emailAddr=emailAddr;
+    private String ID = "";
+    private String stageName= "";
+    private java.sql.Date dateExpired;
+    public Artist(String ID, String strStageName, String strPasswd, java.sql.Date dateExpired, EAuth authType){
+        super(ID, strStageName, "", strPasswd, authType);
+        setEmailAddr(emailAddr);
+        setID(ID);
+        setStageName(stageName);
+        setDateExpired(dateExpired);
+        
+    
     }
 
-    public String getFbAddr() {
-        return fbAddr;
+    public Date getDateExpired() {
+        return dateExpired;
     }
 
-    public void setFbAddr(String fbAddr) {
-        this.fbAddr = fbAddr;
+    public void setDateExpired(Date dateExpired) {
+        this.dateExpired = dateExpired;
     }
 
-    public EArtistStatus getArStatus() {
-        return arStatus;
-    }
-
-    public void setArStatus(EArtistStatus arStatus) {
-        this.arStatus = arStatus;
-    }
-
-    public String getBiography() {
-        return biography;
-    }
-
-    public void setBiography(String biography) {
-        this.biography = biography;
-    }
 
     public String getStageName() {
         return stageName;
@@ -65,6 +46,14 @@ public class Artist extends Person {
 
     public void setStageName(String stageName) {
         this.stageName = stageName;
+    }
+    
+    public String getEmailAddr() {
+        return emailAddr;
+    }
+
+    public void setEmailAddr(String emailAddr) {
+        this.emailAddr = emailAddr;
     }
     
 }
