@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9d7df7f0-1d50-4b4b-91f2-74aa984c4ba6">
+	<property name="ireport.zoom" value="1.1000000000000012"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="New Dataset 1" uuid="b642eddc-f75b-4966-a30b-4c4cae0bf23d">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     ShowsToArtists.`ShowID` AS ShowsToArtists_ShowID,
+     ShowsToArtists.`ArtistID` AS ShowsToArtists_ArtistID,
+     ShowsToArtists.`Status` AS ShowsToArtists_Status
+FROM
+     `ShowsToArtists` ShowsToArtists
+WHERE
+     ShowID = "$F{generateReport_pID}"]]>
+		</queryString>
+		<field name="ShowsToArtists_ArtistID" class="java.lang.String"/>
+		<group name="ShowsToArtists_ArtistID">
+			<groupExpression><![CDATA[$F{ShowsToArtists_ArtistID}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="New Dataset 2" uuid="dfab7dc1-1bde-4604-80ca-19a57bf31056">
+		<parameter name="showid" class="java.lang.String">
+			<defaultValueExpression><![CDATA[005]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     qryGetArtistsByShowID.`strStageName` AS qryGetArtistsByShowID_strStageName
+FROM
+     `qryGetArtistsByShowID` qryGetArtistsByShowID where ShowID=$P{showid}]]>
+		</queryString>
+		<field name="qryGetArtistsByShowID_strStageName" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="year" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Administrator\\Documents\\NetBeansProjects\\HandsInAirNew\\src\\ex2design\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     generateReport.`pID` AS generateReport_pID,
+     generateReport.`pStartDate` AS generateReport_pStartDate,
+     generateReport.`pTicketPrice` AS generateReport_pTicketPrice,
+     generateReport.`pMinAge` AS generateReport_pMinAge,
+     generateReport.`pStatus` AS generateReport_pStatus,
+     generateReport.`iLocation` AS generateReport_iLocation,
+     generateReport.`iMainArtist` AS generateReport_iMainArtist,
+     generateReport.`pDateCreated` AS generateReport_pDateCreated,
+     generateReport.`PreSaleTotal` AS generateReport_PreSaleTotal,
+     generateReport.`RegularSaleTotal` AS generateReport_RegularSaleTotal,
+     generateReport.`pTotalSales` AS generateReport_pTotalSales,
+     generateReport.`AdditionalCosts` AS generateReport_AdditionalCosts,
+     generateReport.`LocComm` AS generateReport_LocComm,
+     generateReport.`ArtistComm` AS generateReport_ArtistComm,
+     generateReport.`TotalOutcome` AS generateReport_TotalOutcome,
+     generateReport.`TotalRevenue` AS generateReport_TotalRevenue,
+     generateReport.`strStageName` AS generateReport_strStageName,
+     generateReport.`strName` AS generateReport_strName,
+     generateReport.`AgentName` AS generateReport_AgentName,
+     generateReport.`showYear` AS generateReport_showYear
+FROM
+     `generateReport` generateReport WHERE showYear=$P{year} order by TotalRevenue desc]]>
+	</queryString>
+	<field name="generateReport_pID" class="java.lang.String"/>
+	<field name="generateReport_pStartDate" class="java.sql.Timestamp"/>
+	<field name="generateReport_pTicketPrice" class="java.lang.Integer"/>
+	<field name="generateReport_pMinAge" class="java.lang.Integer"/>
+	<field name="generateReport_pStatus" class="java.lang.String"/>
+	<field name="generateReport_iLocation" class="java.lang.String"/>
+	<field name="generateReport_iMainArtist" class="java.lang.String"/>
+	<field name="generateReport_pDateCreated" class="java.sql.Timestamp"/>
+	<field name="generateReport_PreSaleTotal" class="java.math.BigDecimal"/>
+	<field name="generateReport_RegularSaleTotal" class="java.lang.Long"/>
+	<field name="generateReport_pTotalSales" class="java.math.BigDecimal"/>
+	<field name="generateReport_AdditionalCosts" class="java.lang.Double"/>
+	<field name="generateReport_LocComm" class="java.math.BigDecimal"/>
+	<field name="generateReport_ArtistComm" class="java.math.BigDecimal"/>
+	<field name="generateReport_TotalOutcome" class="java.lang.Integer"/>
+	<field name="generateReport_TotalRevenue" class="java.math.BigDecimal"/>
+	<field name="generateReport_strStageName" class="java.lang.String"/>
+	<field name="generateReport_strName" class="java.lang.String"/>
+	<field name="generateReport_AgentName" class="java.lang.String"/>
+	<field name="generateReport_showYear" class="java.lang.Integer"/>
+	<group name="generateReport_pID">
+		<groupExpression><![CDATA[$F{generateReport_pID}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#333333" uuid="d386fef3-4f43-4fcb-bad3-5da0b2d99ca3"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{generateReport_strStageName}+" - "+ $F{generateReport_strName}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="6738992d-d602-4a27-b56d-544691f1a735"/>
+				</rectangle>
+				<textField>
+					<reportElement style="Column header" x="433" y="13" width="80" height="20" forecolor="#000000" uuid="11731083-8e88-4750-b1a4-3daf2b660e38"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Show "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="515" y="13" width="40" height="20" forecolor="#000000" uuid="1c331c08-60ae-480d-904b-990c1357c88d"/>
+					<textElement>
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="66" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="553" height="64" uuid="72b24e0c-736f-44b6-a2e4-e2ed66789088"/>
+				<imageExpression><![CDATA["sources/wood.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="460" y="44" width="91" height="20" forecolor="#FFFFFF" uuid="d589f131-c285-4cdb-b4e4-b4e491af4b67"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="38" width="100" height="20" forecolor="#FFFFFF" uuid="3c0e0679-4df4-4511-a5c4-9c07c681a23f"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Year "+$F{generateReport_showYear}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Title" x="20" y="5" width="263" height="33" uuid="6524e551-6840-4fdc-86e8-3bf8e75af0b2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Annual Report]]></text>
+			</staticText>
+			<image>
+				<reportElement x="448" y="5" width="91" height="36" uuid="7f8bc9c2-c0b5-49b6-b10d-985266ec47cb"/>
+				<imageExpression><![CDATA["sources/muzalogo.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="323" splitType="Stretch">
+			<break>
+				<reportElement x="0" y="322" width="100" height="1" uuid="584d3aca-917f-436a-a0fe-303c28e074e2"/>
+			</break>
+			<componentElement>
+				<reportElement key="table" style="Detail" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="216" width="551" height="106" uuid="840995f7-281c-43de-949b-f1df73319400"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 2" uuid="05ad7792-936d-4ede-b082-95666b62876f">
+						<datasetParameter name="showid">
+							<datasetParameterExpression><![CDATA[$F{generateReport_pID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="552" uuid="3a62f15c-98b2-4bb9-97bd-8a0aa5176c88">
+						<jr:columnHeader style="Detail" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="552" height="30" forecolor="#999999" uuid="a7688748-2f32-48dd-ae17-841db435f6f8"/>
+								<textElement>
+									<font size="18" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Participated Artists]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Detail" height="17" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="220" height="17" uuid="883c2f7e-0f91-470d-a91c-9dd087e1833c"/>
+								<textFieldExpression><![CDATA[$F{qryGetArtistsByShowID_strStageName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="43" width="100" height="20" forecolor="#666666" uuid="59118b50-848b-43b1-b539-eddd320b513a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Show Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="43" width="100" height="20" uuid="3a46170b-309a-4a72-b4c0-1d93484b117e"/>
+				<textFieldExpression><![CDATA[$F{generateReport_pStartDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="63" width="100" height="20" forecolor="#666666" uuid="63033210-4137-4860-92fe-92df8aca0c63"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Minimum Age]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="63" width="100" height="20" uuid="01e2205f-be40-4944-a0a0-dde4fc62fa15"/>
+				<textFieldExpression><![CDATA[$F{generateReport_pMinAge} +"+"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="83" width="100" height="20" forecolor="#666666" uuid="3798c503-e6a9-4d68-bf81-a598aad87d59"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Location Name]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="83" width="100" height="20" uuid="6c82c74f-cdaf-4dcd-84e5-b3719b2d4416"/>
+				<textFieldExpression><![CDATA[$F{generateReport_strName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="103" width="100" height="20" forecolor="#666666" uuid="33bddce5-0adf-455b-bbef-54875bfeaaa6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Created By]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="103" width="100" height="20" uuid="84d2af9f-605a-4281-b35c-bf22a8ca8476"/>
+				<textFieldExpression><![CDATA[$F{generateReport_AgentName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="123" width="100" height="20" forecolor="#666666" uuid="28f61712-0f2a-405f-aa68-c8f9cede1273"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Created]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="123" width="100" height="20" uuid="1045c1bc-a042-48b4-8ba2-80f7740355d0"/>
+				<textFieldExpression><![CDATA[$F{generateReport_pDateCreated}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="36" y="0" width="149" height="23" forecolor="#999999" uuid="f07c75d6-ac7a-4dd0-832e-76075bb33bd2"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[General Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="0" width="149" height="23" forecolor="#999999" uuid="1044aa7b-e533-4802-9d86-0464037f324d"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Financial Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="23" width="100" height="20" forecolor="#666666" uuid="8e21c60b-684f-4caf-803a-dcde69f93f69"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presale Income]]></text>
+			</staticText>
+			<textField pattern="###0">
+				<reportElement x="413" y="23" width="100" height="20" uuid="3985ce6f-3c6e-4c6c-891c-fb00a2e63857"/>
+				<textFieldExpression><![CDATA["\$"+$F{generateReport_PreSaleTotal}.intValue()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="43" width="100" height="20" forecolor="#666666" uuid="ce444946-1381-41b0-be25-4616bf70cbe6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Regular Income]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="43" width="100" height="20" uuid="60c5740a-0431-4646-9a2a-5207350c0620"/>
+				<textFieldExpression><![CDATA["\$"+$F{generateReport_RegularSaleTotal}.intValue()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="123" width="100" height="20" forecolor="#666666" uuid="1d41405a-9778-4c96-96c2-ea3a62aceb55"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Income]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="123" width="100" height="20" uuid="8c3e3f1f-7ff8-4aeb-bdd4-86767cd39ebf"/>
+				<textFieldExpression><![CDATA["\$"+$F{generateReport_pTotalSales}.intValue()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="63" width="100" height="20" forecolor="#666666" uuid="cc32ae66-e4f9-4587-8f9b-6051e7a7f456"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Additional Costs]]></text>
+			</staticText>
+			<textField pattern="###0">
+				<reportElement x="413" y="63" width="100" height="20" uuid="08fa9b66-6bf8-43a7-9a5d-ba89d05f7a44"/>
+				<textFieldExpression><![CDATA["\$" + ($F{generateReport_pTotalSales} * $F{generateReport_AdditionalCosts}).intValue() + " (" + ($F{generateReport_AdditionalCosts}*100).intValue() + "%)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="83" width="100" height="20" forecolor="#666666" uuid="b52bb4ff-a456-48ba-a347-44279dcd86da"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Location Commission]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="83" width="100" height="20" uuid="48a78cf5-bfd3-462f-811a-90960820915a"/>
+				<textFieldExpression><![CDATA["\$" + ($F{generateReport_LocComm}*$F{generateReport_pTotalSales}).intValue() +" ("+ ($F{generateReport_LocComm}*100).intValue() + "%)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="23" width="100" height="20" forecolor="#666666" uuid="0aabb0e9-ed9a-450d-ae33-44a8e46e29d1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Show ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="23" width="100" height="20" uuid="03d519f1-f10a-4b2c-aba1-be4f5081bbb7"/>
+				<textFieldExpression><![CDATA[$F{generateReport_pID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="143" width="100" height="20" forecolor="#666666" uuid="73c893b3-051a-44c2-a3fc-880a1c72bea2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Outcome]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="143" width="100" height="20" uuid="d0fabc54-347b-4523-9dc8-f528027af0e4"/>
+				<textFieldExpression><![CDATA["\$"+$F{generateReport_TotalOutcome}.intValue()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="163" width="100" height="20" forecolor="#666666" uuid="32920af5-7a83-4947-ab20-12aadfd03d43"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Revenue]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="163" width="100" height="20" uuid="fdee52a2-9f9c-41e5-9f84-25308fcfd434"/>
+				<textFieldExpression><![CDATA["\$"+$F{generateReport_TotalRevenue}.intValue()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="103" width="100" height="20" forecolor="#666666" uuid="03f8dffd-1887-47ad-b21c-2a5a2706813c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Artists Commission]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="103" width="100" height="20" uuid="db54819b-5105-422e-9d7a-3b9b2e38c6ad"/>
+				<textFieldExpression><![CDATA["\$"+($F{generateReport_ArtistComm}*$F{generateReport_pTotalSales}).intValue()+" ("+($F{generateReport_ArtistComm}*100).intValue()+"%)"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="83" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="7b30bf9b-54c3-4dcb-ae1b-f7074aafbd0a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="c1042d15-6339-43d9-ac54-aef825ccf21f"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="72fc974e-3ef4-4399-8271-2a196fda01e7"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
