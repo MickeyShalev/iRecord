@@ -5,7 +5,7 @@
  */
 package gui.internal;
 
-import iRecord.iReport;
+import iRecord.iRecord;
 import entities.Artist;
 import entities.Person;
 import iRecord.DBManager;
@@ -305,7 +305,7 @@ public class frmCreateShow extends javax.swing.JInternalFrame {
         slctArtist.removeAllItems();
         slctArtist.addItem("Select Artist");
         
-        ResultSet getArtists = iReport.getAvailableArtistsByAgent(iReport.getLoggedUser().getID());
+        ResultSet getArtists = iRecord.getAvailableArtistsByAgent(iRecord.getLoggedUser().getID());
         try {
             while(getArtists.next()){
                 slctArtist.addItem(""+getArtists.getString("strStageName")+" ("+getArtists.getString("ArtistID")+")");
@@ -315,7 +315,7 @@ public class frmCreateShow extends javax.swing.JInternalFrame {
         }
         
         
-        ResultSet getLocations = iReport.getLocationsByAgent(iReport.getLoggedUser().getID());
+        ResultSet getLocations = iRecord.getLocationsByAgent(iRecord.getLoggedUser().getID());
         try {
             while(getLocations.next()){
                 slctLocation.addItem(""+getLocations.getString("strName")+" ("+getLocations.getString("LocationID")+")");
@@ -354,8 +354,8 @@ public class frmCreateShow extends javax.swing.JInternalFrame {
         slctSubArtist.addItem("Select Sub Artists");
         
         
-        String qry = "select * from Artists where ArtistID!=\""+iReport.getID(slctArtist.getSelectedItem().toString())+"\" AND Artists.iStatus=1";
-        ResultSet r = iReport.getDB().query(qry);
+        String qry = "select * from Artists where ArtistID!=\""+iRecord.getID(slctArtist.getSelectedItem().toString())+"\" AND Artists.iStatus=1";
+        ResultSet r = iRecord.getDB().query(qry);
          try {
              while(r.next()){
                  slctSubArtist.addItem(r.getString("strStageName")+" ("+r.getString("ArtistID")+")");
@@ -383,9 +383,9 @@ public class frmCreateShow extends javax.swing.JInternalFrame {
             }
             
             //Get location addr
-            String LocationID = iReport.getID(item.toString());
+            String LocationID = iRecord.getID(item.toString());
             
-            ResultSet getLocation = iReport.getLocationDetails(LocationID);
+            ResultSet getLocation = iRecord.getLocationDetails(LocationID);
             
             
             try {
@@ -412,9 +412,9 @@ public class frmCreateShow extends javax.swing.JInternalFrame {
            if(slctSubArtist.getSelectedItem().toString().equals("Select Sub Artists"))
                return;
            
-           String ArtistID = iReport.getID(slctSubArtist.getSelectedItem().toString());
+           String ArtistID = iRecord.getID(slctSubArtist.getSelectedItem().toString());
            System.err.println("Getting ArtistID "+ArtistID);
-           ResultSet qry = iReport.getDB().query("select strStageName from Artists where ArtistID=\""+ArtistID+"\"");
+           ResultSet qry = iRecord.getDB().query("select strStageName from Artists where ArtistID=\""+ArtistID+"\"");
         try {
             if(qry.next()){
                 String strStageName = qry.getString("strStageName");
@@ -444,9 +444,9 @@ public class frmCreateShow extends javax.swing.JInternalFrame {
                 return;
             }
         
-           String ArtistID = iReport.getID(slctSubArtist.getSelectedItem().toString());
-           iReport.log("Getting ArtistID "+ArtistID);
-           ResultSet qry = iReport.getDB().query("select * from Artists where ArtistID=\""+ArtistID+"\"");
+           String ArtistID = iRecord.getID(slctSubArtist.getSelectedItem().toString());
+           iRecord.log("Getting ArtistID "+ArtistID);
+           ResultSet qry = iRecord.getDB().query("select * from Artists where ArtistID=\""+ArtistID+"\"");
         try {
             if(qry.next()){
                 String strStageName = qry.getString("strStageName");
@@ -479,11 +479,11 @@ public class frmCreateShow extends javax.swing.JInternalFrame {
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         try {
             // TODO add your handling code here:
-            iReport.log("Creating Show..");
-            ResultSet rs = iReport.getDB().query("Select TOP 1 pID from Shows order by pID desc");
+            iRecord.log("Creating Show..");
+            ResultSet rs = iRecord.getDB().query("Select TOP 1 pID from Shows order by pID desc");
             String pID = "";
-            String LocationID = iReport.getID(slctLocation.getSelectedItem().toString());
-            String MainArtist = iReport.getID(slctArtist.getSelectedItem().toString());
+            String LocationID = iRecord.getID(slctLocation.getSelectedItem().toString());
+            String MainArtist = iRecord.getID(slctArtist.getSelectedItem().toString());
             Timestamp dateCreated = new Timestamp(new Date().getTime());
             SimpleDateFormat df = new SimpleDateFormat("d/M/Y");
             
@@ -509,14 +509,14 @@ public class frmCreateShow extends javax.swing.JInternalFrame {
          
             String qry = "INSERT INTO Shows (pID, pStartDate, pTicketPrice, pMinAge, pStatus, iLocation, iMainArtist, pDateCreated)"
                     + " VALUES ('"+pID+"',\""+ts+"\",'"+ticketPrice+"','"+minAge+"','Awaiting Approval','"+LocationID+"','"+MainArtist+"',\""+dateCreated+"\")";
-            if(iReport.getDB().updateReturnID(qry)>0){
+            if(iRecord.getDB().updateReturnID(qry)>0){
                 //Success
-                iReport.log("Successfully added show to Shows table");
+                iRecord.log("Successfully added show to Shows table");
                 
             }
             else{
-                iReport.log("Failed adding show to Shows table");
-                iReport.log("Query: "+qry);
+                iRecord.log("Failed adding show to Shows table");
+                iRecord.log("Query: "+qry);
             }
         } catch (SQLException ex) {
             Logger.getLogger(frmCreateShow.class.getName()).log(Level.SEVERE, null, ex);

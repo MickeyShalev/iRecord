@@ -6,7 +6,7 @@
 package iRecord;
 
 import java.sql.*;
-import iRecord.iReport;
+import iRecord.iRecord;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +21,7 @@ public class DBManager {
    
     public DBManager() throws ClassNotFoundException, SQLException{
         String dbFile = (new File("sources/iRecord.accdb")).getAbsolutePath();
-        iReport.log("DB File: "+dbFile);
+        iRecord.log("DB File: "+dbFile);
         String driver="net.ucanaccess.jdbc.UcanaccessDriver"; 
         Class.forName(driver); 
         try{
@@ -60,7 +60,7 @@ public class DBManager {
      */
     public int updateReturnID(String SQL){
         int id=-1;
-        iReport.log("Sending UPDATE Query: "+SQL);
+        iRecord.log("Sending UPDATE Query: "+SQL);
         try {
             Statement stmt=conn.createStatement();
             stmt.executeUpdate(SQL, Statement.RETURN_GENERATED_KEYS);

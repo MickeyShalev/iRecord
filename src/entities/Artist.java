@@ -8,6 +8,15 @@ package entities;
 import iRecord.utilities.EArtistStatus;
 import iRecord.utilities.EAuth;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import iRecord.iRecord;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -54,6 +63,23 @@ public class Artist extends Person {
 
     public void setEmailAddr(String emailAddr) {
         this.emailAddr = emailAddr;
+    }
+    
+    public List<java.sql.Date> getUnavailableDates(){
+       List<java.sql.Date> list = new ArrayList<java.sql.Date>();
+       ResultSet qry = iRecord.getDB().query("select sessionStartDate AS date from Session where ArtistID=\""+getID()+"\"");
+        try {
+            while(qry.next()){
+                java.sql.Date d = qry.getDate("date");
+               java.sql.Date dateNow = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+               System.err.println("Date: "+d+" And if before: "+d.before(dateNow));
+                
+            }} catch (SQLException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        return list;
+       
     }
     
 }

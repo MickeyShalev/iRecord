@@ -6,7 +6,7 @@
 package gui.main;
 
 import gui.internal.frmCreateSession;
-import iRecord.iReport;
+import iRecord.iRecord;
 import java.sql.SQLException;
 import iRecord.utilities.EAuth;
 import gui.internal.frmCreateShow;
@@ -211,20 +211,20 @@ public class MainGui extends javax.swing.JFrame {
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
         // TODO add your handling code here:
-        iReport.log("Logging out..");
-        iReport.setLoggedUser(null);
+        iRecord.log("Logging out..");
+        iRecord.setLoggedUser(null);
         dispose();
        
-        iReport.log("Successfully logged out");
+        iRecord.log("Successfully logged out");
         
         LoginGui tmp = new LoginGui();
-        iReport.log("Activating login screen");
+        iRecord.log("Activating login screen");
         tmp.setVisible(true);
     }//GEN-LAST:event_btnLogoutMouseClicked
 
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
         // TODO add your handling code here:
-        iReport.log("Quitting MuzaMusic");
+        iRecord.log("Quitting MuzaMusic");
         System.exit(0);
     }//GEN-LAST:event_btnExitMouseClicked
 
@@ -249,11 +249,11 @@ public class MainGui extends javax.swing.JFrame {
 
     public void refreshVars() {
         lblTitle.setText("Homepage");
-        lblUserType.setText("" + iReport.getLoggedUser().getUserAuth());
-        lblUsernames.setText(iReport.getLoggedUser().getFirstName() + " " + iReport.getLoggedUser().getLastName());
+        lblUserType.setText("" + iRecord.getLoggedUser().getUserAuth());
+        lblUsernames.setText(iRecord.getLoggedUser().getFirstName() + " " + iRecord.getLoggedUser().getLastName());
         pnlArtist.setVisible(false);
         pnlRep.setVisible(false);
-        switch (iReport.getLoggedUser().getUserAuth()) {
+        switch (iRecord.getLoggedUser().getUserAuth()) {
             case Artist:
                 pnlArtist.setVisible(true);
                 break;

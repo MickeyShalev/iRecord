@@ -31,7 +31,7 @@ import net.sf.jasperreports.view.JRViewer;
  *
  * @author Administrator
  */
-public class iReport {
+public class iRecord {
 
     private static DBManager DB;
     private static Person loggedUser = null;
@@ -39,7 +39,7 @@ public class iReport {
     private static FileWriter logFile;
     private static PrintStream logWriter;
 
-    public iReport() {
+    public iRecord() {
         //Reset log
         try {
             SimpleDateFormat sdfDate = new SimpleDateFormat("ddM_hhmm");
@@ -47,9 +47,10 @@ public class iReport {
             String strDate = sdfDate.format(now);
             strDate = "";
             logWriter = new PrintStream(new File(fileName+"_"+strDate+".log"));
-           // System.setErr(logWriter);
-            //System.setOut(logWriter);
-            logWriter.print("=================  iMuzaMusic v1.0 - " + new Date() + " ==================" + System.getProperty("line.separator"));
+            //System.setErr(logWriter);
+            System.setOut(logWriter);
+            logWriter.print("=================  iRecord v1.0 - " + new Date() + " ==================" + System.getProperty("line.separator"));
+            
         } catch (IOException ioe) {
             ioe.printStackTrace();
             System.err.println("Cannot write to log file!");
@@ -66,7 +67,7 @@ public class iReport {
     }
 
     public static void setDB(DBManager DB) {
-        iReport.DB = DB;
+        iRecord.DB = DB;
     }
 
     public static Person getLoggedUser() {
@@ -74,7 +75,7 @@ public class iReport {
     }
 
     public static void setLoggedUser(Person loggedUser) {
-        iReport.loggedUser = loggedUser;
+        iRecord.loggedUser = loggedUser;
     }
 
     /**
@@ -85,10 +86,10 @@ public class iReport {
             log("Attempting connection to MS Access DB");
             DB = new DBManager();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(iReport.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(iRecord.class.getName()).log(Level.SEVERE, null, ex);
             return;
         } catch (SQLException ex) {
-            Logger.getLogger(iReport.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(iRecord.class.getName()).log(Level.SEVERE, null, ex);
             return;
         }
         log("Successfully connected to MS Access DB.");
@@ -104,6 +105,7 @@ public class iReport {
         String strDate = sdfDate.format(now);
         logWriter.print(strDate + "\t" + str + System.getProperty("line.separator"));
         logWriter.flush();
+       
     }
 
     public static boolean logIn(String id, String pass) throws SQLException {
@@ -118,7 +120,7 @@ public class iReport {
 
      
 
-        tmp = iReport.DB.query("select * from Artists where ArtistID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
+        tmp = iRecord.DB.query("select * from Artists where ArtistID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
         if (tmp.next()) {
             if (tmp.getString(1).length() > 0) {
                 //Logged in as agent
@@ -149,7 +151,7 @@ public class iReport {
             tmp = tmp[1].split("\\)");
             str = tmp[0];
         } catch (Exception e) {
-            iReport.log("" + e.getStackTrace());
+            iRecord.log("" + e.getStackTrace());
             e.printStackTrace();
         }
         return str;
@@ -197,12 +199,12 @@ public class iReport {
                 + "FROM Locations INNER JOIN (Agents INNER JOIN AgentPreferLocation ON Agents.AgentID = AgentPreferLocation.AgentID) ON Locations.LocationID = AgentPreferLocation.LocationID\n"
                 + "WHERE (((Agents.AgentID)=[AgentPreferLocation].[AgentID]) AND ((Locations.LocationID)=[AgentPreferLocation].[LocationID]) AND ((Agents.AgentID)=\"" + AgentID + "\"))";
 
-        return iReport.getDB().query(qry);
+        return iRecord.getDB().query(qry);
     }
 
     public static ResultSet getLocationDetails(String LocationID) {
         String qry = "SELECT strAddress from Locations where LocationID=\"" + LocationID + "\"";
-        return iReport.getDB().query(qry);
+        return iRecord.getDB().query(qry);
     }
 
 }

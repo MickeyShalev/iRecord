@@ -5,7 +5,7 @@
  */
 package gui.main;
 
-import iRecord.iReport;
+import iRecord.iRecord;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -201,7 +201,7 @@ public class LoginGui extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
-        iReport.log("Exiting application...");
+        iRecord.log("Exiting application...");
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 
@@ -244,15 +244,15 @@ public class LoginGui extends javax.swing.JFrame {
     }
 
     public void submitForm() throws SQLException {
-        iReport.log("Submitted");
-        iReport.log("User: " + fldLogin.getText() + " Password: " + fldPassword.getText());
+        iRecord.log("Submitted");
+        iRecord.log("User: " + fldLogin.getText() + " Password: " + fldPassword.getText());
 
-        if (iReport.logIn(fldLogin.getText(), fldPassword.getText())) {
+        if (iRecord.logIn(fldLogin.getText(), fldPassword.getText())) {
             //Open main gui if successfull    
             setVisible(false);
             dispose();
 
-            iReport.log("Initiating main UI");
+            iRecord.log("Initiating main UI");
 
             MainGui tmp = new MainGui();
             tmp.setVisible(true);

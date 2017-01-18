@@ -5,7 +5,10 @@
  */
 package gui.internal;
 
+import iRecord.iRecord;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,12 +16,16 @@ import java.awt.Color;
  */
 public class frmCreateSession extends javax.swing.JInternalFrame {
 
+    List<java.sql.Date> unavailableDates;
     /**
      * Creates new form frmCreateSession
      */
     public frmCreateSession() {
         setTitle("Create Session Page");
         initComponents();
+        
+        init();
+        
     }
 
     /**
@@ -69,6 +76,12 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
 
+    
+    private void init(){
+        unavailableDates = ((entities.Artist)iRecord.getLoggedUser()).getUnavailableDates();
+        
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel16;

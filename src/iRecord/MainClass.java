@@ -18,10 +18,10 @@ public class MainClass {
       public static void main(String[] args) {
           
             //Initiate Main Project
-            iReport project = new iReport();
+            iRecord project = new iRecord();
             //Initiate GUI
             //JFrame LoginGui = new LoginGui();
-            iReport.log("Opening Login Window through iWindow");
+            iRecord.log("Opening Login Window through iWindow");
             iWindow.openLogin();
             
         }
