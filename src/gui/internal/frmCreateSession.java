@@ -5,10 +5,13 @@
  */
 package gui.internal;
 
+import entities.Studio;
 import iRecord.iRecord;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,6 +20,7 @@ import java.util.List;
 public class frmCreateSession extends javax.swing.JInternalFrame {
 
     List<java.sql.Date> unavailableDates;
+    Map<Integer, Studio> studioList;
     /**
      * Creates new form frmCreateSession
      */
@@ -49,7 +53,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         getContentPane().add(slctTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 70, -1));
 
         jXDatePicker1.setBackground(new Color(0,0,0,0));
-        jXDatePicker1.setForeground(new java.awt.Color(255, 255, 255));
+        jXDatePicker1.setForeground(new java.awt.Color(204, 0, 153));
         jXDatePicker1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jXDatePicker1ActionPerformed(evt);
@@ -78,7 +82,21 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
 
     
     private void init(){
+        
+        /**
+         * Module 1 -> Disable Dates which artist is already occupied
+         */
         unavailableDates = ((entities.Artist)iRecord.getLoggedUser()).getUnavailableDates();
+        Date[] dates = new Date[unavailableDates.size()];
+        dates = (Date[]) unavailableDates.toArray(dates);
+        iRecord.importXML(iRecord.getLoggedUser().getID());
+        jXDatePicker1.getMonthView().setFlaggedDates(dates);
+        jXDatePicker1.getMonthView().setFlaggedDayForeground(Color.LIGHT_GRAY);
+        
+        /**
+         * Module 2 -> Display studio and rooms to choose from
+         */
+        
         
         
     }

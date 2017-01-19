@@ -56,7 +56,7 @@ public class Artist extends Person {
     public void setStageName(String stageName) {
         this.stageName = stageName;
     }
-    
+
     public String getEmailAddr() {
         return emailAddr;
     }
@@ -72,7 +72,7 @@ public class Artist extends Person {
             while(qry.next()){
                 java.sql.Date d = qry.getDate("date");
                java.sql.Date dateNow = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-               System.err.println("Date: "+d+" And if before: "+d.before(dateNow));
+               list.add(d);
                 
             }} catch (SQLException ex) {
             Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);

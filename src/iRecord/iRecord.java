@@ -39,6 +39,8 @@ public class iRecord {
     private static FileWriter logFile;
     private static PrintStream logWriter;
 
+  
+
     public iRecord() {
         //Reset log
         try {
@@ -60,6 +62,14 @@ public class iRecord {
         //Initiate DB
         init();
 
+    }
+    
+    /**
+     * This class import artists' dates XML from HandsInAir
+     * @param id 
+     */
+      public static void importXML(String id) {
+        
     }
 
     public static DBManager getDB() {
