@@ -25,7 +25,7 @@ public class Studio {
 //        this.s
 //    }
 
-    public Studio(String sName, String sAddress, String sEmail, String sPhoneNum, String sDesc, Integer sID, List<Room> sRooms) {
+    public Studio(String sName, String sAddress, String sEmail, String sPhoneNum, String sDesc, Integer sID) {
         this.sName = sName;
         this.sAddress = sAddress;
         this.sEmail = sEmail;
@@ -33,6 +33,7 @@ public class Studio {
         this.sDesc = sDesc;
         this.sID = sID;
         this.sRooms = aquireRooms();
+        
     }
     
     public String getsName() {
@@ -97,7 +98,7 @@ public class Studio {
         try {
             while(qry.next()){
                 Integer RoomID = qry.getInt(1);
-                Integer hourRate = qry.getInt(3);
+                Double hourRate = qry.getDouble(3);
                 Integer maxMusicians = qry.getInt(4);
                 Boolean hasIsolation = qry.getBoolean(5);
                 tmpList.add(new Room(this, RoomID, hourRate, maxMusicians, hasIsolation));

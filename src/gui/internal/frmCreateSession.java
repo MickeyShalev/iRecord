@@ -12,6 +12,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import iRecord.Controller.SessionManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 
 /**
  *
@@ -20,6 +27,7 @@ import java.util.Map;
 public class frmCreateSession extends javax.swing.JInternalFrame {
 
     List<java.sql.Date> unavailableDates;
+    
     Map<Integer, Studio> studioList;
     /**
      * Creates new form frmCreateSession
@@ -41,16 +49,15 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        slctTime = new javax.swing.JComboBox<>();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         jLabel3 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        endTimeSpinner = new javax.swing.JSpinner();
+        startTimeSpinner = new javax.swing.JSpinner();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        slctTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(slctTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 70, -1));
 
         jXDatePicker1.setBackground(new Color(0,0,0,0));
         jXDatePicker1.setForeground(new java.awt.Color(204, 0, 153));
@@ -71,14 +78,50 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         jLabel16.setText("Welcome to Create Session feature!");
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 360, 30));
 
+        endTimeSpinner.setModel(new SpinnerDateModel());
+        endTimeSpinner.setEditor(new JSpinner.DateEditor(endTimeSpinner, "HH:mm"));
+        getContentPane().add(endTimeSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
+
+        startTimeSpinner.setModel(new SpinnerDateModel());
+        startTimeSpinner.setEditor(new JSpinner.DateEditor(startTimeSpinner, "HH:mm"));
+        getContentPane().add(startTimeSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 380, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
-
+// TODO add your handling code here:
+        if(jXDatePicker1.getDate()==null)
+            return;
+        Date dateStart = jXDatePicker1.getDate();
+        Date dateEnd = (Date) dateStart.clone() ;
+        Date endTime = (Date)endTimeSpinner.getValue();
+        Date startTime = (Date)startTimeSpinner.getValue();
+        dateStart.setHours(startTime.getHours());
+        dateStart.setMinutes(startTime.getMinutes());
+        dateEnd.setHours(endTime.getHours());
+        dateEnd.setMinutes(endTime.getMinutes());
+        
+        Map<Integer, Studio> studioList = SessionManager.getStudios();
+        SessionManager.clearRooms(studioList, dateStart, dateEnd);
+        
+        
        
 
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     private void init(){
@@ -96,15 +139,18 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         /**
          * Module 2 -> Display studio and rooms to choose from
          */
-        
+        //Get all studios and fill their rooms
+        studioList = SessionManager.getStudios();
         
         
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner endTimeSpinner;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel3;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
-    private javax.swing.JComboBox<String> slctTime;
+    private javax.swing.JSpinner startTimeSpinner;
     // End of variables declaration//GEN-END:variables
 }

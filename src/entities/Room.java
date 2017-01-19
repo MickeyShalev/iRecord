@@ -5,16 +5,19 @@
  */
 package entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author Administrator
  */
 public class Room {
     Studio studio;
-    Integer RoomNum, hourRate, maxMusicians;
+    Integer RoomNum, maxMusicians;
+    Double hourRate;
     Boolean hasIsolation;
 
-    public Room(Studio studio, Integer RoomNum, Integer hourRate, Integer maxMusicians, Boolean hasIsolation) {
+    public Room(Studio studio, Integer RoomNum, Double hourRate, Integer maxMusicians, Boolean hasIsolation) {
         this.studio = studio;
         this.RoomNum = RoomNum;
         this.hourRate = hourRate;
@@ -22,6 +25,10 @@ public class Room {
         this.hasIsolation = hasIsolation;
     }
 
+    public Room(Integer RoomNum){
+        this.RoomNum = RoomNum;
+    }
+    
     public Studio getStudio() {
         return studio;
     }
@@ -38,11 +45,11 @@ public class Room {
         this.RoomNum = RoomNum;
     }
 
-    public Integer getHourRate() {
+    public Double getHourRate() {
         return hourRate;
     }
 
-    public void setHourRate(Integer hourRate) {
+    public void setHourRate(Double hourRate) {
         this.hourRate = hourRate;
     }
 
@@ -61,6 +68,32 @@ public class Room {
     public void setHasIsolation(Boolean hasIsolation) {
         this.hasIsolation = hasIsolation;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.RoomNum);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Room other = (Room) obj;
+        if (!Objects.equals(this.RoomNum, other.RoomNum)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
 }
