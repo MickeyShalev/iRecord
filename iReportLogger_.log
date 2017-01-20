@@ -1,10 +1,10 @@
-=================  iRecord v1.0 - Fri Jan 20 06:44:19 IST 2017 ==================
-06:44:19	Attempting connection to MS Access DB
-06:44:19	DB File: C:\Users\Administrator\Documents\NetBeansProjects\iRecord\sources\iRecord.accdb
-06:44:20	Successfully connected to MS Access DB.
-06:44:20	Opening Login Window through iWindow
-06:44:21	Submitted
-06:44:21	User: admin Password: 1111
-06:44:21	Attempting login using admin/1111
-06:44:21	Artist logged in
-06:44:21	Initiating main UI
+=================  iRecord v1.0 - Sat Jan 21 01:40:38 IST 2017 ==================
+01:40:38	Attempting connection to MS Access DB
+01:40:38	DB File: C:\Users\Administrator\Documents\NetBeansProjects\iRecord\sources\iRecord.accdb
+01:40:39	Successfully connected to MS Access DB.
+01:40:39	Opening Login Window through iWindow
+01:40:40	Submitted
+01:40:40	User: admin Password: 1111
+01:40:40	Attempting login using admin/1111
+01:40:40	Artist logged in
+01:40:40	Initiating main UI

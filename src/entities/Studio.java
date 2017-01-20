@@ -38,6 +38,15 @@ public class Studio {
         
     }
     
+    public Studio(String sName){
+        this.sName = sName;
+    }
+
+    @Override
+    public String toString() {
+        return sName;
+    }
+    
     public String getsName() {
         return sName;
     }

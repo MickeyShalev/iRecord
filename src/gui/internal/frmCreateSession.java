@@ -61,7 +61,6 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         startTimeSpinner = new javax.swing.JSpinner();
         checkDates = new javax.swing.JButton();
         dateErr = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
@@ -82,7 +81,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(70, 380, 73, 23);
 
-        slctStudio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        slctStudio.setModel(new javax.swing.DefaultComboBoxModel<>(new Studio[] { new Studio("Select Studio") }));
         slctStudio.setVisible(false);
         getContentPane().add(slctStudio);
         slctStudio.setBounds(70, 180, 260, 20);
@@ -140,7 +139,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(checkDates);
-        checkDates.setBounds(70, 100, 93, 30);
+        checkDates.setBounds(70, 100, 160, 20);
 
         dateErr.setBackground(new Color(0,0,0,0));
         dateErr.setForeground(new java.awt.Color(255, 255, 255));
@@ -149,10 +148,6 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         dateErr.setVisible(false);
         getContentPane().add(dateErr);
         dateErr.setBounds(210, 110, 290, 14);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/images/erricon.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(590, 100, 250, 200);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -166,7 +161,10 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
+      if(slctStudio.getSelectedItem().equals(new Studio("Select Studio")))
+          return;
+      Studio chosen = (Studio) slctStudio.getSelectedItem();
+      System.err.println("Selected studio: "+chosen.getsID()+" - "+chosen.getsName());
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -216,7 +214,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
             return;
         }
         dateErr.setVisible(false);
-        repaint();
+
         Date dateStart = jXDatePicker1.getDate();
         Date dateEnd = (Date) dateStart.clone() ;
         Date endTime = (Date)endTimeSpinner.getValue();
@@ -228,6 +226,10 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         
         Map<Integer, Studio> studioList = SessionManager.getStudios();
         SessionManager.clearRooms(studioList, dateStart, dateEnd);
+        slctStudio.setVisible(true);
+        for(Studio stud : studioList.values())
+            slctStudio.addItem(stud);
+        iWindow.update();
         
     }
     
@@ -236,13 +238,12 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private javax.swing.JLabel dateErr;
     private javax.swing.JSpinner endTimeSpinner;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
-    private javax.swing.JComboBox<String> slctStudio;
+    private javax.swing.JComboBox<Studio> slctStudio;
     private javax.swing.JSpinner startTimeSpinner;
     // End of variables declaration//GEN-END:variables
 }
