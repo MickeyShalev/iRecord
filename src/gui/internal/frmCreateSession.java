@@ -195,8 +195,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         Date[] dates = new Date[unavailableDates.size()];
         dates = (Date[]) unavailableDates.toArray(dates);
         iRecord.importXML(iRecord.getLoggedUser().getID());
-        jXDatePicker1.getMonthView().setFlaggedDates(dates);
-        jXDatePicker1.getMonthView().setFlaggedDayForeground(Color.LIGHT_GRAY);
+        jXDatePicker1.getMonthView().setUnselectableDates(dates);
+
         
         /**
          * Module 2 -> Display studio and rooms to choose from
