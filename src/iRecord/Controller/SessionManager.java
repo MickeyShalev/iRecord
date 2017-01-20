@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -63,8 +64,16 @@ public class SessionManager {
         ResultSet roomDates = iRecord.getDB().query("SELECT DateDiff(\"d\",[Session].[sessionStartDate],#"+startDate+"#), SessionInRoom.RoomNum, SessionInRoom.StudioID, SessionInRoom.SessionID, Session.sessionStartDate, Session.sessionEndDate\n" +
 "FROM [Session] INNER JOIN SessionInRoom ON Session.SessionID = SessionInRoom.SessionID\n" +
 "WHERE (((SessionInRoom.SessionID)=[Session].[SessionID]) AND ((DateDiff(\"d\",[Session].[sessionStartDate],#"+startDate+"#))=-1))");
-        
-      System.err.println("Testing Dates:::::");
+        System.err.println("Start date: "+dateStart
+                + "End date: "+dateEnd);
+      System.err.println("Testing Data:::::");
+      System.err.println("Before");
+                for(Studio s : studioMap.values()){
+                    System.err.println("Studio#"+s.getsID());
+                    for(Room r : s.getsRooms().values())
+                        System.err.println("\tRoom#"+r.getRoomNum());
+                    
+                }
         try {
             while(roomDates.next()){
                 
@@ -73,8 +82,6 @@ public class SessionManager {
                 java.util.Date sessionStart = (java.util.Date) roomDates.getObject("sessionStartDate");
                 java.util.Date sessionEnd = (java.util.Date) roomDates.getObject("sessionEndDate");
                 
-                System.err.println("Given start date: "+dateStart+"\nGiven End Date: "+dateEnd);
-                System.err.println("Room start date: "+sessionStart+"\nRoom End Date: "+sessionEnd);
                 
                 if(
                         (sessionStart.before(dateStart) && sessionEnd.after(dateEnd))
@@ -82,18 +89,25 @@ public class SessionManager {
                         (sessionStart.after(dateStart) && sessionStart.before(dateEnd))
                         ||
                         (sessionEnd.after(dateStart) && sessionEnd.before(dateEnd))){
-                    System.err.println("FOUND ROOM #"+RoomNum);
-                    
+                   // System.err.println("FOUND ROOM #"+RoomNum);
+                    System.err.println("deleting room #"+RoomNum+" from studio"+roomDates.getInt("StudioID"));
                     //Delete the room from the general hashmap
-                    if(studioMap.get(roomDates.getInt("StudioID")).getsRooms().remove(new Room(RoomNum)))
-                        System.err.println("Deleted Room #"+RoomNum);
+                    studioMap.get(roomDates.getInt("StudioID")).getsRooms().remove(RoomNum);
                     
                 }
                 
+               
                 
                 
                 
             }
+             System.err.println("After");
+                for(Studio s : studioMap.values()){
+                    System.err.println("Studio#"+s.getsID());
+                    for(Room r : s.getsRooms().values())
+                        System.err.println("\tRoom#"+r.getRoomNum());
+                    
+                }
                   
             
             //Get their rooms
@@ -102,23 +116,40 @@ public class SessionManager {
             Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        Iterator<Studio> it = studioMap.values().iterator();
         
-        for(Studio s : studioMap.values()){
-            if(s.getsRooms().size()==0)
-                studioMap.remove(s);
+        while(it.hasNext()){
+            Studio s =  it.next();
+            if(s.getsRooms().size()==0){
+                it.remove();
+                continue;
+            }
             
             Boolean flag = false;
-            
-            for(Room r : s.getsRooms())
+            Iterator<Room> it2 = s.getsRooms().values().iterator();
+            while(it2.hasNext()){
+                Room r = it2.next();
+                if(r.getHasIsolation())
+                    flag=true;
+            }
+            for(Room r : s.getsRooms().values())
                 if(r.getHasIsolation())
                     flag=true;
                 
             
             
             if(!flag)
-                studioMap.remove(s);
+                it.remove();
             
         }
+        System.err.println("Studio Cleanup:");
+                for(Studio s : studioMap.values()){
+                    System.err.println("Studio#"+s.getsID());
+                    for(Room r : s.getsRooms().values())
+                        System.err.println("\tRoom#"+r.getRoomNum());
+                    
+                }
+                  
         
         
     }

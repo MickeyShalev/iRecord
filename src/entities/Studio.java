@@ -11,6 +11,8 @@ import java.util.List;
 import iRecord.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -20,7 +22,7 @@ import java.util.logging.Logger;
 public class Studio {
     String sName, sAddress, sEmail, sPhoneNum, sDesc;
     Integer sID;
-    List<Room> sRooms;
+    Map<Integer, Room> sRooms;
 //    public Studio(Integer sID, String sName, String sAddress, String sEmail, String sPhoneNum, String sDesc){
 //        this.s
 //    }
@@ -84,16 +86,16 @@ public class Studio {
         this.sID = sID;
     }
 
-    public List<Room> getsRooms() {
+    public Map<Integer, Room> getsRooms() {
         return sRooms;
     }
 
-    public void setsRooms(List<Room> sRooms) {
+    public void setsRooms(Map<Integer, Room> sRooms) {
         this.sRooms = sRooms;
     }
     
-    public List<Room> aquireRooms(){
-        List<Room> tmpList = new ArrayList<Room>();
+    public Map<Integer, Room> aquireRooms(){
+        Map<Integer, Room> tmpList = new HashMap<Integer, Room>();
         ResultSet qry = iRecord.getDB().query("select * from Room where StudioID=\""+getsID()+"\"");
         try {
             while(qry.next()){
@@ -101,7 +103,7 @@ public class Studio {
                 Double hourRate = qry.getDouble(3);
                 Integer maxMusicians = qry.getInt(4);
                 Boolean hasIsolation = qry.getBoolean(5);
-                tmpList.add(new Room(this, RoomID, hourRate, maxMusicians, hasIsolation));
+                tmpList.put(RoomID, new Room(this, RoomID, hourRate, maxMusicians, hasIsolation));
                 
             }
         } catch (SQLException ex) {
