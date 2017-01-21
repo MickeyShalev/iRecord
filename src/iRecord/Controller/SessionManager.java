@@ -5,6 +5,7 @@
  */
 package iRecord.Controller;
 
+import entities.Musician;
 import entities.Room;
 import entities.Soundman;
 import entities.Studio;
@@ -49,6 +50,62 @@ public class SessionManager {
         
         return toReturn;
         
+    }
+    
+    public static void getMSMap(Map<Musician, Room> musicianMap, Studio stud, Date dateStart, Date dateEnd){
+        System.err.println("Getting MSMap for studio "+stud);
+        /**
+         * Get all musicians who are linked with this studio
+         */
+        ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Musician.Payroll, Musician.expertIn, FreelancerToStudio.StudioID, FreelancerToStudio.Grade\n" +
+"FROM (Freelancer INNER JOIN FreelancerToStudio ON (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID) AND (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID)) INNER JOIN Musician ON (Freelancer.FreelancerID = Musician.MusicianID) AND (Freelancer.FreelancerID = Musician.MusicianID)\n" +
+"WHERE (((FreelancerToStudio.StudioID)=5))\n" +
+"ORDER BY FreelancerToStudio.Grade DESC;");
+        try {
+            while(qry.next()){
+                musicianMap.put(new Musician(qry.getString(1), qry.getString(2), qry.getString(3), qry.getString(4), qry.getDouble(5), qry.getInt(6)), null);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        java.sql.Date startDate = new java.sql.Date(dateStart.getTime());
+        
+        qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Musician.Payroll, Musician.expertIn, Session.sessionStartDate, Session.sessionEndDate, DateDiff(\"d\",[Session].[sessionStartDate],#1/10/2017#) AS Expr1, FreelancerToStudio.StudioID\n" +
+"FROM (Freelancer INNER JOIN ([Session] INNER JOIN (Musician INNER JOIN MusicianToRoom ON Musician.MusicianID = MusicianToRoom.MusicianID) ON Session.SessionID = MusicianToRoom.SessionID) ON Freelancer.FreelancerID = Musician.MusicianID) INNER JOIN FreelancerToStudio ON (FreelancerToStudio.FreelancerID = Freelancer.FreelancerID) AND (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID)\n" +
+"WHERE (((DateDiff(\"d\",[Session].[sessionStartDate],#"+startDate+"#))=-1) AND ((FreelancerToStudio.StudioID)="+stud.getsID()+"));");
+        System.err.println("----Before Musician Map-----");
+        for(Musician m : musicianMap.keySet()){
+            System.err.println(m);
+        }
+        try {
+            while(qry.next()){
+                System.err.println("Found working musician at the given date: "+qry.getString(1));
+                //Check dates
+                java.util.Date smStartDate = (java.util.Date) qry.getObject("sessionStartDate");
+                java.util.Date smEndDate = (java.util.Date) qry.getObject("sessionEndDate");
+                System.err.println("Musician "+qry.getString(1)+" Start: "+smStartDate+" End: "+smEndDate);
+                if((smStartDate.before(dateStart) && smEndDate.after(dateStart))
+                        || (smStartDate.after(dateStart) && smStartDate.before(dateEnd))
+                    || (smEndDate.after(dateStart) && smEndDate.before(dateEnd))){
+                    //Soundman isn't available
+                    System.err.println("Musician "+qry.getString(1)+" isn't available");
+                    musicianMap.remove(new Musician(qry.getString(1)));
+                }
+                
+                
+                
+                musicianMap.remove(new Musician(qry.getString(1)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.err.println("----Musician Map-----");
+        for(Musician m : musicianMap.keySet()){
+            System.err.println(m);
+        }
     }
     
     /**

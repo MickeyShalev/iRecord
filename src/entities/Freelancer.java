@@ -19,6 +19,9 @@ public class Freelancer {
         this.stageName = stageName;
     }
 
+    public Freelancer(String FreelancerID){
+        this.FreelancerID=FreelancerID;
+    }
     public String getFreelancerID() {
         return FreelancerID;
     }
@@ -50,5 +53,7 @@ public class Freelancer {
     public void setStageName(String stageName) {
         this.stageName = stageName;
     }
+    
+    
     
 }

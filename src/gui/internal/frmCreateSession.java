@@ -5,6 +5,7 @@
  */
 package gui.internal;
 
+import entities.Musician;
 import entities.Room;
 import entities.Soundman;
 import entities.Studio;
@@ -40,6 +41,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     Map<String, Soundman> smMap;
     Studio stud;
     Date sessionStartDate, sessionEndDate;
+    List<Soundman> chosenSoundmen;
+    Map<Musician, Room> chosenMusicians;
     /**
      * Creates new form frmCreateSession
      */
@@ -93,6 +96,14 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         errSoundmanlbl = new javax.swing.JLabel();
+        pnlMusicianChooser = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblMusician = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        errMusicianlbl = new javax.swing.JLabel();
         pnlRoomChooser = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRooms = new javax.swing.JTable();
@@ -358,6 +369,78 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         getContentPane().add(pnlSoundmanChooser);
         pnlSoundmanChooser.setBounds(50, 60, 820, 370);
 
+        pnlMusicianChooser.setVisible(false);
+        pnlMusicianChooser.setOpaque(false);
+        pnlMusicianChooser.setLayout(null);
+
+        tblMusician = new javax.swing.JTable(){
+            @Override
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                    return String.class;
+                    case 1:
+                    return String.class;
+                    case 2:
+                    return String.class;
+
+                    default:
+                    return String.class;
+                }
+            }
+        };
+        tblMusician.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tblMusician);
+
+        pnlMusicianChooser.add(jScrollPane3);
+        jScrollPane3.setBounds(0, 210, 640, 100);
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Musician Selection");
+        pnlMusicianChooser.add(jLabel12);
+        jLabel12.setBounds(10, 10, 160, 14);
+
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Please use the table below in order to split the musicians into the rooms. ");
+        pnlMusicianChooser.add(jLabel13);
+        jLabel13.setBounds(10, 30, 370, 20);
+
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Note that the session won't be approve if no musicians are chosen.");
+        pnlMusicianChooser.add(jLabel14);
+        jLabel14.setBounds(10, 50, 520, 20);
+
+        jButton4.setText("Continue");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        pnlMusicianChooser.add(jButton4);
+        jButton4.setBounds(0, 320, 110, 25);
+
+        errRoomlbl.setVisible(false);
+        errMusicianlbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        errMusicianlbl.setForeground(new java.awt.Color(255, 51, 51));
+        errMusicianlbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        errMusicianlbl.setText("errMusicianlbl");
+        pnlMusicianChooser.add(errMusicianlbl);
+        errMusicianlbl.setBounds(0, 150, 620, 30);
+
+        getContentPane().add(pnlMusicianChooser);
+        pnlMusicianChooser.setBounds(50, 60, 830, 370);
+
         pnlRoomChooser.setVisible(false);
         pnlRoomChooser.setOpaque(false);
         pnlRoomChooser.setLayout(null);
@@ -588,7 +671,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        List<Soundman> chosenSoundmen = new ArrayList<Soundman>();
+        chosenSoundmen = new ArrayList<Soundman>();
         for(int i=0; i<tblSoundman.getRowCount();i++){
             Soundman s = (Soundman) tblSoundman.getValueAt(i, 0);
             Boolean isProducer =  tblSoundman.getValueAt(i, 2)==null?false:(Boolean)tblSoundman.getValueAt(i, 2);
@@ -608,8 +691,19 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         stTotalSoundmen.setText(""+chosenSoundmen.size());
         stTotalSoundmen.setVisible(true);
         pnlSoundmanChooser.setVisible(false);
+        
+        /**
+         * Set the musicians
+         */
+        chosenMusicians = new HashMap<Musician, Room>();
+        SessionManager.getMSMap(chosenMusicians, stud, sessionStartDate, sessionEndDate);
+        pnlMusicianChooser.setVisible(true);
         iWindow.update();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     
     private void init(){
@@ -707,13 +801,18 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private javax.swing.JButton checkDates;
     private javax.swing.JLabel dateErr;
     private javax.swing.JSpinner endTimeSpinner;
+    private javax.swing.JLabel errMusicianlbl;
     private javax.swing.JLabel errRoomlbl;
     private javax.swing.JLabel errSoundmanlbl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -725,8 +824,10 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JPanel pnlDateChooser;
+    private javax.swing.JPanel pnlMusicianChooser;
     private javax.swing.JPanel pnlRoomChooser;
     private javax.swing.JPanel pnlSoundmanChooser;
     private javax.swing.JPanel pnlStudioChooser;
@@ -745,6 +846,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private javax.swing.JLabel stTime;
     private javax.swing.JLabel stTotalSoundmen;
     private javax.swing.JSpinner startTimeSpinner;
+    private javax.swing.JTable tblMusician;
     private javax.swing.JTable tblRooms;
     private javax.swing.JTable tblSoundman;
     // End of variables declaration//GEN-END:variables
