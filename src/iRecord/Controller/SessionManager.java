@@ -6,6 +6,7 @@
 package iRecord.Controller;
 
 import entities.Room;
+import entities.Soundman;
 import entities.Studio;
 import gui.internal.frmCreateSession;
 import java.util.Map;
@@ -50,6 +51,61 @@ public class SessionManager {
         
     }
     
+    /**
+     * Getting available Soundmen per studio and dates chosen
+     * @param soundmenMap
+     * @param stud
+     * @param dateStart
+     * @param dateEnd 
+     */
+    public static void getSMMap(Map<String, Soundman> soundmenMap, Studio stud, Date dateStart, Date dateEnd){
+        
+        System.err.println("Getting SMMap for studio "+stud);
+        /**
+         * Get all soundman for the chosen studio
+         */
+        ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment\n" +
+"FROM (Freelancer INNER JOIN Soundman ON Freelancer.FreelancerID = Soundman.SoundmanID) INNER JOIN FreelancerToStudio ON (FreelancerToStudio.FreelancerID = Freelancer.FreelancerID) AND (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID)\n" +
+"WHERE (((FreelancerToStudio.StudioID)="+stud.getsID()+"));");
+        try {
+            while(qry.next()){
+                Soundman s = new Soundman(qry.getString(1), qry.getString(2), qry.getString(3), qry.getString(4), qry.getBoolean(5), qry.getBoolean(6), qry.getBoolean(7), qry.getDouble(8), qry.getDouble(9));
+                System.err.println("Added Soundman "+s.getFreelancerID()+" to SMMap");
+                soundmenMap.put(s.getFreelancerID(), s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(frmCreateSession.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for(Soundman tmp : soundmenMap.values()){
+            System.err.println(tmp);
+        }
+        
+        java.sql.Date startDate = new java.sql.Date(dateStart.getTime());
+        ResultSet qry2 = iRecord.getDB().query("SELECT Soundman.SoundmanID, Session.sessionStartDate AS dateStart, Session.sessionEndDate AS dateEnd \n" +
+"FROM [Session] INNER JOIN (Soundman INNER JOIN SoundmanToSession ON Soundman.SoundmanID = SoundmanToSession.SoundmanID) ON Session.SessionID = SoundmanToSession.SessionID\n" +
+"WHERE (((SoundmanToSession.SessionID)=[Session].[SessionID]) AND DateDiff(\"d\",[Session].[sessionStartDate],#"+startDate+"#)=-1)");
+        try {
+            System.err.println("Session Start Date: "+dateStart+" EndDate: "+dateEnd);
+            while(qry2.next()){
+                //Check if dates are overlapping
+                java.util.Date smStartDate = (java.util.Date) qry2.getObject("dateStart");
+                java.util.Date smEndDate = (java.util.Date) qry2.getObject("dateEnd");
+                System.err.println("Soundman "+qry2.getString(1)+" Start: "+smStartDate+" End: "+smEndDate);
+                if((smStartDate.before(dateStart) && smEndDate.after(dateStart))
+                        || (smStartDate.after(dateStart) && smStartDate.before(dateEnd))
+                    || (smEndDate.after(dateStart) && smEndDate.before(dateEnd))){
+                    //Soundman isn't available
+                    System.err.println("Soundman "+qry2.getString(1)+" isn't available");
+                    soundmenMap.remove(qry2.getString(1));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      
+    }
     
     /**
      * This method will remove rooms which are occupied between the given times on a studio
