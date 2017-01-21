@@ -5,6 +5,7 @@
  */
 package gui.internal;
 
+import entities.Room;
 import entities.Studio;
 import gui.main.iWindow;
 import iRecord.iRecord;
@@ -16,6 +17,7 @@ import java.util.Map;
 import iRecord.Controller.SessionManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JSpinner;
@@ -52,15 +54,36 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
 
         jLabel16 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        srTitle = new javax.swing.JLabel();
+        srDate = new javax.swing.JLabel();
+        stDate = new javax.swing.JLabel();
+        srTime = new javax.swing.JLabel();
+        stTime = new javax.swing.JLabel();
+        srStudio = new javax.swing.JLabel();
+        stStudio = new javax.swing.JLabel();
+        srAddress = new javax.swing.JLabel();
+        stAddress = new javax.swing.JLabel();
+        srRooms = new javax.swing.JLabel();
+        stRooms = new javax.swing.JLabel();
+        pnlStudioChooser = new javax.swing.JPanel();
         slctStudio = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        pnlDateChooser = new javax.swing.JPanel();
         endTimeSpinner = new javax.swing.JSpinner();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         startTimeSpinner = new javax.swing.JSpinner();
         checkDates = new javax.swing.JButton();
         dateErr = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        pnlRoomChooser = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblRooms = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
@@ -72,29 +95,114 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel16);
         jLabel16.setBounds(10, 0, 360, 30);
 
-        jButton1.setText("jButton1");
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Create Session");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(70, 380, 73, 23);
+        jButton1.setBounds(70, 470, 140, 20);
+
+        jLabel1.setText("Choose Rooms");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(70, 210, 90, 14);
+
+        srTitle.setForeground(new java.awt.Color(255, 255, 255));
+        srTitle.setText("Session Details");
+        getContentPane().add(srTitle);
+        srTitle.setBounds(590, 50, 230, 14);
+
+        srDate.setForeground(new java.awt.Color(255, 255, 255));
+        srDate.setText("Date");
+        getContentPane().add(srDate);
+        srDate.setBounds(590, 70, 70, 14);
+
+        stDate.setForeground(new java.awt.Color(255, 255, 255));
+        stDate.setText("stDate");
+        getContentPane().add(stDate);
+        stDate.setBounds(690, 70, 250, 14);
+
+        srTime.setForeground(new java.awt.Color(255, 255, 255));
+        srTime.setText("Time");
+        getContentPane().add(srTime);
+        srTime.setBounds(590, 90, 70, 14);
+
+        stTime.setForeground(new java.awt.Color(255, 255, 255));
+        stTime.setText("stTime");
+        getContentPane().add(stTime);
+        stTime.setBounds(690, 90, 240, 14);
+
+        srStudio.setForeground(new java.awt.Color(255, 255, 255));
+        srStudio.setText("Studio");
+        getContentPane().add(srStudio);
+        srStudio.setBounds(590, 110, 80, 14);
+
+        stStudio.setForeground(new java.awt.Color(255, 255, 255));
+        stStudio.setText("stStudio");
+        getContentPane().add(stStudio);
+        stStudio.setBounds(690, 110, 220, 14);
+
+        srAddress.setForeground(new java.awt.Color(255, 255, 255));
+        srAddress.setText("Address");
+        getContentPane().add(srAddress);
+        srAddress.setBounds(590, 130, 100, 14);
+
+        stAddress.setForeground(new java.awt.Color(255, 255, 255));
+        stAddress.setText("stAddress");
+        getContentPane().add(stAddress);
+        stAddress.setBounds(690, 130, 260, 14);
+
+        srRooms.setForeground(new java.awt.Color(255, 255, 255));
+        srRooms.setText("Total Rooms");
+        getContentPane().add(srRooms);
+        srRooms.setBounds(590, 150, 120, 14);
+
+        stRooms.setForeground(new java.awt.Color(255, 255, 255));
+        stRooms.setText("stRooms");
+        getContentPane().add(stRooms);
+        stRooms.setBounds(690, 150, 200, 14);
+
+        pnlStudioChooser.setOpaque(false);
+        pnlStudioChooser.setLayout(null);
+        pnlStudioChooser.setVisible(false);
 
         slctStudio.setModel(new javax.swing.DefaultComboBoxModel<>(new Studio[] { new Studio("Select Studio") }));
-        slctStudio.setVisible(false);
-        getContentPane().add(slctStudio);
-        slctStudio.setBounds(70, 180, 260, 20);
+        slctStudio.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                slctStudioItemStateChanged(evt);
+            }
+        });
+        slctStudio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                slctStudioPropertyChange(evt);
+            }
+        });
+        pnlStudioChooser.add(slctStudio);
+        slctStudio.setBounds(40, 50, 320, 20);
+
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Select Studio");
+        pnlStudioChooser.add(jLabel4);
+        jLabel4.setBounds(40, 20, 80, 30);
+
+        getContentPane().add(pnlStudioChooser);
+        pnlStudioChooser.setBounds(40, 30, 390, 100);
+
+        pnlDateChooser.setOpaque(false);
+        pnlDateChooser.setLayout(null);
 
         endTimeSpinner.setModel(new SpinnerDateModel());
         endTimeSpinner.setEditor(new JSpinner.DateEditor(endTimeSpinner, "HH:mm"));
+        endTimeSpinner.setValue(new Date(54000000));
         endTimeSpinner.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 endTimeSpinnerPropertyChange(evt);
             }
         });
-        getContentPane().add(endTimeSpinner);
-        endTimeSpinner.setBounds(340, 70, 50, 20);
+        pnlDateChooser.add(endTimeSpinner);
+        endTimeSpinner.setBounds(280, 40, 50, 20);
 
         jXDatePicker1.setBackground(new Color(0,0,0,0));
         jXDatePicker1.setForeground(new java.awt.Color(204, 0, 153));
@@ -103,33 +211,29 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
                 jXDatePicker1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jXDatePicker1);
-        jXDatePicker1.setBounds(70, 70, 160, 20);
-
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Select Session Date");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(70, 40, 170, 30);
+        pnlDateChooser.add(jXDatePicker1);
+        jXDatePicker1.setBounds(10, 40, 160, 20);
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Start Time");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(250, 40, 60, 30);
+        pnlDateChooser.add(jLabel5);
+        jLabel5.setBounds(190, 10, 60, 30);
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("End Time");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(340, 40, 60, 30);
+        pnlDateChooser.add(jLabel3);
+        jLabel3.setBounds(280, 10, 60, 30);
 
         startTimeSpinner.setModel(new SpinnerDateModel());
         startTimeSpinner.setEditor(new JSpinner.DateEditor(startTimeSpinner, "HH:mm"));
+        startTimeSpinner.setValue(new Date(46800000));
         startTimeSpinner.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 startTimeSpinnerPropertyChange(evt);
             }
         });
-        getContentPane().add(startTimeSpinner);
-        startTimeSpinner.setBounds(250, 70, 60, 20);
+        pnlDateChooser.add(startTimeSpinner);
+        startTimeSpinner.setBounds(190, 40, 60, 20);
 
         checkDates.setBackground(new java.awt.Color(255, 255, 255));
         checkDates.setText("Check Dates");
@@ -138,16 +242,80 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
                 checkDatesActionPerformed(evt);
             }
         });
-        getContentPane().add(checkDates);
-        checkDates.setBounds(70, 100, 160, 20);
+        pnlDateChooser.add(checkDates);
+        checkDates.setBounds(10, 70, 160, 20);
 
         dateErr.setBackground(new Color(0,0,0,0));
         dateErr.setForeground(new java.awt.Color(255, 255, 255));
         dateErr.setText("err");
         dateErr.setOpaque(true);
         dateErr.setVisible(false);
-        getContentPane().add(dateErr);
-        dateErr.setBounds(210, 110, 290, 14);
+        pnlDateChooser.add(dateErr);
+        dateErr.setBounds(180, 70, 260, 14);
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Select Session Date");
+        pnlDateChooser.add(jLabel6);
+        jLabel6.setBounds(10, 10, 170, 30);
+
+        getContentPane().add(pnlDateChooser);
+        pnlDateChooser.setBounds(70, 40, 390, 100);
+
+        pnlRoomChooser.setVisible(false);
+        pnlRoomChooser.setOpaque(false);
+        pnlRoomChooser.setLayout(null);
+
+        tblRooms = new javax.swing.JTable(){
+            @Override
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                    return String.class;
+                    case 1:
+                    return String.class;
+                    case 2:
+                    return String.class;
+                    case 3:
+                    return String.class;
+                    default:
+                    return Boolean.class;
+                }
+            }
+        };
+        tblRooms.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblRooms);
+
+        pnlRoomChooser.add(jScrollPane1);
+        jScrollPane1.setBounds(0, 210, 620, 100);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Room Selection");
+        pnlRoomChooser.add(jLabel2);
+        jLabel2.setBounds(10, 10, 160, 14);
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Please use the table below in order to select the rooms to rent. ");
+        pnlRoomChooser.add(jLabel7);
+        jLabel7.setBounds(10, 30, 370, 20);
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Note that session will not be approved if not chosen at least one acoustic isolated room.");
+        pnlRoomChooser.add(jLabel8);
+        jLabel8.setBounds(10, 50, 520, 20);
+
+        getContentPane().add(pnlRoomChooser);
+        pnlRoomChooser.setBounds(60, 50, 830, 370);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -180,11 +348,65 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
 
     private void checkDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDatesActionPerformed
         // TODO add your handling code here:
-        updateForm();
+        updateDate();
+        
     }//GEN-LAST:event_checkDatesActionPerformed
+
+    private void slctStudioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_slctStudioPropertyChange
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_slctStudioPropertyChange
+
+    private void slctStudioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_slctStudioItemStateChanged
+        // TODO add your handling code here:
+           Studio stud = (Studio) slctStudio.getSelectedItem();
+        if(stud.toString().equals("Select Studio"))
+            return;
+        System.err.println(stud);
+        Object[][] roomList = new Object[stud.getsRooms().size()][5];
+        int i=0;
+        for(Room r : stud.getsRooms().values()){
+            int j=0;
+            roomList[i][j++]=r;
+            roomList[i][j++]=r.getHourRate();
+            roomList[i][j++]=r.getMaxMusicians();
+            roomList[i][j++]=r.getHasIsolation();
+            i++;
+            
+        }
+        tblRooms.setModel(new javax.swing.table.DefaultTableModel(
+    roomList,
+    new String [] {
+        "#", "Hourly Rate", "Maxmimum Capacity", "Acoustic", "Select Room"
+    }
+));
+        srStudio.setVisible(true);
+        stStudio.setText(stud.toString());
+        stStudio.setVisible(true);
+        pnlRoomChooser.setVisible(true);
+        pnlStudioChooser.setVisible(false);
+    }//GEN-LAST:event_slctStudioItemStateChanged
 
     
     private void init(){
+        
+        /**
+         * Hide panel statistics
+         * 
+         */
+        srAddress.setVisible(false);
+        srDate.setVisible(false);
+        srRooms.setVisible(false);
+        srStudio.setVisible(false);
+        srTime.setVisible(false);
+        stAddress.setVisible(false);
+        stDate.setVisible(false);
+        stRooms.setVisible(false);
+        stStudio.setVisible(false);
+        stTime.setVisible(false);
+        srTitle.setVisible(false);
+                
+        
         
         /**
          * Module 1 -> Disable Dates which artist is already occupied
@@ -205,16 +427,19 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         
     }
 
-    public void updateForm(){
+    public void updateDate(){
+        System.err.println("Date Error\nStartTimeSpinner: "+startTimeSpinner.getValue()+" \nEndTimeSpinner: "+endTimeSpinner.getValue()+"\nDate Chosen: "+jXDatePicker1.getDate());
         if(jXDatePicker1.getDate()==null || ((java.util.Date)startTimeSpinner.getValue()).after((java.util.Date)endTimeSpinner.getValue())){
             dateErr.setText("Please choose a valid date and time");
+            
             dateErr.setVisible(true);
             iWindow.update();
             
             return;
         }
+        
         dateErr.setVisible(false);
-
+        checkDates.setEnabled(false);
         Date dateStart = jXDatePicker1.getDate();
         Date dateEnd = (Date) dateStart.clone() ;
         Date endTime = (Date)endTimeSpinner.getValue();
@@ -226,7 +451,22 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         
         Map<Integer, Studio> studioList = SessionManager.getStudios();
         SessionManager.clearRooms(studioList, dateStart, dateEnd);
-        slctStudio.setVisible(true);
+        pnlStudioChooser.setVisible(true);
+        pnlDateChooser.setVisible(false);
+        
+        /**
+         * Add the statistics
+         */
+        srTitle.setVisible(true);
+        srDate.setVisible(true);
+        SimpleDateFormat sdf = new SimpleDateFormat("d/M/Y");
+        stDate.setText(sdf.format(dateStart));
+        stDate.setVisible(true);
+        
+        srTime.setVisible(true);
+        stTime.setText((new SimpleDateFormat("HH:mm").format(dateStart)+" - "+(new SimpleDateFormat("HH:mm").format(dateEnd))));
+        stTime.setVisible(true);
+        
         for(Studio stud : studioList.values())
             slctStudio.addItem(stud);
         iWindow.update();
@@ -238,12 +478,33 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private javax.swing.JLabel dateErr;
     private javax.swing.JSpinner endTimeSpinner;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private javax.swing.JPanel pnlDateChooser;
+    private javax.swing.JPanel pnlRoomChooser;
+    private javax.swing.JPanel pnlStudioChooser;
     private javax.swing.JComboBox<Studio> slctStudio;
+    private javax.swing.JLabel srAddress;
+    private javax.swing.JLabel srDate;
+    private javax.swing.JLabel srRooms;
+    private javax.swing.JLabel srStudio;
+    private javax.swing.JLabel srTime;
+    private javax.swing.JLabel srTitle;
+    private javax.swing.JLabel stAddress;
+    private javax.swing.JLabel stDate;
+    private javax.swing.JLabel stRooms;
+    private javax.swing.JLabel stStudio;
+    private javax.swing.JLabel stTime;
     private javax.swing.JSpinner startTimeSpinner;
+    private javax.swing.JTable tblRooms;
     // End of variables declaration//GEN-END:variables
 }

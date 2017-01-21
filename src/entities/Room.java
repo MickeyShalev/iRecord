@@ -41,6 +41,11 @@ public class Room {
         return RoomNum;
     }
 
+    @Override
+    public String toString() {
+        return ""+RoomNum;
+    }
+
     public void setRoomNum(Integer RoomNum) {
         this.RoomNum = RoomNum;
     }
