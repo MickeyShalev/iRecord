@@ -112,6 +112,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         errSoundmanlbl = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        errNoSoundmen = new javax.swing.JLabel();
         pnlMusicianChooser = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblMusician = new javax.swing.JTable();
@@ -449,6 +450,12 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         jLabel15.setText("You may select several soundmen with same");
         pnlSoundmanChooser.add(jLabel15);
         jLabel15.setBounds(10, 50, 520, 20);
+
+        errNoSoundmen.setForeground(new java.awt.Color(255, 51, 51));
+        errNoSoundmen.setText("Unfortunately there are no soundmen to display at this studio at the given time.");
+        errNoSoundmen.setVisible(false);
+        pnlSoundmanChooser.add(errNoSoundmen);
+        errNoSoundmen.setBounds(10, 100, 520, 40);
 
         getContentPane().add(pnlSoundmanChooser);
         pnlSoundmanChooser.setBounds(50, 60, 820, 370);
@@ -793,6 +800,10 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
   
 });
        
+        if(smMap.size()==0){
+            jScrollPane2.setVisible(false);
+            errNoSoundmen.setVisible(true);
+        }
         iWindow.update();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1032,6 +1043,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private javax.swing.JLabel dateErr;
     private javax.swing.JSpinner endTimeSpinner;
     private javax.swing.JLabel errMusicianlbl;
+    private javax.swing.JLabel errNoSoundmen;
     private javax.swing.JLabel errRoomlbl;
     private javax.swing.JLabel errSoundmanlbl;
     private javax.swing.JLabel errSubmit;
