@@ -21,13 +21,18 @@ import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.Period;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.SpinnerDateModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -43,6 +48,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     Date sessionStartDate, sessionEndDate;
     List<Soundman> chosenSoundmen;
     Map<Musician, Room> chosenMusicians;
+    Double totalCost = 0.0;
+    Double sessionHours = 0.0;
     /**
      * Creates new form frmCreateSession
      */
@@ -64,7 +71,6 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel16 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         srTitle = new javax.swing.JLabel();
         srDate = new javax.swing.JLabel();
         stDate = new javax.swing.JLabel();
@@ -76,6 +82,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         stAddress = new javax.swing.JLabel();
         srRooms = new javax.swing.JLabel();
         stRooms = new javax.swing.JLabel();
+        srtotalSoundmen = new javax.swing.JLabel();
+        stTotalSoundmen = new javax.swing.JLabel();
         pnlStudioChooser = new javax.swing.JPanel();
         slctStudio = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -88,6 +96,13 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         checkDates = new javax.swing.JButton();
         dateErr = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        pnlFinishedEditing = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        chkDetails = new javax.swing.JCheckBox();
+        errSubmit = new javax.swing.JLabel();
         pnlSoundmanChooser = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSoundman = new javax.swing.JTable();
@@ -96,6 +111,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         errSoundmanlbl = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         pnlMusicianChooser = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblMusician = new javax.swing.JTable();
@@ -112,8 +128,14 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         errRoomlbl = new javax.swing.JLabel();
-        srtotalSoundmen = new javax.swing.JLabel();
-        stTotalSoundmen = new javax.swing.JLabel();
+        srCost = new javax.swing.JLabel();
+        stCost = new javax.swing.JLabel();
+        stTotalMusicians = new javax.swing.JLabel();
+        srTotalMusicians = new javax.swing.JLabel();
+        pnlFinishedSession = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
@@ -125,70 +147,72 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel16);
         jLabel16.setBounds(10, 0, 360, 30);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Create Session");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(70, 470, 140, 20);
-
         srTitle.setForeground(new java.awt.Color(255, 255, 255));
         srTitle.setText("Session Details");
         getContentPane().add(srTitle);
-        srTitle.setBounds(590, 50, 230, 16);
+        srTitle.setBounds(550, 30, 230, 14);
 
         srDate.setForeground(new java.awt.Color(255, 255, 255));
         srDate.setText("Date");
         getContentPane().add(srDate);
-        srDate.setBounds(590, 70, 70, 16);
+        srDate.setBounds(550, 70, 70, 14);
 
         stDate.setForeground(new java.awt.Color(255, 255, 255));
         stDate.setText("stDate");
         getContentPane().add(stDate);
-        stDate.setBounds(730, 70, 250, 16);
+        stDate.setBounds(690, 70, 250, 14);
 
         srTime.setForeground(new java.awt.Color(255, 255, 255));
         srTime.setText("Time");
         getContentPane().add(srTime);
-        srTime.setBounds(590, 90, 70, 16);
+        srTime.setBounds(550, 90, 70, 14);
 
         stTime.setForeground(new java.awt.Color(255, 255, 255));
         stTime.setText("stTime");
         getContentPane().add(stTime);
-        stTime.setBounds(730, 90, 240, 16);
+        stTime.setBounds(690, 90, 240, 14);
 
         srStudio.setForeground(new java.awt.Color(255, 255, 255));
         srStudio.setText("Studio");
         getContentPane().add(srStudio);
-        srStudio.setBounds(590, 110, 80, 16);
+        srStudio.setBounds(550, 110, 80, 14);
 
         stStudio.setForeground(new java.awt.Color(255, 255, 255));
         stStudio.setText("stStudio");
         getContentPane().add(stStudio);
-        stStudio.setBounds(730, 110, 220, 16);
+        stStudio.setBounds(690, 110, 220, 14);
 
         srAddress.setForeground(new java.awt.Color(255, 255, 255));
         srAddress.setText("Address");
         getContentPane().add(srAddress);
-        srAddress.setBounds(590, 130, 100, 16);
+        srAddress.setBounds(550, 130, 100, 14);
 
         stAddress.setForeground(new java.awt.Color(255, 255, 255));
         stAddress.setText("stAddress");
         getContentPane().add(stAddress);
-        stAddress.setBounds(730, 130, 260, 16);
+        stAddress.setBounds(690, 130, 260, 14);
 
         srRooms.setForeground(new java.awt.Color(255, 255, 255));
         srRooms.setText("Total Rooms");
         getContentPane().add(srRooms);
-        srRooms.setBounds(590, 150, 120, 16);
+        srRooms.setBounds(550, 150, 120, 14);
 
         stRooms.setForeground(new java.awt.Color(255, 255, 255));
         stRooms.setText("stRooms");
         getContentPane().add(stRooms);
-        stRooms.setBounds(730, 150, 200, 16);
+        stRooms.setBounds(690, 150, 200, 14);
+
+        srtotalSoundmen.setForeground(new java.awt.Color(255, 255, 255));
+        srtotalSoundmen.setVisible(false);
+        srtotalSoundmen.setText("Total Soundmen");
+        getContentPane().add(srtotalSoundmen);
+        srtotalSoundmen.setBounds(550, 170, 170, 14);
+
+        stTotalSoundmen.setForeground(new java.awt.Color(255, 255, 255));
+        stTotalSoundmen.setText("stTotalSoundmen");
+        stTotalSoundmen.setVisible(false);
+        getContentPane().add(stTotalSoundmen);
+        stTotalSoundmen.setBounds(690, 170, 200, 14);
 
         pnlStudioChooser.setOpaque(false);
         pnlStudioChooser.setLayout(null);
@@ -228,7 +252,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
             }
         });
         pnlDateChooser.add(endTimeSpinner);
-        endTimeSpinner.setBounds(280, 40, 50, 22);
+        endTimeSpinner.setBounds(280, 40, 50, 20);
 
         jXDatePicker1.setBackground(new Color(0,0,0,0));
         jXDatePicker1.setForeground(new java.awt.Color(204, 0, 153));
@@ -259,7 +283,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
             }
         });
         pnlDateChooser.add(startTimeSpinner);
-        startTimeSpinner.setBounds(190, 40, 60, 22);
+        startTimeSpinner.setBounds(190, 40, 60, 20);
 
         checkDates.setBackground(new java.awt.Color(255, 255, 255));
         checkDates.setText("Check Dates");
@@ -277,7 +301,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         dateErr.setOpaque(true);
         dateErr.setVisible(false);
         pnlDateChooser.add(dateErr);
-        dateErr.setBounds(180, 70, 260, 16);
+        dateErr.setBounds(180, 70, 260, 14);
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Select Session Date");
@@ -286,6 +310,61 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
 
         getContentPane().add(pnlDateChooser);
         pnlDateChooser.setBounds(50, 60, 390, 100);
+
+        pnlSoundmanChooser.setVisible(false);
+        pnlFinishedEditing.setBackground(new Color(0,0,0,0));
+        pnlFinishedEditing.setVisible(false);
+        pnlFinishedEditing.setLayout(null);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Order Review");
+        pnlFinishedEditing.add(jLabel17);
+        jLabel17.setBounds(10, 10, 160, 14);
+
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Dear customer,");
+        pnlFinishedEditing.add(jLabel18);
+        jLabel18.setBounds(10, 30, 370, 20);
+
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("Please review the session details before submitting your final order.");
+        pnlFinishedEditing.add(jLabel19);
+        jLabel19.setBounds(10, 50, 520, 20);
+
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Submit Order");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        pnlFinishedEditing.add(jButton5);
+        jButton5.setBounds(10, 240, 110, 23);
+
+        chkDetails.setBackground(new java.awt.Color(0, 0, 0));
+        chkDetails.setForeground(new java.awt.Color(255, 255, 255));
+        chkDetails.setText("I have reviewed my order and approve the order details");
+        chkDetails.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                chkDetailsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                chkDetailsFocusLost(evt);
+            }
+        });
+        pnlFinishedEditing.add(chkDetails);
+        chkDetails.setBounds(10, 210, 340, 25);
+
+        errSubmit.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        errSubmit.setForeground(new java.awt.Color(255, 51, 51));
+        errSubmit.setText("Please accept you have reviewed order details before submitting");
+        errSubmit.setVisible(false);
+        pnlFinishedEditing.add(errSubmit);
+        errSubmit.setBounds(10, 260, 390, 30);
+
+        getContentPane().add(pnlFinishedEditing);
+        pnlFinishedEditing.setBounds(50, 60, 820, 370);
 
         pnlSoundmanChooser.setVisible(false);
         pnlSoundmanChooser.setOpaque(false);
@@ -345,9 +424,9 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         jLabel10.setBounds(10, 30, 370, 20);
 
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("You may select several soundmen with same positions to the same session");
+        jLabel11.setText(" positions to the same session.");
         pnlSoundmanChooser.add(jLabel11);
-        jLabel11.setBounds(10, 50, 520, 20);
+        jLabel11.setBounds(10, 70, 520, 20);
 
         jButton3.setText("Continue");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -356,7 +435,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
             }
         });
         pnlSoundmanChooser.add(jButton3);
-        jButton3.setBounds(0, 320, 110, 25);
+        jButton3.setBounds(0, 320, 110, 23);
 
         errSoundmanlbl.setVisible(false);
         errSoundmanlbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -365,6 +444,11 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         errSoundmanlbl.setText("errSoundmanlbl");
         pnlSoundmanChooser.add(errSoundmanlbl);
         errSoundmanlbl.setBounds(0, 150, 620, 30);
+
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("You may select several soundmen with same");
+        pnlSoundmanChooser.add(jLabel15);
+        jLabel15.setBounds(10, 50, 520, 20);
 
         getContentPane().add(pnlSoundmanChooser);
         pnlSoundmanChooser.setBounds(50, 60, 820, 370);
@@ -385,7 +469,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
                     return String.class;
 
                     default:
-                    return String.class;
+                    return Object.class;
                 }
             }
         };
@@ -414,7 +498,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Please use the table below in order to split the musicians into the rooms. ");
         pnlMusicianChooser.add(jLabel13);
-        jLabel13.setBounds(10, 30, 370, 20);
+        jLabel13.setBounds(10, 30, 440, 20);
 
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Note that the session won't be approve if no musicians are chosen.");
@@ -428,9 +512,9 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
             }
         });
         pnlMusicianChooser.add(jButton4);
-        jButton4.setBounds(0, 320, 110, 25);
+        jButton4.setBounds(0, 320, 110, 23);
 
-        errRoomlbl.setVisible(false);
+        errMusicianlbl.setVisible(false);
         errMusicianlbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         errMusicianlbl.setForeground(new java.awt.Color(255, 51, 51));
         errMusicianlbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -501,7 +585,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
             }
         });
         pnlRoomChooser.add(jButton2);
-        jButton2.setBounds(0, 320, 110, 25);
+        jButton2.setBounds(0, 320, 110, 23);
 
         errRoomlbl.setVisible(false);
         errRoomlbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -514,17 +598,54 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         getContentPane().add(pnlRoomChooser);
         pnlRoomChooser.setBounds(50, 60, 830, 370);
 
-        srtotalSoundmen.setForeground(new java.awt.Color(255, 255, 255));
-        srtotalSoundmen.setVisible(false);
-        srtotalSoundmen.setText("Total Soundmen");
-        getContentPane().add(srtotalSoundmen);
-        srtotalSoundmen.setBounds(590, 170, 170, 16);
+        srCost.setForeground(new java.awt.Color(255, 255, 255));
+        srCost.setVisible(false);
+        srCost.setText("Expected Cost"
+        );
+        getContentPane().add(srCost);
+        srCost.setBounds(550, 50, 170, 14);
 
-        stTotalSoundmen.setForeground(new java.awt.Color(255, 255, 255));
-        stTotalSoundmen.setText("stTotalSoundmen");
-        stTotalSoundmen.setVisible(false);
-        getContentPane().add(stTotalSoundmen);
-        stTotalSoundmen.setBounds(730, 170, 200, 16);
+        stCost.setForeground(new java.awt.Color(255, 255, 255));
+        stCost.setVisible(false);
+        stCost.setText("stCost");
+        getContentPane().add(stCost);
+        stCost.setBounds(690, 50, 200, 14);
+
+        stTotalMusicians.setForeground(new java.awt.Color(255, 255, 255));
+        stTotalMusicians.setText("stTotalSoundmen");
+        stTotalMusicians.setVisible(false);
+        getContentPane().add(stTotalMusicians);
+        stTotalMusicians.setBounds(690, 190, 200, 14);
+
+        srTotalMusicians.setForeground(new java.awt.Color(255, 255, 255));
+        srTotalMusicians.setVisible(false);
+        srTotalMusicians.setText("Total Musicians");
+        getContentPane().add(srTotalMusicians);
+        srTotalMusicians.setBounds(550, 190, 170, 14);
+
+        pnlSoundmanChooser.setVisible(false);
+        pnlFinishedSession.setOpaque(false);
+        pnlFinishedSession.setVisible(false);
+        pnlFinishedSession.setLayout(null);
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(51, 255, 51));
+        jLabel21.setText("Thank you!");
+        pnlFinishedSession.add(jLabel21);
+        jLabel21.setBounds(10, 10, 240, 40);
+
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setText("Please save the order ID for future reference.");
+        pnlFinishedSession.add(jLabel23);
+        jLabel23.setBounds(10, 70, 520, 20);
+
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("You have successfully finished creating a session.");
+        pnlFinishedSession.add(jLabel24);
+        jLabel24.setBounds(10, 50, 520, 20);
+
+        getContentPane().add(pnlFinishedSession);
+        pnlFinishedSession.setBounds(50, 60, 820, 370);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -536,14 +657,6 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
        
 
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      if(slctStudio.getSelectedItem().equals(new Studio("Select Studio")))
-          return;
-      Studio chosen = (Studio) slctStudio.getSelectedItem();
-      System.err.println("Selected studio: "+chosen.getsID()+" - "+chosen.getsName());
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void startTimeSpinnerPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_startTimeSpinnerPropertyChange
         // TODO add your handling code here:
@@ -557,7 +670,9 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
 
     private void checkDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDatesActionPerformed
         // TODO add your handling code here:
+        updatePrice(0.0, false);
         updateDate();
+        
         
     }//GEN-LAST:event_checkDatesActionPerformed
 
@@ -591,6 +706,14 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         "#", "Hourly Rate", "Maxmimum Capacity", "Acoustic", "Select Room"
     }
 ));
+        long secs = (this.sessionEndDate.getTime() - this.sessionStartDate.getTime()) / 1000;
+        sessionHours = Double.valueOf(secs/3600);
+        secs = secs % 3600;
+        double mins = secs / 60;
+        sessionHours += (mins/60);
+
+        
+        
         srStudio.setVisible(true);
         stStudio.setText(stud.toString());
         stStudio.setVisible(true);
@@ -630,7 +753,11 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         srRooms.setVisible(true);
         stRooms.setText(""+chosenRooms.size());
         stRooms.setVisible(true);
-        
+        Double tmpCost = 0.0;
+            for(Room r : chosenRooms){
+                tmpCost+=r.getHourRate();
+            }
+        updatePrice(tmpCost, true);
         }
         
         
@@ -669,6 +796,22 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         iWindow.update();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Updates expected session cost
+     * @param price 
+     */
+    public void updatePrice(Double price, Boolean hourly){
+        if(!stCost.isVisible()) {
+            stCost.setVisible(true);
+            srCost.setVisible(true);
+        }
+        if(hourly)
+        totalCost += price*sessionHours;
+        else totalCost+=price;
+        stCost.setText("$"+totalCost);
+        iWindow.update();
+    }
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         chosenSoundmen = new ArrayList<Soundman>();
@@ -690,6 +833,16 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         srtotalSoundmen.setVisible(true);
         stTotalSoundmen.setText(""+chosenSoundmen.size());
         stTotalSoundmen.setVisible(true);
+        Double tmpPrice = 0.0;
+        for(Soundman s : chosenSoundmen){
+            System.err.println("Price for "+s);
+            
+            tmpPrice+=s.getRoleCount()*s.getFullPayment();
+            System.err.println(s.getRoleCount()+" * "+s.getFullPayment());
+            System.err.println("Current tmp price: $"+tmpPrice);
+        }
+        updatePrice(tmpPrice, false);
+        
         pnlSoundmanChooser.setVisible(false);
         
         /**
@@ -697,13 +850,89 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
          */
         chosenMusicians = new HashMap<Musician, Room>();
         SessionManager.getMSMap(chosenMusicians, stud, sessionStartDate, sessionEndDate);
+        
+        /**
+         * Insert musicians to table
+         */
+         Object[][] soundmanList = new Object[chosenMusicians.size()][5];
+        int i=0;
+        
+        for(Musician m : chosenMusicians.keySet()){
+        System.err.println("Added Musician "+m+" to table");
+            int j=0;
+            soundmanList[i][j++]=m;
+            soundmanList[i][j++]=m.getExpertiseString();
+            soundmanList[i][j++]="$"+m.getPayRoll()+"/hour";
+            soundmanList[i][j++]="Select Room";
+            i++;
+        }
+        tblMusician.setModel(new javax.swing.table.DefaultTableModel(
+    soundmanList,
+    new String [] {
+        "Musician", "Expertise Field", "Payroll", "Room"
+    }
+){
+    
+    
+});
+        tblMusician.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JComboBox(chosenRooms.toArray())));
+        
+        
+        
         pnlMusicianChooser.setVisible(true);
         iWindow.update();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        chosenMusicians = new HashMap<Musician, Room>();
+        for(int i=0; i<tblMusician.getRowCount();i++){
+            Musician m = (Musician) tblMusician.getValueAt(i, 0);
+            if(tblMusician.getValueAt(i, 3).getClass().equals(String.class))//Not selected a room
+                continue;
+            
+            Room r = (Room) tblMusician.getValueAt(i, 3);
+            
+            chosenMusicians.put(m, r);
+        }
+        Double tmpPrice = 0.0;
+        for(Musician m : chosenMusicians.keySet())
+            tmpPrice+=m.getPayRoll();
+        
+        srTotalMusicians.setVisible(true);
+        stTotalMusicians.setText(""+chosenMusicians.size());
+        stTotalMusicians.setVisible(true);
+        pnlMusicianChooser.setVisible(false);
+        pnlFinishedEditing.setVisible(true);
+        
+        updatePrice(tmpPrice, true);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        if(!chkDetails.isSelected()){
+            errSubmit.setVisible(true);
+            
+        }
+        else{
+        pnlFinishedEditing.setVisible(false);
+        pnlFinishedSession.setVisible(true);
+        }
+        
+        iWindow.update();
+        
+            
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void chkDetailsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_chkDetailsFocusGained
+        // TODO add your handling code here:
+        iWindow.update();
+    }//GEN-LAST:event_chkDetailsFocusGained
+
+    private void chkDetailsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_chkDetailsFocusLost
+        // TODO add your handling code here:
+        iWindow.update();
+    }//GEN-LAST:event_chkDetailsFocusLost
 
     
     private void init(){
@@ -799,22 +1028,31 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton checkDates;
+    private javax.swing.JCheckBox chkDetails;
     private javax.swing.JLabel dateErr;
     private javax.swing.JSpinner endTimeSpinner;
     private javax.swing.JLabel errMusicianlbl;
     private javax.swing.JLabel errRoomlbl;
     private javax.swing.JLabel errSoundmanlbl;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel errSubmit;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -827,23 +1065,29 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JPanel pnlDateChooser;
+    private javax.swing.JPanel pnlFinishedEditing;
+    private javax.swing.JPanel pnlFinishedSession;
     private javax.swing.JPanel pnlMusicianChooser;
     private javax.swing.JPanel pnlRoomChooser;
     private javax.swing.JPanel pnlSoundmanChooser;
     private javax.swing.JPanel pnlStudioChooser;
     private javax.swing.JComboBox<Studio> slctStudio;
     private javax.swing.JLabel srAddress;
+    private javax.swing.JLabel srCost;
     private javax.swing.JLabel srDate;
     private javax.swing.JLabel srRooms;
     private javax.swing.JLabel srStudio;
     private javax.swing.JLabel srTime;
     private javax.swing.JLabel srTitle;
+    private javax.swing.JLabel srTotalMusicians;
     private javax.swing.JLabel srtotalSoundmen;
     private javax.swing.JLabel stAddress;
+    private javax.swing.JLabel stCost;
     private javax.swing.JLabel stDate;
     private javax.swing.JLabel stRooms;
     private javax.swing.JLabel stStudio;
     private javax.swing.JLabel stTime;
+    private javax.swing.JLabel stTotalMusicians;
     private javax.swing.JLabel stTotalSoundmen;
     private javax.swing.JSpinner startTimeSpinner;
     private javax.swing.JTable tblMusician;

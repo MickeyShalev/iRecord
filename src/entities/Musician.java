@@ -86,7 +86,7 @@ public class Musician extends Freelancer {
 
     @Override
     public String toString() {
-        return getFreelancerID();
+        return getStageName();
     }
     
     

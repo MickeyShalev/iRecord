@@ -73,6 +73,14 @@ public class Soundman extends Freelancer {
         this.isMasterTech=isMasterTech;
     }
     
+    public Integer getRoleCount(){
+        int counter=0;
+        if(isMasterTech) counter++;
+        if(isMixTech) counter++;
+        if(isProducer) counter++;
+        return counter;
+    }
+    
     
     
 }
