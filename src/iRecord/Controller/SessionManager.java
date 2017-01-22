@@ -7,6 +7,7 @@ package iRecord.Controller;
 
 import entities.Musician;
 import entities.Room;
+import entities.Session;
 import entities.Soundman;
 import entities.Studio;
 import gui.internal.frmCreateSession;
@@ -265,6 +266,41 @@ public class SessionManager {
                   
         
         
+    }
+    
+    /**
+     * Adds a given session to DB
+     * @param ses 
+     */
+    public static void addSession(Session ses){
+        System.err.println("Adding session #"+ses.getSessionID());
+        java.sql.Timestamp sDate = new java.sql.Timestamp(ses.getSessionStartDate().getTime());
+        java.sql.Timestamp eDate = new java.sql.Timestamp(ses.getSessionEndDate().getTime());
+        
+        //Add new session record to Session tbl
+        ses.setSessionID(iRecord.getDB().updateReturnID("INSERT INTO Session (ArtistID, sessionStartDate, sessionEndDate) VALUES (\""+ses.getArt().getID()+"\", \""+sDate+"\", \""+eDate+"\")"));
+        
+        //Add rooms to the session
+        for(Room r : ses.getRoomList()){
+            iRecord.getDB().updateReturnID("INSERT INTO SessionInRoom VALUES ("+ses.getSessionID()+", "+r.getRoomNum()+", "+ses.getStud().getsID()+")");
+        }
+        //Add soundmen to session
+        for(Soundman s : ses.getChosenSoundmen()){
+            if(s.getIsMasterTech())
+            iRecord.getDB().updateReturnID("INSERT INTO SoundmanToSession VALUES ("+ses.getSessionID()+", \""+s.getFreelancerID()+"\", \"MasterTech\")");
+            if(s.getIsMixTech())
+            iRecord.getDB().updateReturnID("INSERT INTO SoundmanToSession VALUES ("+ses.getSessionID()+", \""+s.getFreelancerID()+"\", \"MixTech\")");
+            if(s.getIsProducer())
+            iRecord.getDB().updateReturnID("INSERT INTO SoundmanToSession VALUES ("+ses.getSessionID()+", \""+s.getFreelancerID()+"\", \"Producer\")");
+        }
+        
+        //Add Musician to rooms
+        for(Map.Entry<Musician, Room> e : ses.getChosenMusicians().entrySet())
+            iRecord.getDB().updateReturnID("INSERT INTO MusicianToRoom VALUES (\""+e.getKey().getFreelancerID()+"\", "+ses.getSessionID()+", "+e.getValue().getRoomNum()+", "+ses.getStud().getsID()+")");
+        
+        
+        
+                
     }
     
 }

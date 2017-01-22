@@ -5,8 +5,10 @@
  */
 package gui.internal;
 
+import entities.Artist;
 import entities.Musician;
 import entities.Room;
+import entities.Session;
 import entities.Soundman;
 import entities.Studio;
 import gui.main.iWindow;
@@ -87,6 +89,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         pnlStudioChooser = new javax.swing.JPanel();
         slctStudio = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         pnlDateChooser = new javax.swing.JPanel();
         endTimeSpinner = new javax.swing.JSpinner();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
@@ -231,12 +235,23 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
             }
         });
         pnlStudioChooser.add(slctStudio);
-        slctStudio.setBounds(40, 50, 320, 20);
+        slctStudio.setBounds(10, 70, 320, 20);
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Select Studio");
+        jLabel4.setText("After selecting a studio, you will be moved to the Soundmen selection screen");
         pnlStudioChooser.add(jLabel4);
-        jLabel4.setBounds(40, 20, 80, 30);
+        jLabel4.setBounds(10, 90, 368, 30);
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Select Studio");
+        pnlStudioChooser.add(jLabel20);
+        jLabel20.setBounds(10, 10, 240, 30);
+
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Please select a studio to record at");
+        pnlStudioChooser.add(jLabel22);
+        jLabel22.setBounds(10, 40, 240, 30);
 
         getContentPane().add(pnlStudioChooser);
         pnlStudioChooser.setBounds(50, 60, 390, 100);
@@ -927,6 +942,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         }
         else{
         pnlFinishedEditing.setVisible(false);
+        new Session(stud, (Artist)iRecord.getLoggedUser(), sessionStartDate, sessionEndDate, chosenRooms, chosenSoundmen, chosenMusicians);
+        
         pnlFinishedSession.setVisible(true);
         }
         
@@ -1062,7 +1079,9 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;

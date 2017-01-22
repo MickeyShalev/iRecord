@@ -1,10 +1,21 @@
-=================  iRecord v1.0 - Sun Jan 22 12:19:39 IST 2017 ==================
-12:19:39	Attempting connection to MS Access DB
-12:19:39	DB File: C:\Users\Administrator\Documents\NetBeansProjects\iRecord\sources\iRecord.accdb
-12:19:41	Successfully connected to MS Access DB.
-12:19:41	Opening Login Window through iWindow
-12:19:42	Submitted
-12:19:42	User: admin Password: 1111
-12:19:42	Attempting login using admin/1111
-12:19:42	Artist logged in
-12:19:42	Initiating main UI
+=================  iRecord v1.0 - Sun Jan 22 13:05:09 IST 2017 ==================
+13:05:09	Attempting connection to MS Access DB
+13:05:09	DB File: C:\Users\Administrator\Documents\NetBeansProjects\iRecord\sources\iRecord.accdb
+13:05:10	Successfully connected to MS Access DB.
+13:05:10	Opening Login Window through iWindow
+13:05:14	Submitted
+13:05:14	User: admin Password: 1111
+13:05:14	Attempting login using admin/1111
+13:05:14	Artist logged in
+13:05:14	Initiating main UI
+13:05:36	Sending UPDATE Query: INSERT INTO Session (ArtistID, sessionStartDate, sessionEndDate) VALUES ("admin", "2017-01-07 15:00:00.0", "2017-01-07 17:00:00.0")
+13:05:36	Sending UPDATE Query: INSERT INTO SessionInRoom VALUES (11, 1, 1)
+13:05:36	Sending UPDATE Query: INSERT INTO SessionInRoom VALUES (11, 3, 1)
+13:05:36	Sending UPDATE Query: INSERT INTO SessionInRoom VALUES (11, 5, 1)
+13:05:36	Sending UPDATE Query: INSERT INTO SoundmanToSession VALUES (11, "FL003", "MixTech")
+13:05:36	Sending UPDATE Query: INSERT INTO SoundmanToSession VALUES (11, "FL003", "Producer")
+13:05:36	Sending UPDATE Query: INSERT INTO SoundmanToSession VALUES (11, "FL002", "MasterTech")
+13:05:36	Sending UPDATE Query: INSERT INTO SoundmanToSession VALUES (11, "FL004", "Producer")
+13:05:36	Sending UPDATE Query: INSERT INTO MusicianToRoom VALUES ("FL006", 11, 3, 1)
+13:05:36	Sending UPDATE Query: INSERT INTO MusicianToRoom VALUES ("FL002", 11, 5, 1)
+13:05:36	Sending UPDATE Query: INSERT INTO MusicianToRoom VALUES ("FL001", 11, 1, 1)
