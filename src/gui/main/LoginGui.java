@@ -58,6 +58,7 @@ public class LoginGui extends javax.swing.JFrame {
 
         fldPassword = new javax.swing.JTextField();
         fldLogin = new javax.swing.JTextField();
+        errDetails = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
@@ -90,10 +91,10 @@ public class LoginGui extends javax.swing.JFrame {
         fldLogin.setBorder(null);
         fldLogin.setOpaque(false);
         fldLogin.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 fldLoginCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         fldLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +113,13 @@ public class LoginGui extends javax.swing.JFrame {
             }
         });
         getContentPane().add(fldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 400, 40));
+
+        errDetails.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        errDetails.setVisible(false);
+        errDetails.setForeground(new java.awt.Color(255, 51, 51));
+        errDetails.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        errDetails.setText("Incorrect login details");
+        getContentPane().add(errDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 310, 470, 20));
 
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -132,6 +140,11 @@ public class LoginGui extends javax.swing.JFrame {
         btnSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSubmitMouseClicked(evt);
+            }
+        });
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
             }
         });
         getContentPane().add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 400, 40));
@@ -205,6 +218,10 @@ public class LoginGui extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -256,6 +273,8 @@ public class LoginGui extends javax.swing.JFrame {
 
             MainGui tmp = new MainGui();
             tmp.setVisible(true);
+        } else {
+            errDetails.setVisible(true);
         }
 
     }
@@ -263,6 +282,7 @@ public class LoginGui extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bg;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JLabel errDetails;
     private javax.swing.JTextField fldLogin;
     private javax.swing.JTextField fldPassword;
     private javax.swing.JLabel jLabel1;

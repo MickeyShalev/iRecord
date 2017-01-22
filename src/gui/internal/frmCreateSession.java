@@ -140,7 +140,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         pnlFinishedSession = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
+        lblOrderID = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
@@ -377,7 +378,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         errSubmit.setText("Please accept you have reviewed order details before submitting");
         errSubmit.setVisible(false);
         pnlFinishedEditing.add(errSubmit);
-        errSubmit.setBounds(10, 260, 390, 30);
+        errSubmit.setBounds(10, 170, 390, 30);
 
         getContentPane().add(pnlFinishedEditing);
         pnlFinishedEditing.setBounds(50, 60, 820, 370);
@@ -659,15 +660,21 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Please save the order ID for future reference.");
         pnlFinishedSession.add(jLabel23);
-        jLabel23.setBounds(10, 70, 520, 20);
+        jLabel23.setBounds(10, 140, 520, 20);
 
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setText("You have successfully finished creating a session.");
-        pnlFinishedSession.add(jLabel24);
-        jLabel24.setBounds(10, 50, 520, 20);
+        lblOrderID.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblOrderID.setForeground(new java.awt.Color(255, 255, 255));
+        lblOrderID.setText("orderid");
+        pnlFinishedSession.add(lblOrderID);
+        lblOrderID.setBounds(10, 60, 520, 20);
+
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setText("You have successfully finished creating a session.");
+        pnlFinishedSession.add(jLabel25);
+        jLabel25.setBounds(10, 120, 520, 20);
 
         getContentPane().add(pnlFinishedSession);
-        pnlFinishedSession.setBounds(50, 60, 820, 370);
+        pnlFinishedSession.setBounds(40, 50, 820, 370);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -682,7 +689,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
 
     private void startTimeSpinnerPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_startTimeSpinnerPropertyChange
         // TODO add your handling code here:
-        init();
+        //init();
     }//GEN-LAST:event_startTimeSpinnerPropertyChange
 
     private void endTimeSpinnerPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_endTimeSpinnerPropertyChange
@@ -717,7 +724,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
             roomList[i][j++]=r;
             roomList[i][j++]=r.getHourRate();
             roomList[i][j++]=r.getMaxMusicians();
-            roomList[i][j++]=r.getHasIsolation();
+            roomList[i][j++]=r.getHasIsolation()?"Yes":"No";
             roomList[i][j]=Boolean.FALSE;
             i++;
             
@@ -942,8 +949,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         }
         else{
         pnlFinishedEditing.setVisible(false);
-        new Session(stud, (Artist)iRecord.getLoggedUser(), sessionStartDate, sessionEndDate, chosenRooms, chosenSoundmen, chosenMusicians);
-        
+        Session created = new Session(stud, (Artist)iRecord.getLoggedUser(), sessionStartDate, sessionEndDate, chosenRooms, chosenSoundmen, chosenMusicians);
+        lblOrderID.setText("Order #"+created.getSessionID());
         pnlFinishedSession.setVisible(true);
         }
         
@@ -1083,7 +1090,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1095,6 +1102,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private javax.swing.JLabel lblOrderID;
     private javax.swing.JPanel pnlDateChooser;
     private javax.swing.JPanel pnlFinishedEditing;
     private javax.swing.JPanel pnlFinishedSession;

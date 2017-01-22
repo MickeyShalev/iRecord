@@ -204,6 +204,11 @@ public class MainGui extends javax.swing.JFrame {
                 btnLogoutMouseClicked(evt);
             }
         });
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 630, 160, 40));
 
         pack();
@@ -245,6 +250,10 @@ public class MainGui extends javax.swing.JFrame {
       // frmViewReport add = new frmViewReport();
       // iWindow.openWin(add);
     }//GEN-LAST:event_btnViewReportMouseClicked
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
 
     public void refreshVars() {
