@@ -25,15 +25,25 @@ public class XMLManager {
 
     public static List<Timestamp> importXML(String ArtistID) {
         List<Timestamp> tsList = new ArrayList<Timestamp>();
-
+        Document doc;
         try {
             System.out.println("Importing XML from HIA System - Artist " + ArtistID);
-            File inputFile = new File("src/xmlimport/HIA-Artist-" + ArtistID + ".xml");
-            DocumentBuilderFactory dbFactory
+            try{
+                File inputFile = new File("src/xmlimport/HIA-Artist-" + ArtistID + ".xml");
+                 DocumentBuilderFactory dbFactory
                     = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
+            doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
+            }catch(Exception e){
+                File inputFile = new File("xmlimport/HIA-Artist-" + ArtistID + ".xml");
+                 DocumentBuilderFactory dbFactory
+                    = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+            }
+           
 
             NodeList nList = doc.getElementsByTagName("Artist");
 

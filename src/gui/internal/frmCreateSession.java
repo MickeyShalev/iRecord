@@ -699,6 +699,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
 
     private void checkDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDatesActionPerformed
         // TODO add your handling code here:
+        if(jXDatePicker1.getDate()==null)
+            return;
         updatePrice(0.0, false);
         updateDate();
         
@@ -908,7 +910,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     
     
 });
-        tblMusician.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JComboBox(chosenRooms.toArray())));
+        DefaultCellEditor dCE = new DefaultCellEditor(new JComboBox(chosenRooms.toArray()));
+        tblMusician.getColumnModel().getColumn(3).setCellEditor(dCE);
         
         
         

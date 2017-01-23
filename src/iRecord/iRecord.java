@@ -47,9 +47,9 @@ public class iRecord {
             SimpleDateFormat sdfDate = new SimpleDateFormat("ddM_hhmm");
             Date now = new Date();
             String strDate = sdfDate.format(now);
-            strDate = "";
+            
             logWriter = new PrintStream(new File(fileName+"_"+strDate+".log"));
-            //System.setErr(logWriter);
+            System.setErr(logWriter);
             System.setOut(logWriter);
             logWriter.print("=================  iRecord v1.0 - " + new Date() + " ==================" + System.getProperty("line.separator"));
             
