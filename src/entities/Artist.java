@@ -5,6 +5,7 @@
  */
 package entities;
 
+import iRecord.Controller.XMLManager;
 import iRecord.utilities.EArtistStatus;
 import iRecord.utilities.EAuth;
 import java.sql.Date;
@@ -15,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -76,6 +78,13 @@ public class Artist extends Person {
                 
             }} catch (SQLException ex) {
             Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for(Timestamp d : XMLManager.importXML(getID())){
+            System.err.println("Received date from XML: "+d.toGMTString());
+            java.sql.Date date = new java.sql.Date(d.getTime());
+            date.setDate((date.getDate())-1);
+            list.add(date);
         }
        
         return list;
