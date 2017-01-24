@@ -20,15 +20,17 @@ public class Musician extends Freelancer {
     Double payRoll;
     Integer expertise;
 
-    public Musician(String FreelancerID, String firstName, String lastName, String stageName, Double payRoll, Integer expertise) {
-        super(FreelancerID, firstName, lastName, stageName);
+    public Musician(String FreelancerID, String firstName, String lastName, String stageName, Double payRoll, Integer expertise, Integer priority) {
+        super(FreelancerID, firstName, lastName, stageName, priority);
         this.payRoll = payRoll;
         this.expertise = expertise;
     }
     
     public Musician(String FreelancerID){
         super(FreelancerID);
+        
     }
+
 
     public Double getPayRoll() {
         return payRoll;

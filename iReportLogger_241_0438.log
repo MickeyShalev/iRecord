@@ -1,0 +1,172 @@
+=================  iRecord v1.0 - Tue Jan 24 16:38:49 IST 2017 ==================
+16:38:49	Attempting connection to MS Access DB
+16:38:49	DB File: C:\Users\nisan\Documents\Git\iRecord2\sources\iRecord.accdb
+16:38:49	Successfully connected to MS Access DB.
+16:38:49	Opening Login Window through iWindow
+16:38:56	Submitted
+16:38:56	User: admin Password: 1111
+16:38:56	Attempting login using admin/1111
+Date: 2017-01-11
+16:38:56	Artist logged in
+16:38:56	Initiating main UI
+Importing XML from HIA System - Artist admin
+Aquired session - Timestamp: 1484085600000 Date: 10 Jan 2017 22:00:00 GMT
+Converted date: 2017-01-11 00:00:00.0
+Aquired session - Timestamp: 1483048800000 Date: 29 Dec 2016 22:00:00 GMT
+Converted date: 2016-12-30 00:00:00.0
+Received date from XML: 10 Jan 2017 22:00:00 GMT
+Received date from XML: 29 Dec 2016 22:00:00 GMT
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Tue Jan 24 00:00:00 IST 2017
+SQL Start Date: 2017-01-24 Day: 2
+Start date: Tue Jan 24 15:00:00 IST 2017End date: Tue Jan 24 17:00:00 IST 2017
+Testing Data:::::
+Before
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+After
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+Studio Cleanup:
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+MorSa
+WTF
+WTF
+WTF
+MorSa
+WTF
+WTF
+WTF
+Number of rows: 3
+Room: #1 Selected: true
+Getting SMMap for studio MorSa
+Added Soundman FL001 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL003 to SMMap
+MaliyahN
+RubyC
+KaraH
+Session Start Date: Tue Jan 24 15:00:00 IST 2017 EndDate: Tue Jan 24 17:00:00 IST 2017
+Soundman FL004 Start: 2017-01-25 00:00:00.0 End: 2017-01-25 00:00:00.0
+Added Soundman MaliyahN to table
+Added Soundman RubyC to table
+Added Soundman KaraH to table
+Number of rows: 3
+Room: #1 Selected: true
+Room: #3 Selected: true
+Getting SMMap for studio MorSa
+Added Soundman FL001 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL003 to SMMap
+MaliyahN
+RubyC
+KaraH
+Session Start Date: Tue Jan 24 15:00:00 IST 2017 EndDate: Tue Jan 24 17:00:00 IST 2017
+Soundman FL004 Start: 2017-01-25 00:00:00.0 End: 2017-01-25 00:00:00.0
+Added Soundman MaliyahN to table
+Added Soundman RubyC to table
+Added Soundman KaraH to table
+Price for MaliyahN
+1 * 100.0
+Current tmp price: $100.0
+Price for RubyC
+1 * 544.0
+Current tmp price: $644.0
+Price for KaraH
+1 * 0.0
+Current tmp price: $644.0
+Getting MSMap for studio MorSa
+----Before Musician Map-----
+CAS
+RubyC
+KaraH
+----Musician Map-----
+CAS
+RubyC
+KaraH
+Added Musician CAS to table
+Added Musician RubyC to table
+Added Musician KaraH to table
+Adding session #19
+16:39:41	Sending UPDATE Query: INSERT INTO Session (ArtistID, sessionStartDate, sessionEndDate) VALUES ("admin", "2017-01-24 15:00:00.0", "2017-01-24 17:00:00.0")
+16:39:41	Sending UPDATE Query: INSERT INTO SessionInRoom VALUES (19, 1, 5)
+16:39:41	Sending UPDATE Query: INSERT INTO SessionInRoom VALUES (19, 3, 5)
+16:39:41	Sending UPDATE Query: INSERT INTO SoundmanToSession VALUES (19, "FL003", "Producer")
+16:39:41	Sending UPDATE Query: INSERT INTO SoundmanToSession VALUES (19, "FL002", "MasterTech")
+16:39:41	Sending UPDATE Query: INSERT INTO SoundmanToSession VALUES (19, "FL001", "MixTech")
+16:39:41	Sending UPDATE Query: INSERT INTO MusicianToRoom VALUES ("FL006", 19, 3, 5)
+16:39:41	Sending UPDATE Query: INSERT INTO MusicianToRoom VALUES ("FL001", 19, 1, 5)
+Importing XML from HIA System - Artist admin
+Aquired session - Timestamp: 1484085600000 Date: 10 Jan 2017 22:00:00 GMT
+Converted date: 2017-01-11 00:00:00.0
+Aquired session - Timestamp: 1483048800000 Date: 29 Dec 2016 22:00:00 GMT
+Converted date: 2016-12-30 00:00:00.0
+Received date from XML: 10 Jan 2017 22:00:00 GMT
+Received date from XML: 29 Dec 2016 22:00:00 GMT
+16:39:49	Logging out..
+16:39:49	Successfully logged out
+16:39:49	Activating login screen
+16:39:51	Exiting application...

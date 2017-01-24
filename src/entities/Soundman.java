@@ -13,8 +13,8 @@ public class Soundman extends Freelancer {
     Boolean isProducer, isMixTech, isMasterTech;
     Double downPayment, fullPayment;
 
-    public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment) {
-        super(FreelancerID, firstName, lastName, stageName);
+    public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority) {
+        super(FreelancerID, firstName, lastName, stageName, priority);
         this.isProducer = isProducer;
         this.isMixTech = isMixTech;
         this.isMasterTech = isMasterTech;
@@ -22,6 +22,10 @@ public class Soundman extends Freelancer {
         this.fullPayment = fullPayment;
     }
 
+    public Soundman(String FreelancerID){
+        super(FreelancerID);
+    }
+    
     public Boolean getIsProducer() {
         return isProducer;
     }
@@ -80,6 +84,8 @@ public class Soundman extends Freelancer {
         if(isProducer) counter++;
         return counter;
     }
+    
+    
     
     
     

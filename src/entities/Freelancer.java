@@ -5,23 +5,38 @@
  */
 package entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author nisan
  */
 public class Freelancer {
     String FreelancerID, firstName, lastName, stageName;
+    Integer priority;
 
-    public Freelancer(String FreelancerID, String firstName, String lastName, String stageName) {
+    public Freelancer(String FreelancerID, String firstName, String lastName, String stageName, Integer priority) {
         this.FreelancerID = FreelancerID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.stageName = stageName;
+        this.priority = priority;
     }
 
     public Freelancer(String FreelancerID){
         this.FreelancerID=FreelancerID;
+        this.priority=0;
     }
+    
+    
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
     public String getFreelancerID() {
         return FreelancerID;
     }
@@ -52,6 +67,31 @@ public class Freelancer {
 
     public void setStageName(String stageName) {
         this.stageName = stageName;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.FreelancerID);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Freelancer other = (Freelancer) obj;
+        if (!Objects.equals(this.FreelancerID, other.FreelancerID)) {
+            return false;
+        }
+        return true;
     }
     
     

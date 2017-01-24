@@ -1,0 +1,10 @@
+=================  iRecord v1.0 - Tue Jan 24 18:38:25 IST 2017 ==================
+18:38:25	Attempting connection to MS Access DB
+18:38:25	DB File: C:\Users\nisan\Documents\Git\iRecord2\sources\iRecord.accdb
+18:38:26	Successfully connected to MS Access DB.
+18:38:26	Opening Login Window through iWindow
+18:38:28	Submitted
+18:38:28	User: admin Password: 1111
+18:38:28	Attempting login using admin/1111
+18:38:28	Artist logged in
+18:38:28	Initiating main UI

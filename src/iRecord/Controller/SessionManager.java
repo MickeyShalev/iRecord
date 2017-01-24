@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -55,16 +56,18 @@ public class SessionManager {
     
     public static void getMSMap(Map<Musician, Room> musicianMap, Studio stud, Date dateStart, Date dateEnd){
         System.err.println("Getting MSMap for studio "+stud);
+        
         /**
          * Get all musicians who are linked with this studio
          */
         ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Musician.Payroll, Musician.expertIn, FreelancerToStudio.StudioID, FreelancerToStudio.Grade\n" +
 "FROM (Freelancer INNER JOIN FreelancerToStudio ON (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID) AND (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID)) INNER JOIN Musician ON (Freelancer.FreelancerID = Musician.MusicianID) AND (Freelancer.FreelancerID = Musician.MusicianID)\n" +
-"WHERE (((FreelancerToStudio.StudioID)=5))\n" +
+"WHERE (((FreelancerToStudio.StudioID)="+stud.getsID()+"))\n" +
 "ORDER BY FreelancerToStudio.Grade DESC;");
         try {
             while(qry.next()){
-                musicianMap.put(new Musician(qry.getString(1), qry.getString(2), qry.getString(3), qry.getString(4), qry.getDouble(5), qry.getInt(6)), null);
+                System.err.println("Inserting Musician "+qry.getString("stageName")+" with priority "+qry.getString("Grade"));
+                musicianMap.put(new Musician(qry.getString("FreelancerID"), qry.getString("firstName"), qry.getString("lastName"), qry.getString("stageName"), qry.getDouble("Payroll"), qry.getInt("expertIn"), qry.getInt("Grade")), null);
                 
             }
         } catch (SQLException ex) {
@@ -116,26 +119,26 @@ public class SessionManager {
      * @param dateStart
      * @param dateEnd 
      */
-    public static void getSMMap(Map<String, Soundman> soundmenMap, Studio stud, Date dateStart, Date dateEnd){
+    public static void getSMMap(List<Soundman> soundmenMap, Studio stud, Date dateStart, Date dateEnd){
         
         System.err.println("Getting SMMap for studio "+stud);
         /**
          * Get all soundman for the chosen studio
          */
-        ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment\n" +
+        ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment, FreelancerToStudio.Grade\n" +
 "FROM (Freelancer INNER JOIN Soundman ON Freelancer.FreelancerID = Soundman.SoundmanID) INNER JOIN FreelancerToStudio ON (FreelancerToStudio.FreelancerID = Freelancer.FreelancerID) AND (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID)\n" +
-"WHERE (((FreelancerToStudio.StudioID)="+stud.getsID()+"));");
+"WHERE (((FreelancerToStudio.StudioID)="+stud.getsID()+")) order by Grade desc;");
         try {
             while(qry.next()){
-                Soundman s = new Soundman(qry.getString(1), qry.getString(2), qry.getString(3), qry.getString(4), qry.getBoolean(5), qry.getBoolean(6), qry.getBoolean(7), qry.getDouble(8), qry.getDouble(9));
+                Soundman s = new Soundman(qry.getString(1), qry.getString(2), qry.getString(3), qry.getString(4), qry.getBoolean(5), qry.getBoolean(6), qry.getBoolean(7), qry.getDouble(8), qry.getDouble(9), qry.getInt(10));
                 System.err.println("Added Soundman "+s.getFreelancerID()+" to SMMap");
-                soundmenMap.put(s.getFreelancerID(), s);
+                soundmenMap.add(s);
             }
         } catch (SQLException ex) {
             Logger.getLogger(frmCreateSession.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        for(Soundman tmp : soundmenMap.values()){
+        for(Soundman tmp : soundmenMap){
             System.err.println(tmp);
         }
         
@@ -155,7 +158,7 @@ public class SessionManager {
                     || (smEndDate.after(dateStart) && smEndDate.before(dateEnd))){
                     //Soundman isn't available
                     System.err.println("Soundman "+qry2.getString(1)+" isn't available");
-                    soundmenMap.remove(qry2.getString(1));
+                    soundmenMap.remove(new Soundman(qry2.getString(1)));
                 }
             }
         } catch (SQLException ex) {
