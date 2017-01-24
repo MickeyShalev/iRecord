@@ -1,0 +1,188 @@
+=================  iRecord v1.0 - Tue Jan 24 19:03:09 IST 2017 ==================
+19:03:09	Attempting connection to MS Access DB
+19:03:09	DB File: C:\Users\nisan\Documents\Git\iRecord2\sources\iRecord.accdb
+19:03:10	Successfully connected to MS Access DB.
+19:03:10	Opening Login Window through iWindow
+19:03:12	Submitted
+19:03:12	User: admin Password: 1111
+19:03:12	Attempting login using admin/1111
+Date: 2017-01-11
+19:03:12	Artist logged in
+19:03:12	Initiating main UI
+Importing XML from HIA System - Artist admin
+Aquired session - Timestamp: 1484085600000 Date: 10 Jan 2017 22:00:00 GMT
+Converted date: 2017-01-11 00:00:00.0
+Aquired session - Timestamp: 1483048800000 Date: 29 Dec 2016 22:00:00 GMT
+Converted date: 2016-12-30 00:00:00.0
+Received date from XML: 10 Jan 2017 22:00:00 GMT
+Received date from XML: 29 Dec 2016 22:00:00 GMT
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Mon Jan 09 00:00:00 IST 2017
+SQL Start Date: 2017-01-09 Day: 1
+Start date: Mon Jan 09 15:00:00 IST 2017End date: Mon Jan 09 17:00:00 IST 2017
+Testing Data:::::
+Before
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+After
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+Studio Cleanup:
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+HighB
+WTF
+WTF
+WTF
+WTF
+WTF
+HighB
+WTF
+WTF
+WTF
+WTF
+WTF
+Number of rows: 5
+Room: #1 Selected: true
+Room: #2 Selected: true
+Getting SMMap for studio HighB
+Added Soundman FL004 to SMMap
+Added Soundman FL003 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL005 to SMMap
+amirao
+MaliyahN
+RubyC
+marelyw
+Session Start Date: Mon Jan 09 15:00:00 IST 2017 EndDate: Mon Jan 09 17:00:00 IST 2017
+Added Soundman marelyw to table
+Added Soundman RubyC to table
+Added Soundman MaliyahN to table
+Added Soundman amirao to table
+Price for marelyw
+1 * 120.0
+Current tmp price: $120.0
+Price for RubyC
+1 * 544.0
+Current tmp price: $664.0
+Getting MSMap for studio HighB
+Inserting Musician amirao with priority 5
+Inserting Musician CAS with priority 3
+Inserting Musician RubyC with priority 2
+Inserting Musician marelyw with priority 1
+----Before Musician Map-----
+marelyw
+RubyC
+CAS
+amirao
+----Musician Map-----
+marelyw
+RubyC
+CAS
+amirao
+Added Musician marelyw to table
+Added Musician RubyC to table
+Added Musician CAS to table
+Added Musician amirao to table
+Exception in thread "AWT-EventQueue-0" java.lang.ClassCastException: [Ljava.lang.Object; cannot be cast to [Lentities.Room;
+	at gui.internal.frmCreateSession.jButton3ActionPerformed(frmCreateSession.java:935)
+	at gui.internal.frmCreateSession.access$900(frmCreateSession.java:46)
+	at gui.internal.frmCreateSession$10.actionPerformed(frmCreateSession.java:457)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:252)
+	at java.awt.Component.processMouseEvent(Component.java:6533)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6298)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
+	at java.awt.Container.dispatchEventImpl(Container.java:2280)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)

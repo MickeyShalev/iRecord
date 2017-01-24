@@ -932,7 +932,9 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     
     
 });
-        DefaultCellEditor dCE = new DefaultCellEditor(new JComboBox(chosenRooms.toArray()));
+        Room[] rooms = new Room[chosenRooms.size()];
+        JComboBox<Room> jbox = new JComboBox<>(chosenRooms.toArray(rooms));
+        DefaultCellEditor dCE = new DefaultCellEditor(jbox);
         tblMusician.getColumnModel().getColumn(3).setCellEditor(dCE);
         
         
