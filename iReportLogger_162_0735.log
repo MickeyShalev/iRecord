@@ -1,0 +1,40 @@
+=================  iRecord v1.0 - Thu Feb 16 19:35:18 IST 2017 ==================
+19:35:18	Attempting connection to MS Access DB
+19:35:18	DB File: C:\Users\micke\Documents\NetBeansProjects\iRECORD\iRecord\sources\iRecord.accdb
+19:35:20	Successfully connected to MS Access DB.
+19:35:20	Opening Login Window through iWindow
+19:35:20	Submitted
+19:35:20	User: admin Password: 1111
+19:35:20	Attempting login using admin/1111
+Date: 2017-01-11
+19:35:20	Artist logged in
+19:35:20	Initiating main UI
+Importing XML from HIA System - Artist admin
+Aquired session - Timestamp: 1484085600000 Date: 10 Jan 2017 22:00:00 GMT
+Converted date: 2017-01-11 00:00:00.0
+Aquired session - Timestamp: 1483048800000 Date: 29 Dec 2016 22:00:00 GMT
+Converted date: 2016-12-30 00:00:00.0
+Received date from XML: 10 Jan 2017 22:00:00 GMT
+Received date from XML: 29 Dec 2016 22:00:00 GMT
+Importing XML from HIA System - Artist admin
+Aquired session - Timestamp: 1484085600000 Date: 10 Jan 2017 22:00:00 GMT
+Converted date: 2017-01-11 00:00:00.0
+Aquired session - Timestamp: 1483048800000 Date: 29 Dec 2016 22:00:00 GMT
+Converted date: 2016-12-30 00:00:00.0
+Received date from XML: 10 Jan 2017 22:00:00 GMT
+Received date from XML: 29 Dec 2016 22:00:00 GMT
+Importing XML from HIA System - Artist admin
+Aquired session - Timestamp: 1484085600000 Date: 10 Jan 2017 22:00:00 GMT
+Converted date: 2017-01-11 00:00:00.0
+Aquired session - Timestamp: 1483048800000 Date: 29 Dec 2016 22:00:00 GMT
+Converted date: 2016-12-30 00:00:00.0
+Received date from XML: 10 Jan 2017 22:00:00 GMT
+Received date from XML: 29 Dec 2016 22:00:00 GMT
+Importing XML from HIA System - Artist admin
+Aquired session - Timestamp: 1484085600000 Date: 10 Jan 2017 22:00:00 GMT
+Converted date: 2017-01-11 00:00:00.0
+Aquired session - Timestamp: 1483048800000 Date: 29 Dec 2016 22:00:00 GMT
+Converted date: 2016-12-30 00:00:00.0
+Received date from XML: 10 Jan 2017 22:00:00 GMT
+Received date from XML: 29 Dec 2016 22:00:00 GMT
+19:35:37	Quitting MuzaMusic

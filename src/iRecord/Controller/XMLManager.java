@@ -20,7 +20,8 @@ import org.w3c.dom.*;
 public class XMLManager {
 
     public static void main(String[] args) {
-        importXML("AR002");;
+        importXML("AR002"); 
+        //TODO
     }
 
     public static List<Timestamp> importXML(String ArtistID) {
