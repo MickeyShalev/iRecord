@@ -6,7 +6,7 @@
 package gui.internal;
 
 import Validators.EmailValidator;
-import entities.Artist;
+import entities.*;
 import gui.main.iWindow;
 import iRecord.Controller.ArtistManager;
 import iRecord.Validators.CharValidator;
@@ -14,6 +14,7 @@ import iRecord.utilities.EAuth;
 import java.awt.Color;
 import java.util.Date;
 import java.util.Random;
+
 /**
  *
  * @author nisan
@@ -23,7 +24,6 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
     private String stageName;
     private String Email;
     private String password;
-    private Date Exipred;
     
     /**
      * Creates new form frmCreateSession
@@ -45,35 +45,26 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAdd = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
+        lblGen = new javax.swing.JLabel();
+        pnlAdd = new javax.swing.JPanel();
         lblID = new javax.swing.JLabel();
         lblArtistID = new javax.swing.JLabel();
         lblStageName = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
-        lblPass2 = new javax.swing.JLabel();
         lblPass1 = new javax.swing.JLabel();
+        lblPass2 = new javax.swing.JLabel();
         lblMailError = new javax.swing.JLabel();
-        tfStageName = new javax.swing.JTextField();
         tfEmail = new javax.swing.JTextField();
+        tfStageName = new javax.swing.JTextField();
         lblPass4 = new javax.swing.JLabel();
         lblNameError = new javax.swing.JLabel();
         Pass1 = new javax.swing.JPasswordField();
         Pass2 = new javax.swing.JPasswordField();
-        lblGen = new javax.swing.JLabel();
+        btnAdd = new javax.swing.JButton();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
-
-        btnAdd.setBackground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Add Artist");
-        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAddMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btnAdd);
-        btnAdd.setBounds(10, 230, 110, 23);
 
         jLabel16.setBackground(new Color(0,0,0,0));
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -82,46 +73,57 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel16);
         jLabel16.setBounds(10, 0, 360, 30);
 
+        lblGen.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblGen.setForeground(new java.awt.Color(255, 0, 51));
+        getContentPane().add(lblGen);
+        lblGen.setBounds(150, 230, 380, 20);
+
+        pnlAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         lblID.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblID.setForeground(new java.awt.Color(255, 255, 255));
         lblID.setText("Artist id");
-        getContentPane().add(lblID);
-        lblID.setBounds(150, 50, 110, 15);
+        pnlAdd.add(lblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 170, -1));
 
         lblArtistID.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblArtistID.setForeground(new java.awt.Color(255, 255, 255));
         lblArtistID.setText("Artist ID");
-        getContentPane().add(lblArtistID);
-        lblArtistID.setBounds(10, 50, 110, 15);
+        pnlAdd.add(lblArtistID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, -1));
 
         lblStageName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblStageName.setForeground(new java.awt.Color(255, 255, 255));
         lblStageName.setText("Stage Name");
-        getContentPane().add(lblStageName);
-        lblStageName.setBounds(10, 80, 110, 15);
+        pnlAdd.add(lblStageName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         lblEmail.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblEmail.setForeground(new java.awt.Color(255, 255, 255));
         lblEmail.setText("Email");
-        getContentPane().add(lblEmail);
-        lblEmail.setBounds(10, 105, 110, 20);
-
-        lblPass2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblPass2.setForeground(new java.awt.Color(255, 255, 255));
-        lblPass2.setText("Retype Password");
-        getContentPane().add(lblPass2);
-        lblPass2.setBounds(10, 170, 110, 15);
+        pnlAdd.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         lblPass1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblPass1.setForeground(new java.awt.Color(255, 255, 255));
         lblPass1.setText("Password");
-        getContentPane().add(lblPass1);
-        lblPass1.setBounds(10, 140, 110, 15);
+        pnlAdd.add(lblPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+
+        lblPass2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblPass2.setForeground(new java.awt.Color(255, 255, 255));
+        lblPass2.setText("Retype Password");
+        pnlAdd.add(lblPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         lblMailError.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblMailError.setForeground(new java.awt.Color(255, 0, 51));
-        getContentPane().add(lblMailError);
-        lblMailError.setBounds(330, 110, 280, 20);
+        pnlAdd.add(lblMailError, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 390, 20));
+
+        tfEmail.setText("Enter Email");
+        tfEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfEmailFocusLost(evt);
+            }
+        });
+        pnlAdd.add(tfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 170, -1));
 
         tfStageName.setText("Enter stage name");
         tfStageName.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -137,30 +139,15 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
                 tfStageNameActionPerformed(evt);
             }
         });
-        getContentPane().add(tfStageName);
-        tfStageName.setBounds(150, 80, 170, 20);
-
-        tfEmail.setText("Enter Email");
-        tfEmail.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tfEmailFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfEmailFocusLost(evt);
-            }
-        });
-        getContentPane().add(tfEmail);
-        tfEmail.setBounds(150, 110, 170, 20);
+        pnlAdd.add(tfStageName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 170, -1));
 
         lblPass4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblPass4.setForeground(new java.awt.Color(255, 0, 51));
-        getContentPane().add(lblPass4);
-        lblPass4.setBounds(330, 170, 280, 20);
+        pnlAdd.add(lblPass4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 400, 20));
 
         lblNameError.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblNameError.setForeground(new java.awt.Color(255, 0, 51));
-        getContentPane().add(lblNameError);
-        lblNameError.setBounds(330, 80, 280, 20);
+        pnlAdd.add(lblNameError, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 390, 20));
 
         Pass1.setText("jPasswordField1");
         Pass1.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -171,8 +158,7 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
                 Pass1FocusLost(evt);
             }
         });
-        getContentPane().add(Pass1);
-        Pass1.setBounds(150, 140, 170, 20);
+        pnlAdd.add(Pass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 170, -1));
 
         Pass2.setText("jPasswordField2");
         Pass2.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -183,13 +169,19 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
                 Pass2FocusLost(evt);
             }
         });
-        getContentPane().add(Pass2);
-        Pass2.setBounds(150, 170, 170, 20);
+        pnlAdd.add(Pass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 170, -1));
 
-        lblGen.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblGen.setForeground(new java.awt.Color(255, 0, 51));
-        getContentPane().add(lblGen);
-        lblGen.setBounds(150, 230, 380, 20);
+        btnAdd.setBackground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Add Artist");
+        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddMouseClicked(evt);
+            }
+        });
+        pnlAdd.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 100, -1));
+
+        getContentPane().add(pnlAdd);
+        pnlAdd.setBounds(0, 40, 780, 280);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -301,8 +293,16 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
             return;
         }
         else{
-            //Artist toAdd = new Artist(artistID, stageName, password, new java.sql.Date dateExpired(), new EAuth(Artist));
+            java.util.Date date = new java.util.Date();
+            java.sql.Date dateExpired = new java.sql.Date(date.getTime());
+            Artist toAdd = new Artist(artistID, stageName, password, dateExpired, EAuth.Artist);
+            ArtistManager.addArtist(toAdd);
+            pnlAdd.setVisible(false);
+            lblGen.setText("Artist was added succefully");
+            return;
         }
+        
+        
         
     }//GEN-LAST:event_btnAddMouseClicked
     
@@ -356,6 +356,7 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblPass2;
     private javax.swing.JLabel lblPass4;
     private javax.swing.JLabel lblStageName;
+    private javax.swing.JPanel pnlAdd;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfStageName;
     // End of variables declaration//GEN-END:variables
