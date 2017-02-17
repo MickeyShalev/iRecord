@@ -5,6 +5,7 @@
  */
 package gui.main;
 
+import gui.internal.frmAddArtist;
 import gui.internal.frmCreateSession;
 import iRecord.iRecord;
 import java.sql.SQLException;
@@ -53,16 +54,14 @@ public class MainGui extends javax.swing.JFrame {
         pnlArtist = new javax.swing.JPanel();
         btnManageArtists = new javax.swing.JLabel();
         btnAddShow = new javax.swing.JLabel();
+        btnaddArtist = new javax.swing.JLabel();
         pnlRep = new javax.swing.JPanel();
-        btnViewReport = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1020, 766));
         setMinimumSize(new java.awt.Dimension(1020, 766));
-        setPreferredSize(new java.awt.Dimension(1020, 766));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTitle.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -100,7 +99,7 @@ public class MainGui extends javax.swing.JFrame {
             .addGap(0, 690, Short.MAX_VALUE)
         );
 
-        getContentPane().add(ContentFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 830, 690));
+        getContentPane().add(ContentFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, -1, -1));
 
         pnlArtist.setOpaque(false);
 
@@ -123,6 +122,15 @@ public class MainGui extends javax.swing.JFrame {
             }
         });
 
+        btnaddArtist.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnaddArtist.setForeground(new java.awt.Color(255, 255, 255));
+        btnaddArtist.setText("Add Artist");
+        btnaddArtist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnaddArtistMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlArtistLayout = new javax.swing.GroupLayout(pnlArtist);
         pnlArtist.setLayout(pnlArtistLayout);
         pnlArtistLayout.setHorizontalGroup(
@@ -131,48 +139,35 @@ public class MainGui extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAddShow, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnManageArtists, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnManageArtists, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnaddArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         pnlArtistLayout.setVerticalGroup(
             pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlArtistLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(16, 16, 16)
                 .addComponent(btnManageArtists, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
                 .addComponent(btnAddShow, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnaddArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnlArtist, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
 
         pnlRep.setOpaque(false);
 
-        btnViewReport.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        btnViewReport.setForeground(new java.awt.Color(255, 255, 255));
-        btnViewReport.setText("View Reports");
-        btnViewReport.setToolTipText("");
-        btnViewReport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnViewReportMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlRepLayout = new javax.swing.GroupLayout(pnlRep);
         pnlRep.setLayout(pnlRepLayout);
         pnlRepLayout.setHorizontalGroup(
             pnlRepLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRepLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(btnViewReport, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 830, Short.MAX_VALUE)
         );
         pnlRepLayout.setVerticalGroup(
             pnlRepLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlRepLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnViewReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(347, Short.MAX_VALUE))
+            .addGap(0, 690, Short.MAX_VALUE)
         );
 
         getContentPane().add(pnlRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
@@ -255,6 +250,11 @@ public class MainGui extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void btnaddArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnaddArtistMouseClicked
+        frmAddArtist add = new frmAddArtist();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_btnaddArtistMouseClicked
+
 
     public void refreshVars() {
         lblTitle.setText("Homepage");
@@ -283,7 +283,7 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogout;
     private javax.swing.JLabel btnManageArtists;
-    private javax.swing.JLabel btnViewReport;
+    private javax.swing.JLabel btnaddArtist;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUserType;
     private javax.swing.JLabel lblUsernames;

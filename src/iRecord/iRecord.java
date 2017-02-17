@@ -49,8 +49,8 @@ public class iRecord {
             String strDate = sdfDate.format(now);
             
             logWriter = new PrintStream(new File(fileName+"_"+strDate+".log"));
-            System.setErr(logWriter);
-            System.setOut(logWriter);
+            //System.setErr(logWriter);
+            //System.setOut(logWriter);
             logWriter.print("=================  iRecord v1.0 - " + new Date() + " ==================" + System.getProperty("line.separator"));
             
         } catch (IOException ioe) {

@@ -46,7 +46,6 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel16 = new javax.swing.JLabel();
-        lblGen = new javax.swing.JLabel();
         pnlAdd = new javax.swing.JPanel();
         lblID = new javax.swing.JLabel();
         lblArtistID = new javax.swing.JLabel();
@@ -55,12 +54,13 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         lblPass1 = new javax.swing.JLabel();
         lblPass2 = new javax.swing.JLabel();
         lblMailError = new javax.swing.JLabel();
-        tfEmail = new javax.swing.JTextField();
         tfStageName = new javax.swing.JTextField();
+        tfEmail = new javax.swing.JTextField();
         lblPass4 = new javax.swing.JLabel();
         lblNameError = new javax.swing.JLabel();
         Pass1 = new javax.swing.JPasswordField();
         Pass2 = new javax.swing.JPasswordField();
+        lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
         setBackground(new Color(0,0,0,0));
@@ -73,11 +73,7 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel16);
         jLabel16.setBounds(10, 0, 360, 30);
 
-        lblGen.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblGen.setForeground(new java.awt.Color(255, 0, 51));
-        getContentPane().add(lblGen);
-        lblGen.setBounds(150, 230, 380, 20);
-
+        pnlAdd.setBackground(new Color(255,255,255,40));
         pnlAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblID.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -110,9 +106,20 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         lblPass2.setText("Retype Password");
         pnlAdd.add(lblPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
-        lblMailError.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblMailError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblMailError.setForeground(new java.awt.Color(255, 0, 51));
         pnlAdd.add(lblMailError, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 390, 20));
+
+        tfStageName.setText("Enter stage name");
+        tfStageName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfStageNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfStageNameFocusLost(evt);
+            }
+        });
+        pnlAdd.add(tfStageName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 170, -1));
 
         tfEmail.setText("Enter Email");
         tfEmail.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -125,27 +132,11 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         });
         pnlAdd.add(tfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 170, -1));
 
-        tfStageName.setText("Enter stage name");
-        tfStageName.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tfStageNameFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfStageNameFocusLost(evt);
-            }
-        });
-        tfStageName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfStageNameActionPerformed(evt);
-            }
-        });
-        pnlAdd.add(tfStageName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 170, -1));
-
-        lblPass4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblPass4.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblPass4.setForeground(new java.awt.Color(255, 0, 51));
         pnlAdd.add(lblPass4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 400, 20));
 
-        lblNameError.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblNameError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblNameError.setForeground(new java.awt.Color(255, 0, 51));
         pnlAdd.add(lblNameError, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 390, 20));
 
@@ -171,6 +162,14 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         });
         pnlAdd.add(Pass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 170, -1));
 
+        getContentPane().add(pnlAdd);
+        pnlAdd.setBounds(0, 40, 780, 260);
+
+        lblGen.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        lblGen.setForeground(new java.awt.Color(255, 0, 51));
+        getContentPane().add(lblGen);
+        lblGen.setBounds(150, 310, 380, 20);
+
         btnAdd.setBackground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add Artist");
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -178,10 +177,13 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
                 btnAddMouseClicked(evt);
             }
         });
-        pnlAdd.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 100, -1));
-
-        getContentPane().add(pnlAdd);
-        pnlAdd.setBounds(0, 40, 780, 280);
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAdd);
+        btnAdd.setBounds(20, 310, 90, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -197,17 +199,15 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfEmailFocusGained
     
     private void Pass1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass1FocusGained
-        Pass1.setText("");
+        if (Pass1.getText().equals("jPasswordField1"))
+            Pass1.setText("");
     }//GEN-LAST:event_Pass1FocusGained
     
     private void Pass2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass2FocusGained
-        Pass2.setText("");
+        if (Pass2.getText().equals("jPasswordField2"))
+            Pass2.setText("");
     }//GEN-LAST:event_Pass2FocusGained
-    
-    private void tfStageNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfStageNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfStageNameActionPerformed
-
+        
     private void tfStageNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfStageNameFocusLost
         String sn = tfStageName.getText();
         if (sn.length() < 3){
@@ -227,7 +227,7 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         stageName = sn;
         updateWin();
     }//GEN-LAST:event_tfStageNameFocusLost
-
+    
     private void tfEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEmailFocusLost
         String mail = tfEmail.getText();
         if (!EmailValidator.validateEmail(mail)){
@@ -236,12 +236,13 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
             updateWin();
             return;
         }
-
+        
         Email = mail;
+        lblMailError.setText("");
         updateWin();
         
     }//GEN-LAST:event_tfEmailFocusLost
-
+    
     private void Pass2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass2FocusLost
         String pass1= Pass1.getText();
         String pass2 = Pass2.getText();
@@ -262,9 +263,9 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         lblPass4.setText("");
         password = pass2;
         updateWin();
-  
+        
     }//GEN-LAST:event_Pass2FocusLost
-
+    
     private void Pass1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass1FocusLost
         String pass1= Pass1.getText();
         String pass2 = Pass2.getText();
@@ -276,7 +277,11 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         }
         
         if (!pass1.equals(pass2)){
-            lblPass4.setText("Passwords does not match");
+            if (Pass2.getText().equals("jPasswordField2"))
+                lblPass4.setText("");
+            else{
+                lblPass4.setText("Passwords does not match");
+            }
             password =null;
             updateWin();
             return;
@@ -285,10 +290,10 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         updateWin();
         
     }//GEN-LAST:event_Pass1FocusLost
-
+    
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         if (artistID == null || stageName == null || Email == null || password == null){
-            lblGen.setText("One or more fields ane missiong");
+            lblGen.setText("One or more fields ane missing");
             updateWin();
             return;
         }
@@ -296,23 +301,22 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
             java.util.Date date = new java.util.Date();
             java.sql.Date dateExpired = new java.sql.Date(date.getTime());
             Artist toAdd = new Artist(artistID, stageName, password, dateExpired, EAuth.Artist);
-            ArtistManager.addArtist(toAdd);
             pnlAdd.setVisible(false);
+            lblGen.setForeground(Color.GREEN);
             lblGen.setText("Artist was added succefully");
+            ArtistManager.addArtist(toAdd);
+            updateWin();
             return;
         }
-        
-        
-        
+         
     }//GEN-LAST:event_btnAddMouseClicked
-    
-    
-    
-    
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
     
     private void init(){
-        createArtistID();
-   
+        createArtistID(); 
     }
     
     /**
@@ -323,16 +327,20 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         Random rand = new Random();
         int num = 0;
         String tempID = null;
-        while (ArtistManager.checkExistence(tempID) && num < 1000){
+        while (true){
             num = rand.nextInt(9999);
-            tempID = "AR"+num;
-            
-            if (ArtistManager.checkExistence(tempID))
-                artistID = tempID;
-        }
-        
-        iWindow.log("Found empty ID for artist " + artistID);
+            if (num > 1000){
+                tempID = "AR"+num;
                 
+                if (!ArtistManager.isExists(tempID)){
+                    artistID = tempID;
+                    lblID.setText(tempID);
+                    updateWin();
+                    return;
+                }
+            }
+        }
+
     }
     
     public void updateWin(){

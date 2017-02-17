@@ -4,6 +4,8 @@ import entities.*;
 import iRecord.iRecord;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,10 +19,15 @@ public class ArtistManager {
      * @param ArtistID
      * @return true if exists
      */
-    public static boolean checkExistence(String ArtistID){
+    public static boolean isExists(String ArtistID){
         boolean flag = false;
+
         //chech if artist is already exists
-        ResultSet rs = iRecord.getDB().query("SELECT Artists.* FROM Artists WHERE [Artists].[ArtistID]=" + ArtistID);
+        ResultSet rs = iRecord.getDB().query("SELECT Artists.*, Artists.ArtistID\n" +
+                                             "FROM Artists\n" +
+                                             "WHERE (((Artists.ArtistID)=\""+ArtistID+"\"))");
+        
+        //Map<String, Artist> toReturn = new HashMap<String, Artist>();
         
         //if exists return ture
         try {
@@ -40,7 +47,7 @@ public class ArtistManager {
      * @param Artist
      */
     public static void addArtist(Artist artist){
-        iRecord.getDB().updateReturnID("INSERT INTO Artists VALUES ("+artist.getID() + artist.getStageName() + artist.getEmailAddr() + artist.getPassword() + artist.getDateExpired()+")");
+        iRecord.getDB().query("INSERT INTO Artists VALUES ("+artist.getID()+", \""+artist.getStageName()+"\", \""+artist.getEmailAddr()+"\", \""+artist.getPassword()+"\", \""+artist.getDateExpired()+"\")");
         return;
     }
     
