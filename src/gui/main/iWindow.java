@@ -5,33 +5,16 @@
 package gui.main;
 
 
-import gui.main.MainGui;
 import gui.main.LoginGui;
 import java.awt.Color;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import jdk.nashorn.internal.scripts.JO;
 
 /**
  * Main iWindow Class -> Manages all internal jframes and DB connection to GUI
@@ -56,11 +39,9 @@ public abstract class iWindow {
         LoginGui tmp = new LoginGui();
         
     }
-    
-    
+
     //================================= Setters and Getters ==================================
-    
-    
+ 
     /**
      * Set the current active frame
      *
@@ -94,8 +75,6 @@ public abstract class iWindow {
         }
         
         //Check for exceptions
-        
-        
         BasicInternalFrameUI bi = (BasicInternalFrameUI) frame.getUI();
         bi.setNorthPane(null);
         
@@ -197,7 +176,7 @@ public abstract class iWindow {
         {
             FileWriter fstream = new FileWriter("LOG.txt", true); //true tells to append data.
             out = new BufferedWriter(fstream);
-            out.write(message + "\n");
+            out.write(new Date().toString() + " - "+ message + "\n");
             out.flush();
         }
         catch (IOException e)
@@ -212,7 +191,6 @@ public abstract class iWindow {
     
     /**
      * Return String Type by Auth
-     *
      * @return
      */
     public static String getAuthType() {
@@ -220,17 +198,10 @@ public abstract class iWindow {
         
         switch (authLogged) {
             case 1:
-                toReturn = "Customer";
+                toReturn = "Admin";
                 break;
             case 2:
-                toReturn = "Receptionist";
-                break;
-            case 3:
-                toReturn = "Coach";
-                break;
-                
-            case 4:
-                toReturn = "Administrator";
+                toReturn = "Artist";
                 break;
             default:
                 toReturn = "ERROR";
@@ -290,14 +261,13 @@ public abstract class iWindow {
         authLogged = AuthType;
         switch (AuthType) {
             case 1:
-                System.err.println("CUSTOMER");
+                System.err.println("Admin");
                 
                 break;
             default:
-                System.err.println("EMPLOYEE");
+                System.err.println("Artist");
                 
                 break;
-                
         }
         
         return;
@@ -320,8 +290,7 @@ public abstract class iWindow {
         authLogged = 0;
         currentWindow = null;
         
-        lblTitle.setText("Welcome to Virutal iShape");
-        
+        lblTitle.setText("Welcome to iRecord");
     }
     
     /**

@@ -5,6 +5,7 @@
  */
 package gui.main;
 
+import gui.internal.frmAddArtist;
 import gui.internal.frmCreateSession;
 import iRecord.iRecord;
 import java.sql.SQLException;
@@ -49,12 +50,13 @@ public class MainGui extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblUsernames = new javax.swing.JLabel();
         lblUserType = new javax.swing.JLabel();
+        pnlRep = new javax.swing.JPanel();
         ContentFrame = new javax.swing.JPanel();
         pnlArtist = new javax.swing.JPanel();
         btnManageArtists = new javax.swing.JLabel();
         btnAddShow = new javax.swing.JLabel();
-        pnlRep = new javax.swing.JPanel();
         btnViewReport = new javax.swing.JLabel();
+        btnAddEntities = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
@@ -83,24 +85,13 @@ public class MainGui extends javax.swing.JFrame {
         lblUserType.setText("User Type");
         getContentPane().add(lblUserType, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 170, 30));
 
+        pnlRep.setOpaque(false);
+
         ContentFrame.setBackground(new Color(0,0,0,0));
         ContentFrame.setForeground(new java.awt.Color(255, 51, 102));
         ContentFrame.setAutoscrolls(true);
         ContentFrame.setOpaque(false);
         ContentFrame.setVisible(false);
-
-        javax.swing.GroupLayout ContentFrameLayout = new javax.swing.GroupLayout(ContentFrame);
-        ContentFrame.setLayout(ContentFrameLayout);
-        ContentFrameLayout.setHorizontalGroup(
-            ContentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 830, Short.MAX_VALUE)
-        );
-        ContentFrameLayout.setVerticalGroup(
-            ContentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(ContentFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 830, 690));
 
         pnlArtist.setOpaque(false);
 
@@ -123,31 +114,6 @@ public class MainGui extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout pnlArtistLayout = new javax.swing.GroupLayout(pnlArtist);
-        pnlArtist.setLayout(pnlArtistLayout);
-        pnlArtistLayout.setHorizontalGroup(
-            pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlArtistLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddShow, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnManageArtists, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        pnlArtistLayout.setVerticalGroup(
-            pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlArtistLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(btnManageArtists, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAddShow, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(274, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(pnlArtist, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
-
-        pnlRep.setOpaque(false);
-
         btnViewReport.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnViewReport.setForeground(new java.awt.Color(255, 255, 255));
         btnViewReport.setText("View Reports");
@@ -158,21 +124,73 @@ public class MainGui extends javax.swing.JFrame {
             }
         });
 
+        btnAddEntities.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnAddEntities.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddEntities.setText("Add Entities");
+        btnAddEntities.setToolTipText("");
+        btnAddEntities.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddEntitiesMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlArtistLayout = new javax.swing.GroupLayout(pnlArtist);
+        pnlArtist.setLayout(pnlArtistLayout);
+        pnlArtistLayout.setHorizontalGroup(
+            pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlArtistLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddShow, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnManageArtists, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnViewReport, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddEntities, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        pnlArtistLayout.setVerticalGroup(
+            pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlArtistLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(btnManageArtists, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAddShow, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(btnAddEntities, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnViewReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(156, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout ContentFrameLayout = new javax.swing.GroupLayout(ContentFrame);
+        ContentFrame.setLayout(ContentFrameLayout);
+        ContentFrameLayout.setHorizontalGroup(
+            ContentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(600, Short.MAX_VALUE))
+        );
+        ContentFrameLayout.setVerticalGroup(
+            ContentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(271, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout pnlRepLayout = new javax.swing.GroupLayout(pnlRep);
         pnlRep.setLayout(pnlRepLayout);
         pnlRepLayout.setHorizontalGroup(
             pnlRepLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRepLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(btnViewReport, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(pnlRepLayout.createSequentialGroup()
+                .addComponent(ContentFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pnlRepLayout.setVerticalGroup(
             pnlRepLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRepLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnViewReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(347, Short.MAX_VALUE))
+                .addComponent(ContentFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnlRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
@@ -255,6 +273,11 @@ public class MainGui extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void btnAddEntitiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddEntitiesMouseClicked
+        frmAddArtist add = new frmAddArtist();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_btnAddEntitiesMouseClicked
+
 
     public void refreshVars() {
         lblTitle.setText("Homepage");
@@ -279,6 +302,7 @@ public class MainGui extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentFrame;
     private javax.swing.JLabel bg;
+    private javax.swing.JLabel btnAddEntities;
     private javax.swing.JLabel btnAddShow;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogout;

@@ -765,7 +765,8 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         Boolean flag = false;
         
         chosenRooms = new ArrayList<Room>();
-        System.err.println("Number of rows: "+tblRooms.getModel().getRowCount());
+        //System.err.println("Number of rows: "+tblRooms.getModel().getRowCount());
+        //add all selected rooms
         for(int i=0; i<tblRooms.getModel().getRowCount();i++){
             Room r = (Room) tblRooms.getModel().getValueAt(i, 0);
             Boolean selected = (Boolean) tblRooms.getModel().getValueAt(i, 4);
@@ -773,9 +774,11 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
                 chosenRooms.add(r);
                 if(r.getHasIsolation() && !flag)
                     flag=r.getHasIsolation();
-                System.err.println("Room: #"+r+" Selected: "+selected);
+                //System.err.println("Room: #"+r+" Selected: "+selected);
             }
         }
+        
+        //check if at least one room has isolation
         if(chosenRooms.size()==0){
             errRoomlbl.setText("Must select atleast one room.");
             errRoomlbl.setVisible(true);
@@ -784,12 +787,15 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
             errRoomlbl.setVisible(true);
         }else{
             
+            //change viabilty of labels and panels
             pnlRoomChooser.setVisible(false);
             pnlSoundmanChooser.setVisible(true);
             srRooms.setVisible(true);
             stRooms.setText(""+chosenRooms.size());
             stRooms.setVisible(true);
             Double tmpCost = 0.0;
+            
+            //update price
             for(Room r : chosenRooms){
                 tmpCost+=r.getHourRate();
             }
