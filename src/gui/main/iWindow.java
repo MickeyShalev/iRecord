@@ -1,7 +1,7 @@
-/**
- * This Class controls the opened windows and prevents more than one shown window
- * Other windows will remain active but at hide state;
- */
+ /**
+  * This Class controls the opened windows and prevents more than one shown window
+  * Other windows will remain active but at hide state;
+  */
 package gui.main;
 
 
@@ -39,9 +39,9 @@ public abstract class iWindow {
         LoginGui tmp = new LoginGui();
         
     }
-
+    
     //================================= Setters and Getters ==================================
- 
+    
     /**
      * Set the current active frame
      *
@@ -150,7 +150,6 @@ public abstract class iWindow {
     
     /**
      * Sets the last window opened
-     *
      * @param frame
      */
     public static void setLastWindow(JInternalFrame frame) {
@@ -159,8 +158,6 @@ public abstract class iWindow {
     
     /**
      * Returns the last window opened
-     *
-     * @return
      */
     public static JInternalFrame getLastWindow() {
         return lastWindow;
@@ -198,17 +195,23 @@ public abstract class iWindow {
         
         switch (authLogged) {
             case 1:
-                toReturn = "Admin";
+                toReturn = "Customer";
                 break;
             case 2:
-                toReturn = "Artist";
+                toReturn = "Receptionist";
+                break;
+            case 3:
+                toReturn = "Coach";
+                break;
+                
+            case 4:
+                toReturn = "Administrator";
                 break;
             default:
                 toReturn = "ERROR";
-                break;
+
         }
         return toReturn;
-        
     }
     
     /**
