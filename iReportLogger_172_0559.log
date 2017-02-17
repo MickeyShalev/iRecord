@@ -1,0 +1,12 @@
+=================  iRecord v1.0 - Fri Feb 17 17:59:37 IST 2017 ==================
+17:59:37	Attempting connection to MS Access DB
+17:59:37	DB File: C:\Users\micke\Documents\NetBeansProjects\iRECORD\iRecord\sources\iRecord.accdb
+17:59:38	Successfully connected to MS Access DB.
+17:59:38	Opening Login Window through iWindow
+17:59:39	Submitted
+17:59:39	User: admin Password: 1111
+17:59:39	Attempting login using admin/1111
+Date: 2017-01-11
+17:59:39	Artist logged in
+17:59:39	Initiating main UI
+17:59:40	Quitting MuzaMusic

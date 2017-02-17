@@ -40,7 +40,8 @@ public class ArtistManager {
      * @param Artist
      */
     public static void addArtist(Artist artist){
-        
+        iRecord.getDB().updateReturnID("INSERT INTO Artists VALUES ("+artist.getID() + artist.getStageName() + artist.getEmailAddr() + artist.getPassword() + artist.getDateExpired()+")");
+        return;
     }
     
     
