@@ -27,8 +27,6 @@ public class ArtistManager {
                 "FROM Artists\n" +
                 "WHERE (((Artists.ArtistID)=\""+ArtistID+"\"))");
         
-        //Map<String, Artist> toReturn = new HashMap<String, Artist>();
-        
         //if exists return ture
         try {
             if (rs.next()){
