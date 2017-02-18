@@ -19,7 +19,7 @@ import java.util.Random;
  *
  * @author nisan
  */
-public class frmAddArtist extends javax.swing.JInternalFrame {
+public class frmAddStudio extends javax.swing.JInternalFrame {
     private String artistID;
     private String stageName;
     private String Email;
@@ -28,7 +28,7 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmCreateSession
      */
-    public frmAddArtist() {
+    public frmAddStudio() {
         setTitle("Add Artist Page");
         initComponents();
         
