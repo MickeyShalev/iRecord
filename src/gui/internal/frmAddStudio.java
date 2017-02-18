@@ -27,7 +27,7 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
     private String Email;
     private String address;
     private String phone;
-    private String decription;
+    private String description;
     
     /**
      * Creates new form frmCreateSession
@@ -77,11 +77,11 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
         jLabel16.setBackground(new Color(0,0,0,0));
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Add new artist window");
+        jLabel16.setText("Add new studio window");
         getContentPane().add(jLabel16);
         jLabel16.setBounds(10, 0, 360, 30);
 
-        pnlAdd.setBackground(new Color(255,255,255,40));
+        pnlAdd.setBackground(new Color(255,255,255,60));
         pnlAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblID.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -205,7 +205,7 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
         lblGen.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblGen.setForeground(new java.awt.Color(255, 0, 51));
         getContentPane().add(lblGen);
-        lblGen.setBounds(150, 310, 380, 20);
+        lblGen.setBounds(20, 340, 380, 20);
 
         btnAdd.setBackground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add Studio");
@@ -221,7 +221,7 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void tfStudioNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfStudioNameFocusGained
-        if (tfStudioName.getText().equals("Enter stage name"))
+        if (tfStudioName.getText().equals("Enter Studio Name"))
             tfStudioName.setText("");
     }//GEN-LAST:event_tfStudioNameFocusGained
     
@@ -266,30 +266,31 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfEmailFocusLost
             
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-//        if (artistID == null || stageName == null || Email == null || password == null){
-//            lblGen.setText("One or more fields ane missing");
-//            updateWin();
-//            return;
-//        }
-//        else{
-//            java.util.Date date = new java.util.Date();
-//            java.sql.Date dateExpired = new java.sql.Date(date.getTime());
-//            Studio toAdd = new Studio();
-//            pnlAdd.setVisible(false);
-//            //System.out.println(ArtistManager.addArtist(toAdd));
-//            //TODO - FIX THIS IF 
-//            if (StudioAndRoomManager.addStudio(toAdd) > 0){
-//                lblGen.setForeground(Color.GREEN);
-//                lblGen.setText("Artist was added succefully");
-//                btnAdd.disable();
-//            }
-//            else{
-//                lblGen.setText("Something went wrong");
-//            }
-//            updateWin();
-//            return;
-//        }
-//         
+        System.out.println(studioName +" "+ Email+" "+ address+" "+ phone+" "+ description);
+        if (studioName == null || Email == null|| address == null || phone == null || description == null){
+            lblGen.setText("One or more fields ane missing");
+            updateWin();
+            return;
+        }
+        else{
+            pnlAdd.setVisible(false);
+            Studio toAdd = new Studio (studioName, address ,Email , phone, description, studioID);
+            //System.out.println(ArtistManager.addArtist(toAdd));
+            //TODO - FIX THIS IF 
+            if (StudioAndRoomManager.addStudio(toAdd) > 0){
+                lblGen.setForeground(Color.GREEN);
+                lblGen.setText("Studio was added succefully");
+                btnAdd.hide();
+            }
+            else{
+                lblGen.setText("Something went wrong");
+                btnAdd.hide();
+            }
+
+            updateWin();
+            return;
+        }
+         
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void tfaddrFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfaddrFocusGained
@@ -301,13 +302,13 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
         String sn = tfaddr.getText();
         if (sn.length() < 5){
             lblAddrError.setText("Address is too short");
-            studioName = null;
+            address = null;
             updateWin();
             return;
         }
         
         lblAddrError.setText("");
-        studioName = sn;
+        address = sn;
         updateWin();
     }//GEN-LAST:event_tfaddrFocusLost
 
@@ -321,13 +322,13 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
         String sn = tfphone.getText();
         if (!CharValidator.isNumber(sn) || sn.length() < 8 || sn.length() > 15){
             lblPhoneError.setText("Invalid phone number - example: 0123456789");
-            studioName = null;
+            phone = null;
             updateWin();
             return;
         }
         
         lblPhoneError.setText("");
-        studioName = sn;
+        phone = sn;
         updateWin();
     }//GEN-LAST:event_tfphoneFocusLost
 
@@ -337,9 +338,9 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextArea1FocusGained
 
     private void jTextArea1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextArea1FocusLost
-        decription = jTextArea1.getText();
-        if (decription == null || decription.length() < 1)
-            decription = "Not Available";
+        description = jTextArea1.getText();
+        if (description == null || description.length() < 1)
+            description = "Not Available";
         
         iWindow.update();
         
@@ -354,8 +355,9 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
      * the generated id is checked by the controller before it's set
      */
     private void createStudioID(){
-        int num = 0;
-        int tempID = 0;        
+        studioID = StudioAndRoomManager.getStudioNextKey();
+        Integer id = new Integer (studioID);
+        lblID.setText(id.toString());
     }
     
     public void updateWin(){

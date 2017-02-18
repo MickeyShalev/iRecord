@@ -1,5 +1,0 @@
-=================  iRecord v1.0 - Sat Feb 18 13:05:56 IST 2017 ==================
-13:05:56	Attempting connection to MS Access DB
-13:05:56	DB File: C:\Users\micke\Documents\NetBeansProjects\iRECORD\iRecord\sources\iRecord.accdb
-13:05:58	Successfully connected to MS Access DB.
-13:05:58	Sending UPDATE Query: INSERT INTO Studio (StudioID, sName, sAddress, sEmail, sPhoneNum, sDesc) VALUES (11, "BigBang", "Somewhere", "qwe@qwe.qwe","123456789", "Amazing")

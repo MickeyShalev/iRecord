@@ -376,12 +376,12 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         pnlFinishedEditing.add(chkDetails);
         chkDetails.setBounds(10, 210, 340, 23);
 
-        errSubmit.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        errSubmit.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         errSubmit.setForeground(new java.awt.Color(255, 51, 51));
         errSubmit.setText("Please accept you have reviewed order details before submitting");
         errSubmit.setVisible(false);
         pnlFinishedEditing.add(errSubmit);
-        errSubmit.setBounds(10, 170, 390, 30);
+        errSubmit.setBounds(10, 170, 480, 30);
 
         getContentPane().add(pnlFinishedEditing);
         pnlFinishedEditing.setBounds(50, 60, 820, 370);

@@ -168,7 +168,7 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         lblGen.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblGen.setForeground(new java.awt.Color(255, 0, 51));
         getContentPane().add(lblGen);
-        lblGen.setBounds(150, 310, 380, 20);
+        lblGen.setBounds(20, 340, 380, 20);
 
         btnAdd.setBackground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add Artist");
@@ -307,11 +307,13 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
             if (ArtistManager.addArtist(toAdd) > 0){
                 lblGen.setForeground(Color.GREEN);
                 lblGen.setText("Artist was added succefully");
-                btnAdd.disable();
+                btnAdd.hide();
             }
             else{
                 lblGen.setText("Something went wrong");
+                btnAdd.hide();
             }
+
             updateWin();
             return;
         }

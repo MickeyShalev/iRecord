@@ -1,5 +1,6 @@
 package iRecord.Controller;
 
+import entities.Studio;
 import iRecord.iRecord;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,39 +13,44 @@ import java.util.logging.Logger;
  */
 public class StudioAndRoomManager {
     
-    public static int addStudio(){
+    public static int addStudio(Studio s){
         int status = -1;
         
-        getStudioNextKey();
+        //Studio s = new Studio ("asd","asd","asd","asd","asd",6);
         String qry = "INSERT INTO Studio (StudioID, sName, sAddress, sEmail, sPhoneNum, sDesc)"
-                + " VALUES (11, \"BigBang\", \"Somewhere\", \"qwe@qwe.qwe\",\"123456789\", \"Amazing\")";
+                + " VALUES ("+s.getsID().intValue() +",\""+s.getsName()+"\", \""+s.getsAddress()+"\", \""+s.getsEmail()+"\",\""+s.getsPhoneNum()+"\", \""+s.getsDesc()+"\")";
         
         
-        if (iRecord.getDB().updateReturnID(qry) < 0) {                                      //
+        if (iRecord.getDB().updateReturnID(qry) < 0) {                                     //
             status = -1;
         }
-
-
-
+        
         return status;
     }
     
-    
-    public static void getStudioNextKey(){
+    /**
+     * This method returns the next expectd index number
+     * May return false if the hightest index is deleted manually from the DB
+     * it won't affect anything because the numbering is automatic in the DB
+     * @return 
+     */
+    public static int getStudioNextKey(){
         int number = 0;
         
         ResultSet rs = iRecord.getDB().query("SELECT MAX(StudioID) FROM Studio");
-        System.out.println(rs);
+        
+        
         //if exists return ture
         try {
             if (rs.next()){
-                number = 0;
+                number = rs.getInt(1);
+                //System.out.println(number);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //return number;
+        return number+1;
     }
     
     

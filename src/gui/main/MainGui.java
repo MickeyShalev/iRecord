@@ -6,6 +6,7 @@
 package gui.main;
 
 import gui.internal.frmAddArtist;
+import gui.internal.frmAddStudio;
 import gui.internal.frmCreateSession;
 import iRecord.iRecord;
 import java.sql.SQLException;
@@ -251,7 +252,8 @@ public class MainGui extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnaddArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnaddArtistMouseClicked
-        frmAddArtist add = new frmAddArtist();
+        //frmAddArtist add = new frmAddArtist();
+        frmAddStudio add = new frmAddStudio(); 
         iWindow.openWin(add);
     }//GEN-LAST:event_btnaddArtistMouseClicked
 
