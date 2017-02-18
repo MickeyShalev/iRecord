@@ -13,10 +13,12 @@ import java.util.Objects;
  */
 public class Room {
     Studio studio;
+    int StudioID;
     Integer RoomNum, maxMusicians;
     Double hourRate;
     Boolean hasIsolation;
 
+    
     public Room(Studio studio, Integer RoomNum, Double hourRate, Integer maxMusicians, Boolean hasIsolation) {
         this.studio = studio;
         this.RoomNum = RoomNum;
@@ -24,6 +26,17 @@ public class Room {
         this.maxMusicians = maxMusicians;
         this.hasIsolation = hasIsolation;
     }
+    
+    
+    public Room(int studioID, Integer RoomNum, Double hourRate, Integer maxMusicians, Boolean hasIsolation) {
+        this.StudioID = studioID;
+        this.RoomNum = RoomNum;
+        this.hourRate = hourRate;
+        this.maxMusicians = maxMusicians;
+        this.hasIsolation = hasIsolation;
+    }
+    
+    
 
     public Room(Integer RoomNum){
         this.RoomNum = RoomNum;

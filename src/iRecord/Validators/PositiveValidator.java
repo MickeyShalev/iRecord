@@ -30,6 +30,19 @@ public class PositiveValidator {
  
     }
     
+    public static double stringToNum(String snum){
+        double num = 0;
+                
+        try{
+            num = Double.parseDouble(snum);
+            
+        } catch(Exception e){
+            
+        }
+        
+        return num;
+    }
+    
     /**
      * Get ID from String
      * @param str

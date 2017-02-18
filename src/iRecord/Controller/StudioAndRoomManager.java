@@ -4,6 +4,8 @@ import entities.Studio;
 import iRecord.iRecord;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,6 +15,11 @@ import java.util.logging.Logger;
  */
 public class StudioAndRoomManager {
     
+    /**
+     * This method adds new Studio to DB
+     * @param s
+     * @return 
+     */
     public static int addStudio(Studio s){
         int status = -1;
         
@@ -53,7 +60,35 @@ public class StudioAndRoomManager {
         return number+1;
     }
     
+    /**
+     * This method
+     */
+    public static Map<Integer, Studio> getStudios(){
+        Map<Integer, Studio> studios = new HashMap<Integer, Studio>();
+        
+        ResultSet rs = iRecord.getDB().query("SELECT Studios*");
+        
+        try {
+            if (rs.next()){
+                int sID = rs.getInt("studioID");
+                String sName = rs.getString("sName");
+                String sAddr = rs.getString("sAddress");
+                String email = rs.getString("sEmail");
+                String phone = rs.getString("sPhoneNum");
+                String desc = rs.getString("sDesc");
+                studios.put(new Integer(sID), new Studio(sName, sAddr, email, phone, desc, sID));
+                //System.out.println(number);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return studios;
+    }
     
+    /**
+     * This method add new room to DB
+     */
     public static void addRoom(){
         
         

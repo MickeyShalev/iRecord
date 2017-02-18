@@ -6,9 +6,12 @@
 package gui.internal;
 
 import Validators.EmailValidator;
+import Validators.PhoneValidator;
+import Validators.PositiveValidator;
 import entities.*;
 import gui.main.iWindow;
 import iRecord.Controller.ArtistManager;
+import iRecord.Controller.StudioAndRoomManager;
 import iRecord.Validators.CharValidator;
 import iRecord.utilities.EAuth;
 import java.awt.Color;
@@ -20,10 +23,11 @@ import java.util.Random;
  * @author nisan
  */
 public class frmAddRoom extends javax.swing.JInternalFrame {
-    private String artistID;
-    private String stageName;
-    private String Email;
-    private String password;
+    private int studioID;
+    private int roomID;
+    private double hourRate;
+    private int maxMusicians;
+    private boolean hasIsolation;
     
     /**
      * Creates new form frmCreateSession
@@ -47,19 +51,18 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
 
         jLabel16 = new javax.swing.JLabel();
         pnlAdd = new javax.swing.JPanel();
-        lblID = new javax.swing.JLabel();
-        lblArtistID = new javax.swing.JLabel();
-        lblStageName = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
-        lblPass1 = new javax.swing.JLabel();
-        lblPass2 = new javax.swing.JLabel();
-        lblMailError = new javax.swing.JLabel();
-        tfStageName = new javax.swing.JTextField();
-        tfEmail = new javax.swing.JTextField();
-        lblPass4 = new javax.swing.JLabel();
-        lblNameError = new javax.swing.JLabel();
-        Pass1 = new javax.swing.JPasswordField();
-        Pass2 = new javax.swing.JPasswordField();
+        lblStudio = new javax.swing.JLabel();
+        lblRate = new javax.swing.JLabel();
+        lblmaxMus = new javax.swing.JLabel();
+        lblisloation = new javax.swing.JLabel();
+        lblMaxError = new javax.swing.JLabel();
+        tfCost = new javax.swing.JTextField();
+        tfEmaxNum = new javax.swing.JTextField();
+        lblCostError = new javax.swing.JLabel();
+        lblPhone = new javax.swing.JLabel();
+        boxStudios = new javax.swing.JComboBox<>();
+        lblNum = new javax.swing.JLabel();
+        boxIso = new javax.swing.JComboBox<>();
         lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -69,98 +72,83 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
         jLabel16.setBackground(new Color(0,0,0,0));
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Add new artist window");
+        jLabel16.setText("Add new studio window");
         getContentPane().add(jLabel16);
         jLabel16.setBounds(10, 0, 360, 30);
 
-        pnlAdd.setBackground(new Color(255,255,255,40));
+        pnlAdd.setBackground(new Color(255,255,255,60));
         pnlAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblID.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblID.setForeground(new java.awt.Color(255, 255, 255));
-        lblID.setText("Artist id");
-        pnlAdd.add(lblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 170, -1));
+        lblStudio.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblStudio.setForeground(new java.awt.Color(255, 255, 255));
+        lblStudio.setText("Select Studio");
+        pnlAdd.add(lblStudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, -1));
 
-        lblArtistID.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblArtistID.setForeground(new java.awt.Color(255, 255, 255));
-        lblArtistID.setText("Artist ID");
-        pnlAdd.add(lblArtistID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, -1));
+        lblRate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblRate.setForeground(new java.awt.Color(255, 255, 255));
+        lblRate.setText("Cost / Hour");
+        pnlAdd.add(lblRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 90, -1));
 
-        lblStageName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblStageName.setForeground(new java.awt.Color(255, 255, 255));
-        lblStageName.setText("Stage Name");
-        pnlAdd.add(lblStageName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        lblmaxMus.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblmaxMus.setForeground(new java.awt.Color(255, 255, 255));
+        lblmaxMus.setText("Maximum musicians");
+        pnlAdd.add(lblmaxMus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 130, -1));
 
-        lblEmail.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
-        lblEmail.setText("Email");
-        pnlAdd.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        lblisloation.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblisloation.setForeground(new java.awt.Color(255, 255, 255));
+        lblisloation.setText("Isolation in Room");
+        pnlAdd.add(lblisloation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 130, -1));
 
-        lblPass1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblPass1.setForeground(new java.awt.Color(255, 255, 255));
-        lblPass1.setText("Password");
-        pnlAdd.add(lblPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        lblMaxError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        lblMaxError.setForeground(new java.awt.Color(255, 0, 51));
+        pnlAdd.add(lblMaxError, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 390, 20));
 
-        lblPass2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblPass2.setForeground(new java.awt.Color(255, 255, 255));
-        lblPass2.setText("Retype Password");
-        pnlAdd.add(lblPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
-
-        lblMailError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
-        lblMailError.setForeground(new java.awt.Color(255, 0, 51));
-        pnlAdd.add(lblMailError, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 390, 20));
-
-        tfStageName.setText("Enter stage name");
-        tfStageName.addFocusListener(new java.awt.event.FocusAdapter() {
+        tfCost.setText("Enter Room Cost");
+        tfCost.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                tfStageNameFocusGained(evt);
+                tfCostFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                tfStageNameFocusLost(evt);
+                tfCostFocusLost(evt);
             }
         });
-        pnlAdd.add(tfStageName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 170, -1));
+        pnlAdd.add(tfCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 190, -1));
 
-        tfEmail.setText("Enter Email");
-        tfEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+        tfEmaxNum.setText("Enter Number of Musicians");
+        tfEmaxNum.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                tfEmailFocusGained(evt);
+                tfEmaxNumFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                tfEmailFocusLost(evt);
+                tfEmaxNumFocusLost(evt);
             }
         });
-        pnlAdd.add(tfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 170, -1));
+        pnlAdd.add(tfEmaxNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 190, -1));
 
-        lblPass4.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
-        lblPass4.setForeground(new java.awt.Color(255, 0, 51));
-        pnlAdd.add(lblPass4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 400, 20));
+        lblCostError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        lblCostError.setForeground(new java.awt.Color(255, 0, 51));
+        pnlAdd.add(lblCostError, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 390, 20));
 
-        lblNameError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
-        lblNameError.setForeground(new java.awt.Color(255, 0, 51));
-        pnlAdd.add(lblNameError, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 390, 20));
+        lblPhone.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblPhone.setForeground(new java.awt.Color(255, 255, 255));
+        lblPhone.setText("Room Number");
+        pnlAdd.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        Pass1.setText("jPasswordField1");
-        Pass1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                Pass1FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                Pass1FocusLost(evt);
-            }
-        });
-        pnlAdd.add(Pass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 170, -1));
+        boxStudios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Studio" }));
+        pnlAdd.add(boxStudios, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 190, -1));
 
-        Pass2.setText("jPasswordField2");
-        Pass2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                Pass2FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                Pass2FocusLost(evt);
+        lblNum.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblNum.setForeground(new java.awt.Color(255, 255, 255));
+        lblNum.setText("Room Number");
+        pnlAdd.add(lblNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 190, 20));
+
+        boxIso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Option", "Yes", "No" }));
+        boxIso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boxIsoMouseExited(evt);
             }
         });
-        pnlAdd.add(Pass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 170, -1));
+        pnlAdd.add(boxIso, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 190, -1));
 
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(0, 40, 780, 260);
@@ -168,186 +156,122 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
         lblGen.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblGen.setForeground(new java.awt.Color(255, 0, 51));
         getContentPane().add(lblGen);
-        lblGen.setBounds(150, 310, 380, 20);
+        lblGen.setBounds(20, 340, 380, 20);
 
         btnAdd.setBackground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Add Artist");
+        btnAdd.setText("Add Room");
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddMouseClicked(evt);
             }
         });
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
         getContentPane().add(btnAdd);
-        btnAdd.setBounds(20, 310, 90, 20);
+        btnAdd.setBounds(20, 310, 100, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void tfStageNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfStageNameFocusGained
-        if (tfStageName.getText().equals("Enter stage name"))
-            tfStageName.setText("");
-    }//GEN-LAST:event_tfStageNameFocusGained
+    private void tfCostFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCostFocusGained
+        if (tfCost.getText().equals("Enter Room Cost"))
+            tfCost.setText("");
+    }//GEN-LAST:event_tfCostFocusGained
     
-    private void tfEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEmailFocusGained
-        if (tfEmail.getText().equals("Enter Email"))
-            tfEmail.setText("");
-    }//GEN-LAST:event_tfEmailFocusGained
-    
-    private void Pass1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass1FocusGained
-        if (Pass1.getText().equals("jPasswordField1"))
-            Pass1.setText("");
-    }//GEN-LAST:event_Pass1FocusGained
-    
-    private void Pass2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass2FocusGained
-        if (Pass2.getText().equals("jPasswordField2"))
-            Pass2.setText("");
-    }//GEN-LAST:event_Pass2FocusGained
+    private void tfEmaxNumFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEmaxNumFocusGained
+        if (tfEmaxNum.getText().equals("Enter Number of Musicians"))
+            tfEmaxNum.setText("");
+    }//GEN-LAST:event_tfEmaxNumFocusGained
+                
+    private void tfCostFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCostFocusLost
         
-    private void tfStageNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfStageNameFocusLost
-        String sn = tfStageName.getText();
-        if (sn.length() < 3){
-            lblNameError.setText("Name is too short");
-            stageName = null;
-            updateWin();
-            return;
-        }
-        if (!CharValidator.isWord(sn)){
-            lblNameError.setText("Name must contain at least 3 valid letters");
-            stageName = null;
+        if (!CharValidator.isNumber(tfCost.getText())){
+            lblCostError.setText("Invalid number");
+            hourRate = -1;
             updateWin();
             return;
         }
         
-        lblNameError.setText("");
-        stageName = tfStageName.getText();
+        double cost = PositiveValidator.stringToNum(tfCost.getText());
+        if (cost < 1 || cost > 10000){
+            lblCostError.setText("cost shpuld be between 1-10000");
+            hourRate = -1;
+            updateWin();
+            return;
+        }
+        
+        lblCostError.setText("");
+        hourRate = cost;
         updateWin();
-    }//GEN-LAST:event_tfStageNameFocusLost
+    }//GEN-LAST:event_tfCostFocusLost
     
-    private void tfEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEmailFocusLost
-        String mail = tfEmail.getText();
-        if (!EmailValidator.validateEmail(mail)){
-            lblMailError.setText("Please enter valid email - username@domain.host");
-            Email = null;
+    private void tfEmaxNumFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEmaxNumFocusLost
+                
+        if (!CharValidator.isNumber(tfEmaxNum.getText())){
+            lblCostError.setText("Invalid number");
+            maxMusicians = -1;
             updateWin();
             return;
         }
         
-        Email = mail;
-        lblMailError.setText("");
+        double max = PositiveValidator.stringToNum(tfEmaxNum.getText());
+        if (max < 1 || max > 100){
+            lblCostError.setText("Amount of musicians should bw between 1-100");
+            maxMusicians = -1;
+            updateWin();
+            return;
+        }
+        
+        lblCostError.setText("");
+        maxMusicians = (int) max;
         updateWin();
-        
-    }//GEN-LAST:event_tfEmailFocusLost
-    
-    private void Pass2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass2FocusLost
-        String pass1= Pass1.getText();
-        String pass2 = Pass2.getText();
-        if (pass1.length() < 4){
-            lblPass4.setText("Password must contain at least 4 characters");
-            password =null;
-            updateWin();
-            return;
-        }
-        
-        if (!pass1.equals(pass2)){
-            lblPass4.setText("Passwords does not match");
-            password =null;
-            updateWin();
-            return;
-        }
-        
-        lblPass4.setText("");
-        password = pass2;
-        updateWin();
-        
-    }//GEN-LAST:event_Pass2FocusLost
-    
-    private void Pass1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass1FocusLost
-        String pass1= Pass1.getText();
-        String pass2 = Pass2.getText();
-        if (pass1.length() < 4){
-            lblPass4.setText("Password must contain at least 4 characters");
-            password =null;
-            updateWin();
-            return;
-        }
-        
-        if (!pass1.equals(pass2)){
-            if (Pass2.getText().equals("jPasswordField2"))
-                lblPass4.setText("");
-            else{
-                lblPass4.setText("Passwords does not match");
-            }
-            password =null;
-            updateWin();
-            return;
-        }
-        
-        updateWin();
-        
-    }//GEN-LAST:event_Pass1FocusLost
-    
+    }//GEN-LAST:event_tfEmaxNumFocusLost
+            
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        if (artistID == null || stageName == null || Email == null || password == null){
-            lblGen.setText("One or more fields ane missing");
-            updateWin();
-            return;
-        }
-        else{
-            java.util.Date date = new java.util.Date();
-            java.sql.Date dateExpired = new java.sql.Date(date.getTime());
-            Artist toAdd = new Artist(artistID, stageName, Email ,password, dateExpired, EAuth.Artist);
-            pnlAdd.setVisible(false);
-            //System.out.println(ArtistManager.addArtist(toAdd));
-            //TODO - FIX THIS IF 
-            if (ArtistManager.addArtist(toAdd) > 0){
-                lblGen.setForeground(Color.GREEN);
-                lblGen.setText("Artist was added succefully");
-                btnAdd.disable();
-            }
-            else{
-                lblGen.setText("Something went wrong");
-            }
-            updateWin();
-            return;
-        }
+//        if (studioName == null || Email == null|| address == null || phone == null || description == null){
+//            lblGen.setText("One or more fields ane missing");
+//            updateWin();
+//            return;
+//        }
+//        else{
+//            pnlAdd.setVisible(false);
+//            Studio toAdd = new Studio (studioName, address ,Email , phone, description, studioID);
+//            //System.out.println(ArtistManager.addArtist(toAdd));
+//            //TODO - FIX THIS IF 
+//            if (StudioAndRoomManager.addStudio(toAdd) > 0){
+//                lblGen.setForeground(Color.GREEN);
+//                lblGen.setText("Studio was added succefully");
+//                btnAdd.hide();
+//            }
+//            else{
+//                lblGen.setText("Something went wrong");
+//                btnAdd.hide();
+//            }
+//
+//            updateWin();
+//            return;
+//        }
          
     }//GEN-LAST:event_btnAddMouseClicked
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddActionPerformed
-    
+    private void boxIsoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boxIsoMouseExited
+        if (boxIso.getSelectedIndex() == 0) return;
+        if (boxIso.getSelectedIndex() == 1) this.hasIsolation = true;
+        else if (boxIso.getSelectedIndex() == 2) this.hasIsolation = false;
+        
+        updateWin();
+        return;
+    }//GEN-LAST:event_boxIsoMouseExited
+
+        
     private void init(){
-        createArtistID(); 
+        initStudios(); 
     }
     
     /**
      * this method generates random id for artist
      * the generated id is checked by the controller before it's set
      */
-    private void createArtistID(){
-        Random rand = new Random();
-        int num = 0;
-        String tempID = null;
-        while (true){
-            num = rand.nextInt(9999);
-            if (num > 1000){
-                tempID = "AR"+num;
-                
-                if (!ArtistManager.isExists(tempID)){
-                    artistID = tempID;
-                    lblID.setText(tempID);
-                    updateWin();
-                    return;
-                }
-            }
-        }
-
+    private void initStudios(){
+       
     }
     
     public void updateWin(){
@@ -357,22 +281,21 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField Pass1;
-    private javax.swing.JPasswordField Pass2;
+    private javax.swing.JComboBox<String> boxIso;
+    private javax.swing.JComboBox<String> boxStudios;
     private javax.swing.JButton btnAdd;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel lblArtistID;
-    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblCostError;
     private javax.swing.JLabel lblGen;
-    private javax.swing.JLabel lblID;
-    private javax.swing.JLabel lblMailError;
-    private javax.swing.JLabel lblNameError;
-    private javax.swing.JLabel lblPass1;
-    private javax.swing.JLabel lblPass2;
-    private javax.swing.JLabel lblPass4;
-    private javax.swing.JLabel lblStageName;
+    private javax.swing.JLabel lblMaxError;
+    private javax.swing.JLabel lblNum;
+    private javax.swing.JLabel lblPhone;
+    private javax.swing.JLabel lblRate;
+    private javax.swing.JLabel lblStudio;
+    private javax.swing.JLabel lblisloation;
+    private javax.swing.JLabel lblmaxMus;
     private javax.swing.JPanel pnlAdd;
-    private javax.swing.JTextField tfEmail;
-    private javax.swing.JTextField tfStageName;
+    private javax.swing.JTextField tfCost;
+    private javax.swing.JTextField tfEmaxNum;
     // End of variables declaration//GEN-END:variables
 }
