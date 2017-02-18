@@ -1,0 +1,11 @@
+=================  iRecord v1.0 - Sat Feb 18 11:40:54 IST 2017 ==================
+11:40:54	Attempting connection to MS Access DB
+11:40:54	DB File: C:\Users\micke\Documents\NetBeansProjects\iRECORD\iRecord\sources\iRecord.accdb
+11:40:55	Successfully connected to MS Access DB.
+11:40:55	Opening Login Window through iWindow
+11:40:55	Submitted
+11:40:55	User: admin Password: 1111
+11:40:55	Attempting login using admin/1111
+11:40:55	Artist logged in
+11:40:55	Initiating main UI
+11:41:06	Sending UPDATE Query: INSERT INTO artists (ArtistID, StageName, sEmail, strPasswd, dateExpired) VALUES ("AR3846", "qwe" ,"qwe@ww.ww", "1234","2017-02-18 11:41:06.225")

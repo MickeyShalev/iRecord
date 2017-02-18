@@ -33,15 +33,25 @@ public class Artist extends Person {
     private String stageName= "";
     private java.sql.Date dateExpired;
     
+    
     public Artist(String ID, String strStageName, String strPasswd, java.sql.Date dateExpired, EAuth authType){
         super(ID, strStageName, "", strPasswd, authType);
         setEmailAddr(emailAddr);
         setID(ID);
         setStageName(stageName);
         setDateExpired(dateExpired);
-        
-    
+
     }
+    
+    
+        public Artist(String ID, String strStageName, String mail, String strPasswd, java.sql.Date dateExpired, EAuth authType){
+        super(ID, strStageName, "", strPasswd, authType);
+        setEmailAddr(mail);
+        setID(ID);
+        this.stageName = strStageName;
+        setDateExpired(dateExpired);
+        
+        }
 
     public Date getDateExpired() {
         return dateExpired;

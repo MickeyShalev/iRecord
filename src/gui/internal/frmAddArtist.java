@@ -224,7 +224,7 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         }
         
         lblNameError.setText("");
-        stageName = sn;
+        stageName = tfStageName.getText();
         updateWin();
     }//GEN-LAST:event_tfStageNameFocusLost
     
@@ -300,11 +300,17 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         else{
             java.util.Date date = new java.util.Date();
             java.sql.Date dateExpired = new java.sql.Date(date.getTime());
-            Artist toAdd = new Artist(artistID, stageName, password, dateExpired, EAuth.Artist);
+            Artist toAdd = new Artist(artistID, stageName, Email ,password, dateExpired, EAuth.Artist);
             pnlAdd.setVisible(false);
-            lblGen.setForeground(Color.GREEN);
-            lblGen.setText("Artist was added succefully");
-            ArtistManager.addArtist(toAdd);
+            //System.out.println(ArtistManager.addArtist(toAdd));
+            if (ArtistManager.addArtist(toAdd) > 0){
+                lblGen.setForeground(Color.GREEN);
+                lblGen.setText("Artist was added succefully");
+                btnAdd.disable();
+            }
+            else{
+                lblGen.setText("Something went wrong");
+            }
             updateWin();
             return;
         }

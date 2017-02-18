@@ -7,6 +7,7 @@ package iRecord;
 
 import gui.main.LoginGui;
 import gui.main.iWindow;
+import iRecord.Controller.ArtistManager;
 import javax.swing.JFrame;
 import iRecord.utilities.EAuth;
 
@@ -21,6 +22,7 @@ public class MainClass {
             iRecord project = new iRecord();
             //Initiate GUI
             //JFrame LoginGui = new LoginGui();
+            //ArtistManager.addA();
             iRecord.log("Opening Login Window through iWindow");
             iWindow.openLogin();
             
