@@ -86,6 +86,10 @@ public class Room {
     public void setHasIsolation(Boolean hasIsolation) {
         this.hasIsolation = hasIsolation;
     }
+    
+    public int getStudioIdInt(){
+        return this.StudioID;
+    }
 
     @Override
     public int hashCode() {

@@ -1,5 +1,6 @@
 package iRecord.Controller;
 
+import entities.Room;
 import entities.Studio;
 import iRecord.iRecord;
 import java.sql.ResultSet;
@@ -36,8 +37,8 @@ public class StudioAndRoomManager {
     }
     
     /**
-     * This method returns the next expectd index number
-     * May return false if the hightest index is deleted manually from the DB
+     * This method returns the next expected index number
+     * May return false if the highest index is deleted manually from the DB
      * it won't affect anything because the numbering is automatic in the DB
      * @return 
      */
@@ -66,22 +67,29 @@ public class StudioAndRoomManager {
     public static Map<Integer, Studio> getStudios(){
         Map<Integer, Studio> studios = new HashMap<Integer, Studio>();
         
-        ResultSet rs = iRecord.getDB().query("SELECT Studios*");
+        ResultSet rs = iRecord.getDB().query("select * from Studio");
         
         try {
-            if (rs.next()){
-                int sID = rs.getInt("studioID");
+            while(rs.next()){
+                //Studio Details
+                Integer StudioID = rs.getInt("StudioID");
                 String sName = rs.getString("sName");
-                String sAddr = rs.getString("sAddress");
-                String email = rs.getString("sEmail");
-                String phone = rs.getString("sPhoneNum");
-                String desc = rs.getString("sDesc");
-                studios.put(new Integer(sID), new Studio(sName, sAddr, email, phone, desc, sID));
-                //System.out.println(number);
+                String sAddress = rs.getString("sAddress");
+                String sEmail = rs.getString("sEmail");
+                String sPhoneNum = rs.getString("sPhoneNum");
+                String sDesc = rs.getString("sDesc");
+                Studio stud = new Studio(sName, sAddress, sEmail, sPhoneNum, sDesc, StudioID);
+                studios.put(StudioID, stud);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //test
+//        for (Studio s:studios.values()){
+//            System.out.println(s.getsID() + " " + s.getsName());
+//        }
+        
         
         return studios;
     }
@@ -89,9 +97,41 @@ public class StudioAndRoomManager {
     /**
      * This method add new room to DB
      */
-    public static void addRoom(){
+    public static int addRoom(Room r){
+        int status = 1;
+        
+    //String qry = "INSERT INTO Studio (RoomNum, StudioID, hourRate, maxMusicians, hasIsolation)"
+    //            + " VALUES ("+r.getRoomNum() +","r.getStudioIdInt()+", "+r.getHourRate()+", "+r.getMaxMusicians()+",\""+s.getsPhoneNum()+"\", \""+s.getsDesc()+"\")";
         
         
+//        if (iRecord.getDB().updateReturnID(qry) < 0) {                                     //
+//            status = -1;
+//        }
+//        
+//        
+        return status;
+    }
+    
+    public static int getNextRoomNum(int studioNum){
+     int num = -1;
+     
+     ResultSet rs = iRecord.getDB().query("SELECT MAX ((Room.RoomNum))\n" +
+                    "FROM Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]\n" +
+                    "WHERE (((Room.StudioID)=" +studioNum+"));");
+        
+        
+        //if exists return ture
+        try {
+            if (rs.next()){
+                num = rs.getInt(1);
+                //System.out.println(number);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     
+     return num+1;
     }
     
 }

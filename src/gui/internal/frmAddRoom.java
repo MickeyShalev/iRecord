@@ -16,6 +16,7 @@ import iRecord.Validators.CharValidator;
 import iRecord.utilities.EAuth;
 import java.awt.Color;
 import java.util.Date;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -60,9 +61,9 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
         tfEmaxNum = new javax.swing.JTextField();
         lblCostError = new javax.swing.JLabel();
         lblPhone = new javax.swing.JLabel();
-        boxStudios = new javax.swing.JComboBox<>();
         lblNum = new javax.swing.JLabel();
         boxIso = new javax.swing.JComboBox<>();
+        slctStudio = new javax.swing.JComboBox<>();
         lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -134,9 +135,6 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
         lblPhone.setText("Room Number");
         pnlAdd.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        boxStudios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Studio" }));
-        pnlAdd.add(boxStudios, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 190, -1));
-
         lblNum.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNum.setForeground(new java.awt.Color(255, 255, 255));
         lblNum.setText("Room Number");
@@ -149,6 +147,19 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
             }
         });
         pnlAdd.add(boxIso, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 190, -1));
+
+        slctStudio.setModel(new javax.swing.DefaultComboBoxModel<>(new Studio[] { new Studio("Select Studio") }));
+        slctStudio.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                slctStudioItemStateChanged(evt);
+            }
+        });
+        slctStudio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                slctStudioPropertyChange(evt);
+            }
+        });
+        pnlAdd.add(slctStudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 190, -1));
 
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(0, 40, 780, 260);
@@ -206,7 +217,7 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
     private void tfEmaxNumFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEmaxNumFocusLost
                 
         if (!CharValidator.isNumber(tfEmaxNum.getText())){
-            lblCostError.setText("Invalid number");
+            lblMaxError.setText("Invalid number");
             maxMusicians = -1;
             updateWin();
             return;
@@ -214,41 +225,42 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
         
         double max = PositiveValidator.stringToNum(tfEmaxNum.getText());
         if (max < 1 || max > 100){
-            lblCostError.setText("Amount of musicians should bw between 1-100");
+            lblMaxError.setText("Amount of musicians should bw between 1-100");
             maxMusicians = -1;
             updateWin();
             return;
         }
         
-        lblCostError.setText("");
+        lblMaxError.setText("");
         maxMusicians = (int) max;
         updateWin();
     }//GEN-LAST:event_tfEmaxNumFocusLost
             
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-//        if (studioName == null || Email == null|| address == null || phone == null || description == null){
-//            lblGen.setText("One or more fields ane missing");
-//            updateWin();
-//            return;
-//        }
-//        else{
-//            pnlAdd.setVisible(false);
-//            Studio toAdd = new Studio (studioName, address ,Email , phone, description, studioID);
-//            //System.out.println(ArtistManager.addArtist(toAdd));
-//            //TODO - FIX THIS IF 
-//            if (StudioAndRoomManager.addStudio(toAdd) > 0){
-//                lblGen.setForeground(Color.GREEN);
-//                lblGen.setText("Studio was added succefully");
-//                btnAdd.hide();
-//            }
-//            else{
-//                lblGen.setText("Something went wrong");
-//                btnAdd.hide();
-//            }
-//
-//            updateWin();
-//            return;
-//        }
+        if (studioID < 1 || roomID < 1 || hourRate < 1 || maxMusicians < 1 || boxIso.getSelectedIndex() ==0){
+            lblGen.setText("One or more fields ane missing");
+            updateWin();
+            return;
+        }
+        else{
+            pnlAdd.setVisible(false);
+            Room toAdd = new Room (studioID, roomID, hourRate, maxMusicians, hasIsolation);
+            
+            //TODO - FIX THIS IF 
+            if (StudioAndRoomManager.addRoom(toAdd) > 0){
+                lblGen.setForeground(Color.GREEN);
+                lblGen.setText("Studio was added succefully");
+                btnAdd.hide();
+            }
+            else{
+                lblGen.setText("Something went wrong");
+                btnAdd.hide();
+            }
+
+            updateWin();
+            return;
+            
+        }
          
     }//GEN-LAST:event_btnAddMouseClicked
 
@@ -261,6 +273,21 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
         return;
     }//GEN-LAST:event_boxIsoMouseExited
 
+    private void slctStudioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_slctStudioItemStateChanged
+       if (slctStudio.getSelectedIndex() == 0) return;
+        Studio s = (Studio) slctStudio.getSelectedItem();
+        System.out.println(s.getsID() + "  " +s.getsName());
+        
+        studioID = s.getsID();
+        int room = StudioAndRoomManager.getNextRoomNum(s.getsID());
+        lblNum.setText(Integer.valueOf(room).toString());
+        updateWin(); 
+    }//GEN-LAST:event_slctStudioItemStateChanged
+
+    private void slctStudioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_slctStudioPropertyChange
+        
+    }//GEN-LAST:event_slctStudioPropertyChange
+
         
     private void init(){
         initStudios(); 
@@ -271,6 +298,10 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
      * the generated id is checked by the controller before it's set
      */
     private void initStudios(){
+       Map<Integer,Studio> studios = StudioAndRoomManager.getStudios();
+       for (Studio s:studios.values()){
+           slctStudio.addItem(s);
+       }
        
     }
     
@@ -282,7 +313,6 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxIso;
-    private javax.swing.JComboBox<String> boxStudios;
     private javax.swing.JButton btnAdd;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel lblCostError;
@@ -295,6 +325,7 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblisloation;
     private javax.swing.JLabel lblmaxMus;
     private javax.swing.JPanel pnlAdd;
+    private javax.swing.JComboBox<Studio> slctStudio;
     private javax.swing.JTextField tfCost;
     private javax.swing.JTextField tfEmaxNum;
     // End of variables declaration//GEN-END:variables
