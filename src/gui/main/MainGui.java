@@ -7,6 +7,7 @@ package gui.main;
 
 import gui.internal.frmAddArtist;
 import gui.internal.frmAddRoom;
+import gui.internal.frmAddSoundman;
 import gui.internal.frmAddStudio;
 import gui.internal.frmCreateSession;
 import iRecord.iRecord;
@@ -255,7 +256,8 @@ public class MainGui extends javax.swing.JFrame {
     private void btnaddArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnaddArtistMouseClicked
         //frmAddArtist add = new frmAddArtist();
         //frmAddStudio add = new frmAddStudio(); 
-        frmAddRoom add = new frmAddRoom();
+        //frmAddRoom add = new frmAddRoom();
+        frmAddSoundman add = new frmAddSoundman();
         iWindow.openWin(add);
     }//GEN-LAST:event_btnaddArtistMouseClicked
 

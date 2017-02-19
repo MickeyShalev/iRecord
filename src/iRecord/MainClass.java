@@ -23,7 +23,7 @@ public class MainClass {
             iRecord project = new iRecord();
             //Initiate GUI
             //JFrame LoginGui = new LoginGui();
-            //StudioAndRoomManager.getStudios();
+            //StudioAndRoomManager.addRoom2();
             iRecord.log("Opening Login Window through iWindow");
             iWindow.openLogin();
             

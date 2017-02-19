@@ -19,7 +19,7 @@ public class StudioAndRoomManager {
     /**
      * This method adds new Studio to DB
      * @param s
-     * @return 
+     * @return
      */
     public static int addStudio(Studio s){
         int status = -1;
@@ -40,7 +40,7 @@ public class StudioAndRoomManager {
      * This method returns the next expected index number
      * May return false if the highest index is deleted manually from the DB
      * it won't affect anything because the numbering is automatic in the DB
-     * @return 
+     * @return
      */
     public static int getStudioNextKey(){
         int number = 0;
@@ -89,9 +89,9 @@ public class StudioAndRoomManager {
 //        for (Studio s:studios.values()){
 //            System.out.println(s.getsID() + " " + s.getsName());
 //        }
-        
-        
-        return studios;
+
+
+return studios;
     }
     
     /**
@@ -100,24 +100,26 @@ public class StudioAndRoomManager {
     public static int addRoom(Room r){
         int status = 1;
         
-    //String qry = "INSERT INTO Studio (RoomNum, StudioID, hourRate, maxMusicians, hasIsolation)"
-    //            + " VALUES ("+r.getRoomNum() +","r.getStudioIdInt()+", "+r.getHourRate()+", "+r.getMaxMusicians()+",\""+s.getsPhoneNum()+"\", \""+s.getsDesc()+"\")";
+        int isolation = r.getHasIsolation() ? 1 : 0;
+        String qry = "INSERT INTO Room (RoomNum, StudioID, hourRate, maxMusicians, hasIsolation)"
+                + " VALUES (" + r.getRoomNum() + ", "+ r.getStudioIdInt()+", "+r.getHourRate()+", " + r.getMaxMusicians()+"," + isolation +")";
+        
+
+        
+        if (iRecord.getDB().updateReturnID(qry) < 0) {                                     //
+            status = -1;
+        }
         
         
-//        if (iRecord.getDB().updateReturnID(qry) < 0) {                                     //
-//            status = -1;
-//        }
-//        
-//        
         return status;
     }
     
     public static int getNextRoomNum(int studioNum){
-     int num = -1;
-     
-     ResultSet rs = iRecord.getDB().query("SELECT MAX ((Room.RoomNum))\n" +
-                    "FROM Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]\n" +
-                    "WHERE (((Room.StudioID)=" +studioNum+"));");
+        int num = -1;
+        
+        ResultSet rs = iRecord.getDB().query("SELECT MAX ((Room.RoomNum))\n" +
+                "FROM Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]\n" +
+                "WHERE (((Room.StudioID)=" +studioNum+"));");
         
         
         //if exists return ture
@@ -129,9 +131,11 @@ public class StudioAndRoomManager {
         } catch (SQLException ex) {
             Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-     
-     
-     return num+1;
+        
+        
+        return num+1;
     }
     
+  
+
 }

@@ -281,6 +281,7 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
         studioID = s.getsID();
         int room = StudioAndRoomManager.getNextRoomNum(s.getsID());
         lblNum.setText(Integer.valueOf(room).toString());
+        roomID = room;
         updateWin(); 
     }//GEN-LAST:event_slctStudioItemStateChanged
 
