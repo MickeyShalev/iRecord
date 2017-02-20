@@ -252,9 +252,9 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
 
         lblpayError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblpayError.setForeground(new java.awt.Color(255, 0, 51));
-        pnlAdd.add(lblpayError, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 400, 20));
+        pnlAdd.add(lblpayError, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 400, 20));
 
-        tffull.setText("Enter cost");
+        tffull.setText("Enter Cost");
         tffull.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tffullFocusGained(evt);
@@ -273,7 +273,11 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         lblFileName.setForeground(new java.awt.Color(255, 255, 255));
         pnlAdd.add(lblFileName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 440, 20));
 
-        cbProf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbProf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbProfFocusLost(evt);
+            }
+        });
         pnlAdd.add(cbProf, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 170, -1));
 
         getContentPane().add(pnlAdd);
@@ -493,7 +497,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfLastNameFocusLost
 
     private void tffullFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffullFocusGained
-        if (tffull.getText().equals("Enter full payment"))
+        if (tffull.getText().equals("Enter Cost"))
             tffull.setText("");
     }//GEN-LAST:event_tffullFocusGained
 
@@ -531,6 +535,13 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         updateWin();
         return;
     }//GEN-LAST:event_jXDatePicker1FocusLost
+
+    private void cbProfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbProfFocusLost
+        if (cbProf.getSelectedIndex() == 0) return;
+        String prof = (String)cbProf.getSelectedItem();
+        Expertiese e = Expertiese.valueOf(prof);
+        profession = e.getValue();
+    }//GEN-LAST:event_cbProfFocusLost
     
     private void init(){
         createFLID();

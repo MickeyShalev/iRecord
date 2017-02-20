@@ -50,7 +50,8 @@ public class FreelancerManager {
     public static int addMusician(Musician s){
         int status = -1;
         
-        
+        if (isExists(s.getFreelancerID()))
+            status = 1;
         
         return status;
     }
