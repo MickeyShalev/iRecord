@@ -55,6 +55,10 @@ public class Musician extends Freelancer {
         return expertise;
     }
 
+    public Date getBirthdate(){
+        return this.birthdDate;
+    }
+    
     public void setExpertise(Integer expertise) {
         this.expertise = expertise;
     }

@@ -27,12 +27,10 @@ public class AgeValidator {
 			return false;
 		}
 		
-		long mils = today.getTime() - birthday.getTime();
-		long ageInDays = TimeUnit.MILLISECONDS.toDays(mils);
-		long maxAge = 100*365;
-		long minAge = min*365;
-		
-		if (ageInDays > minAge && ageInDays < maxAge) return true;
+                //System.out.println(today.getYear() - birthday.getYear());
+		if ((today.getYear() - birthday.getYear() - min) > 0){
+                    return true;
+                }
 		
 		
 		return false;

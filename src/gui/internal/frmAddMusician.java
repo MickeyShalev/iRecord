@@ -93,7 +93,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         jLabel16.setBackground(new Color(0,0,0,0));
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Add new Soundman window");
+        jLabel16.setText("Add new musician window");
         getContentPane().add(jLabel16);
         jLabel16.setBounds(10, 0, 360, 30);
 
@@ -231,6 +231,11 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         jXDatePicker1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jXDatePicker1FocusLost(evt);
+            }
+        });
+        jXDatePicker1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXDatePicker1ActionPerformed(evt);
             }
         });
         pnlAdd.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 170, 20));
@@ -410,7 +415,8 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Pass1FocusLost
     
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-
+        //System.out.println(flID +" " + firstName + " " + lastName + " " + lastName + " " +Email + " " + birthDate + " " + profession + " " + fullPayment);
+        
         if (firstName == null || lastName == null || stageName == null || Email ==null
                 || fullPayment < 0 || birthDate == null /* || password ==null */){
             lblGen.setText("One or more fields ane missing");
@@ -421,8 +427,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         else{
 //            java.util.Date date = new java.util.Date();
 //            java.sql.Date birthdate = new java.sql.Date(birthDate.getTime());
-            Musician toAdd = new Musician(flID, firstName,lastName,stageName, fullPayment, profession,0 , birthDate, Email); 
-            //Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority
+            Musician toAdd = new Musician(flID, firstName,lastName,stageName, fullPayment, profession, 0 , birthDate, Email); 
             pnlAdd.setVisible(false);
             //System.out.println(ArtistManager.addArtist(toAdd));
             //TODO - FIX THIS IF 
@@ -523,17 +528,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tffullFocusLost
 
     private void jXDatePicker1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jXDatePicker1FocusLost
-        Date picked = jXDatePicker1.getDate();
-        if (!AgeValidator.ValidateAge(picked, 12)){
-           lbdateError.setText("Can't add people under 12 years old or future dates");
-           birthDate = null;
-           updateWin();
-           return;
-        }
         
-        birthDate = picked;
-        updateWin();
-        return;
     }//GEN-LAST:event_jXDatePicker1FocusLost
 
     private void cbProfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbProfFocusLost
@@ -542,6 +537,22 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         Expertiese e = Expertiese.valueOf(prof);
         profession = e.getValue();
     }//GEN-LAST:event_cbProfFocusLost
+
+    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
+        
+        Date picked = jXDatePicker1.getDate();
+        if (!AgeValidator.ValidateAge(picked, 12)){
+           lbdateError.setText("Can't add people under 12 years old or future dates");
+           birthDate = null;
+           updateWin();
+           return;
+        }
+        
+        lbdateError.setText("");
+        birthDate = picked;
+        updateWin();
+        return;
+    }//GEN-LAST:event_jXDatePicker1ActionPerformed
     
     private void init(){
         createFLID();

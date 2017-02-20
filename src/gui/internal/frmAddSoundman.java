@@ -75,7 +75,6 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         tfLastName = new javax.swing.JTextField();
         lblLastError2 = new javax.swing.JLabel();
         lblLastName = new javax.swing.JLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         lblPass3 = new javax.swing.JLabel();
         cbProducer = new javax.swing.JCheckBox();
         cbMixTech = new javax.swing.JCheckBox();
@@ -88,6 +87,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         tffull = new javax.swing.JTextField();
         lbdateError = new javax.swing.JLabel();
         lblFileName = new javax.swing.JLabel();
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -230,15 +230,6 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         lblLastName.setText("Last Name");
         pnlAdd.add(lblLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        jXDatePicker1.setBackground(new Color(0,0,0,0));
-        jXDatePicker1.setForeground(new java.awt.Color(204, 0, 153));
-        jXDatePicker1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jXDatePicker1FocusLost(evt);
-            }
-        });
-        pnlAdd.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 170, 20));
-
         lblPass3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblPass3.setForeground(new java.awt.Color(255, 255, 255));
         lblPass3.setText("Down Payment");
@@ -322,6 +313,20 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         lblFileName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblFileName.setForeground(new java.awt.Color(255, 255, 255));
         pnlAdd.add(lblFileName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 440, 20));
+
+        jXDatePicker1.setBackground(new Color(0,0,0,0));
+        jXDatePicker1.setForeground(new java.awt.Color(204, 0, 153));
+        jXDatePicker1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jXDatePicker1FocusLost(evt);
+            }
+        });
+        jXDatePicker1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXDatePicker1ActionPerformed(evt);
+            }
+        });
+        pnlAdd.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 170, 20));
 
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(0, 40, 780, 380);
@@ -635,18 +640,24 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbMasterTechMouseClicked
 
     private void jXDatePicker1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jXDatePicker1FocusLost
+
+    }//GEN-LAST:event_jXDatePicker1FocusLost
+
+    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
+
         Date picked = jXDatePicker1.getDate();
         if (!AgeValidator.ValidateAge(picked, 12)){
-           lbdateError.setText("Can't add people under 12 years old or future dates");
-           birthDate = null;
-           updateWin();
-           return;
+            lbdateError.setText("Can't add people under 12 years old or future dates");
+            birthDate = null;
+            updateWin();
+            return;
         }
-        
+
+        lbdateError.setText("");
         birthDate = picked;
         updateWin();
         return;
-    }//GEN-LAST:event_jXDatePicker1FocusLost
+    }//GEN-LAST:event_jXDatePicker1ActionPerformed
     
     private void init(){
         createFLID();

@@ -22,7 +22,7 @@ public class FreelancerManager {
          
         //insert soundman to freelancer table - query
         String qry1 = "INSERT INTO Freelancer (FreelancerID, firstName, lastName, stageName, birthDate, strEmail, filePic)"
-                + " VALUES (\"" +s.getFreelancerID() +"\", \""+s.getFirstName()+"\" ,\""+s.getLastName()+"\", \""+s.getStageName()+"\",\"" + eDate + "\", \""+s.getEmail() +"\", ?\")";
+                + " VALUES (\"" +s.getFreelancerID() +"\", \""+s.getFirstName()+"\" ,\""+s.getLastName()+"\", \""+s.getStageName()+"\", \"" +eDate+ "\", \""+s.getEmail() +"\", \"Empty\" )";
         
         //insert soundman to soundman table - query
         int producer = s.getIsProducer()? 1 : 0;
@@ -45,10 +45,21 @@ public class FreelancerManager {
     
     
     /**
-     * 
+     *
      */
     public static int addMusician(Musician s){
         int status = -1;
+        
+        java.sql.Timestamp eDate = new java.sql.Timestamp (s.getBirthdate().getTime());
+        
+        String qry1 = "INSERT INTO Freelancer (FreelancerID, firstName, lastName, stageName, birthDate, strEmail, filePic)"
+                + " VALUES (\"" +s.getFreelancerID() +"\", \""+s.getFirstName()+"\" ,\""+s.getLastName()+"\", \""+s.getStageName()+"\", \"" +eDate+ "\", \""+s.getEmail() +"\", \"Empty\" )";
+        
+        String qry2 = "INSERT INTO Musician (MusicianID, Payroll, expertIn)"
+                + " VALUES (\"" + s.getFreelancerID() +"\", "+s.getPayRoll()+" , " +s.getExpertise().intValue()+")";
+        
+        iRecord.getDB().updateReturnID(qry1);
+        iRecord.getDB().updateReturnID(qry2);
         
         if (isExists(s.getFreelancerID()))
             status = 1;
