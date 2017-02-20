@@ -6,6 +6,7 @@
 package gui.main;
 
 import gui.internal.frmAddArtist;
+import gui.internal.frmAddMusician;
 import gui.internal.frmAddRoom;
 import gui.internal.frmAddSoundman;
 import gui.internal.frmAddStudio;
@@ -257,7 +258,8 @@ public class MainGui extends javax.swing.JFrame {
         //frmAddArtist add = new frmAddArtist();
         //frmAddStudio add = new frmAddStudio(); 
         //frmAddRoom add = new frmAddRoom();
-        frmAddSoundman add = new frmAddSoundman();
+        //frmAddSoundman add = new frmAddSoundman();
+        frmAddMusician add = new frmAddMusician();
         iWindow.openWin(add);
     }//GEN-LAST:event_btnaddArtistMouseClicked
 

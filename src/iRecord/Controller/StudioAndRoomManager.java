@@ -140,7 +140,7 @@ return studios;
     
     public static boolean isRoomExists(int roomNum, int studioID){
         //chech if artist is already exists
-        ResultSet rs = iRecord.getDB().query("SELECT Room.*, Room.roomnum, Room.studionum\n" +
+        ResultSet rs = iRecord.getDB().query("SELECT Room.*, Room.roomnum, Room.studioid\n" +
                 "FROM Room\n" +
                 "WHERE (((Room.Roomnum)="+roomNum+")) AND ((Room.studioID)="+studioID+")");
         
@@ -152,6 +152,7 @@ return studios;
             
         } catch (SQLException ex) {
             Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         
         return false;
@@ -159,9 +160,9 @@ return studios;
  
     public static boolean isStudioExists(int studioID){
         //chech if artist is already exists
-        ResultSet rs = iRecord.getDB().query("SELECT Studio.*, Studio.studioNum" +
+        ResultSet rs = iRecord.getDB().query("SELECT Studio.*, Studio.studioid\n" +
                 "FROM Studio\n" +
-                "WHERE ((Room.studioID)="+studioID+")");
+                "WHERE ((Studio.studioID)="+studioID+")");
         
         //if exists return ture
         try {

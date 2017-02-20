@@ -275,8 +275,7 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
         else{
             pnlAdd.setVisible(false);
             Studio toAdd = new Studio (studioName, address ,Email , phone, description, studioID);
-            //System.out.println(ArtistManager.addArtist(toAdd));
-            //TODO - FIX THIS IF 
+            
             if (StudioAndRoomManager.addStudio(toAdd) > 0){
                 lblGen.setForeground(Color.GREEN);
                 lblGen.setText("Studio was added succefully");
