@@ -24,14 +24,14 @@ public class StudioAndRoomManager {
     public static int addStudio(Studio s){
         int status = -1;
         
-        //Studio s = new Studio ("asd","asd","asd","asd","asd",6);
         String qry = "INSERT INTO Studio (StudioID, sName, sAddress, sEmail, sPhoneNum, sDesc)"
                 + " VALUES ("+s.getsID().intValue() +",\""+s.getsName()+"\", \""+s.getsAddress()+"\", \""+s.getsEmail()+"\",\""+s.getsPhoneNum()+"\", \""+s.getsDesc()+"\")";
         
         
-        if (iRecord.getDB().updateReturnID(qry) < 0) {                                     //
-            status = -1;
-        }
+        iRecord.getDB().updateReturnID(qry);
+        if (isStudioExists(s.getsID()))
+            status = 1;
+        
         
         return status;
     }
@@ -98,7 +98,7 @@ return studios;
      * This method add new room to DB
      */
     public static int addRoom(Room r){
-        int status = 1;
+        int status = -1;
         
         int isolation = r.getHasIsolation() ? 1 : 0;
         String qry = "INSERT INTO Room (RoomNum, StudioID, hourRate, maxMusicians, hasIsolation)"
@@ -106,9 +106,10 @@ return studios;
         
 
         
-        if (iRecord.getDB().updateReturnID(qry) < 0) {                                     //
-            status = -1;
-        }
+        iRecord.getDB().updateReturnID(qry);
+        if (isRoomExists(r.getRoomNum(), r.getStudioIdInt()))
+            status = 1;
+        
         
         
         return status;
@@ -136,6 +137,43 @@ return studios;
         return num+1;
     }
     
-  
-
+    
+    public static boolean isRoomExists(int roomNum, int studioID){
+        //chech if artist is already exists
+        ResultSet rs = iRecord.getDB().query("SELECT Room.*, Room.roomnum, Room.studionum\n" +
+                "FROM Room\n" +
+                "WHERE (((Room.Roomnum)="+roomNum+")) AND ((Room.studioID)="+studioID+")");
+        
+        //if exists return ture
+        try {
+            if (rs.next()){
+                return true;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+ 
+    public static boolean isStudioExists(int studioID){
+        //chech if artist is already exists
+        ResultSet rs = iRecord.getDB().query("SELECT Studio.*, Studio.studioNum" +
+                "FROM Studio\n" +
+                "WHERE ((Room.studioID)="+studioID+")");
+        
+        //if exists return ture
+        try {
+            if (rs.next()){
+                return true;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+ 
 }

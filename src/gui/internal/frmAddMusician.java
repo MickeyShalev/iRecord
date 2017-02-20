@@ -24,20 +24,20 @@ import javax.swing.JFileChooser;
  *
  * @author nisan
  */
-public class frmAddSoundman extends javax.swing.JInternalFrame {
+public class frmAddMusician extends javax.swing.JInternalFrame {
     private String flID;
     private String firstName, lastName, stageName;
     private String Email;
     private String password;
-    private double fullPayment = -1, downPayment = -1;
-    Date birthDate;
-    boolean isProducer = false, isMixTech = false, isMasterTech = false;
+    private double fullPayment = -1;
+    private Date birthDate;
+    private int profession;
     
     
     /**
      * Creates new form frmCreateSession
      */
-    public frmAddSoundman() {
+    public frmAddMusician() {
         setTitle("Add Artist Page");
         initComponents();
         
@@ -76,18 +76,14 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         lblLastError2 = new javax.swing.JLabel();
         lblLastName = new javax.swing.JLabel();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        lblPass3 = new javax.swing.JLabel();
-        cbProducer = new javax.swing.JCheckBox();
-        cbMixTech = new javax.swing.JCheckBox();
-        cbMasterTech = new javax.swing.JCheckBox();
         lblPass5 = new javax.swing.JLabel();
         lblPass6 = new javax.swing.JLabel();
         lblPass7 = new javax.swing.JLabel();
         lblpayError = new javax.swing.JLabel();
-        tfdown = new javax.swing.JTextField();
         tffull = new javax.swing.JTextField();
         lbdateError = new javax.swing.JLabel();
         lblFileName = new javax.swing.JLabel();
+        cbProf = new javax.swing.JComboBox<>();
         lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -239,41 +235,6 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         });
         pnlAdd.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 170, 20));
 
-        lblPass3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblPass3.setForeground(new java.awt.Color(255, 255, 255));
-        lblPass3.setText("Down Payment");
-        pnlAdd.add(lblPass3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
-
-        cbProducer.setBackground(new java.awt.Color(204, 0, 255));
-        cbProducer.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbProducer.setText("Producer");
-        cbProducer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbProducerMouseClicked(evt);
-            }
-        });
-        pnlAdd.add(cbProducer, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, -1));
-
-        cbMixTech.setBackground(new java.awt.Color(204, 0, 255));
-        cbMixTech.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbMixTech.setText("MixTech");
-        cbMixTech.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbMixTechMouseClicked(evt);
-            }
-        });
-        pnlAdd.add(cbMixTech, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, -1, -1));
-
-        cbMasterTech.setBackground(new java.awt.Color(204, 0, 255));
-        cbMasterTech.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbMasterTech.setText("MaserTech");
-        cbMasterTech.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbMasterTechMouseClicked(evt);
-            }
-        });
-        pnlAdd.add(cbMasterTech, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
-
         lblPass5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblPass5.setForeground(new java.awt.Color(255, 255, 255));
         lblPass5.setText("Password");
@@ -286,25 +247,14 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
 
         lblPass7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblPass7.setForeground(new java.awt.Color(255, 255, 255));
-        lblPass7.setText("Full Payment");
+        lblPass7.setText("Cost / Hour");
         pnlAdd.add(lblPass7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         lblpayError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblpayError.setForeground(new java.awt.Color(255, 0, 51));
         pnlAdd.add(lblpayError, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 400, 20));
 
-        tfdown.setText("Enter down payment");
-        tfdown.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tfdownFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfdownFocusLost(evt);
-            }
-        });
-        pnlAdd.add(tfdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 170, -1));
-
-        tffull.setText("Enter full payment");
+        tffull.setText("Enter cost");
         tffull.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tffullFocusGained(evt);
@@ -322,6 +272,9 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         lblFileName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblFileName.setForeground(new java.awt.Color(255, 255, 255));
         pnlAdd.add(lblFileName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 440, 20));
+
+        cbProf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlAdd.add(cbProf, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 170, -1));
 
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(0, 40, 780, 380);
@@ -453,20 +406,9 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Pass1FocusLost
     
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        if (!isMixTech && !isProducer && !isMasterTech){
-            lblGen.setText("You must pick at least one profession for soundman");
-            updateWin();
-            return;
-        }
-        
-        if(downPayment > fullPayment){
-            lblpayError.setText("Down payment can't be greather than full payment");
-            updateWin();
-            return;
-        }
-        
+
         if (firstName == null || lastName == null || stageName == null || Email ==null
-                || fullPayment < 0 || downPayment < 0 || birthDate == null /* || password ==null */){
+                || fullPayment < 0 || birthDate == null /* || password ==null */){
             lblGen.setText("One or more fields ane missing");
             updateWin();
             return;
@@ -475,11 +417,12 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         else{
 //            java.util.Date date = new java.util.Date();
 //            java.sql.Date birthdate = new java.sql.Date(birthDate.getTime());
-            Soundman toAdd = new Soundman(flID, firstName,lastName,stageName,isProducer,isMixTech,isMasterTech, downPayment,fullPayment,0 , birthDate, Email); 
+            Musician toAdd = new Musician(flID, firstName,lastName,stageName, fullPayment, profession,0 , birthDate, Email); 
+            //Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority
             pnlAdd.setVisible(false);
             //System.out.println(ArtistManager.addArtist(toAdd));
             //TODO - FIX THIS IF 
-            if (FreelancerManager.addSoundman(toAdd) > 0){
+            if (FreelancerManager.addMusician(toAdd) > 0){
                 lblGen.setForeground(Color.GREEN);
                 lblGen.setText("Artist was added succefully");
                 btnAdd.hide();
@@ -549,47 +492,13 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         updateWin();
     }//GEN-LAST:event_tfLastNameFocusLost
 
-    private void tfdownFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdownFocusGained
-        if (tfdown.getText().equals("Enter down payment"))
-        tfdown.setText("");
-    }//GEN-LAST:event_tfdownFocusGained
-
-    private void tfdownFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdownFocusLost
-
-        if (!CharValidator.isNumber(tfdown.getText())){
-            lblpayError.setText("Invalid number");
-            downPayment = -1;
-            updateWin();
-            return;
-        }
-
-        double cost = PositiveValidator.stringToNum(tfdown.getText());
-        if (cost < 0 || cost > 10000){
-            lblpayError.setText("cost should be between 0-10000");
-            downPayment = -1;
-            updateWin();
-            return;
-        }
-        
-        if (cost > fullPayment){
-            lblpayError.setText("Down payment can't be greather than full payment");
-            downPayment = cost;
-            updateWin();
-            return;
-        }
-        
-        lblpayError.setText("");
-        downPayment = cost;
-        updateWin();
-    }//GEN-LAST:event_tfdownFocusLost
-
     private void tffullFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffullFocusGained
         if (tffull.getText().equals("Enter full payment"))
             tffull.setText("");
     }//GEN-LAST:event_tffullFocusGained
 
     private void tffullFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffullFocusLost
-        
+        double cost = PositiveValidator.stringToNum(tffull.getText());
         if (!CharValidator.isNumber(tffull.getText())){
             lblpayError.setText("Invalid number");
             fullPayment = -1;
@@ -597,7 +506,6 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
             return;
         }
 
-        double cost = PositiveValidator.stringToNum(tffull.getText());
         if (cost < 0 || cost > 10000){
             lblpayError.setText("cost should be between 0-10000");
             fullPayment = -1;
@@ -605,34 +513,10 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
             return;
         }
         
-        fullPayment = cost;
-        if (downPayment > fullPayment){
-            lblpayError.setText("Down payment can't be greather than full payment");
-            updateWin();
-            return;
-        }
-        
         lblpayError.setText("");
+        fullPayment = cost;
         updateWin();
     }//GEN-LAST:event_tffullFocusLost
-
-    private void cbProducerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbProducerMouseClicked
-        if (cbProducer.isSelected()) isProducer = true;
-        else isProducer = false;
-        updateWin();
-    }//GEN-LAST:event_cbProducerMouseClicked
-
-    private void cbMixTechMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbMixTechMouseClicked
-        if (cbMixTech.isSelected()) isMixTech = true;
-        else isMixTech = false;
-        updateWin();
-    }//GEN-LAST:event_cbMixTechMouseClicked
-
-    private void cbMasterTechMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbMasterTechMouseClicked
-        if (cbMasterTech.isSelected()) isMasterTech = true;
-        else isMasterTech = false;
-        updateWin();
-    }//GEN-LAST:event_cbMasterTechMouseClicked
 
     private void jXDatePicker1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jXDatePicker1FocusLost
         Date picked = jXDatePicker1.getDate();
@@ -650,6 +534,12 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     
     private void init(){
         createFLID();
+        
+        cbProf.removeAllItems();
+        cbProf.addItem("Select Profession");
+        for (Expertiese e:Expertiese.values()){
+            cbProf.addItem(e.toString());
+        }
     }
     
     /**
@@ -686,9 +576,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField Pass1;
     private javax.swing.JPasswordField Pass2;
     private javax.swing.JButton btnAdd;
-    private javax.swing.JCheckBox cbMasterTech;
-    private javax.swing.JCheckBox cbMixTech;
-    private javax.swing.JCheckBox cbProducer;
+    private javax.swing.JComboBox<String> cbProf;
     private javax.swing.JLabel jLabel16;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JLabel lbdateError;
@@ -703,7 +591,6 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblMailError;
     private javax.swing.JLabel lblNameError;
     private javax.swing.JLabel lblPass2;
-    private javax.swing.JLabel lblPass3;
     private javax.swing.JLabel lblPass4;
     private javax.swing.JLabel lblPass5;
     private javax.swing.JLabel lblPass6;
@@ -717,7 +604,6 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfFirstName;
     private javax.swing.JTextField tfLastName;
     private javax.swing.JTextField tfStageName;
-    private javax.swing.JTextField tfdown;
     private javax.swing.JTextField tffull;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,6 +8,7 @@ package entities;
 import iRecord.iRecord;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,11 +20,21 @@ import java.util.logging.Logger;
 public class Musician extends Freelancer {
     Double payRoll;
     Integer expertise;
+    Date birthdDate;
 
+    
     public Musician(String FreelancerID, String firstName, String lastName, String stageName, Double payRoll, Integer expertise, Integer priority) {
         super(FreelancerID, firstName, lastName, stageName, priority);
         this.payRoll = payRoll;
         this.expertise = expertise;
+        
+    }
+    
+    public Musician(String FreelancerID, String firstName, String lastName, String stageName, Double payRoll, Integer expertise, Integer priority, Date birthdate, String email) {
+        super(FreelancerID, firstName, lastName, stageName, priority, email);
+        this.payRoll = payRoll;
+        this.expertise = expertise;
+        this.birthdDate = birthdate;
     }
     
     public Musician(String FreelancerID){

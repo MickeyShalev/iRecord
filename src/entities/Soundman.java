@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.util.Date;
+
 /**
  *
  * @author nisan
@@ -12,6 +14,7 @@ package entities;
 public class Soundman extends Freelancer {
     Boolean isProducer, isMixTech, isMasterTech;
     Double downPayment, fullPayment;
+    Date birthdate;
 
     public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority) {
         super(FreelancerID, firstName, lastName, stageName, priority);
@@ -21,9 +24,23 @@ public class Soundman extends Freelancer {
         this.downPayment = downPayment;
         this.fullPayment = fullPayment;
     }
+    
+    public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority, Date birthdate, String email) {
+        super(FreelancerID, firstName, lastName, stageName, priority, email);
+        this.isProducer = isProducer;
+        this.isMixTech = isMixTech;
+        this.isMasterTech = isMasterTech;
+        this.downPayment = downPayment;
+        this.fullPayment = fullPayment;
+        this.birthdate = birthdate;
+    }
 
     public Soundman(String FreelancerID){
         super(FreelancerID);
+    }
+    
+    public Date getBirthdate(){
+        return this.birthdate;
     }
     
     public Boolean getIsProducer() {

@@ -46,16 +46,17 @@ public class ArtistManager {
      */
     public static int addArtist(Artist a){
         
-        int status = 1;
+        int status = -1;
            
         java.sql.Timestamp eDate = new java.sql.Timestamp (a.getDateExpired().getTime());
         String qry = "INSERT INTO artists (ArtistID, StageName, sEmail, strPasswd, dateExpired)"
                 + " VALUES (\"" +a.getID() +"\", \""+a.getStageName()+"\" ,\""+a.getEmailAddr()+"\", \""+a.getPassword()+"\",\"" + eDate + "\")";
         
         
-        if (iRecord.getDB().updateReturnID(qry) < 0) {                                      //
-            status = -1;
-        }
+        iRecord.getDB().updateReturnID(qry);
+        if (isExists(a.getID()))
+            status = 1;
+        
         
         return status;
     }
@@ -81,26 +82,6 @@ public class ArtistManager {
         
     }
     
-    
-    /**
-     * TEMP QUERY FOR TESTING
-     * @return 
-     */
-    public static int addA(){
-        
-        int status = 1;
-        java.sql.Timestamp eDate = new java.sql.Timestamp (new java.util.Date().getTime());
-        String qry = "INSERT INTO artists (ArtistID, StageName, sEmail, strPasswd, dateExpired)"
-                + " VALUES (\"AR999\", \"TIM\" ,\"tim@tim.com\", \"1234\",\"" + eDate + "\")";
-        
-        
-        if (iRecord.getDB().updateReturnID(qry) < 0) {                                      //
-            status = -1;
-        }
-        
-        return status;
-    }
-    
-    
+     
     
 }

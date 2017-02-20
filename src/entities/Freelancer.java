@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author nisan
  */
 public class Freelancer {
-    String FreelancerID, firstName, lastName, stageName;
+    String FreelancerID, firstName, lastName, stageName, email;
     Integer priority;
 
     public Freelancer(String FreelancerID, String firstName, String lastName, String stageName, Integer priority) {
@@ -21,6 +21,15 @@ public class Freelancer {
         this.lastName = lastName;
         this.stageName = stageName;
         this.priority = priority;
+    }
+    
+    public Freelancer(String FreelancerID, String firstName, String lastName, String stageName, Integer priority, String email) {
+        this.FreelancerID = FreelancerID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.stageName = stageName;
+        this.priority = priority;
+        this.email = email;
     }
 
     public Freelancer(String FreelancerID){
@@ -33,6 +42,10 @@ public class Freelancer {
         return priority;
     }
 
+    public String getEmail(){
+        return this.email;
+    }
+    
     public void setPriority(Integer priority) {
         this.priority = priority;
     }
