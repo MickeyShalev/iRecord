@@ -10,6 +10,7 @@ import gui.internal.frmAddMusician;
 import gui.internal.frmAddRoom;
 import gui.internal.frmAddSoundman;
 import gui.internal.frmAddStudio;
+import gui.internal.frmArtistSuspension;
 import gui.internal.frmCreateSession;
 import iRecord.iRecord;
 import java.sql.SQLException;
@@ -258,8 +259,9 @@ public class MainGui extends javax.swing.JFrame {
         //frmAddArtist add = new frmAddArtist();
         //frmAddStudio add = new frmAddStudio(); 
         //frmAddRoom add = new frmAddRoom();
-        frmAddSoundman add = new frmAddSoundman();
+        //frmAddSoundman add = new frmAddSoundman();
         //frmAddMusician add = new frmAddMusician();
+        frmArtistSuspension add = new frmArtistSuspension();
         iWindow.openWin(add);
     }//GEN-LAST:event_btnaddArtistMouseClicked
 

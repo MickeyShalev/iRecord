@@ -294,7 +294,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         lblGen.setBounds(10, 460, 380, 20);
 
         btnAdd.setBackground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Add Soundman");
+        btnAdd.setText("Add Musician");
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddMouseClicked(evt);

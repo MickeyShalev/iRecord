@@ -94,6 +94,25 @@ public class DBManager {
         
             return false;
     }
+    
+    /**
+     * 
+     * @param SQL
+     * @return 
+     */
+    public static ResultSet executeUpadate(String SQL){
+        ResultSet result = null;
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(SQL);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
+    
 
     public static Connection getConn() {
         return conn;
