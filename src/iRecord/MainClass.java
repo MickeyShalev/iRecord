@@ -20,8 +20,7 @@ public class MainClass {
             iRecord project = new iRecord();
             //Initiate GUI
             //JFrame LoginGui = new LoginGui();
-            //Musician s = new Musician("FR1111", "A","A","A", 20.0, 1, 0 , new Date(), "A@A.A"); 
-            //FreelancerManager.addMusician(s);
+
             iRecord.log("Opening Login Window through iWindow");
             iWindow.openLogin();
             

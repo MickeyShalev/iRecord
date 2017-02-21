@@ -69,7 +69,7 @@ public class frmFreelancerToStudio extends javax.swing.JInternalFrame {
         jLabel16.setBackground(new Color(0,0,0,0));
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Artist suspeinsion window");
+        jLabel16.setText("Connect and remove freelancer to studio");
         getContentPane().add(jLabel16);
         jLabel16.setBounds(10, 0, 360, 30);
 
@@ -78,7 +78,7 @@ public class frmFreelancerToStudio extends javax.swing.JInternalFrame {
 
         lblName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblName.setForeground(new java.awt.Color(255, 255, 255));
-        lblName.setText("Artist stageName");
+        lblName.setText("Stage Name");
         pnlAdd.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 230, -1));
 
         lblArtistID.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

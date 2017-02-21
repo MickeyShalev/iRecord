@@ -1,10 +1,13 @@
 package iRecord.Controller;
 
 import entities.Room;
+import entities.Session;
 import entities.Studio;
 import iRecord.iRecord;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -175,6 +178,33 @@ return studios;
         }
         
         return false;
+    }
+    
+    
+    public static ArrayList<String[]> getStudiosSessions(int id, Timestamp t){
+        ArrayList<String[]> toReturn = new ArrayList<String[]>();
+        
+        String qry = "SELECT Session.SessionID, Session.ArtistID, Session.sessionStartDate, Studio.StudioID, Studio.sName "+
+        "FROM (Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]) INNER JOIN ([Session] INNER JOIN SessionInRoom ON Session.[SessionID] = SessionInRoom.[SessionID]) ON (Room.[StudioID] = SessionInRoom.[StudioID]) AND (Room.[RoomNum] = SessionInRoom.[RoomNum]) " +
+        "GROUP BY Session.SessionID, Session.ArtistID, Session.sessionStartDate, Studio.StudioID, Studio.sName " +
+        "HAVING (((Studio.StudioID)="+id+")) AND ((Session.sessionStartDate)>\""+t+"\") "
+        + "ORDER BY Session.SessionID";
+
+        ResultSet rs = iRecord.getDB().query(qry);
+        
+        try {
+            while(rs.next()){
+                String sID = rs.getString("SessionId");
+                Timestamp date = rs.getTimestamp("sessionStartDate");
+                String artist = rs.getString("artistid");
+                toReturn.add(new String[]{sID, date.toString(), artist});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudioAndRoomManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return toReturn;
     }
  
 }
