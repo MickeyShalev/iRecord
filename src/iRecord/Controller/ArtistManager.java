@@ -1,15 +1,15 @@
 package iRecord.Controller;
 
 import entities.*;
-import iRecord.DBManager;
 import iRecord.iRecord;
 import iRecord.utilities.EAuth;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -108,4 +108,66 @@ public class ArtistManager {
         return a;
     } 
     
+    
+    /**
+     * Helper method to add artist list to jtable
+     * @return 
+     */
+    public static ArrayList<String[]> getArtistList(String sortType){
+        ArrayList<String[]> toReturn = new ArrayList<String[]>();
+        
+        ResultSet rs = iRecord.getDB().query("SELECT Artists.* FROM Artists");
+        
+        try {
+            while(rs.next()){
+                String id = rs.getString("ArtistID");
+                if(id.equals("Admin") || id.equals("admin")) continue;
+                String stageName = rs.getString("stageName");
+                String email = rs.getString("sEmail");
+                Timestamp t = rs.getTimestamp("dateExpired");
+                Date d = new Date(t.getTime());
+                String state = t.after(new Date())? "Suspended" : "Active";
+                toReturn.add(new String[]{id, stageName, email, state});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ArtistManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (sortType.equals("id")) {
+            Collections.sort(toReturn, new iComp());
+        } else if (sortType.equals("stageName")) {
+            Collections.sort(toReturn, new sComp());
+        }
+        return toReturn;
+    }
+    
 }
+
+
+
+
+
+
+
+    class sComp implements Comparator{
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            String[] s1 = (String[]) o1;
+            String[] s2 = (String[]) o2;
+            return (s1[1].compareTo(s2[1]));
+        }
+        
+    }
+
+
+   class iComp implements Comparator{
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            String[] s1 = (String[]) o1;
+            String[] s2 = (String[]) o2;
+            return (s1[2].compareTo(s2[2]));
+        }
+        
+    }
