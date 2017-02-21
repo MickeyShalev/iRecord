@@ -12,8 +12,8 @@ import java.util.Objects;
  * @author nisan
  */
 public class Freelancer {
-    String FreelancerID, firstName, lastName, stageName, email;
-    Integer priority;
+    private String FreelancerID, firstName, lastName, stageName, email;
+    private Integer priority;
 
     public Freelancer(String FreelancerID, String firstName, String lastName, String stageName, Integer priority) {
         this.FreelancerID = FreelancerID;

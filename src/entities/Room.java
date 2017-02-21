@@ -12,11 +12,11 @@ import java.util.Objects;
  * @author Administrator
  */
 public class Room {
-    Studio studio;
-    int StudioID;
-    Integer RoomNum, maxMusicians;
-    Double hourRate;
-    Boolean hasIsolation;
+    private Studio studio;
+    private int StudioID;
+    private Integer RoomNum, maxMusicians;
+    private Double hourRate;
+    private Boolean hasIsolation;
 
     
     public Room(Studio studio, Integer RoomNum, Double hourRate, Integer maxMusicians, Boolean hasIsolation) {

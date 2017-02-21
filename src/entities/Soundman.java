@@ -12,9 +12,9 @@ import java.util.Date;
  * @author nisan
  */
 public class Soundman extends Freelancer {
-    Boolean isProducer, isMixTech, isMasterTech;
-    Double downPayment, fullPayment;
-    Date birthdate;
+    private Boolean isProducer, isMixTech, isMasterTech;
+    private Double downPayment, fullPayment;
+    private Date birthdate;
 
     public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority) {
         super(FreelancerID, firstName, lastName, stageName, priority);

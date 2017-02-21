@@ -20,13 +20,13 @@ import java.util.logging.Logger;
  * @author Administrator
  */
 public class Session {
-    Integer SessionID;
-    Studio stud;
-    Artist art;
-    Date sessionStartDate, sessionEndDate;
-    List<Room> roomList;
-    List<Soundman> chosenSoundmen;
-    Map<Musician, Room> chosenMusicians;
+    private Integer SessionID;
+    private Studio stud;
+    private Artist art;
+    private Date sessionStartDate, sessionEndDate;
+    private List<Room> roomList;
+    private List<Soundman> chosenSoundmen;
+    private Map<Musician, Room> chosenMusicians;
 
     public Session(Studio stud, Artist art, Date sessionStartDate, Date sessionEndDate, List<Room> roomList, List<Soundman> chosenSoundmen, Map<Musician, Room> chosenMusicians) {
         setID();

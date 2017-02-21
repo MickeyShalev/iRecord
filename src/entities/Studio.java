@@ -20,9 +20,9 @@ import java.util.logging.Logger;
  * @author Administrator
  */
 public class Studio {
-    String sName, sAddress, sEmail, sPhoneNum, sDesc;
-    Integer sID;
-    Map<Integer, Room> sRooms;
+    private String sName, sAddress, sEmail, sPhoneNum, sDesc;
+    private Integer sID;
+    private Map<Integer, Room> sRooms;
 //    public Studio(Integer sID, String sName, String sAddress, String sEmail, String sPhoneNum, String sDesc){
 //        this.s
 //    }

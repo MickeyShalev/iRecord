@@ -14,6 +14,8 @@ import iRecord.utilities.EAuth;
 public abstract class Person {
     private String firstName, lastName, ID, password;
     private EAuth userAuth=null;
+    
+    
     public Person(String ID, String firstName, String lastName, String password, EAuth userAuth){
         this.ID=ID;
         this.firstName=(firstName.substring(0, 1).toUpperCase() + firstName.substring(1));
