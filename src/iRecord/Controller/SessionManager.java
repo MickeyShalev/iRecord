@@ -272,7 +272,7 @@ public class SessionManager {
         java.sql.Timestamp eDate = new java.sql.Timestamp(ses.getSessionEndDate().getTime());
         
         //Add new session record to Session tbl
-        ses.setSessionID(iRecord.getDB().updateReturnID("INSERT INTO Session (ArtistID, sessionStartDate, sessionEndDate) VALUES (\""+ses.getArt().getID()+"\", \""+sDate+"\", \""+eDate+"\")"));
+        ses.setSessionID(iRecord.getDB().updateReturnID("INSERT INTO Session (ArtistID, sessionStartDate, sessionEndDate, totalCost) VALUES (\""+ses.getArt().getID()+"\", \""+sDate+"\", \""+eDate+"\","+ses.getCost()+")"));
         
         //Add rooms to the session
         for(Room r : ses.getRoomList()){

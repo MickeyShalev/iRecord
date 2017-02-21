@@ -27,8 +27,9 @@ public class Session {
     private List<Room> roomList;
     private List<Soundman> chosenSoundmen;
     private Map<Musician, Room> chosenMusicians;
+    private double totalCost;
 
-    public Session(Studio stud, Artist art, Date sessionStartDate, Date sessionEndDate, List<Room> roomList, List<Soundman> chosenSoundmen, Map<Musician, Room> chosenMusicians) {
+    public Session(Studio stud, Artist art, Date sessionStartDate, Date sessionEndDate, List<Room> roomList, List<Soundman> chosenSoundmen, Map<Musician, Room> chosenMusicians, double totalCost) {
         setID();
         this.stud = stud;
         this.art = art;
@@ -37,7 +38,9 @@ public class Session {
         this.roomList = roomList;
         this.chosenSoundmen = chosenSoundmen;
         this.chosenMusicians = chosenMusicians;
+        this.totalCost = totalCost;
         SessionManager.addSession(this);
+        
     }
     
     public void setID(){
@@ -92,6 +95,10 @@ public class Session {
 
     public List<Room> getRoomList() {
         return roomList;
+    }
+    
+    public double getCost(){
+        return this.totalCost;
     }
 
     public void setRoomList(List<Room> roomList) {

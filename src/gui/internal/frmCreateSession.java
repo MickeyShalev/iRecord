@@ -45,16 +45,16 @@ import org.joda.time.DateTime;
  */
 public class frmCreateSession extends javax.swing.JInternalFrame {
     
-    List<java.sql.Date> unavailableDates;
-    List<Room> chosenRooms;
-    Map<Integer, Studio> studioList;
-    List<Soundman> smMap;
-    Studio stud;
-    Date sessionStartDate, sessionEndDate;
-    List<Soundman> chosenSoundmen;
-    Map<Musician, Room> chosenMusicians;
-    Double totalCost = 0.0;
-    Double sessionHours = 0.0;
+    private List<java.sql.Date> unavailableDates;
+    private List<Room> chosenRooms;
+    private Map<Integer, Studio> studioList;
+    private List<Soundman> smMap;
+    private Studio stud;
+    private Date sessionStartDate, sessionEndDate;
+    private List<Soundman> chosenSoundmen;
+    private Map<Musician, Room> chosenMusicians;
+    private Double totalCost = 0.0;
+    private Double sessionHours = 0.0;
     /**
      * Creates new form frmCreateSession
      */
@@ -981,7 +981,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         }
         else{
             pnlFinishedEditing.setVisible(false);
-            Session created = new Session(stud, (Artist)iRecord.getLoggedUser(), sessionStartDate, sessionEndDate, chosenRooms, chosenSoundmen, chosenMusicians);
+            Session created = new Session(stud, (Artist)iRecord.getLoggedUser(), sessionStartDate, sessionEndDate, chosenRooms, chosenSoundmen, chosenMusicians, totalCost);
             lblOrderID.setText("Order #"+created.getSessionID());
             pnlFinishedSession.setVisible(true);
         }

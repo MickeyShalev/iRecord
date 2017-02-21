@@ -100,20 +100,20 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
         };
         tblGen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Session ID", "Date", "Artist"
+                "Session ID", "Date", "Artist", "Total Cost"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -222,7 +222,7 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
         //while has next
         for (String[] s:ses){
             if (s == null) break;
-            String[] row = {s[0], s[1], s[2]};
+            String[] row = {s[0], s[1], s[2], s[3]};
             model.addRow(row);
         }
         

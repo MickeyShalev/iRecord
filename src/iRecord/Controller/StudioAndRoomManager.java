@@ -184,11 +184,11 @@ return studios;
     public static ArrayList<String[]> getStudiosSessions(int id, Timestamp t){
         ArrayList<String[]> toReturn = new ArrayList<String[]>();
         
-        String qry = "SELECT Session.SessionID, Session.ArtistID, Session.sessionStartDate, Studio.StudioID, Studio.sName "+
-        "FROM (Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]) INNER JOIN ([Session] INNER JOIN SessionInRoom ON Session.[SessionID] = SessionInRoom.[SessionID]) ON (Room.[StudioID] = SessionInRoom.[StudioID]) AND (Room.[RoomNum] = SessionInRoom.[RoomNum]) " +
-        "GROUP BY Session.SessionID, Session.ArtistID, Session.sessionStartDate, Studio.StudioID, Studio.sName " +
-        "HAVING (((Studio.StudioID)="+id+")) AND ((Session.sessionStartDate)>\""+t+"\") "
-        + "ORDER BY Session.SessionID";
+        String qry = "SELECT Session.SessionID, Session.ArtistID, Session.sessionStartDate, Studio.StudioID, Studio.sName, Artists.StageName, Session.TotalCost\n" +
+            "FROM Artists INNER JOIN ((Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]) INNER JOIN ([Session] INNER JOIN SessionInRoom ON Session.[SessionID] = SessionInRoom.[SessionID]) ON (Room.[StudioID] = SessionInRoom.[StudioID]) AND (Room.[RoomNum] = SessionInRoom.[RoomNum])) ON Artists.ArtistID = Session.ArtistID\n" +
+            "GROUP BY Session.SessionID, Session.ArtistID, Session.sessionStartDate, Studio.StudioID, Studio.sName, Artists.StageName, Session.TotalCost " +
+            "HAVING (((Studio.StudioID)="+id+")) AND ((Session.sessionStartDate)>\""+t+"\") " +
+            "ORDER BY Session.SessionID";
 
         ResultSet rs = iRecord.getDB().query(qry);
         
@@ -197,7 +197,8 @@ return studios;
                 String sID = rs.getString("SessionId");
                 Timestamp date = rs.getTimestamp("sessionStartDate");
                 String artist = rs.getString("artistid");
-                toReturn.add(new String[]{sID, date.toString(), artist});
+                String cost = rs.getString("totalCost");
+                toReturn.add(new String[]{sID, date.toString(), artist, cost});
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudioAndRoomManager.class.getName()).log(Level.SEVERE, null, ex);
