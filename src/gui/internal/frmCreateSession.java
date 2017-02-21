@@ -684,15 +684,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
-// TODO add your handling code here:
-
-
-
-
-    }//GEN-LAST:event_jXDatePicker1ActionPerformed
-    
+        
     private void startTimeSpinnerPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_startTimeSpinnerPropertyChange
         // TODO add your handling code here:
         //init();
@@ -1000,6 +992,10 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         iWindow.update();
     }//GEN-LAST:event_chkDetailsFocusLost
+
+    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
+        
+    }//GEN-LAST:event_jXDatePicker1ActionPerformed
     
     
     private void init(){
@@ -1043,7 +1039,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
     
     public void updateDate(){
         System.err.println("Date Error\nStartTimeSpinner: "+startTimeSpinner.getValue()+" \nEndTimeSpinner: "+endTimeSpinner.getValue()+"\nDate Chosen: "+jXDatePicker1.getDate());
-        if(jXDatePicker1.getDate()==null || ((java.util.Date)startTimeSpinner.getValue()).after((java.util.Date)endTimeSpinner.getValue())){
+        if(jXDatePicker1.getDate()==null || ((java.util.Date)startTimeSpinner.getValue()).after((java.util.Date)endTimeSpinner.getValue()) || jXDatePicker1.getDate().before(new Date())){
             dateErr.setText("Please choose a valid date and time");
             
             dateErr.setVisible(true);
