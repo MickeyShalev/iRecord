@@ -149,6 +149,9 @@ public class ArtistManager {
 
 
 
+
+
+
     class sComp implements Comparator{
 
         @Override
