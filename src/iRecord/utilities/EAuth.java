@@ -11,7 +11,7 @@ package iRecord.utilities;
  */
 public enum EAuth {
 
-    Customer, Agent, Artist, Location_Representative, Representative, Administrator;
+    Customer, Agent, Artist, Location_Representative, Representative, Administrator, Freelancer;
 
     /**
      * This class returns a toString of a given EAuth object

@@ -1,9 +1,12 @@
 package iRecord.Controller;
 
+import entities.Artist;
 import entities.Freelancer;
 import entities.Musician;
 import entities.Soundman;
+import entities.Studio;
 import iRecord.iRecord;
+import iRecord.utilities.EAuth;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -72,8 +75,24 @@ public class FreelancerManager {
      * this method connects a freelancer to studio and adds rating to the freelancer
      * might need remove method as well
      */
-    public static void rateFreelancer(){
+    public static void connectFreelancer(Freelancer f, Studio s, int rating){
         
+        String qry = "INSERT INTO FREELANCERTOSTUDIO (StudioID, FreelancerID, Grade) "
+                + "VALUES ("+s.getsID()+", \""+f.getFreelancerID()+"\", "+ rating+")";
+        
+        iRecord.getDB().updateReturnID(qry);
+        
+    }
+    
+    /**
+     * This method disconnects freelancer from a selected studio
+     */
+    public static void disconnectFreelancer(Freelancer f, Studio s){
+        
+        String qry = "DELETE FROM FreelancerToStudio \n"
+                     +"WHERE studioid = "+s.getsID()+" AND freelancerID = \""+ f.getFreelancerID()+"\"";
+        
+        iRecord.getDB().executeUpadate(qry);
         
     }
     
@@ -101,6 +120,51 @@ public class FreelancerManager {
         }
         
         return false;
+    }
+    
+    
+    public static boolean isWorkingWithStudio(Freelancer f, Studio s){
+        String qry = "SELECT FreelancerToStudio.StudioID, FreelancerToStudio.FreelancerID\n" +
+                     "FROM FreelancerToStudio "
+                     + "WHERE studioid = "+s.getsID()+" AND freelancerID = \""+ f.getFreelancerID()+"\"";
+        
+        ResultSet rs = iRecord.getDB().query(qry);
+        
+        //if exists return ture
+        try {
+            if (rs.next()){
+                return true;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+
+    }
+    
+    
+    public static Freelancer getFreelancer(String id){
+        Freelancer f = null;
+        
+        ResultSet rs = iRecord.getDB().query("SELECT Freelancer.*, Freelancer.FreelancerID\n" +
+                "FROM Freelancer\n" +
+                "WHERE (((Freelancer.FreelancerID)=\""+id+"\"))");
+        
+        try {
+            if (rs.next()){
+                String flid = rs.getString("FreelancerID");
+                String stageName = rs.getString("stageName");
+                f = new Freelancer(flid);
+                f.setStageName(stageName);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ArtistManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return f;
     }
     
     

@@ -16,6 +16,7 @@ import iRecord.iRecord;
 import java.sql.SQLException;
 import iRecord.utilities.EAuth;
 import gui.internal.frmCreateShow;
+import gui.internal.frmFreelancerToStudio;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.sql.ResultSet;
@@ -261,7 +262,8 @@ public class MainGui extends javax.swing.JFrame {
         //frmAddRoom add = new frmAddRoom();
         //frmAddSoundman add = new frmAddSoundman();
         //frmAddMusician add = new frmAddMusician();
-        frmArtistSuspension add = new frmArtistSuspension();
+        //frmArtistSuspension add = new frmArtistSuspension();
+        frmFreelancerToStudio add = new frmFreelancerToStudio();
         iWindow.openWin(add);
     }//GEN-LAST:event_btnaddArtistMouseClicked
 
