@@ -64,13 +64,14 @@ public class SessionManager {
         
         
         //Get all musicians who are linked with this studio
-        ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Musician.Payroll, Musician.expertIn, FreelancerToStudio.StudioID, FreelancerToStudio.Grade\n" +
+        ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Freelancer.Status, Musician.Payroll, Musician.expertIn, FreelancerToStudio.StudioID, FreelancerToStudio.Grade\n" +
                 "FROM (Freelancer INNER JOIN FreelancerToStudio ON (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID) AND (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID)) INNER JOIN Musician ON (Freelancer.FreelancerID = Musician.MusicianID) AND (Freelancer.FreelancerID = Musician.MusicianID)\n" +
                 "WHERE (((FreelancerToStudio.StudioID)="+stud.getsID()+"))\n" +
                         "ORDER BY FreelancerToStudio.Grade DESC;");
         try {
             while(qry.next()){
                 //System.err.println("Inserting Musician "+qry.getString("stageName")+" with priority "+qry.getString("Grade"));
+                if (qry.getInt("Status") == 0) continue;
                 musicianMap.put(new Musician(qry.getString("FreelancerID"), qry.getString("firstName"), qry.getString("lastName"), qry.getString("stageName"), qry.getDouble("Payroll"), qry.getInt("expertIn"), qry.getInt("Grade")), null);
                 
             }
@@ -98,12 +99,12 @@ public class SessionManager {
                 //Check dates
                 java.util.Date smStartDate = (java.util.Date) qry.getObject("sessionStartDate");
                 java.util.Date smEndDate = (java.util.Date) qry.getObject("sessionEndDate");
-                System.err.println("Musician "+qry.getString(1)+" Start: "+smStartDate+" End: "+smEndDate);
+                //System.err.println("Musician "+qry.getString(1)+" Start: "+smStartDate+" End: "+smEndDate);
                 if((smStartDate.before(dateStart) && smEndDate.after(dateStart))
                         || (smStartDate.after(dateStart) && smStartDate.before(dateEnd))
                         || (smEndDate.after(dateStart) && smEndDate.before(dateEnd))){
                     //Soundman isn't available
-                    System.err.println("Musician "+qry.getString(1)+" isn't available");
+                    //System.err.println("Musician "+qry.getString(1)+" isn't available");
                     musicianMap.remove(new Musician(qry.getString(1)));
                 }
                 musicianMap.remove(new Musician(qry.getString(1)));
@@ -131,9 +132,10 @@ public class SessionManager {
         System.err.println("Getting SMMap for studio "+stud);
         
         //Get all soundman for the chosen studio
-        ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment, FreelancerToStudio.Grade FROM (Freelancer INNER JOIN Soundman ON Freelancer.FreelancerID = Soundman.SoundmanID) INNER JOIN FreelancerToStudio ON (FreelancerToStudio.FreelancerID = Freelancer.FreelancerID) AND (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID) WHERE (((FreelancerToStudio.StudioID)=1)) order by Grade desc;");
+        ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Freelancer.Status,Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment, FreelancerToStudio.Grade FROM (Freelancer INNER JOIN Soundman ON Freelancer.FreelancerID = Soundman.SoundmanID) INNER JOIN FreelancerToStudio ON (FreelancerToStudio.FreelancerID = Freelancer.FreelancerID) AND (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID) WHERE (((FreelancerToStudio.StudioID)=1)) order by Grade desc;");
         try {
             while(qry.next()){
+                if (qry.getInt("Status") == 0) continue;
                 Soundman s = new Soundman(qry.getString(1), qry.getString(2), qry.getString(3), qry.getString(4), qry.getBoolean(5), qry.getBoolean(6), qry.getBoolean(7), qry.getDouble(8), qry.getDouble(9), qry.getInt(10));
                 System.err.println("Added Soundman "+s.getFreelancerID()+" to SMMap");
                 soundmenMap.add(s);
@@ -156,12 +158,12 @@ public class SessionManager {
                 //Check if dates are overlapping
                 java.util.Date smStartDate = (java.util.Date) qry2.getObject("dateStart");
                 java.util.Date smEndDate = (java.util.Date) qry2.getObject("dateEnd");
-                System.err.println("Soundman "+qry2.getString(1)+" Start: "+smStartDate+" End: "+smEndDate);
+                //System.err.println("Soundman "+qry2.getString(1)+" Start: "+smStartDate+" End: "+smEndDate);
                 if((smStartDate.before(dateStart) && smEndDate.after(dateStart))
                         || (smStartDate.after(dateStart) && smStartDate.before(dateEnd))
                         || (smEndDate.after(dateStart) && smEndDate.before(dateEnd))){
                     //Soundman isn't available
-                    System.err.println("Soundman "+qry2.getString(1)+" isn't available");
+                    //System.err.println("Soundman "+qry2.getString(1)+" isn't available");
                     soundmenMap.remove(new Soundman(qry2.getString(1)));
                 }
             }
@@ -197,7 +199,7 @@ public class SessionManager {
         try {
             while(roomDates.next()){
                 Integer RoomNum = roomDates.getInt(2);
-                System.err.println("-----"+RoomNum+"-----");
+                //System.err.println("-----"+RoomNum+"-----");
                 java.util.Date sessionStart = (java.util.Date) roomDates.getObject("sessionStartDate");
                 java.util.Date sessionEnd = (java.util.Date) roomDates.getObject("sessionEndDate");
                 
@@ -214,13 +216,13 @@ public class SessionManager {
                 }
                 
             }
-            System.err.println("After");
-            for(Studio s : studioMap.values()){
-                System.err.println("Studio#"+s.getsID());
-                for(Room r : s.getsRooms().values())
-                    System.err.println("\tRoom#"+r.getRoomNum());
-                
-            }
+//            System.err.println("After");
+//            for(Studio s : studioMap.values()){
+//                System.err.println("Studio#"+s.getsID());
+//                for(Room r : s.getsRooms().values())
+//                    System.err.println("\tRoom#"+r.getRoomNum());
+//                
+//            }
             
             //Get their rooms
             //Remove the rooms from the map
@@ -252,12 +254,11 @@ public class SessionManager {
                 it.remove();
             
         }
-        System.err.println("Studio Cleanup:");
-        for(Studio s : studioMap.values()){
-            System.err.println("Studio#"+s.getsID());
-            for(Room r : s.getsRooms().values())
-                System.err.println("\tRoom#"+r.getRoomNum());
-        }
+//        for(Studio s : studioMap.values()){
+//            System.err.println("Studio#"+s.getsID());
+//            for(Room r : s.getsRooms().values())
+//                System.err.println("\tRoom#"+r.getRoomNum());
+//        }
     }
     
     /**

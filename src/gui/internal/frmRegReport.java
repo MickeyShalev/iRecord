@@ -48,6 +48,7 @@ public class frmRegReport extends javax.swing.JInternalFrame {
         slcData = new javax.swing.JComboBox<>();
         cbSort = new javax.swing.JComboBox<>();
         getData = new javax.swing.JButton();
+        Note = new javax.swing.JLabel();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
@@ -116,7 +117,7 @@ public class frmRegReport extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tblGen);
 
-        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 680, 390));
+        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 680, 380));
 
         slcData.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Data", "Artists", "Freelancers" }));
         slcData.addItemListener(new java.awt.event.ItemListener() {
@@ -143,7 +144,13 @@ public class frmRegReport extends javax.swing.JInternalFrame {
         pnlAdd.add(getData, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 230, -1));
 
         getContentPane().add(pnlAdd);
-        pnlAdd.setBounds(0, 40, 780, 520);
+        pnlAdd.setBounds(0, 40, 780, 500);
+
+        Note.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        Note.setForeground(new java.awt.Color(51, 255, 255));
+        Note.setText("Note: Freelancers are sorted first by profession and second by your choice");
+        getContentPane().add(Note);
+        Note.setBounds(50, 550, 670, 13);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -176,7 +183,7 @@ public class frmRegReport extends javax.swing.JInternalFrame {
                 String[] row = {s[0], s[1], s[2], s[3]};
                 model.addRow(row);
             }
-
+            Note.setVisible(false);
         }
 
         //Freelancer is selected
@@ -197,14 +204,16 @@ public class frmRegReport extends javax.swing.JInternalFrame {
                 model.addRow(row);
             }
 
-            
+            Note.setVisible(true);
             
         }
+        
+        updateWin();
     }//GEN-LAST:event_getDataMouseClicked
 
                                             
     private void init(){
-        
+        Note.setVisible(false);
     }
 
    
@@ -216,6 +225,7 @@ public class frmRegReport extends javax.swing.JInternalFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Note;
     private javax.swing.JComboBox<String> cbSort;
     private javax.swing.JButton getData;
     private javax.swing.JLabel jLabel16;

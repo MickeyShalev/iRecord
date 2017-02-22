@@ -156,8 +156,10 @@ public class FreelancerManager {
             if (rs.next()){
                 String flid = rs.getString("FreelancerID");
                 String stageName = rs.getString("stageName");
+                int status = rs.getInt("status");
                 f = new Freelancer(flid);
                 f.setStageName(stageName);
+                f.setStatus(status);
                 
             }
         } catch (SQLException ex) {
@@ -176,8 +178,8 @@ public class FreelancerManager {
     public static ArrayList<String[]> getArtistList(String sortType){
         ArrayList<String[]> toReturn = new ArrayList<String[]>();
         
-        String qry1 = "SELECT Freelancer.FreelancerID, Musician.MusicianID, Musician.Payroll, Musician.expertIn, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Freelancer.birthDate, Freelancer.strEmail FROM Freelancer INNER JOIN Musician ON Freelancer.[FreelancerID] = Musician.[MusicianID] WHERE (((Freelancer.FreelancerID)=[MusicianID])) ORDER BY  " +sortType;
-        String qry2 = "SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Freelancer.birthDate, Freelancer.strEmail, Soundman.SoundmanID, Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment FROM Freelancer, Soundman WHERE (((Freelancer.FreelancerID)=[Soundman].[SoundmanID])) ORDER BY " + sortType;
+        String qry1 = "SELECT Freelancer.FreelancerID, Musician.MusicianID, Musician.Payroll, Musician.expertIn, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Freelancer.birthDate, Freelancer.strEmail, Freelancer.Status FROM Freelancer INNER JOIN Musician ON Freelancer.[FreelancerID] = Musician.[MusicianID] WHERE (((Freelancer.FreelancerID)=[MusicianID])) ORDER BY  " +sortType;
+        String qry2 = "SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Freelancer.birthDate, Freelancer.strEmail, Freelancer.Status, Soundman.SoundmanID, Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment FROM Freelancer, Soundman WHERE (((Freelancer.FreelancerID)=[Soundman].[SoundmanID])) ORDER BY " + sortType;
 
         ResultSet rs1 = iRecord.getDB().query(qry1);
         ResultSet rs2 = iRecord.getDB().query(qry2);
@@ -188,14 +190,16 @@ public class FreelancerManager {
                 String id = rs1.getString("FreelancerID");
                 String stageName = rs1.getString("stageName");
                 String email = rs1.getString("strEmail");
-                toReturn.add(new String[]{id, stageName, email,"Musician"});
+                String status = rs1.getInt("Status")==1? "Actice":"inActive";
+                toReturn.add(new String[]{id, stageName, email, status +" - Musician"});
             }
             
             while(rs2.next()){
                 String id = rs2.getString("FreelancerID");
                 String stageName = rs2.getString("stageName");
                 String email = rs2.getString("strEmail");
-                toReturn.add(new String[]{id, stageName, email,"Soundman"});
+                String status = rs2.getInt("Status")==1? "Actice":"inActive";
+                toReturn.add(new String[]{id, stageName, email,status +" - Soundman"});
             }
             
             
@@ -204,6 +208,18 @@ public class FreelancerManager {
         }
 
         return toReturn;
+    }
+    
+    /**
+     * This method updates the status of freelancer
+     * @param id
+     * @param status 
+     */
+    public static void updateStatus(String id, int status){
+         
+        iRecord.getDB().executeUpadate("UPDATE Freelancer SET Status="+status+" WHERE Freelancer.FreelancerID=\""+id+"\"" );
+        
+        return;
     }
     
     

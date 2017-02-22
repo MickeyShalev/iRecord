@@ -109,6 +109,10 @@ public class Freelancer extends Person{
         }
         return true;
     }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
     
     
     
