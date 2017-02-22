@@ -176,8 +176,8 @@ public class FreelancerManager {
     public static ArrayList<String[]> getArtistList(String sortType){
         ArrayList<String[]> toReturn = new ArrayList<String[]>();
         
-        String qry1 = "SELECT Freelancer.FreelancerID, Musician.MusicianID, Musician.Payroll, Musician.expertIn, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Freelancer.birthDate, Freelancer.strEmail FROM Freelancer INNER JOIN Musician ON Freelancer.[FreelancerID] = Musician.[MusicianID] WHERE (((Freelancer.FreelancerID)=[MusicianID]))";
-        String qry2 = "SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Freelancer.birthDate, Freelancer.strEmail, Soundman.SoundmanID, Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment FROM Freelancer, Soundman WHERE (((Freelancer.FreelancerID)=[Soundman].[SoundmanID]))";
+        String qry1 = "SELECT Freelancer.FreelancerID, Musician.MusicianID, Musician.Payroll, Musician.expertIn, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Freelancer.birthDate, Freelancer.strEmail FROM Freelancer INNER JOIN Musician ON Freelancer.[FreelancerID] = Musician.[MusicianID] WHERE (((Freelancer.FreelancerID)=[MusicianID])) ORDER BY  " +sortType;
+        String qry2 = "SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Freelancer.birthDate, Freelancer.strEmail, Soundman.SoundmanID, Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment FROM Freelancer, Soundman WHERE (((Freelancer.FreelancerID)=[Soundman].[SoundmanID])) ORDER BY " + sortType;
 
         ResultSet rs1 = iRecord.getDB().query(qry1);
         ResultSet rs2 = iRecord.getDB().query(qry2);
@@ -202,13 +202,7 @@ public class FreelancerManager {
         } catch (SQLException ex) {
             Logger.getLogger(ArtistManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if (sortType.equals("id")) {
-            Collections.sort(toReturn, new iComp());
-        } 
-        else if (sortType.equals("stageName")) {
-            Collections.sort(toReturn, new sComp());
-        }
+
         return toReturn;
     }
     

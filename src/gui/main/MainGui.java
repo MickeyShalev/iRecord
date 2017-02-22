@@ -5,20 +5,10 @@
  */
 package gui.main;
 
-import gui.internal.frmAddArtist;
-import gui.internal.frmAddMusician;
-import gui.internal.frmAddRoom;
-import gui.internal.frmAddSoundman;
-import gui.internal.frmAddStudio;
-import gui.internal.frmArtistSuspension;
-import gui.internal.frmCreateSession;
+import gui.internal.*;
 import iRecord.iRecord;
 import java.sql.SQLException;
 import iRecord.utilities.EAuth;
-import gui.internal.frmCreateShow;
-import gui.internal.frmFreelancerToStudio;
-import gui.internal.frmRegReport;
-import gui.internal.frmStudiosAndSessions;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.sql.ResultSet;
@@ -267,7 +257,8 @@ public class MainGui extends javax.swing.JFrame {
         //frmArtistSuspension add = new frmArtistSuspension();
         //frmFreelancerToStudio add = new frmFreelancerToStudio();
         //frmRegReport add = new frmRegReport();
-        frmStudiosAndSessions add = new frmStudiosAndSessions();
+        //frmStudiosAndSessions add = new frmStudiosAndSessions();
+        frmSessions add = new frmSessions();
         iWindow.openWin(add);
     }//GEN-LAST:event_btnaddArtistMouseClicked
 

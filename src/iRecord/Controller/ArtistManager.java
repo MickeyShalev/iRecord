@@ -115,8 +115,8 @@ public class ArtistManager {
      */
     public static ArrayList<String[]> getArtistList(String sortType){
         ArrayList<String[]> toReturn = new ArrayList<String[]>();
-        
-        ResultSet rs = iRecord.getDB().query("SELECT Artists.* FROM Artists");
+       
+        ResultSet rs = iRecord.getDB().query("SELECT Artists.* FROM Artists ORDER BY  "+sortType);
         
         try {
             while(rs.next()){
@@ -133,44 +133,8 @@ public class ArtistManager {
             Logger.getLogger(ArtistManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (sortType.equals("id")) {
-            Collections.sort(toReturn, new iComp());
-        } else if (sortType.equals("stageName")) {
-            Collections.sort(toReturn, new sComp());
-        }
         return toReturn;
     }
     
 }
 
-
-
-
-
-
-
-
-
-
-    class sComp implements Comparator{
-
-        @Override
-        public int compare(Object o1, Object o2) {
-            String[] s1 = (String[]) o1;
-            String[] s2 = (String[]) o2;
-            return (s1[1].compareTo(s2[1]));
-        }
-        
-    }
-
-
-   class iComp implements Comparator{
-
-        @Override
-        public int compare(Object o1, Object o2) {
-            String[] s1 = (String[]) o1;
-            String[] s2 = (String[]) o2;
-            return (s1[2].compareTo(s2[2]));
-        }
-        
-    }

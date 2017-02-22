@@ -7,9 +7,12 @@ import iRecord.iRecord;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -195,10 +198,12 @@ return studios;
         try {
             while(rs.next()){
                 String sID = rs.getString("SessionId");
-                Timestamp date = rs.getTimestamp("sessionStartDate");
+                Date date =  new Date(rs.getTimestamp("sessionStartDate").getTime());
+                SimpleDateFormat dft = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
+                dft.setTimeZone(TimeZone.getTimeZone("Asia/Jerusalem"));
                 String artist = rs.getString("artistid");
                 String cost = rs.getString("totalCost");
-                toReturn.add(new String[]{sID, date.toString(), artist, cost});
+                toReturn.add(new String[]{sID, dft.format(date).toString(), artist, cost});
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudioAndRoomManager.class.getName()).log(Level.SEVERE, null, ex);

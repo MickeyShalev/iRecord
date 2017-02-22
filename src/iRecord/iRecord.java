@@ -122,34 +122,59 @@ public class iRecord {
         ResultSet tmp = null;
         Person tmpPerson = null;
         log("Attempting login using " + id + "/" + pass);
-        /**
-         * TO BE DELETED id = id.replace("Cust",""). replace("RE", "").
-         * replace("AR", ""). replace("AAG", ""). replace("LR", "");
-         *
-         */
 
-     
 
-        tmp = iRecord.DB.query("select * from Artists where ArtistID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
-        if (tmp.next()) {
-            if (tmp.getString(1).length() > 0) {
-                //Logged in as agent
-                String ID = tmp.getString("ArtistID");
-                String strStageName = tmp.getString("StageName");
-                String strEmailaddr = tmp.getString("sEmail");
-                String strPasswd = tmp.getString("strPasswd");
-                java.sql.Date expireDate = tmp.getDate("dateExpired");
-                System.err.println("Date: " + expireDate);
-                Person p = new Artist(ID, strStageName, strPasswd,  expireDate, EAuth.Artist);
-                loggedUser = p;
-                log("Artist logged in");
-                return true;
+        System.out.println(id.substring(0,2));
+        //Artist is attempting to login
+        if (id.substring(0, 2).equals("AR") || id.equals("admin")){
+            tmp = iRecord.DB.query("select * from Artists where ArtistID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
+            
+            if (tmp.next()) {
+                if (tmp.getString(1).length() > 0) {
+                    //Logged in as agent
+                    String ID = tmp.getString("ArtistID");
+                    String strStageName = tmp.getString("StageName");
+                    String strEmailaddr = tmp.getString("sEmail");
+                    String strPasswd = tmp.getString("strPasswd");
+                    java.sql.Date expireDate = tmp.getDate("dateExpired");
+                    System.err.println("Date: " + expireDate);
+                    Person p = new Artist(ID, strStageName, strEmailaddr, strPasswd, expireDate, EAuth.Artist);
+                    loggedUser = p;
+                    log("Artist logged in");
+                    return true;
+                }
+                
             }
-
         }
-   
-    return false;
-}
+        
+/*        
+        //Freelancer is attempting to login
+        else if (id.substring(0, 2).equals("FL")){
+            tmp = iRecord.DB.query("select * from Freelancer where FreelancerID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
+            
+            if (tmp.next()) {
+                if (tmp.getString(1).length() > 0) {
+                    
+                    String ID = tmp.getString("FreelancerID");
+                    String strStageName = tmp.getString("StageName");
+                    String fname = tmp.getString("firstName");
+                    String lname = tmp.getString("lastName");
+                    String strEmailaddr = tmp.getString("strEmail");
+                    String strPasswd = tmp.getString("strPasswd");
+                    java.sql.Date expireDate = tmp.getDate("birthdate");
+                    System.err.println("Date: " + expireDate);
+                    Person p = new Freelancer(ID,fname, lname, strStageName, 0 ,strEmailaddr);
+                    loggedUser = p;
+                    log("Freelancer logged in");
+                    return true;
+                }
+                
+            }
+         
+        }
+*/        
+        return false;
+    }
     
 
     

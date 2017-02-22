@@ -164,7 +164,7 @@ public class frmRegReport extends javax.swing.JInternalFrame {
 
             //get all artists
             ArrayList <String[]> artists  = null;
-            if(cbSort.getSelectedIndex() == 1) artists = ArtistManager.getArtistList("id");
+            if(cbSort.getSelectedIndex() == 1) artists = ArtistManager.getArtistList("artistid");
             else if (cbSort.getSelectedIndex() == 2) artists = ArtistManager.getArtistList("stageName");
             
             DefaultTableModel model = (DefaultTableModel) tblGen.getModel();
@@ -184,7 +184,7 @@ public class frmRegReport extends javax.swing.JInternalFrame {
             
             //get all artists
             ArrayList <String[]> freelancers  = null;
-            if(cbSort.getSelectedIndex() == 1) freelancers = FreelancerManager.getArtistList("id");
+            if(cbSort.getSelectedIndex() == 1) freelancers = FreelancerManager.getArtistList("FreelancerID");
             else if (cbSort.getSelectedIndex() == 2) freelancers = FreelancerManager.getArtistList("stageName");
             
             DefaultTableModel model = (DefaultTableModel) tblGen.getModel();
