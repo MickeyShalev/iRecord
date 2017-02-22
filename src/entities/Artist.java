@@ -6,7 +6,6 @@
 package entities;
 
 import iRecord.Controller.XMLManager;
-import iRecord.utilities.EArtistStatus;
 import iRecord.utilities.EAuth;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -25,34 +24,25 @@ import java.util.logging.Logger;
  * @author Administrator
  */
 public class Artist extends Person {
-
-    
-
-    private String emailAddr = "";
-    private String ID = "";
-    private String stageName= "";
     private java.sql.Date dateExpired;
     
-    
+    //======================================= Constructors ==========================================
     public Artist(String ID, String strStageName, String strPasswd, java.sql.Date dateExpired, EAuth authType){
-        super(ID, strStageName, "", strPasswd, authType);
-        setEmailAddr(emailAddr);
-        setID(ID);
-        setStageName(stageName);
-        setDateExpired(dateExpired);
+        super(ID, strStageName, strPasswd, authType);
+        this.dateExpired = dateExpired;
 
     }
     
     
         public Artist(String ID, String strStageName, String mail, String strPasswd, java.sql.Date dateExpired, EAuth authType){
-        super(ID, strStageName, "", strPasswd, authType);
-        setEmailAddr(mail);
-        setID(ID);
-        this.stageName = strStageName;
-        setDateExpired(dateExpired);
+        super(ID, strStageName, strPasswd, authType);
+        super.setEmail(mail);
+        this.dateExpired = dateExpired;
         
         }
 
+        
+    //===================================== Setters and Getters ===========================================    
     public Date getDateExpired() {
         return dateExpired;
     }
@@ -60,23 +50,12 @@ public class Artist extends Person {
     public void setDateExpired(Date dateExpired) {
         this.dateExpired = dateExpired;
     }
-
-
-    public String getStageName() {
-        return stageName;
+    
+    @Override
+    public String getID(){
+        return super.getID();
     }
 
-    public void setStageName(String stageName) {
-        this.stageName = stageName;
-    }
-
-    public String getEmailAddr() {
-        return emailAddr;
-    }
-
-    public void setEmailAddr(String emailAddr) {
-        this.emailAddr = emailAddr;
-    }
     
     public List<java.sql.Date> getUnavailableDates(){
        List<java.sql.Date> list = new ArrayList<java.sql.Date>();

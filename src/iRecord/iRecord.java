@@ -124,7 +124,7 @@ public class iRecord {
         log("Attempting login using " + id + "/" + pass);
 
 
-        System.out.println(id.substring(0,2));
+        //System.out.println(id.substring(0,2));
         //Artist is attempting to login
         if (id.substring(0, 2).equals("AR") || id.equals("admin")){
             tmp = iRecord.DB.query("select * from Artists where ArtistID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");

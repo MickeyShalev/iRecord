@@ -12,36 +12,33 @@ import iRecord.utilities.EAuth;
  * @author Administrator
  */
 public abstract class Person {
-    private String firstName, lastName, ID, password;
-    private EAuth userAuth=null;
+    private String ID, stageName, password, email;
+    private EAuth userAuth = null;
     
+    //===================================== Constructors ===============================================
     
-    public Person(String ID, String firstName, String lastName, String password, EAuth userAuth){
+    public Person(String ID, String stageName, String password, EAuth userAuth){
         this.ID=ID;
-        this.firstName=(firstName.substring(0, 1).toUpperCase() + firstName.substring(1));
-        if(lastName.length()>0)
-        this.lastName=(lastName.substring(0, 1).toUpperCase() + lastName.substring(1));
-        else
-            this.lastName="";
+        this.stageName = stageName;
         this.password=password;
         this.userAuth=userAuth;
         
     }
+    
+    
+    
+    public Person(String id){
+        this.ID = id;
+    }
 
+    //================================= Stetters and Getters ============================================
+    
     public EAuth getUserAuth() {
         return userAuth;
     }
 
     public void setUserAuth(EAuth userAuth) {
         this.userAuth = userAuth;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public String getID() {
@@ -52,14 +49,6 @@ public abstract class Person {
         return password;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public void setID(String ID) {
         this.ID = ID;
     }
@@ -68,6 +57,20 @@ public abstract class Person {
         this.password = password;
     }
     
-  
+    public void setStageName(String name){
+        this.stageName = name;
+    }
+    
+    public String getStageName(){
+        return this.stageName;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
+    
+    public void setEmail(String email){
+        this.email = email;
+    }
     
 }

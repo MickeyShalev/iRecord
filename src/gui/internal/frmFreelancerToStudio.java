@@ -180,7 +180,7 @@ public class frmFreelancerToStudio extends javax.swing.JInternalFrame {
             return;
         }
         
-        lblName.setText(f.getStageName());  
+        lblName.setText(f.getStageName());
         
         lblGen.setForeground(Color.GREEN);
         lblGen.setText("");

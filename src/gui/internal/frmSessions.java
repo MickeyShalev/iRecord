@@ -237,7 +237,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
     private void init(){
         a = (Artist)iRecord.getLoggedUser();
         lblstageName.setText(a.getStageName());
-        lblEmail.setText(a.getEmailAddr());
+        lblEmail.setText(a.getEmail());
         lblID.setText(a.getID());
     }
     

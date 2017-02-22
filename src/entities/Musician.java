@@ -13,25 +13,16 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author nisan
- */
-public class Musician extends Freelancer {
-    Double payRoll;
-    Integer expertise;
-    Date birthdDate;
 
-    
-    public Musician(String FreelancerID, String firstName, String lastName, String stageName, Double payRoll, Integer expertise, Integer priority) {
-        super(FreelancerID, firstName, lastName, stageName, priority);
-        this.payRoll = payRoll;
-        this.expertise = expertise;
-        
-    }
-    
-    public Musician(String FreelancerID, String firstName, String lastName, String stageName, Double payRoll, Integer expertise, Integer priority, Date birthdate, String email) {
-        super(FreelancerID, firstName, lastName, stageName, priority, email);
+
+public class Musician extends Freelancer {
+    private double payRoll;
+    private int expertise;
+    private Date birthdDate;
+
+    //==================================== Constructors ===================================================  
+    public Musician(String FreelancerID, String firstName, String lastName, String stageName, double payRoll, int expertise, Integer priority, Date birthdate, String email) {
+        super(FreelancerID, firstName, lastName, stageName, email);
         this.payRoll = payRoll;
         this.expertise = expertise;
         this.birthdDate = birthdate;
@@ -42,7 +33,16 @@ public class Musician extends Freelancer {
         
     }
 
+    //this contructor is dedicated to session controller
+    public Musician(String id, String fname, String lname, String stageName, double pay, int expert, int p) {
+        super(id, fname, lname, stageName, " ");
+        this.payRoll = payRoll;
+        this.expertise = expertise;
+        setPriority(p);
 
+    }
+
+    //=================================== Setters and Getters ===========================================
     public Double getPayRoll() {
         return payRoll;
     }
@@ -99,15 +99,7 @@ public class Musician extends Freelancer {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return getStageName();
-    }
-    
-    
-    
+    } 
     
     
 }

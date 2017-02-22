@@ -54,7 +54,7 @@ public class ArtistManager {
            
         java.sql.Timestamp eDate = new java.sql.Timestamp (a.getDateExpired().getTime());
         String qry = "INSERT INTO artists (ArtistID, StageName, sEmail, strPasswd, dateExpired)"
-                + " VALUES (\"" +a.getID() +"\", \""+a.getStageName()+"\" ,\""+a.getEmailAddr()+"\", \""+a.getPassword()+"\",\"" + eDate + "\")";
+                + " VALUES (\"" +a.getID() +"\", \""+a.getStageName()+"\" ,\""+a.getEmail()+"\", \""+a.getPassword()+"\",\"" + eDate + "\")";
         
         
         iRecord.getDB().updateReturnID(qry);

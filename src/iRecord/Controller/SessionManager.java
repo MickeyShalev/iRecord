@@ -70,7 +70,7 @@ public class SessionManager {
                         "ORDER BY FreelancerToStudio.Grade DESC;");
         try {
             while(qry.next()){
-                System.err.println("Inserting Musician "+qry.getString("stageName")+" with priority "+qry.getString("Grade"));
+                //System.err.println("Inserting Musician "+qry.getString("stageName")+" with priority "+qry.getString("Grade"));
                 musicianMap.put(new Musician(qry.getString("FreelancerID"), qry.getString("firstName"), qry.getString("lastName"), qry.getString("stageName"), qry.getDouble("Payroll"), qry.getInt("expertIn"), qry.getInt("Grade")), null);
                 
             }
@@ -131,9 +131,7 @@ public class SessionManager {
         System.err.println("Getting SMMap for studio "+stud);
         
         //Get all soundman for the chosen studio
-        ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment, FreelancerToStudio.Grade\n" +
-                "FROM (Freelancer INNER JOIN Soundman ON Freelancer.FreelancerID = Soundman.SoundmanID) INNER JOIN FreelancerToStudio ON (FreelancerToStudio.FreelancerID = Freelancer.FreelancerID) AND (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID)\n" +
-                "WHERE (((FreelancerToStudio.StudioID)="+stud.getsID()+")) order by Grade desc;");
+        ResultSet qry = iRecord.getDB().query("SELECT Freelancer.FreelancerID, Freelancer.firstName, Freelancer.lastName, Freelancer.stageName, Soundman.isProducer, Soundman.isMixTech, Soundman.isMasterTech, Soundman.downPayment, Soundman.FullPayment, FreelancerToStudio.Grade FROM (Freelancer INNER JOIN Soundman ON Freelancer.FreelancerID = Soundman.SoundmanID) INNER JOIN FreelancerToStudio ON (FreelancerToStudio.FreelancerID = Freelancer.FreelancerID) AND (Freelancer.FreelancerID = FreelancerToStudio.FreelancerID) WHERE (((FreelancerToStudio.StudioID)=1)) order by Grade desc;");
         try {
             while(qry.next()){
                 Soundman s = new Soundman(qry.getString(1), qry.getString(2), qry.getString(3), qry.getString(4), qry.getBoolean(5), qry.getBoolean(6), qry.getBoolean(7), qry.getDouble(8), qry.getDouble(9), qry.getInt(10));

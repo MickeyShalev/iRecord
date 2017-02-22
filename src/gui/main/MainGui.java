@@ -266,7 +266,7 @@ public class MainGui extends javax.swing.JFrame {
     public void refreshVars() {
         lblTitle.setText("Homepage");
         lblUserType.setText("" + iRecord.getLoggedUser().getUserAuth());
-        lblUsernames.setText(iRecord.getLoggedUser().getFirstName() + " " + iRecord.getLoggedUser().getLastName());
+        lblUsernames.setText(iRecord.getLoggedUser().getID()+ " " + iRecord.getLoggedUser().getStageName());
         pnlArtist.setVisible(false);
         pnlRep.setVisible(false);
         switch (iRecord.getLoggedUser().getUserAuth()) {

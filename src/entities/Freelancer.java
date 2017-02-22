@@ -5,62 +5,47 @@
  */
 package entities;
 
+import iRecord.utilities.EAuth;
 import java.util.Objects;
 
 /**
  *
  * @author nisan
  */
-public class Freelancer {
-    private String FreelancerID, firstName, lastName, stageName, email;
-    private Integer priority;
+public class Freelancer extends Person{
+    private String firstName, lastName;
+    private int priority;
 
-    public Freelancer(String FreelancerID, String firstName, String lastName, String stageName, Integer priority) {
-        this.FreelancerID = FreelancerID;
+    //================================== Constructors =================================================
+    public Freelancer(String ID, String firstName, String lastName, String stageName, String email) {
+        super(ID, stageName, " ", EAuth.Freelancer);
         this.firstName = firstName;
         this.lastName = lastName;
-        this.stageName = stageName;
-        this.priority = priority;
-    }
-    
-    public Freelancer(String FreelancerID, String firstName, String lastName, String stageName, Integer priority, String email) {
-        this.FreelancerID = FreelancerID;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.stageName = stageName;
-        this.priority = priority;
-        this.email = email;
+        super.setEmail(email);
     }
 
-    public Freelancer(String FreelancerID){
-        this.FreelancerID=FreelancerID;
-        this.priority=0;
+    public Freelancer(String id){
+        super(id);
     }
     
-    
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public String getEmail(){
-        return this.email;
+    //================================= Setters and Getters ================================================
+    public String getFreelancerID(){
+        return super.getID();
     }
     
-    public void setPriority(Integer priority) {
-        this.priority = priority;
+    public void setPriority(int p){
+        this.priority = p;
     }
-
-    public String getFreelancerID() {
-        return FreelancerID;
+    
+    public int getPriority(){
+        return this.priority;
     }
-
-    public void setFreelancerID(String FreelancerID) {
-        this.FreelancerID = FreelancerID;
-    }
+    
 
     public String getFirstName() {
         return firstName;
     }
+    
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -74,19 +59,19 @@ public class Freelancer {
         this.lastName = lastName;
     }
 
-    public String getStageName() {
-        return stageName;
-    }
-
-    public void setStageName(String stageName) {
-        this.stageName = stageName;
-    }
-
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.FreelancerID);
+        hash = 89 * hash + Objects.hashCode(getID());
         return hash;
+    }
+    
+    public String getStageName(){
+        return super.getStageName();
+    }
+    
+    public void setStageNmae(String name){
+        super.setStageName(name);
     }
 
     @Override
@@ -101,7 +86,7 @@ public class Freelancer {
             return false;
         }
         final Freelancer other = (Freelancer) obj;
-        if (!Objects.equals(this.FreelancerID, other.FreelancerID)) {
+        if (!Objects.equals(this.getID(), other.getID())) {
             return false;
         }
         return true;

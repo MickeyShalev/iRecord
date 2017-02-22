@@ -16,17 +16,9 @@ public class Soundman extends Freelancer {
     private Double downPayment, fullPayment;
     private Date birthdate;
 
-    public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority) {
-        super(FreelancerID, firstName, lastName, stageName, priority);
-        this.isProducer = isProducer;
-        this.isMixTech = isMixTech;
-        this.isMasterTech = isMasterTech;
-        this.downPayment = downPayment;
-        this.fullPayment = fullPayment;
-    }
-    
+    //================================== Constructors ================================================
     public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority, Date birthdate, String email) {
-        super(FreelancerID, firstName, lastName, stageName, priority, email);
+        super(FreelancerID, firstName, lastName, stageName, email);
         this.isProducer = isProducer;
         this.isMixTech = isMixTech;
         this.isMasterTech = isMasterTech;
@@ -38,7 +30,21 @@ public class Soundman extends Freelancer {
     public Soundman(String FreelancerID){
         super(FreelancerID);
     }
+
+    //this constructor is dedicated for create session controller
+    public Soundman(String id, String fname, String lname, String stageName, boolean isProducer
+            , boolean isMixTech, boolean isMasterTech, double pay, double fullpay, int priority) {
+        super(id, fname, lname, stageName, " ");
+        this.isProducer = isProducer;
+        this.isMixTech = isMixTech;
+        this.isMasterTech = isMasterTech;
+        this.downPayment = downPayment;
+        this.fullPayment = fullPayment;
+        setPriority(priority);
+    }
     
+    
+    //================================== Setters and Getters ===========================================
     public Date getBirthdate(){
         return this.birthdate;
     }
@@ -82,12 +88,8 @@ public class Soundman extends Freelancer {
     public void setFullPayment(Double fullPayment) {
         this.fullPayment = fullPayment;
     }
-
-    @Override
-    public String toString() {
-        return getStageName();
-    }
     
+
     public void setRoles(Boolean isProducer, Boolean isMixTech, Boolean isMasterTech){
         this.isProducer=isProducer;
         this.isMixTech=isMixTech;
