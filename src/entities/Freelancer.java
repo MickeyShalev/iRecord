@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author nisan
  */
 public class Freelancer extends Person{
-    private String firstName, lastName, password;
+    private String firstName, lastName;
     private int priority, status;
     Date birthdate;
 
@@ -28,19 +28,17 @@ public class Freelancer extends Person{
     
     
         public Freelancer(String ID, String firstName, String lastName, String stageName, String email, String password, int status) {
-        super(ID, stageName, " ", EAuth.Freelancer);
+        super(ID, stageName, password, EAuth.Freelancer);
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = password;
         this.status = status;
         super.setEmail(email);
     }
         
         public Freelancer(String ID, String firstName, String lastName, String stageName, String email, String password, int status, Date birthdate) {
-        super(ID, stageName, " ", EAuth.Freelancer);
+        super(ID, stageName, password, EAuth.Freelancer);
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = password;
         this.status = status;
         super.setEmail(email);
         this.birthdate = birthdate;
@@ -101,7 +99,7 @@ public class Freelancer extends Person{
     }
     
     public String getPassword(){
-        return this.password;
+        return super.getPassword();
     }
 
     @Override

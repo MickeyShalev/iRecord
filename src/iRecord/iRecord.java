@@ -145,16 +145,15 @@ public class iRecord {
         
         //Freelancer is attempting to login
         else if (id.substring(0, 2).equals("FL")){
-            tmp = iRecord.DB.query("SELECT * FROM Freelancer WHERE FreelancerID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
+            tmp = iRecord.DB.query("SELECT * FROM Freelancer WHERE FreelancerID=\"" + id + "\" AND password=\"" + pass + "\"");
             
             if (tmp.next()) {
                 if (tmp.getString(1).length() > 0) {
                     
                     String ID = tmp.getString("FreelancerID");
-                    String strStageName = tmp.getString("StageName");
+                    String stageName = tmp.getString("StageName");
                     String fname = tmp.getString("firstName");
                     String lname = tmp.getString("lastName");
-                    String stageName = tmp.getString("stageNme");
                     String email = tmp.getString("strEmail");
                     String password = tmp.getString("Password");
                     java.sql.Date date = tmp.getDate("birthdate");
