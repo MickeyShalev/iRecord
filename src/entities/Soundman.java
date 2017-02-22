@@ -17,8 +17,8 @@ public class Soundman extends Freelancer {
     private Date birthdate;
 
     //================================== Constructors ================================================
-    public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority, Date birthdate, String email) {
-        super(FreelancerID, firstName, lastName, stageName, email);
+    public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority, Date birthdate, String email, String password, int status) {
+        super(FreelancerID, firstName, lastName, stageName, email, password, status);
         this.isProducer = isProducer;
         this.isMixTech = isMixTech;
         this.isMasterTech = isMasterTech;

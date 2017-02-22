@@ -21,8 +21,8 @@ public class Musician extends Freelancer {
     private Date birthdDate;
 
     //==================================== Constructors ===================================================  
-    public Musician(String FreelancerID, String firstName, String lastName, String stageName, double payRoll, int expertise, Integer priority, Date birthdate, String email) {
-        super(FreelancerID, firstName, lastName, stageName, email);
+    public Musician(String FreelancerID, String firstName, String lastName, String stageName, double payRoll, int expertise, int priority, Date birthdate, String email, String password, int status) {
+        super(FreelancerID, firstName, lastName, stageName, email, password, status);
         this.payRoll = payRoll;
         this.expertise = expertise;
         this.birthdDate = birthdate;

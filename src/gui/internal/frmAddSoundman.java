@@ -13,12 +13,9 @@ import iRecord.Controller.ArtistManager;
 import iRecord.Controller.FreelancerManager;
 import iRecord.Validators.AgeValidator;
 import iRecord.Validators.CharValidator;
-import iRecord.utilities.EAuth;
 import java.awt.Color;
-import java.io.File;
 import java.util.Date;
 import java.util.Random;
-import javax.swing.JFileChooser;
 
 /**
  *
@@ -30,8 +27,8 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     private String Email;
     private String password;
     private double fullPayment = -1, downPayment = -1;
-    Date birthDate;
-    boolean isProducer = false, isMixTech = false, isMasterTech = false;
+    private Date birthDate;
+    private boolean isProducer = false, isMixTech = false, isMasterTech = false;
     
     
     /**
@@ -471,7 +468,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         }
         
         if (firstName == null || lastName == null || stageName == null || Email ==null
-                || fullPayment < 0 || downPayment < 0 || birthDate == null /* || password ==null */){
+                || fullPayment < 0 || downPayment < 0 || birthDate == null  || password ==null ){
             lblGen.setText("One or more fields ane missing");
             updateWin();
             return;
@@ -480,7 +477,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         else{
 //            java.util.Date date = new java.util.Date();
 //            java.sql.Date birthdate = new java.sql.Date(birthDate.getTime());
-            Soundman toAdd = new Soundman(flID, firstName,lastName,stageName,isProducer,isMixTech,isMasterTech, downPayment,fullPayment,0 , birthDate, Email); 
+            Soundman toAdd = new Soundman(flID, firstName,lastName,stageName,isProducer,isMixTech,isMasterTech, downPayment,fullPayment,0 , birthDate, Email, password, 1); 
             pnlAdd.setVisible(false);
             //System.out.println(ArtistManager.addArtist(toAdd));
             //TODO - FIX THIS IF 

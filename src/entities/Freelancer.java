@@ -13,14 +13,24 @@ import java.util.Objects;
  * @author nisan
  */
 public class Freelancer extends Person{
-    private String firstName, lastName;
-    private int priority;
+    private String firstName, lastName, password;
+    private int priority, status;
 
     //================================== Constructors =================================================
     public Freelancer(String ID, String firstName, String lastName, String stageName, String email) {
         super(ID, stageName, " ", EAuth.Freelancer);
         this.firstName = firstName;
         this.lastName = lastName;
+        super.setEmail(email);
+    }
+    
+    
+        public Freelancer(String ID, String firstName, String lastName, String stageName, String email, String password, int status) {
+        super(ID, stageName, " ", EAuth.Freelancer);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.status = status;
         super.setEmail(email);
     }
 
@@ -72,6 +82,14 @@ public class Freelancer extends Person{
     
     public void setStageNmae(String name){
         super.setStageName(name);
+    }
+    
+    public int getStatus(){
+        return this.status;
+    }
+    
+    public String getPassword(){
+        return this.password;
     }
 
     @Override

@@ -8,10 +8,7 @@ package gui.main;
 import gui.internal.*;
 import iRecord.iRecord;
 import java.sql.SQLException;
-import iRecord.utilities.EAuth;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.sql.ResultSet;
 
 /**
  *
@@ -253,12 +250,12 @@ public class MainGui extends javax.swing.JFrame {
         //frmAddStudio add = new frmAddStudio(); 
         //frmAddRoom add = new frmAddRoom();
         //frmAddSoundman add = new frmAddSoundman();
-        //frmAddMusician add = new frmAddMusician();
+        frmAddMusician add = new frmAddMusician();
         //frmArtistSuspension add = new frmArtistSuspension();
         //frmFreelancerToStudio add = new frmFreelancerToStudio();
         //frmRegReport add = new frmRegReport();
         //frmStudiosAndSessions add = new frmStudiosAndSessions();
-        frmSessions add = new frmSessions();
+        //frmSessions add = new frmSessions();
         iWindow.openWin(add);
     }//GEN-LAST:event_btnaddArtistMouseClicked
 

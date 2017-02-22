@@ -13,12 +13,9 @@ import iRecord.Controller.ArtistManager;
 import iRecord.Controller.FreelancerManager;
 import iRecord.Validators.AgeValidator;
 import iRecord.Validators.CharValidator;
-import iRecord.utilities.EAuth;
 import java.awt.Color;
-import java.io.File;
 import java.util.Date;
 import java.util.Random;
-import javax.swing.JFileChooser;
 
 /**
  *
@@ -418,7 +415,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         //System.out.println(flID +" " + firstName + " " + lastName + " " + lastName + " " +Email + " " + birthDate + " " + profession + " " + fullPayment);
         
         if (firstName == null || lastName == null || stageName == null || Email ==null
-                || fullPayment < 0 || birthDate == null /* || password ==null */){
+                || fullPayment < 0 || birthDate == null  || password ==null ){
             lblGen.setText("One or more fields ane missing");
             updateWin();
             return;
@@ -427,7 +424,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         else{
 //            java.util.Date date = new java.util.Date();
 //            java.sql.Date birthdate = new java.sql.Date(birthDate.getTime());
-            Musician toAdd = new Musician(flID, firstName,lastName,stageName, fullPayment, profession, 0 , birthDate, Email); 
+            Musician toAdd = new Musician(flID, firstName,lastName,stageName, fullPayment, profession, 0 , birthDate, Email, password, 1); 
             pnlAdd.setVisible(false);
             //System.out.println(ArtistManager.addArtist(toAdd));
             //TODO - FIX THIS IF 
