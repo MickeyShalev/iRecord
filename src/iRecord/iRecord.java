@@ -6,26 +6,16 @@
 package iRecord;
 
 import entities.*;
-import iRecord.utilities.EArtistStatus;
 import java.util.Date;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import iRecord.utilities.EAuth;
-import gui.main.iWindow;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.JFrame;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JRViewer;
 
 /**
  *
@@ -38,6 +28,7 @@ public class iRecord {
     private static String fileName = "iReportLogger";
     private static FileWriter logFile;
     private static PrintStream logWriter;
+    private static Person admin;
 
   
 
@@ -92,6 +83,8 @@ public class iRecord {
      * Initiates a DB Connection
      */
     public void init() {
+        admin  = new Person("Admin", "Admin", "Admin", "Admin" ,EAuth.Administrator);
+        
         try {
             log("Attempting connection to MS Access DB");
             DB = new DBManager();
@@ -120,18 +113,21 @@ public class iRecord {
 
     public static boolean logIn(String id, String pass) throws SQLException {
         ResultSet tmp = null;
-        Person tmpPerson = null;
         log("Attempting login using " + id + "/" + pass);
-
-
+        
+        if(id.equals(admin.getID()) && pass.equals(admin.getPassword())){
+            loggedUser = admin;
+            return true;
+        }
+        
         //System.out.println(id.substring(0,2));
         //Artist is attempting to login
         if (id.substring(0, 2).equals("AR") || id.equals("admin")){
-            tmp = iRecord.DB.query("select * from Artists where ArtistID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
+            tmp = iRecord.DB.query("SELECT * FROM Artists WHERE ArtistID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
             
             if (tmp.next()) {
                 if (tmp.getString(1).length() > 0) {
-                    //Logged in as agent
+                    
                     String ID = tmp.getString("ArtistID");
                     String strStageName = tmp.getString("StageName");
                     String strEmailaddr = tmp.getString("sEmail");
@@ -147,10 +143,9 @@ public class iRecord {
             }
         }
         
-/*        
         //Freelancer is attempting to login
         else if (id.substring(0, 2).equals("FL")){
-            tmp = iRecord.DB.query("select * from Freelancer where FreelancerID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
+            tmp = iRecord.DB.query("SELECT * FROM Freelancer WHERE FreelancerID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
             
             if (tmp.next()) {
                 if (tmp.getString(1).length() > 0) {
@@ -159,11 +154,14 @@ public class iRecord {
                     String strStageName = tmp.getString("StageName");
                     String fname = tmp.getString("firstName");
                     String lname = tmp.getString("lastName");
-                    String strEmailaddr = tmp.getString("strEmail");
-                    String strPasswd = tmp.getString("strPasswd");
-                    java.sql.Date expireDate = tmp.getDate("birthdate");
-                    System.err.println("Date: " + expireDate);
-                    Person p = new Freelancer(ID,fname, lname, strStageName, 0 ,strEmailaddr);
+                    String stageName = tmp.getString("stageNme");
+                    String email = tmp.getString("strEmail");
+                    String password = tmp.getString("Password");
+                    java.sql.Date date = tmp.getDate("birthdate");
+                    int status = tmp.getInt("Status");
+                    //System.err.println("Date: " + expireDate);
+                    Person p = new Freelancer(ID, fname, lname, stageName, email, password,  status,  date);
+                    // ID,  firstName,  lastName,  stageName,  email,  password,  status,  birthdate
                     loggedUser = p;
                     log("Freelancer logged in");
                     return true;
@@ -172,7 +170,7 @@ public class iRecord {
             }
          
         }
-*/        
+        
         return false;
     }
     

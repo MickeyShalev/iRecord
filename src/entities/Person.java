@@ -11,7 +11,7 @@ import iRecord.utilities.EAuth;
  *
  * @author Administrator
  */
-public abstract class Person {
+public class Person {
     private String ID, stageName, password, email;
     private EAuth userAuth = null;
     
@@ -22,6 +22,15 @@ public abstract class Person {
         this.stageName = stageName;
         this.password=password;
         this.userAuth=userAuth;
+        
+    }
+    
+        public Person(String ID, String stageName, String password, String email, EAuth userAuth){
+        this.ID=ID;
+        this.stageName = stageName;
+        this.password=password;
+        this.userAuth=userAuth;
+        this.email = email;
         
     }
     

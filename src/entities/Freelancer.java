@@ -6,6 +6,7 @@
 package entities;
 
 import iRecord.utilities.EAuth;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -15,6 +16,7 @@ import java.util.Objects;
 public class Freelancer extends Person{
     private String firstName, lastName, password;
     private int priority, status;
+    Date birthdate;
 
     //================================== Constructors =================================================
     public Freelancer(String ID, String firstName, String lastName, String stageName, String email) {
@@ -32,6 +34,16 @@ public class Freelancer extends Person{
         this.password = password;
         this.status = status;
         super.setEmail(email);
+    }
+        
+        public Freelancer(String ID, String firstName, String lastName, String stageName, String email, String password, int status, Date birthdate) {
+        super(ID, stageName, " ", EAuth.Freelancer);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.status = status;
+        super.setEmail(email);
+        this.birthdate = birthdate;
     }
 
     public Freelancer(String id){
