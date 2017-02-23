@@ -358,6 +358,7 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         
     }
     
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField Pass1;
     private javax.swing.JPasswordField Pass2;
