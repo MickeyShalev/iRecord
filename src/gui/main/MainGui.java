@@ -105,7 +105,7 @@ public class MainGui extends javax.swing.JFrame {
 
         pnlAdmin.setOpaque(false);
 
-        AR.setBackground(new Color (255,255,255,20));
+        AR.setBackground(new Color (0,0,0,90));
         AR.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 ARFocusLost(evt);
@@ -163,7 +163,7 @@ public class MainGui extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        FL.setBackground(new Color (255,255,255,20));
+        FL.setBackground(new Color (0,0,0,90));
         FL.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 FLFocusLost(evt);
@@ -238,7 +238,7 @@ public class MainGui extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        STD.setBackground(new Color (255,255,255,20));
+        STD.setBackground(new Color (0,0,0,90));
         STD.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 STDFocusLost(evt);
@@ -354,8 +354,8 @@ public class MainGui extends javax.swing.JFrame {
                             .addComponent(Artist, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(WatchRegistered, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Freelancer, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Studio, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Expertise, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Expertise, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Studio, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(AR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

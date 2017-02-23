@@ -165,7 +165,6 @@ public class frmFreelancerSuspension extends javax.swing.JInternalFrame {
         }
         
         lblGen.setForeground(Color.GREEN);
-        lblGen.setText("Freelancer state was changed");
         updateWin();
         return;
         
