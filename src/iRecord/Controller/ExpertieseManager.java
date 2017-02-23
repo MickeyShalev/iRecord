@@ -1,9 +1,11 @@
 package iRecord.Controller;
 
+import entities.Expertise;
 import iRecord.iRecord;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,24 +13,24 @@ import java.util.logging.Logger;
  *
  * @author micke
  */
-public class ExpertieeManager {
+public class ExpertieseManager {
     
     /**
      * This method return list of all Expertise
      * @return 
      */
-    public static HashMap<Integer, String> getInstrument(){
-        HashMap<Integer, String> toReturn = new HashMap<Integer, String>();
+    public static HashSet<Expertise> getInstrument(){
+        HashSet<Expertise> toReturn = new HashSet<Expertise> ();
        
         ResultSet rs = iRecord.getDB().query("SELECT Expertise.* FROM Expertise");
         
         try {
             while(rs.next()){
-                toReturn.put(rs.getInt(1), rs.getString(2));
+                toReturn.add(new Expertise (rs.getInt(1), rs.getString(2)));
                 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ExpertieeManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExpertieseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -45,7 +47,8 @@ public class ExpertieeManager {
         boolean status = false;
         
         String qry = "INSERT INTO Expertise (ExpertiseID, eField) VALUES ("+num+", \""+name+"\")";
-         
+        iRecord.getDB().executeUpadate(qry);
+        
         if(isExists(name)){
             status = true;
         }
@@ -61,18 +64,19 @@ public class ExpertieeManager {
     public static boolean removeInstrument(int num, String name){
         boolean status = false;
         //chech if someone is using it
-        String query = "SELECT Musician.[MusicianID], Musician.[Payroll], Musician.[expertIn] FROM Musician WHERE (((Musician.[expertIn])="+num+"))";
-        ResultSet rs = iRecord.getDB().executeUpadate(query);
+        String query = "SELECT Musician.[MusicianID], Musician.[expertIn] FROM Musician WHERE (((Musician.[expertIn])="+num+"))";
+        ResultSet rs = iRecord.getDB().query(query);
         
         
         try {
             if (rs.next()){
                 //someone is using it - can't remove
+                System.out.println("Cant remove");
                 return false;
           
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ExpertieeManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExpertieseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         //none is using it - removing
@@ -105,4 +109,26 @@ public class ExpertieeManager {
         
         return status;
     }
+    
+    /**
+     * getting the next number of element to be inserted
+     * @return 
+     */
+    public static int getNextNum(){
+        int num = 0;
+        String qry = "SELECT MAX (Expertiseid) FROM Expertise";
+        ResultSet rs = iRecord.getDB().query(qry);
+        
+        try {
+            if (rs.next()){
+                num = rs.getInt("ExpertiseID");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ExpertieseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return num;
+    }
+    
+    
 }

@@ -10,12 +10,16 @@ import Validators.PositiveValidator;
 import entities.*;
 import gui.main.iWindow;
 import iRecord.Controller.ArtistManager;
+import iRecord.Controller.ExpertieseManager;
 import iRecord.Controller.FreelancerManager;
 import iRecord.Validators.AgeValidator;
 import iRecord.Validators.CharValidator;
 import java.awt.Color;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Random;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -29,6 +33,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     private double fullPayment = -1;
     private Date birthDate;
     private int profession;
+    private javax.swing.JComboBox<Expertise> cbExpertise;
     
     
     /**
@@ -80,7 +85,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         tffull = new javax.swing.JTextField();
         lbdateError = new javax.swing.JLabel();
         lblFileName = new javax.swing.JLabel();
-        cbProf = new javax.swing.JComboBox<>();
+        javax.swing.JComboBox<String> cbExpertise = new javax.swing.JComboBox<>();
         lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -275,12 +280,12 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         lblFileName.setForeground(new java.awt.Color(255, 255, 255));
         pnlAdd.add(lblFileName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 440, 20));
 
-        cbProf.addFocusListener(new java.awt.event.FocusAdapter() {
+        cbExpertise.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                cbProfFocusLost(evt);
+                cbExpertiseFocusLost(evt);
             }
         });
-        pnlAdd.add(cbProf, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 170, -1));
+        pnlAdd.add(cbExpertise, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 170, -1));
 
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(0, 40, 780, 380);
@@ -528,12 +533,11 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jXDatePicker1FocusLost
 
-    private void cbProfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbProfFocusLost
-        if (cbProf.getSelectedIndex() == 0) return;
-        String prof = (String)cbProf.getSelectedItem();
-        Expertiese e = Expertiese.valueOf(prof);
-        profession = e.getValue();
-    }//GEN-LAST:event_cbProfFocusLost
+    private void cbExpertiseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbExpertiseFocusLost
+        if (cbExpertise.getSelectedIndex() == 0) return;
+        Expertise e = (Expertise)cbExpertise.getSelectedItem();
+        profession = e.getNum();
+    }//GEN-LAST:event_cbExpertiseFocusLost
 
     private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
         
@@ -554,11 +558,17 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     private void init(){
         createFLID();
         
-        cbProf.removeAllItems();
-        cbProf.addItem("Select Profession");
-        for (Expertiese e:Expertiese.values()){
-            cbProf.addItem(e.toString());
+        //Set expertise combo box
+        HashSet<Expertise>  exp = ExpertieseManager.getInstrument();
+        cbExpertise = new JComboBox<>();
+        cbExpertise.removeAllItems();        
+        cbExpertise.setModel(new DefaultComboBoxModel<Expertise>(new Expertise[] {new Expertise(0, "Select Expertise")}));
+        
+        for (Expertise e : exp){
+            cbExpertise.addItem(e);
         }
+        
+        
     }
     
     /**
@@ -595,7 +605,6 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField Pass1;
     private javax.swing.JPasswordField Pass2;
     private javax.swing.JButton btnAdd;
-    private javax.swing.JComboBox<String> cbProf;
     private javax.swing.JLabel jLabel16;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JLabel lbdateError;
