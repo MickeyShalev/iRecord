@@ -250,13 +250,14 @@ public class MainGui extends javax.swing.JFrame {
         //frmAddStudio add = new frmAddStudio(); 
         //frmAddRoom add = new frmAddRoom();
         //frmAddSoundman add = new frmAddSoundman();
-        //frmAddMusician add = new frmAddMusician();
+        frmAddMusician add = new frmAddMusician();
         //frmArtistSuspension add = new frmArtistSuspension();
         //frmFreelancerToStudio add = new frmFreelancerToStudio();
-        frmRegReport add = new frmRegReport();
+        //frmRegReport add = new frmRegReport();
         //frmStudiosAndSessions add = new frmStudiosAndSessions();
         //frmSessions add = new frmSessions();
         //frmFreelancerSuspension add = new frmFreelancerSuspension();
+        //frmAddExpertise add = new frmAddExpertise();
         iWindow.openWin(add);
     }//GEN-LAST:event_btnaddArtistMouseClicked
 

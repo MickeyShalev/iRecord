@@ -10,6 +10,7 @@ import gui.main.iWindow;
 import iRecord.Controller.ExpertieseManager;
 import iRecord.Validators.CharValidator;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -20,7 +21,7 @@ import javax.swing.JComboBox;
  */
 public class frmAddExpertise extends javax.swing.JInternalFrame {
     
-    private javax.swing.JComboBox<Expertise> cbExpertise;
+    //private JComboBox<Expertise> cbExpertise;
     private String name = null;
     private int num = -1;
     private Expertise toRemove = null;
@@ -61,7 +62,7 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
         lblCostError1 = new javax.swing.JLabel();
         lblPhone2 = new javax.swing.JLabel();
         btnRemove = new javax.swing.JButton();
-        javax.swing.JComboBox<String> cbExpertise = new javax.swing.JComboBox<>();
+        cbExpertise = new javax.swing.JComboBox<>();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
@@ -165,15 +166,10 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
                 btnRemoveMouseClicked(evt);
             }
         });
-        pnlRemove.add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 130, 20));
+        pnlRemove.add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 160, 20));
 
-        cbExpertise.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbExpertise.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbExpertiseActionPerformed(evt);
-            }
-        });
-        pnlRemove.add(cbExpertise, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 230, -1));
+        cbExpertise.setModel(new DefaultComboBoxModel<> (new Expertise[] {new Expertise(0, "Select")}));
+        pnlRemove.add(cbExpertise, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 210, -1));
 
         getContentPane().add(pnlRemove);
         pnlRemove.setBounds(10, 70, 780, 120);
@@ -238,47 +234,45 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRemoveMouseClicked
 
     private void cbOperationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOperationActionPerformed
-        if (cbOperation.getSelectedIndex() == 0) return;
+        if (cbOperation.getSelectedIndex() == 0){
+            pnlRemove.setVisible(false);
+            pnlAdd.setVisible(false);
+
+        }
         else if (cbOperation.getSelectedIndex() == 1){
             pnlRemove.setVisible(false);
             pnlAdd.setVisible(true);
             num = ExpertieseManager.getNextNum();
-            updateWin();
-            return;
+            lblNum.setText(""+num+1);
         }
         
         else if (cbOperation.getSelectedIndex() == 2){
             pnlAdd.setVisible(false);
-            pnlRemove.setVisible(false);
-            num = -1;
-            updateWin();
-            return;
+            pnlRemove.setVisible(true);
+
         }
-    }//GEN-LAST:event_cbOperationActionPerformed
-
-    private void cbExpertiseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbExpertiseActionPerformed
-        if (cbExpertise.getSelectedIndex() == 0) return;
-        else toRemove = (Expertise)cbExpertise.getSelectedItem();
+        
         updateWin();
-
-    }//GEN-LAST:event_cbExpertiseActionPerformed
+        return;
+    }//GEN-LAST:event_cbOperationActionPerformed
 
         
     private void init(){
         pnlAdd.setVisible(false);
         pnlRemove.setVisible(false);
-        
-        
+  
+        initCBE();
+    }
+    
+    public void initCBE(){
+                
         //Set expertise combo box
-        HashSet<Expertise>  exp = ExpertieseManager.getInstrument();
-        cbExpertise = new JComboBox<>();
-        cbExpertise.removeAllItems();        
-        cbExpertise.setModel(new DefaultComboBoxModel<Expertise>(new Expertise[] {new Expertise(0, "Select Expertise")}));
-        
+        ArrayList<Expertise>  exp = ExpertieseManager.getInstruments();
+         cbExpertise.removeAllItems();        
+
         for (Expertise e : exp){
             cbExpertise.addItem(e);
         }
-        
     }
 
     
@@ -291,6 +285,7 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JComboBox<Expertise> cbExpertise;
     private javax.swing.JComboBox<String> cbOperation;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel lblCostError;

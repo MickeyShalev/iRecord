@@ -4,6 +4,7 @@ import entities.Expertise;
 import iRecord.iRecord;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -19,8 +20,8 @@ public class ExpertieseManager {
      * This method return list of all Expertise
      * @return 
      */
-    public static HashSet<Expertise> getInstrument(){
-        HashSet<Expertise> toReturn = new HashSet<Expertise> ();
+    public static ArrayList<Expertise> getInstruments(){
+        ArrayList<Expertise> toReturn = new ArrayList<Expertise> ();
        
         ResultSet rs = iRecord.getDB().query("SELECT Expertise.* FROM Expertise");
         
@@ -89,7 +90,7 @@ public class ExpertieseManager {
         
         return status;
     }
-    
+        
     
     public static boolean isExists(String name){
         boolean status = false;
@@ -115,9 +116,9 @@ public class ExpertieseManager {
      * @return 
      */
     public static int getNextNum(){
-        int num = 0;
-        String qry = "SELECT MAX (Expertiseid) FROM Expertise";
-        ResultSet rs = iRecord.getDB().query(qry);
+        int num = -1;
+        
+        ResultSet rs = iRecord.getDB().query("SELECT MAX (ExpertiseID) FROM Expertise;");
         
         try {
             if (rs.next()){

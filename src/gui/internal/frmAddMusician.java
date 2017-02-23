@@ -15,6 +15,7 @@ import iRecord.Controller.FreelancerManager;
 import iRecord.Validators.AgeValidator;
 import iRecord.Validators.CharValidator;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Random;
@@ -33,7 +34,6 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     private double fullPayment = -1;
     private Date birthDate;
     private int profession;
-    private javax.swing.JComboBox<Expertise> cbExpertise;
     
     
     /**
@@ -85,7 +85,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         tffull = new javax.swing.JTextField();
         lbdateError = new javax.swing.JLabel();
         lblFileName = new javax.swing.JLabel();
-        javax.swing.JComboBox<String> cbExpertise = new javax.swing.JComboBox<>();
+        cbExpertise = new javax.swing.JComboBox<>();
         lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -280,6 +280,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         lblFileName.setForeground(new java.awt.Color(255, 255, 255));
         pnlAdd.add(lblFileName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 440, 20));
 
+        cbExpertise.setModel(new DefaultComboBoxModel<> (new Expertise[] {new Expertise(0, "Select")}));
         cbExpertise.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 cbExpertiseFocusLost(evt);
@@ -533,12 +534,6 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jXDatePicker1FocusLost
 
-    private void cbExpertiseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbExpertiseFocusLost
-        if (cbExpertise.getSelectedIndex() == 0) return;
-        Expertise e = (Expertise)cbExpertise.getSelectedItem();
-        profession = e.getNum();
-    }//GEN-LAST:event_cbExpertiseFocusLost
-
     private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
         
         Date picked = jXDatePicker1.getDate();
@@ -554,21 +549,32 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         updateWin();
         return;
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
+
+    private void cbExpertiseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbExpertiseFocusLost
+        if (cbExpertise.getSelectedIndex() == 0) return;
+        Expertise e = (Expertise) cbExpertise.getSelectedItem();
+        profession = e.getNum();
+        System.out.println(e.getNum());
+        updateWin();
+        return;
+    }//GEN-LAST:event_cbExpertiseFocusLost
     
     private void init(){
         createFLID();
+        initCBE();
+       
+        
+    }
+    
+    public void initCBE(){
         
         //Set expertise combo box
-        HashSet<Expertise>  exp = ExpertieseManager.getInstrument();
-        cbExpertise = new JComboBox<>();
-        cbExpertise.removeAllItems();        
-        cbExpertise.setModel(new DefaultComboBoxModel<Expertise>(new Expertise[] {new Expertise(0, "Select Expertise")}));
+        ArrayList<Expertise>  exp = ExpertieseManager.getInstruments();
+        cbExpertise.removeAllItems();
         
         for (Expertise e : exp){
             cbExpertise.addItem(e);
         }
-        
-        
     }
     
     /**
@@ -605,6 +611,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField Pass1;
     private javax.swing.JPasswordField Pass2;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JComboBox<Expertise> cbExpertise;
     private javax.swing.JLabel jLabel16;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JLabel lbdateError;
