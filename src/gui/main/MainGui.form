@@ -531,6 +531,9 @@
         <Property name="autoscrolls" type="boolean" value="true"/>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ContentFrameMouseEntered"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="ContentFrame.setVisible(false);"/>
       </AuxValues>

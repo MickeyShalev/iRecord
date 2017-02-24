@@ -400,6 +400,11 @@ public class MainGui extends javax.swing.JFrame {
         ContentFrame.setAutoscrolls(true);
         ContentFrame.setOpaque(false);
         ContentFrame.setVisible(false);
+        ContentFrame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ContentFrameMouseEntered(evt);
+            }
+        });
 
         javax.swing.GroupLayout ContentFrameLayout = new javax.swing.GroupLayout(ContentFrame);
         ContentFrame.setLayout(ContentFrameLayout);
@@ -583,6 +588,11 @@ public class MainGui extends javax.swing.JFrame {
         closeAllPanels();
         updateWin();
     }//GEN-LAST:event_STDFocusLost
+
+    private void ContentFrameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContentFrameMouseEntered
+        closeAllPanels();
+        updateWin();
+    }//GEN-LAST:event_ContentFrameMouseEntered
 
     private void closeAllPanels(){                              
         AR.setVisible(false);
