@@ -29,7 +29,7 @@ public class RecordingManager {
      */
     public static ArrayList<String[]> getArtistSessions(String id, Timestamp t){
         ArrayList<String[]> toReturn = new ArrayList<String[]>();
-        
+        //get sessions details
         String qry = "SELECT Artists.ArtistID AS Artists_ArtistID, Studio.StudioID, Studio.sName, Count(Session.SessionID) AS CountOfSessionID, Session.ArtistID AS Session_ArtistID, Session.sessionStartDate, Session.TotalCost, Session.SessionID\n" +
                      "FROM (Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]) INNER JOIN ((Artists INNER JOIN [Session] ON Artists.[ArtistID] = Session.[ArtistID]) INNER JOIN SessionInRoom ON Session.[SessionID] = SessionInRoom.[SessionID]) ON (Room.[StudioID] = SessionInRoom.[StudioID]) AND (Room.[RoomNum] = SessionInRoom.[RoomNum])\n" +
                      "GROUP BY Artists.ArtistID, Studio.StudioID, Studio.sName, Session.ArtistID, Session.sessionStartDate, Session.TotalCost, Session.SessionID\n" +
@@ -37,6 +37,7 @@ public class RecordingManager {
                      "ORDER BY Session.sessionStartDate;";
         
         ResultSet rs = iRecord.getDB().query(qry);
+             
         
         try {
             while(rs.next()){
@@ -47,7 +48,9 @@ public class RecordingManager {
                 Date date =  new Date(rs.getTimestamp("sessionStartDate").getTime());
                 SimpleDateFormat dft = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
                 dft.setTimeZone(TimeZone.getTimeZone("Asia/Jerusalem"));
-                toReturn.add(new String[]{Studioid ,studioName, SessionId, dft.format(date).toString(), cost});
+                String[] temp = getSessionStatus(SessionId);
+                if (temp == null) toReturn.add(new String[]{Studioid ,studioName, SessionId, dft.format(date).toString(), cost, "N/A", "N/A"});
+                else  toReturn.add(new String[]{Studioid ,studioName, SessionId, dft.format(date).toString(), cost, temp[0], temp[1]});
                 
             }
         } catch (SQLException ex) {
@@ -82,13 +85,76 @@ public class RecordingManager {
         return false;
     }
 
-    public static boolean isArtistsRec(String temp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    /**
+     * This method checks if a recording belongs to artist or not
+     * @param id
+     * @param artist
+     * @return 
+     */
+    public static boolean isArtistsRec(String id, String artist) {
+        boolean status = false;
+        
+        String qry = "SELECT Recording.RecordID, Recording.SessionID AS Recording_SessionID, Session.SessionID AS Session_SessionID, Session.ArtistID, Recording.iStatus\n" +
+                     "FROM [Session] INNER JOIN Recording ON Session.[SessionID] = Recording.[SessionID]\n" +
+                     "WHERE (((Recording.RecordID)=\""+id+"\") AND ((Recording.SessionID)=[Session].[SessionID]));";
+        ResultSet rs = iRecord.getDB().query(qry);
+        
+        try {
+            if (rs.next()){
+                if (rs.getString("ArtistID").equals(artist)){
+                    status = true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RecordingManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return status;
     }
 
-    public static String getRecordingStatus(String temp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * This method get recording status
+     * @param id
+     * @return 
+     */
+    public static String getRecordingStatus(String id) {
+        String toReturn = null;
+        String qry = "SELECT Recording.* FROM Recording WHERE Recording.SessionID=\""+id+"\"";
+        ResultSet rs = iRecord.getDB().query(qry);
+        
+        try {
+            if (rs.next()){
+                toReturn = rs.getString("iStatus");
+            }
+         
+                return toReturn;
+        } catch (SQLException ex) {
+            Logger.getLogger(RecordingManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return toReturn;
     }
     
     
+    public static String[] getSessionStatus(String id) {
+        String[] toReturn = null;
+        String qry = "SELECT Recording.* FROM Recording WHERE Recording.SessionID=\""+id+"\"";
+        ResultSet rs = iRecord.getDB().query(qry);
+        
+        try {
+            if (rs.next()){
+                if (toReturn == null) toReturn = new String[2]; 
+                toReturn[0] = rs.getString("iStatus");
+                toReturn[1] = rs.getString("RecordID");
+            }
+         
+                return toReturn;
+        } catch (SQLException ex) {
+            Logger.getLogger(RecordingManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return toReturn;
+    }
+ 
 }

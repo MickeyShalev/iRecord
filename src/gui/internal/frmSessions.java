@@ -5,6 +5,7 @@
 */
 package gui.internal;
 
+import Validators.PositiveValidator;
 import entities.Artist;
 import gui.main.iWindow;
 import iRecord.Controller.RecordingManager;
@@ -99,20 +100,20 @@ public class frmSessions extends javax.swing.JInternalFrame {
         };
         tblGen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Studio ID", "Studio Name", "Session ID", "Date", "Total Cost"
+                "Studio ID", "Studio Name", "Session ID", "Date", "Total Cost", "Status", "Record ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -125,7 +126,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tblGen);
 
-        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 680, 140));
+        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 760, 140));
 
         getData.setText("Get Data");
         getData.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,10 +180,10 @@ public class frmSessions extends javax.swing.JInternalFrame {
         lblstageName.setText("Stage Name");
         pnlAdd.add(lblstageName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 230, 20));
 
-        lblError.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 51, 51));
         lblError.setText(" ");
-        pnlAdd.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 370, -1));
+        pnlAdd.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 360, 370, -1));
 
         btnAddFile.setText("Add Recording");
         btnAddFile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -190,10 +191,10 @@ public class frmSessions extends javax.swing.JInternalFrame {
                 btnAddFileMouseClicked(evt);
             }
         });
-        pnlAdd.add(btnAddFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 190, -1));
+        pnlAdd.add(btnAddFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 190, -1));
 
         getContentPane().add(pnlAdd);
-        pnlAdd.setBounds(0, 40, 780, 520);
+        pnlAdd.setBounds(0, 40, 780, 440);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -216,7 +217,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
         //while has next
         for (String[] s:ses){
             if (s == null) break;
-            String[] row = {s[0], s[1], s[2], s[3], s[4]};
+            String[] row = {s[0], s[1], s[2], s[3], s[4], s[5], s[6]};
             model.addRow(row);
         }
         
@@ -240,7 +241,17 @@ public class frmSessions extends javax.swing.JInternalFrame {
 
     private void btnAddFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddFileMouseClicked
 
-        
+        if (tblGen.getSelectedRow() < 0) return;
+        String id = (String)tblGen.getModel().getValueAt(tblGen.getSelectedRow(), 0);
+        System.out.println(id);
+        studioID = (int) PositiveValidator.stringToNum(id);
+        if (studioID < 1){
+            lblError.setText("Please select session to add recording");
+            updateWin();
+            return;
+        }
+        frmAddRecording add = new frmAddRecording(studioID);
+        iWindow.openWin(add);
     }//GEN-LAST:event_btnAddFileMouseClicked
     
     

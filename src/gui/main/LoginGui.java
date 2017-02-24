@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Administrator
  */
 public class LoginGui extends javax.swing.JFrame {

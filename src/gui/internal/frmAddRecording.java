@@ -6,12 +6,21 @@
 package gui.internal;
 
 import Validators.EmailValidator;
+import gui.main.LoginGui;
+import gui.main.MainGui;
 import gui.main.iWindow;
 import iRecord.Controller.RecordingManager;
 import iRecord.Controller.StudioAndRoomManager;
+import iRecord.iRecord;
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -69,6 +78,8 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         lblisloation1 = new javax.swing.JLabel();
         tfTitle1 = new javax.swing.JTextField();
         lblprvERR = new javax.swing.JLabel();
+        attachFile = new javax.swing.JButton();
+        lblPath = new javax.swing.JLabel();
         lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -228,8 +239,19 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         lblprvERR.setForeground(new java.awt.Color(255, 0, 51));
         pnlAdd.add(lblprvERR, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 390, 20));
 
+        attachFile.setText("Attach File");
+        attachFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                attachFileMouseClicked(evt);
+            }
+        });
+        pnlAdd.add(attachFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 190, -1));
+
+        lblPath.setForeground(new java.awt.Color(255, 255, 255));
+        pnlAdd.add(lblPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 570, 20));
+
         getContentPane().add(pnlAdd);
-        pnlAdd.setBounds(0, 40, 780, 350);
+        pnlAdd.setBounds(0, 40, 780, 370);
 
         lblGen.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblGen.setForeground(new java.awt.Color(255, 0, 51));
@@ -366,7 +388,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         String temp = tfTitle1.getText();
         
         //check if the recording belongs to the artist
-        if (!RecordingManager.isArtistsRec(temp)){
+        if (!RecordingManager.isArtistsRec(temp, iRecord.getLoggedUser().getID())){
             lblprvERR.setText("Recording doesn't belong to artist");
             updateWin();
             return;
@@ -393,6 +415,72 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_tfTitle1FocusLost
+
+    private void attachFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_attachFileMouseClicked
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        try {
+            long size = Files.size(f.toPath()) / 1000;
+            if(size>15360){
+                //errFile.setIcon(xIcon.getIcon());
+                lblPath.setText("File size can't be larger than 15MB");
+                iWindow.update();
+                return;
+            }
+            iRecord.log("Attempting to upload file size: "+(Files.size(f.toPath())) / 1000+"KB" );
+          
+        } catch (IOException ex) {
+            Logger.getLogger(frmAddRecording.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String path = f.getAbsolutePath();
+        lblPath.setText(path);
+        
+        String extension = "";
+
+        int i = path.lastIndexOf('.');
+        int p = Math.max(path.lastIndexOf('/'), path.lastIndexOf('\\'));
+
+        if (i > p) {
+            extension = path.substring(i+1);
+        }
+        
+        if(!extension.contains("zip") && !extension.contains("jpg") && !extension.contains("gif") && !extension.contains("bmp") && !extension.contains("jpeg")){
+            //errFile.setIcon(xIcon.getIcon());
+            lblPath.setText("File type is incorrect. Please upload an image.");
+            iWindow.update();
+            return;
+        }
+        
+        
+        //Try creating the file
+        File uploads = new File("./src/sources/recordings");
+        iRecord.log("Upload dir: "+uploads.getAbsolutePath());
+        File tmp = new File(uploads, recID+"."+extension);
+        iRecord.log("Tmp file: "+tmp.getAbsolutePath());
+        
+        try {
+           Files.copy(f.toPath(), tmp.toPath(), REPLACE_EXISTING);
+           //errFile.setIcon(vIcon.getIcon());
+           lblPath.setText("Signarture successfully saved.");
+        } catch (IOException ex) {
+            Logger.getLogger(frmAddRecording.class.getName()).log(Level.SEVERE, null, ex);
+            //errFile.setIcon(xIcon.getIcon());
+            lblPath.setText("Failed to save file.");
+        }
+        iRecord.log("Finished uploading. Short path: "+tmp.toPath());
+        String shortIconPath = tmp.toPath().toString().replace("\\", "/").replace("/src", "");
+        shortIconPath = shortIconPath.substring(1);
+        iRecord.log("Short Icon Path: "+shortIconPath);
+        //this.iconPath = shortIconPath;
+//        try{
+//        imgDisplay.setIcon(new javax.swing.ImageIcon(getClass().getResource(shortIconPath))); // NOI18N
+//        } catch(Exception e){
+//            imgDisplay.setVisible(false);
+//        }
+        iWindow.update();
+
+    }//GEN-LAST:event_attachFileMouseClicked
 
         
     private void init(){
@@ -441,6 +529,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Min;
     private javax.swing.JComboBox<String> Sec;
+    private javax.swing.JButton attachFile;
     private javax.swing.JButton btnAdd;
     private javax.swing.JComboBox<String> cbState;
     private javax.swing.JLabel jLabel16;
@@ -448,6 +537,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblGen;
     private javax.swing.JLabel lblLyricsError;
+    private javax.swing.JLabel lblPath;
     private javax.swing.JLabel lblPhone1;
     private javax.swing.JLabel lblRate;
     private javax.swing.JLabel lblRate1;

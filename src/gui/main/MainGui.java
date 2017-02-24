@@ -460,8 +460,8 @@ public class MainGui extends javax.swing.JFrame {
         // TODO add your handling code here:
         iRecord.log("Logging out..");
         iRecord.setLoggedUser(null);
+        setVisible(false);
         dispose();
-       
         iRecord.log("Successfully logged out");
         
         LoginGui tmp = new LoginGui();
