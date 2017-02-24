@@ -164,6 +164,7 @@ public class frmFreelancerSuspension extends javax.swing.JInternalFrame {
             lblStatus.setText("inActive");
         }
         
+        lblNameError.setText("");
         lblGen.setForeground(Color.GREEN);
         updateWin();
         return;

@@ -69,7 +69,6 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         lblRecording = new javax.swing.JLabel();
         Min = new javax.swing.JComboBox<>();
         Sec = new javax.swing.JComboBox<>();
-        tfTitle = new javax.swing.JTextField();
         lblRate1 = new javax.swing.JLabel();
         lblRate2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -80,6 +79,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         lblprvERR = new javax.swing.JLabel();
         attachFile = new javax.swing.JButton();
         lblPath = new javax.swing.JLabel();
+        tfName = new javax.swing.JTextField();
         lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -174,17 +174,6 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         });
         pnlAdd.add(Sec, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 80, -1));
 
-        tfTitle.setText("Enter title");
-        tfTitle.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tfTitleFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfTitleFocusLost(evt);
-            }
-        });
-        pnlAdd.add(tfTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 190, -1));
-
         lblRate1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblRate1.setForeground(new java.awt.Color(255, 255, 255));
         lblRate1.setText("Song Title");
@@ -250,6 +239,17 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         lblPath.setForeground(new java.awt.Color(255, 255, 255));
         pnlAdd.add(lblPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 570, 20));
 
+        tfName.setText("Enter title");
+        tfName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfNameFocusLost(evt);
+            }
+        });
+        pnlAdd.add(tfName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 190, -1));
+
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(0, 40, 780, 370);
 
@@ -277,21 +277,21 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void tfURLFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfURLFocusGained
-        if (tfURL.getText().equals("Enter url"))
+        if (tfURL.getText().equals("Enter URL"))
             tfURL.setText("");
     }//GEN-LAST:event_tfURLFocusGained
                     
     private void tfURLFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfURLFocusLost
         String temp = tfURL.getText();
         if (!EmailValidator.validateURL(temp)){
-            lblTitleError.setText("Invalid URL");
+            lblURLError.setText("Invalid URL");
             url = null;
             updateWin();
             return;
         }
 
         
-        lblTitleError.setText("");
+        lblURLError.setText("");
         url = temp;
         updateWin();
     }//GEN-LAST:event_tfURLFocusLost
@@ -309,30 +309,10 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
          
     }//GEN-LAST:event_btnAddMouseClicked
 
-    private void tfTitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTitleFocusGained
-        if (tfTitle.getText().equals("Enter title"))
-            tfTitle.setText("");
-        updateWin();
-    }//GEN-LAST:event_tfTitleFocusGained
-
-    private void tfTitleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTitleFocusLost
-        if (tfTitle.getText().length() < 3){
-        lblTitleError.setText("Must enter song name");
-        name = null;
-        updateWin();
-        return;
-        }
-        
-        name = tfTitle.getText();
-        lblTitleError.setText("");
-        updateWin();
-        
-    }//GEN-LAST:event_tfTitleFocusLost
-
     private void jTextArea1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextArea1FocusGained
         if (jTextArea1.getText().equals("Lyrics"))
             jTextArea1.setText("");
-        updateWin();
+        
     }//GEN-LAST:event_jTextArea1FocusGained
 
     private void jTextArea1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextArea1FocusLost
@@ -482,6 +462,25 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_attachFileMouseClicked
 
+    private void tfNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNameFocusGained
+        if (tfName.getText().equals("Enter title"))
+            tfName.setText("");
+        
+    }//GEN-LAST:event_tfNameFocusGained
+
+    private void tfNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNameFocusLost
+        if (tfName.getText().length() < 3){
+            lblTitleError.setText("Must enter song name");
+            name = null;
+            updateWin();
+            return;
+        }
+        
+        name = tfName.getText();
+        lblTitleError.setText("");
+        updateWin();
+    }//GEN-LAST:event_tfNameFocusLost
+
         
     private void init(){
         lblStudioID.setText("" + studioID);
@@ -502,7 +501,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
             if (num > 10000){
                 tempID = "RE"+num;
                 
-                if (!RecordingManager.isExists(tempID)){
+                if (RecordingManager.getRecordingStatus(tempID) == null){
                     recID = tempID;
                     lblRecording.setText(tempID);
                     updateWin();
@@ -552,7 +551,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblmaxMus;
     private javax.swing.JLabel lblprvERR;
     private javax.swing.JPanel pnlAdd;
-    private javax.swing.JTextField tfTitle;
+    private javax.swing.JTextField tfName;
     private javax.swing.JTextField tfTitle1;
     private javax.swing.JTextField tfURL;
     // End of variables declaration//GEN-END:variables

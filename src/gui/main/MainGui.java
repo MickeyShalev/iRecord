@@ -105,7 +105,7 @@ public class MainGui extends javax.swing.JFrame {
 
         pnlAdmin.setOpaque(false);
 
-        AR.setBackground(new Color (0,0,0,90));
+        AR.setBackground(new Color (0,0,0,120));
         AR.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 ARFocusLost(evt);
@@ -163,7 +163,7 @@ public class MainGui extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        FL.setBackground(new Color (0,0,0,90));
+        FL.setBackground(new Color (0,0,0,120));
         FL.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 FLFocusLost(evt);
@@ -238,7 +238,7 @@ public class MainGui extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        STD.setBackground(new Color (0,0,0,90));
+        STD.setBackground(new Color (0,0,0,120));
         STD.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 STDFocusLost(evt);

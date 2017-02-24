@@ -262,8 +262,6 @@ public class frmSessions extends javax.swing.JInternalFrame {
         lblID.setText(a.getID());
     }
     
-    
-    
     public void updateWin(){
         
         iWindow.update();

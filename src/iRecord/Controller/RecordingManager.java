@@ -69,20 +69,10 @@ public class RecordingManager {
      */
     public static int addRecording(int sesssionID, Recording r){
         int status = -1;
-        
+        String qry = "INSERT INTO Recording(RecordID, SessionID, Title, songURL, songLength, Lyrics, RecordingLink, iStatus, priorRecording) "+
+                     "VALUES()";
         
         return status;
-    }
-    
-    /**
-     * This method checks if a recording was added to DB
-     * @param r
-     * @return 
-     */
-    public static boolean isExists(String id){
-        
-        
-        return false;
     }
 
     
