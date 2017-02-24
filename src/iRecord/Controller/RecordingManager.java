@@ -76,9 +76,18 @@ public class RecordingManager {
      * @param r
      * @return 
      */
-    public static boolean isExists(Recording r){
+    public static boolean isExists(String id){
+        
         
         return false;
+    }
+
+    public static boolean isArtistsRec(String temp) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static String getRecordingStatus(String temp) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

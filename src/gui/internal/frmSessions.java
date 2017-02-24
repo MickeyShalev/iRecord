@@ -6,19 +6,14 @@
 package gui.internal;
 
 import entities.Artist;
-import entities.Studio;
 import gui.main.iWindow;
-import iRecord.Controller.ArtistManager;
-import iRecord.Controller.FreelancerManager;
 import iRecord.Controller.RecordingManager;
-import iRecord.Controller.StudioAndRoomManager;
 import iRecord.iRecord;
-import static iRecord.utilities.EAuth.Artist;
 import java.awt.Color;
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 public class frmSessions extends javax.swing.JInternalFrame {
     private Artist a = null;
     private Date picked = null;
+    private int studioID;
+    private File file;
     
     
     /**
@@ -40,7 +37,6 @@ public class frmSessions extends javax.swing.JInternalFrame {
         init();
         
     }
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,6 +61,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
         lblID = new javax.swing.JLabel();
         lblstageName = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
+        btnAddFile = new javax.swing.JButton();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
@@ -128,7 +125,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tblGen);
 
-        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 680, 240));
+        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 680, 140));
 
         getData.setText("Get Data");
         getData.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -187,6 +184,14 @@ public class frmSessions extends javax.swing.JInternalFrame {
         lblError.setText(" ");
         pnlAdd.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 370, -1));
 
+        btnAddFile.setText("Add Recording");
+        btnAddFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddFileMouseClicked(evt);
+            }
+        });
+        pnlAdd.add(btnAddFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 190, -1));
+
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(0, 40, 780, 520);
 
@@ -232,6 +237,11 @@ public class frmSessions extends javax.swing.JInternalFrame {
         updateWin();
         return;
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
+
+    private void btnAddFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddFileMouseClicked
+
+        
+    }//GEN-LAST:event_btnAddFileMouseClicked
     
     
     private void init(){
@@ -251,6 +261,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddFile;
     private javax.swing.JButton getData;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JScrollPane jScrollPane3;
