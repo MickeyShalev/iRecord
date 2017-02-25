@@ -5,11 +5,11 @@ package entities;
  * @author micke
  */
 public class Recording {
-    private int studioID, length;
+    private int sessionID, length;
     private String recID, name, lyrics, url, filePath, status, prevRec;
 
-    public Recording(int studioID, int length, String recID, String name, String lyrics, String url, String filePath, String status, String prevRec) {
-        this.studioID = studioID;
+    public Recording(int sessionID, int length, String recID, String name, String lyrics, String url, String filePath, String status, String prevRec) {
+        this.sessionID = sessionID;
         this.length = length;
         this.recID = recID;
         this.name = name;
@@ -17,21 +17,25 @@ public class Recording {
         this.url = url;
         this.filePath = filePath;
         this.status = status;
-        this.prevRec = prevRec;
+        
+        if (prevRec == null)
+            this.prevRec = "N/A";
+        else
+            this.prevRec = prevRec;
     }
 
     /**
      * @return the studioID
      */
-    public int getStudioID() {
-        return studioID;
+    public int getsessionID() {
+        return sessionID;
     }
 
     /**
      * @param studioID the studioID to set
      */
-    public void setStudioID(int studioID) {
-        this.studioID = studioID;
+    public void setsessionID(int studioID) {
+        this.sessionID = sessionID;
     }
 
     /**

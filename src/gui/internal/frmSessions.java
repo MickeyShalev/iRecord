@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class frmSessions extends javax.swing.JInternalFrame {
     private Artist a = null;
     private Date picked = null;
-    private int studioID;
+    private int sessionID;
     private File file;
     
     
@@ -240,17 +240,27 @@ public class frmSessions extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
 
     private void btnAddFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddFileMouseClicked
-
-        if (tblGen.getSelectedRow() < 0) return;
-        String id = (String)tblGen.getModel().getValueAt(tblGen.getSelectedRow(), 0);
-        System.out.println(id);
-        studioID = (int) PositiveValidator.stringToNum(id);
-        if (studioID < 1){
+        //nothing was selected    
+        if (tblGen.getSelectedRow() < 0){
             lblError.setText("Please select session to add recording");
             updateWin();
             return;
         }
-        frmAddRecording add = new frmAddRecording(studioID);
+        
+        //get selected session id
+        String id = (String)tblGen.getModel().getValueAt(tblGen.getSelectedRow(), 2);
+        sessionID = (int) PositiveValidator.stringToNum(id);
+        //System.out.println(sessionID);
+        
+        //if there was a problem with selection
+        if (sessionID < 1){
+            lblError.setText("Please select session to add recording");
+            updateWin();
+            return;
+        }
+        
+        //go to add recording page
+        frmAddRecording add = new frmAddRecording(sessionID);
         iWindow.openWin(add);
     }//GEN-LAST:event_btnAddFileMouseClicked
     

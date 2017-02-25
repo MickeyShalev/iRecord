@@ -10,8 +10,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import oracle.jrockit.jfr.Recording;
-import org.joda.time.format.DateTimeFormat;
+import entities.*;
 
 /**
  * Class manages the recordings
@@ -67,11 +66,17 @@ public class RecordingManager {
      * @param r
      * @return 
      */
-    public static int addRecording(int sesssionID, Recording r){
+    public static int addRecording(Recording r){
         int status = -1;
-        String qry = "INSERT INTO Recording(RecordID, SessionID, Title, songURL, songLength, Lyrics, RecordingLink, iStatus, priorRecording) "+
-                     "VALUES()";
+        String qry = "INSERT INTO Recording (RecordID, SessionID, Title, songURL, songLength, Lyrics, RecordingLink, iStatus, priorRecording) "+
+                     " VALUES(\""+r.getRecID()+"\", "+r.getsessionID()+", \""+r.getName()+"\", \""+r.getUrl()+"\", "+r.getLength()+", \""+r.getLyrics()+"\", \""+r.getFilePath()+"\", \"" +r.getStatus()+"\", \""+r.getPrevRec()+"\" )";
         
+        iRecord.getDB().executeUpadate(qry);
+        
+        if (getRecordingStatus(r.getRecID()) !=null){
+            status = 1;
+        }
+ 
         return status;
     }
 
@@ -108,9 +113,9 @@ public class RecordingManager {
      * @param id
      * @return 
      */
-    public static String getRecordingStatus(String id) {
+    public static String getRecordingStatus(String recID) {
         String toReturn = null;
-        String qry = "SELECT Recording.* FROM Recording WHERE Recording.SessionID=\""+id+"\"";
+        String qry = "SELECT Recording.* FROM Recording WHERE Recording.Recordid=\""+recID+"\"";
         ResultSet rs = iRecord.getDB().query(qry);
         
         try {
@@ -127,9 +132,9 @@ public class RecordingManager {
     }
     
     
-    public static String[] getSessionStatus(String id) {
+    public static String[] getSessionStatus(String sessionID) {
         String[] toReturn = null;
-        String qry = "SELECT Recording.* FROM Recording WHERE Recording.SessionID=\""+id+"\"";
+        String qry = "SELECT Recording.* FROM Recording WHERE Recording.SessionID=\""+sessionID+"\"";
         ResultSet rs = iRecord.getDB().query(qry);
         
         try {

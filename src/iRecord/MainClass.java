@@ -1,5 +1,6 @@
 package iRecord;
 
+import entities.Recording;
 import gui.main.iWindow;
 import iRecord.*;
 import iRecord.Controller.ExpertieseManager;
@@ -15,7 +16,7 @@ public class MainClass {
             iRecord project = new iRecord();
             //Initiate GUI
             //JFrame LoginGui = new LoginGui();
-            
+
             iRecord.log("Opening Login Window through iWindow");
             iWindow.openLogin();
             

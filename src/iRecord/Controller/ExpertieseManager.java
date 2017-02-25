@@ -44,8 +44,9 @@ public class ExpertieseManager {
      * @param num
      * @param name 
      */
-    public static boolean addInstrument(int num, String name){
+    public static boolean addInstrument(String name){
         boolean status = false;
+        int num = 0;
         
         String qry = "INSERT INTO Expertise (ExpertiseID, eField) VALUES ("+num+", \""+name+"\")";
         iRecord.getDB().executeUpadate(qry);

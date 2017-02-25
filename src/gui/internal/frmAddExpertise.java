@@ -23,7 +23,6 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
     
     //private JComboBox<Expertise> cbExpertise;
     private String name = null;
-    private int num = -1;
     private Expertise toRemove = null;
     
     /**
@@ -51,8 +50,6 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
         lblMaxError = new javax.swing.JLabel();
         tfCost = new javax.swing.JTextField();
         lblCostError = new javax.swing.JLabel();
-        lblPhone = new javax.swing.JLabel();
-        lblNum = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         lblGen = new javax.swing.JLabel();
         lblPhone1 = new javax.swing.JLabel();
@@ -80,7 +77,7 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
         lblRate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblRate.setForeground(new java.awt.Color(255, 255, 255));
         lblRate.setText("Expertise Name");
-        pnlAdd.add(lblRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 120, -1));
+        pnlAdd.add(lblRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 120, -1));
 
         lblMaxError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblMaxError.setForeground(new java.awt.Color(255, 0, 51));
@@ -95,21 +92,11 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
                 tfCostFocusLost(evt);
             }
         });
-        pnlAdd.add(tfCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 190, -1));
+        pnlAdd.add(tfCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 190, -1));
 
         lblCostError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblCostError.setForeground(new java.awt.Color(255, 0, 51));
-        pnlAdd.add(lblCostError, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 390, 20));
-
-        lblPhone.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblPhone.setForeground(new java.awt.Color(255, 255, 255));
-        lblPhone.setText("Expertise Number");
-        pnlAdd.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        lblNum.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblNum.setForeground(new java.awt.Color(255, 255, 255));
-        lblNum.setText("Num");
-        pnlAdd.add(lblNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 190, 20));
+        pnlAdd.add(lblCostError, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, 390, 20));
 
         btnAdd.setBackground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add Expertise");
@@ -118,7 +105,7 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
                 btnAddMouseClicked(evt);
             }
         });
-        pnlAdd.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 130, 20));
+        pnlAdd.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 130, 20));
 
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(10, 70, 780, 120);
@@ -197,16 +184,16 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfCostFocusLost
                 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        if (num < 0 || name == null){
+        if (name == null){
             lblGen.setForeground(Color.red);
-            lblGen.setText("One or more fields ane missing");
+            lblGen.setText("Fields ane missing");
             updateWin();
             return;
         }
         else{
             pnlAdd.setVisible(false);
     
-            if (ExpertieseManager.addInstrument(num, name)){
+            if (ExpertieseManager.addInstrument(name)){
                 lblGen.setForeground(Color.GREEN);
                 lblGen.setText("Expertise was added succefully");
                 btnAdd.hide();
@@ -242,8 +229,6 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
         else if (cbOperation.getSelectedIndex() == 1){
             pnlRemove.setVisible(false);
             pnlAdd.setVisible(true);
-            num = ExpertieseManager.getNextNum();
-            lblNum.setText(""+num+1);
         }
         
         else if (cbOperation.getSelectedIndex() == 2){
@@ -293,8 +278,6 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblGen;
     private javax.swing.JLabel lblMaxError;
     private javax.swing.JLabel lblMaxError1;
-    private javax.swing.JLabel lblNum;
-    private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblPhone1;
     private javax.swing.JLabel lblPhone2;
     private javax.swing.JLabel lblRate;

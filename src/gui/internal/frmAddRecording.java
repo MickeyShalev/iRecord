@@ -6,11 +6,9 @@
 package gui.internal;
 
 import Validators.EmailValidator;
-import gui.main.LoginGui;
-import gui.main.MainGui;
+import entities.Recording;
 import gui.main.iWindow;
 import iRecord.Controller.RecordingManager;
-import iRecord.Controller.StudioAndRoomManager;
 import iRecord.iRecord;
 import java.awt.Color;
 import java.io.File;
@@ -27,16 +25,16 @@ import javax.swing.JFileChooser;
  * @author nisan
  */
 public class frmAddRecording extends javax.swing.JInternalFrame {
-    private int studioID, length, min, sec;
+    private int sessionID, length, min, sec;
     private String lyrics, name, url, status, recID, prevRec;
-    private File file;
+    private String filePath;
 
     
     /**
      * Creates new form frmCreateSession
      */
-    public frmAddRecording(int studioID) {
-        this.studioID = studioID;
+    public frmAddRecording(int sessionID) {
+        this.sessionID = sessionID;
         
         setTitle("Add Artist Page");
         initComponents();
@@ -98,7 +96,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
 
         lblStudio.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblStudio.setForeground(new java.awt.Color(255, 255, 255));
-        lblStudio.setText("Studio ID");
+        lblStudio.setText("Session ID");
         pnlAdd.add(lblStudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, -1));
 
         lblRate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -236,7 +234,8 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         });
         pnlAdd.add(attachFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 190, -1));
 
-        lblPath.setForeground(new java.awt.Color(255, 255, 255));
+        lblPath.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        lblPath.setForeground(new java.awt.Color(255, 51, 51));
         pnlAdd.add(lblPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 570, 20));
 
         tfName.setText("Enter title");
@@ -297,15 +296,24 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfURLFocusLost
                 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        if (studioID < 1 || recID == null || min < 0 || sec < 0 || name == null || lyrics == null || url == null || file == null || status == null){
+        System.out.println(sessionID + " " + recID + " " + min +" "+ sec +" "+ name +" " + lyrics +" "+ url +" "+ status + " " + filePath);
+        if (sessionID < 1 || recID == null || min < 0 || sec < 0 || name == null || lyrics == null || url == null || filePath == null || status == null){
             lblGen.setText("One or more fields ane missing");
             updateWin();
             return;
         }
-        else{
-            
-            
+        length = min*60+sec;
+        Recording rec = new Recording(sessionID, length, recID, name, lyrics, url, filePath, status, prevRec);
+        
+        if (RecordingManager.addRecording(rec) < 0){
+            lblGen.setForeground(Color.red);
+            lblGen.setText("Something went wrong");
         }
+        else{
+            lblGen.setForeground(Color.GREEN);
+            lblGen.setText("Recording was added successfully");
+        }
+        
          
     }//GEN-LAST:event_btnAddMouseClicked
 
@@ -319,9 +327,11 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
 
         if (jTextArea1.getText().length() < 20) {
             lblLyricsError.setText("You must add lyrics");
+            lyrics = null;
             
         }
         
+        lyrics = jTextArea1.getText();
         lblLyricsError.setText("");
         iWindow.update();
 
@@ -368,6 +378,11 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         String temp = tfTitle1.getText();
         
         //check if the recording belongs to the artist
+        if (temp.equals("")){
+            prevRec = null;
+            return;
+        }
+        
         if (!RecordingManager.isArtistsRec(temp, iRecord.getLoggedUser().getID())){
             lblprvERR.setText("Recording doesn't belong to artist");
             updateWin();
@@ -434,7 +449,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         
         
         //Try creating the file
-        File uploads = new File("./src/sources/recordings");
+        File uploads = new File("src/sources/recordings");
         iRecord.log("Upload dir: "+uploads.getAbsolutePath());
         File tmp = new File(uploads, recID+"."+extension);
         iRecord.log("Tmp file: "+tmp.getAbsolutePath());
@@ -442,22 +457,25 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         try {
            Files.copy(f.toPath(), tmp.toPath(), REPLACE_EXISTING);
            //errFile.setIcon(vIcon.getIcon());
-           lblPath.setText("Signarture successfully saved.");
+           lblPath.setForeground(Color.GREEN);
+           lblPath.setText("File was successfully saved");
         } catch (IOException ex) {
             Logger.getLogger(frmAddRecording.class.getName()).log(Level.SEVERE, null, ex);
             //errFile.setIcon(xIcon.getIcon());
+            lblPath.setForeground(Color.red);
             lblPath.setText("Failed to save file.");
         }
         iRecord.log("Finished uploading. Short path: "+tmp.toPath());
         String shortIconPath = tmp.toPath().toString().replace("\\", "/").replace("/src", "");
         shortIconPath = shortIconPath.substring(1);
         iRecord.log("Short Icon Path: "+shortIconPath);
-        //this.iconPath = shortIconPath;
+//        this.iconPath = shortIconPath;
 //        try{
 //        imgDisplay.setIcon(new javax.swing.ImageIcon(getClass().getResource(shortIconPath))); // NOI18N
 //        } catch(Exception e){
 //            imgDisplay.setVisible(false);
 //        }
+        filePath = tmp.getAbsolutePath();
         iWindow.update();
 
     }//GEN-LAST:event_attachFileMouseClicked
@@ -483,7 +501,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
 
         
     private void init(){
-        lblStudioID.setText("" + studioID);
+        lblStudioID.setText("" + sessionID);
         
         initRecID(); 
     }
