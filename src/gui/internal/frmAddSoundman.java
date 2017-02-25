@@ -13,9 +13,17 @@ import iRecord.Controller.ArtistManager;
 import iRecord.Controller.FreelancerManager;
 import iRecord.Validators.AgeValidator;
 import iRecord.Validators.CharValidator;
+import iRecord.iRecord;
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Date;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -25,7 +33,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     private String flID;
     private String firstName, lastName, stageName;
     private String Email;
-    private String password;
+    private String password, picPath;
     private double fullPayment = -1, downPayment = -1;
     private Date birthDate;
     private boolean isProducer = false, isMixTech = false, isMasterTech = false;
@@ -83,8 +91,9 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         tfdown = new javax.swing.JTextField();
         tffull = new javax.swing.JTextField();
         lbdateError = new javax.swing.JLabel();
-        lblFileName = new javax.swing.JLabel();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        attachFile = new javax.swing.JButton();
+        lblPath = new javax.swing.JLabel();
         lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -307,10 +316,6 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         lbdateError.setForeground(new java.awt.Color(255, 0, 51));
         pnlAdd.add(lbdateError, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 400, 20));
 
-        lblFileName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblFileName.setForeground(new java.awt.Color(255, 255, 255));
-        pnlAdd.add(lblFileName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 440, 20));
-
         jXDatePicker1.setBackground(new Color(0,0,0,0));
         jXDatePicker1.setForeground(new java.awt.Color(204, 0, 153));
         jXDatePicker1.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -325,13 +330,25 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         });
         pnlAdd.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 170, 20));
 
+        attachFile.setText("Attach File");
+        attachFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                attachFileMouseClicked(evt);
+            }
+        });
+        pnlAdd.add(attachFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 170, -1));
+
+        lblPath.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        lblPath.setForeground(new java.awt.Color(255, 51, 51));
+        pnlAdd.add(lblPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 570, 20));
+
         getContentPane().add(pnlAdd);
-        pnlAdd.setBounds(0, 40, 780, 380);
+        pnlAdd.setBounds(0, 40, 780, 390);
 
         lblGen.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblGen.setForeground(new java.awt.Color(255, 0, 51));
         getContentPane().add(lblGen);
-        lblGen.setBounds(10, 460, 380, 20);
+        lblGen.setBounds(10, 470, 380, 20);
 
         btnAdd.setBackground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add Soundman");
@@ -346,7 +363,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btnAdd);
-        btnAdd.setBounds(10, 430, 120, 20);
+        btnAdd.setBounds(10, 440, 120, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -373,7 +390,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         
     private void tfStageNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfStageNameFocusLost
         String sn = tfStageName.getText();
-        if (sn.length() < 3){
+        if (sn.length() < 2){
             lblNameError.setText("Name is too short");
             stageName = null;
             updateWin();
@@ -468,7 +485,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         }
         
         if (firstName == null || lastName == null || stageName == null || Email ==null
-                || fullPayment < 0 || downPayment < 0 || birthDate == null  || password ==null ){
+                || fullPayment < 0 || downPayment < 0 || birthDate == null  || password ==null || picPath == null ){
             lblGen.setText("One or more fields ane missing");
             updateWin();
             return;
@@ -478,6 +495,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
 //            java.util.Date date = new java.util.Date();
 //            java.sql.Date birthdate = new java.sql.Date(birthDate.getTime());
             Soundman toAdd = new Soundman(flID, firstName,lastName,stageName,isProducer,isMixTech,isMasterTech, downPayment,fullPayment,0 , birthDate, Email, password, 1); 
+            toAdd.setPicPath(picPath);
             pnlAdd.setVisible(false);
             //System.out.println(ArtistManager.addArtist(toAdd));
             //TODO - FIX THIS IF 
@@ -655,6 +673,74 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         updateWin();
         return;
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
+
+    private void attachFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_attachFileMouseClicked
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        try {
+            long size = Files.size(f.toPath()) / 1000;
+            if(size>5120){
+                //errFile.setIcon(xIcon.getIcon());
+                lblPath.setText("File size can't be larger than 5MB");
+                iWindow.update();
+                return;
+            }
+            iRecord.log("Attempting to upload file size: "+(Files.size(f.toPath())) / 1000+"KB" );
+
+        } catch (IOException ex) {
+            Logger.getLogger(frmAddRecording.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String path = f.getAbsolutePath();
+        lblPath.setText(path);
+
+        String extension = "";
+
+        int i = path.lastIndexOf('.');
+        int p = Math.max(path.lastIndexOf('/'), path.lastIndexOf('\\'));
+
+        if (i > p) {
+            extension = path.substring(i+1);
+        }
+
+        if(!extension.contains("png") && !extension.contains("jpg") && !extension.contains("gif") && !extension.contains("bmp") && !extension.contains("jpeg")){
+            //errFile.setIcon(xIcon.getIcon());
+            lblPath.setText("Up to 5MB picture file only");
+            iWindow.update();
+            return;
+        }
+
+        //Try creating the file
+        File uploads = new File("src/sources/pics");
+        iRecord.log("Upload dir: "+uploads.getAbsolutePath());
+        File tmp = new File(uploads, flID+"."+extension);
+        iRecord.log("Tmp file: "+tmp.getAbsolutePath());
+
+        try {
+            Files.copy(f.toPath(), tmp.toPath(), REPLACE_EXISTING);
+            //errFile.setIcon(vIcon.getIcon());
+            lblPath.setForeground(Color.GREEN);
+            lblPath.setText("File was successfully saved");
+        } catch (IOException ex) {
+            Logger.getLogger(frmAddRecording.class.getName()).log(Level.SEVERE, null, ex);
+            //errFile.setIcon(xIcon.getIcon());
+            lblPath.setForeground(Color.red);
+            lblPath.setText("Failed to save file.");
+        }
+        iRecord.log("Finished uploading. Short path: "+tmp.toPath());
+        String shortIconPath = tmp.toPath().toString().replace("\\", "/").replace("/src", "");
+            shortIconPath = shortIconPath.substring(1);
+            iRecord.log("Short Icon Path: "+shortIconPath);
+            //        this.iconPath = shortIconPath;
+            //        try{
+                //        imgDisplay.setIcon(new javax.swing.ImageIcon(getClass().getResource(shortIconPath))); // NOI18N
+                //        } catch(Exception e){
+                //            imgDisplay.setVisible(false);
+                //        }
+            picPath = tmp.getAbsolutePath();
+            iWindow.update();
+    }//GEN-LAST:event_attachFileMouseClicked
     
     private void init(){
         createFLID();
@@ -693,6 +779,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField Pass1;
     private javax.swing.JPasswordField Pass2;
+    private javax.swing.JButton attachFile;
     private javax.swing.JButton btnAdd;
     private javax.swing.JCheckBox cbMasterTech;
     private javax.swing.JCheckBox cbMixTech;
@@ -702,7 +789,6 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbdateError;
     private javax.swing.JLabel lblBDay;
     private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblFileName;
     private javax.swing.JLabel lblFirstError1;
     private javax.swing.JLabel lblGen;
     private javax.swing.JLabel lblID;
@@ -716,6 +802,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblPass5;
     private javax.swing.JLabel lblPass6;
     private javax.swing.JLabel lblPass7;
+    private javax.swing.JLabel lblPath;
     private javax.swing.JLabel lblStageName;
     private javax.swing.JLabel lblfirstNmae;
     private javax.swing.JLabel lblflID;

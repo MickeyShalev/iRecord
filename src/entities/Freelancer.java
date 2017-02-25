@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author nisan
  */
 public class Freelancer extends Person{
-    private String firstName, lastName;
+    private String firstName, lastName, picPath;
     private int priority, status;
     Date birthdate;
 
@@ -100,6 +100,14 @@ public class Freelancer extends Person{
     
     public String getPassword(){
         return super.getPassword();
+    }
+    
+    public String getPicPath(){
+        return this.picPath;
+    }
+    
+    public void setPicPath(String path){
+        this.picPath = path;
     }
 
     @Override

@@ -25,7 +25,7 @@ public class FreelancerManager {
          
         //insert soundman to freelancer table - query
         String qry1 = "INSERT INTO Freelancer (FreelancerID, firstName, lastName, stageName, birthDate, strEmail, Password, Status ,filePic)"
-                + " VALUES (\"" +s.getFreelancerID() +"\", \""+s.getFirstName()+"\" ,\""+s.getLastName()+"\", \""+s.getStageName()+"\", \"" +eDate+ "\", \""+s.getEmail() +"\", \""+s.getPassword()+"\","+s.getStatus()+ ", \"Empty\" )";
+                + " VALUES (\"" +s.getFreelancerID() +"\", \""+s.getFirstName()+"\" ,\""+s.getLastName()+"\", \""+s.getStageName()+"\", \"" +eDate+ "\", \""+s.getEmail() +"\", \""+s.getPassword()+"\","+s.getStatus()+ ", \""+s.getPicPath()+"\" )";
         
         //insert soundman to soundman table - query
         int producer = s.getIsProducer()? 1 : 0;
@@ -56,7 +56,7 @@ public class FreelancerManager {
         java.sql.Timestamp eDate = new java.sql.Timestamp (s.getBirthdate().getTime());
         
         String qry1 = "INSERT INTO Freelancer (FreelancerID, firstName, lastName, stageName, birthDate, strEmail, Password, Status ,filePic)"
-                + " VALUES (\"" +s.getFreelancerID() +"\", \""+s.getFirstName()+"\" ,\""+s.getLastName()+"\", \""+s.getStageName()+"\", \"" +eDate+ "\", \""+s.getEmail() +"\", \""+s.getPassword()+"\","+s.getStatus()+ ", \"Empty\")";
+                + " VALUES (\"" +s.getFreelancerID() +"\", \""+s.getFirstName()+"\" ,\""+s.getLastName()+"\", \""+s.getStageName()+"\", \"" +eDate+ "\", \""+s.getEmail() +"\", \""+s.getPassword()+"\","+s.getStatus()+ ", \""+s.getPicPath()+"\")";
         
         String qry2 = "INSERT INTO Musician (MusicianID, Payroll, expertIn)"
                 + " VALUES (\"" + s.getFreelancerID() +"\", "+s.getPayRoll()+" , " +s.getExpertise().intValue()+")";

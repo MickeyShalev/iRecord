@@ -296,7 +296,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfURLFocusLost
                 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        System.out.println(sessionID + " " + recID + " " + min +" "+ sec +" "+ name +" " + lyrics +" "+ url +" "+ status + " " + filePath);
+        //System.out.println(sessionID + " " + recID + " " + min +" "+ sec +" "+ name +" " + lyrics +" "+ url +" "+ status + " " + filePath);
         if (sessionID < 1 || recID == null || min < 0 || sec < 0 || name == null || lyrics == null || url == null || filePath == null || status == null){
             lblGen.setText("One or more fields ane missing");
             updateWin();
@@ -314,6 +314,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
             lblGen.setText("Recording was added successfully");
         }
         
+        updateWin();
          
     }//GEN-LAST:event_btnAddMouseClicked
 
@@ -440,9 +441,9 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
             extension = path.substring(i+1);
         }
         
-        if(!extension.contains("zip") && !extension.contains("jpg") && !extension.contains("gif") && !extension.contains("bmp") && !extension.contains("jpeg")){
+        if(!extension.contains("zip")){
             //errFile.setIcon(xIcon.getIcon());
-            lblPath.setText("File type is incorrect. Please upload an image.");
+            lblPath.setText("Up to 15MB zip file only");
             iWindow.update();
             return;
         }
