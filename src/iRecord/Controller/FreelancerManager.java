@@ -4,11 +4,16 @@ import entities.Freelancer;
 import entities.Musician;
 import entities.Soundman;
 import entities.Studio;
+import static iRecord.Controller.RecordingManager.getSessionStatus;
 import iRecord.iRecord;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -236,8 +241,6 @@ public class FreelancerManager {
         
         return toReturn;
     }
-    
-    
     
     /**
 ===========================================================

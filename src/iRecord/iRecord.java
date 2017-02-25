@@ -115,11 +115,12 @@ public class iRecord {
         ResultSet tmp = null;
         log("Attempting login using " + id + "/" + pass);
         
+        //check if admin
         if(id.equals(admin.getID()) && pass.equals(admin.getPassword())){
             loggedUser = admin;
             return true;
         }
-        
+
         //System.out.println(id.substring(0,2));
         //Artist is attempting to login
         if (id.substring(0, 2).equals("AR") || id.equals("admin")){
@@ -133,10 +134,16 @@ public class iRecord {
                     String strEmailaddr = tmp.getString("sEmail");
                     String strPasswd = tmp.getString("strPasswd");
                     java.sql.Date expireDate = tmp.getDate("dateExpired");
-                    System.err.println("Date: " + expireDate);
+                    java.util.Date d = new java.util.Date(expireDate.getTime());
                     Person p = new Artist(ID, strStageName, strEmailaddr, strPasswd, expireDate, EAuth.Artist);
                     loggedUser = p;
                     log("Artist logged in");
+                    
+                    //check if suspended 
+                    if (d.after(new java.util.Date())) {
+                        return false;
+                    }
+                    
                     return true;
                 }
                 
@@ -187,56 +194,6 @@ public class iRecord {
             e.printStackTrace();
         }
         return str;
-    }
-
-
-    /**
-     * This method generates an annual report given a specified year
-     *
-     * @param year
-     */
-    public void generateReport(String year) {
-
-        /**
-         * To be added altered
-         *
-         * try { Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-         *
-         * try (Connection conn = (iMuzaMusic.getDB().getConn())) {
-         * Map<String, Object> n = new HashMap<String, Object>();
-         * n.put("year",year); iMuzaMusic.log("Sending Report Query with Year:
-         * "+n.get("year")); JasperPrint print =
-         * JasperFillManager.fillReport(getClass()
-         * .getResourceAsStream("/ex2design/reports/annualReport.jasper"), n,
-         * conn); JFrame frame = new JFrame("iMuzaMusic - Annual Report
-         * "+n.get("year")); frame.getContentPane().add(new JRViewer(print));
-         * frame.setExtendedState(JFrame.MAXIMIZED_BOTH); frame.pack();
-         * frame.setVisible(true); n.clear(); SuccessExport t = new
-         * SuccessExport(); iWindow.openWin(t); } catch (SQLException |
-         * JRException | NullPointerException e) { e.printStackTrace(); } }
-         * catch (ClassNotFoundException e) { e.printStackTrace(); }
-        *
-         */
-    }
-
-    public static ResultSet getAvailableArtistsByAgent(String AgentID) {
-
-        String qry = "SELECT * from Artists where Artists.AgentID=\"" + AgentID + "\" AND Artists.iStatus=1";
-
-        return getDB().query(qry);
-    }
-
-    public static ResultSet getLocationsByAgent(String AgentID) {
-        String qry = "SELECT Locations.LocationID, Locations.strName, Agents.AgentID\n"
-                + "FROM Locations INNER JOIN (Agents INNER JOIN AgentPreferLocation ON Agents.AgentID = AgentPreferLocation.AgentID) ON Locations.LocationID = AgentPreferLocation.LocationID\n"
-                + "WHERE (((Agents.AgentID)=[AgentPreferLocation].[AgentID]) AND ((Locations.LocationID)=[AgentPreferLocation].[LocationID]) AND ((Agents.AgentID)=\"" + AgentID + "\"))";
-
-        return iRecord.getDB().query(qry);
-    }
-
-    public static ResultSet getLocationDetails(String LocationID) {
-        String qry = "SELECT strAddress from Locations where LocationID=\"" + LocationID + "\"";
-        return iRecord.getDB().query(qry);
     }
 
 }

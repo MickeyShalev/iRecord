@@ -71,6 +71,10 @@ public class MainGui extends javax.swing.JFrame {
         WatchRegistered1 = new javax.swing.JLabel();
         Sessions1 = new javax.swing.JLabel();
         ContentFrame = new javax.swing.JPanel();
+        pnlFreelancer = new javax.swing.JPanel();
+        joinStudio = new javax.swing.JLabel();
+        WatchRegistered2 = new javax.swing.JLabel();
+        Sessions2 = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
@@ -464,6 +468,67 @@ public class MainGui extends javax.swing.JFrame {
 
         getContentPane().add(ContentFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 830, 700));
 
+        pnlFreelancer.setOpaque(false);
+
+        joinStudio.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        joinStudio.setForeground(new java.awt.Color(255, 255, 255));
+        joinStudio.setText("Join Studio");
+        joinStudio.setToolTipText("");
+        joinStudio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                joinStudioMouseClicked(evt);
+            }
+        });
+
+        WatchRegistered2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        WatchRegistered2.setForeground(new java.awt.Color(255, 255, 255));
+        WatchRegistered2.setText("Watch Registered");
+        WatchRegistered2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                WatchRegistered2MouseClicked(evt);
+            }
+        });
+
+        Sessions2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Sessions2.setForeground(new java.awt.Color(255, 255, 255));
+        Sessions2.setText("Sessions");
+        Sessions2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Sessions2MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlFreelancerLayout = new javax.swing.GroupLayout(pnlFreelancer);
+        pnlFreelancer.setLayout(pnlFreelancerLayout);
+        pnlFreelancerLayout.setHorizontalGroup(
+            pnlFreelancerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFreelancerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlFreelancerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFreelancerLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(joinStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlFreelancerLayout.createSequentialGroup()
+                        .addGroup(pnlFreelancerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(WatchRegistered2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Sessions2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pnlFreelancerLayout.setVerticalGroup(
+            pnlFreelancerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFreelancerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(joinStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(WatchRegistered2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Sessions2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(349, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(pnlFreelancer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 540));
+
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/images/iStudioGui.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 1020, 770));
 
@@ -655,6 +720,21 @@ public class MainGui extends javax.swing.JFrame {
         iWindow.openWin(add);
     }//GEN-LAST:event_AddSoundmanMouseClicked
 
+    private void joinStudioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinStudioMouseClicked
+        frmFreelancerJoinStudio add = new frmFreelancerJoinStudio();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_joinStudioMouseClicked
+
+    private void WatchRegistered2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WatchRegistered2MouseClicked
+        frmRegReport add = new  frmRegReport();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_WatchRegistered2MouseClicked
+
+    private void Sessions2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sessions2MouseClicked
+        frmSessions add = new frmSessions();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_Sessions2MouseClicked
+
     private void closeAllPanels(){                              
         AR.setVisible(false);
         updateWin();
@@ -672,7 +752,7 @@ public class MainGui extends javax.swing.JFrame {
         AR.setVisible(false);
         FL.setVisible(false);
         STD.setVisible(false);
-        //pnlRep.setVisible(false);
+        pnlFreelancer.setVisible(false);
         pnlArtist.setVisible(false);
         switch (iRecord.getLoggedUser().getUserAuth()) {
             case Artist:
@@ -680,7 +760,7 @@ public class MainGui extends javax.swing.JFrame {
                 break;
                 
             case Freelancer:
-                pnlAdmin.setVisible(true);
+                pnlFreelancer.setVisible(true);
                 break;
             
             case Administrator:
@@ -714,21 +794,25 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JPanel STD;
     private javax.swing.JLabel Sessions;
     private javax.swing.JLabel Sessions1;
+    private javax.swing.JLabel Sessions2;
     private javax.swing.JLabel Studio;
     private javax.swing.JLabel SuspendArtist;
     private javax.swing.JLabel SuspendFreelancer;
     private javax.swing.JLabel SuspendFreelancer1;
     private javax.swing.JLabel WatchRegistered;
     private javax.swing.JLabel WatchRegistered1;
+    private javax.swing.JLabel WatchRegistered2;
     private javax.swing.JLabel bg;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogout;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel joinStudio;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUserType;
     private javax.swing.JLabel lblUsernames;
     private javax.swing.JPanel pnlAdmin;
     private javax.swing.JPanel pnlArtist;
+    private javax.swing.JPanel pnlFreelancer;
     // End of variables declaration//GEN-END:variables
 
 }

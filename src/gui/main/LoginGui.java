@@ -117,7 +117,7 @@ public class LoginGui extends javax.swing.JFrame {
         errDetails.setVisible(false);
         errDetails.setForeground(new java.awt.Color(255, 51, 51));
         errDetails.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        errDetails.setText("Incorrect login details");
+        errDetails.setText("Incorrect login details or user user is suspended");
         getContentPane().add(errDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 310, 470, 20));
 
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {

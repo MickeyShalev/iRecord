@@ -170,7 +170,7 @@ public class frmArtistSuspension extends javax.swing.JInternalFrame {
         }
         
         lblGen.setForeground(Color.GREEN);
-        lblGen.setText("Artist state was changed");
+        lblGen.setText("Artist found");
         updateWin();
         return;
         
