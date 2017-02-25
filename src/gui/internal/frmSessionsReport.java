@@ -347,9 +347,15 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         if (total > 0) {
             double precentage = (((double)mastered)/((double)total))*100;
             lblprec.setText(""+precentage);
+            
+            //progress bar code here
+            prog.setMaximum(100);
+            prog.setMinimum(0);
+            prog.setForeground(Color.green);
+            prog.setValue((int)precentage);
         }
         
-        //progress bar code here
+
         
         lblError.setText("");
         updateWin();
