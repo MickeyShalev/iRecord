@@ -397,7 +397,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         if (songDetails != null){
             lblSongTitle.setText(songDetails[0].toString());
             lblLink.setText(songDetails[1].toString());
-            System.out.println(songDetails[0] + " " +songDetails[1]);
+            //System.out.println(songDetails[0] + " " +songDetails[1]);
         }
         //set musicians
         for (String s:musicians){

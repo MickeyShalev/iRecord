@@ -618,10 +618,12 @@ public class MainGui extends javax.swing.JFrame {
 
     private void WatchRegistered1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WatchRegistered1MouseClicked
         frmRegReport add = new frmRegReport();
+        iWindow.openWin(add);
     }//GEN-LAST:event_WatchRegistered1MouseClicked
 
     private void Sessions1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sessions1MouseClicked
         frmSessions add = new frmSessions();
+        iWindow.openWin(add);
     }//GEN-LAST:event_Sessions1MouseClicked
 
     private void FLFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FLFocusLost
