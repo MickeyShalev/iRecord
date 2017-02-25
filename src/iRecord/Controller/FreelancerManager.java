@@ -222,6 +222,21 @@ public class FreelancerManager {
         return;
     }
     
+    /**
+     * This method returns the dates and places freelancer is scheduled for a session
+     * @return 
+     */
+    public static String[] getSessions(){
+        String[] toReturn = null;
+        
+        String qry = " ";
+        
+        
+        
+        
+        return toReturn;
+    }
+    
     
     
     /**

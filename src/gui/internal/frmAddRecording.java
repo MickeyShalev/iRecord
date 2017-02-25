@@ -101,7 +101,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
 
         lblRate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblRate.setForeground(new java.awt.Color(255, 255, 255));
-        lblRate.setText("URL");
+        lblRate.setText("Youtube URL");
         pnlAdd.add(lblRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 90, -1));
 
         lblmaxMus.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -138,7 +138,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         lblStudioID.setText("ID");
         pnlAdd.add(lblStudioID, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 190, -1));
 
-        cbState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Option", "Skeleton", "Demo", "Mastered" }));
+        cbState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Option", "Sketelon", "Demo", "Mastered" }));
         cbState.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 cbStateFocusLost(evt);
@@ -282,6 +282,12 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
                     
     private void tfURLFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfURLFocusLost
         String temp = tfURL.getText();
+        if (tfURL.getText().equals("")){
+            url = "N/A";
+            updateWin();
+            return;
+        }
+        
         if (!EmailValidator.validateURL(temp)){
             lblURLError.setText("Invalid URL");
             url = null;
@@ -297,6 +303,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
                 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         //System.out.println(sessionID + " " + recID + " " + min +" "+ sec +" "+ name +" " + lyrics +" "+ url +" "+ status + " " + filePath);
+        
         if (sessionID < 1 || recID == null || min < 0 || sec < 0 || name == null || lyrics == null || url == null || filePath == null || status == null){
             lblGen.setText("One or more fields ane missing");
             updateWin();

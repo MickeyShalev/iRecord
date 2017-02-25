@@ -97,7 +97,9 @@ public class ArtistManager {
                 String stageName = rs.getString("stageName");
                 java.sql.Timestamp eDate = rs.getTimestamp("dateExpired");
                 java.sql.Date date = new java.sql.Date (eDate.getTime());
+                String email = rs.getString("sEmail");
                 a = new Artist (artistID, stageName, " ", " ", date, EAuth.Artist);
+                a.setEmail(email);
                 
             }
         } catch (SQLException ex) {

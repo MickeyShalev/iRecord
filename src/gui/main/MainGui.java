@@ -6,9 +6,11 @@
 package gui.main;
 
 import gui.internal.*;
+import iRecord.Controller.ArtistManager;
 import iRecord.iRecord;
 import java.sql.SQLException;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,11 +48,15 @@ public class MainGui extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblUsernames = new javax.swing.JLabel();
         lblUserType = new javax.swing.JLabel();
+        pnlArtist = new javax.swing.JPanel();
+        CreateSession1 = new javax.swing.JLabel();
+        WatchRegistered1 = new javax.swing.JLabel();
+        Sessions1 = new javax.swing.JLabel();
         pnlAdmin = new javax.swing.JPanel();
         AR = new javax.swing.JPanel();
         AddArtist = new javax.swing.JLabel();
         SuspendArtist = new javax.swing.JLabel();
-        SuspendArtist1 = new javax.swing.JLabel();
+        Sessions = new javax.swing.JLabel();
         FL = new javax.swing.JPanel();
         AddSoundman = new javax.swing.JLabel();
         AddMusician = new javax.swing.JLabel();
@@ -59,7 +65,6 @@ public class MainGui extends javax.swing.JFrame {
         STD = new javax.swing.JPanel();
         AddRoom = new javax.swing.JLabel();
         AddStudio = new javax.swing.JLabel();
-        CreateSession = new javax.swing.JLabel();
         Artist = new javax.swing.JLabel();
         Freelancer = new javax.swing.JLabel();
         WatchRegistered = new javax.swing.JLabel();
@@ -103,6 +108,62 @@ public class MainGui extends javax.swing.JFrame {
         lblUserType.setText("User Type");
         getContentPane().add(lblUserType, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 170, 30));
 
+        pnlArtist.setOpaque(false);
+
+        CreateSession1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        CreateSession1.setForeground(new java.awt.Color(255, 255, 255));
+        CreateSession1.setText("Create Session");
+        CreateSession1.setToolTipText("");
+        CreateSession1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CreateSession1MouseClicked(evt);
+            }
+        });
+
+        WatchRegistered1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        WatchRegistered1.setForeground(new java.awt.Color(255, 255, 255));
+        WatchRegistered1.setText("Watch Registered");
+        WatchRegistered1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                WatchRegistered1MouseClicked(evt);
+            }
+        });
+
+        Sessions1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Sessions1.setForeground(new java.awt.Color(255, 255, 255));
+        Sessions1.setText("Sessions");
+        Sessions1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Sessions1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlArtistLayout = new javax.swing.GroupLayout(pnlArtist);
+        pnlArtist.setLayout(pnlArtistLayout);
+        pnlArtistLayout.setHorizontalGroup(
+            pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlArtistLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CreateSession1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(WatchRegistered1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Sessions1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(208, Short.MAX_VALUE))
+        );
+        pnlArtistLayout.setVerticalGroup(
+            pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlArtistLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(CreateSession1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(WatchRegistered1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Sessions1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(344, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(pnlArtist, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 540));
+
         pnlAdmin.setOpaque(false);
 
         AR.setBackground(new Color (0,0,0,120));
@@ -130,12 +191,12 @@ public class MainGui extends javax.swing.JFrame {
             }
         });
 
-        SuspendArtist1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        SuspendArtist1.setForeground(new java.awt.Color(255, 255, 255));
-        SuspendArtist1.setText("Sessions");
-        SuspendArtist1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Sessions.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Sessions.setForeground(new java.awt.Color(255, 255, 255));
+        Sessions.setText("Sessions");
+        Sessions.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SuspendArtist1MouseClicked(evt);
+                SessionsMouseClicked(evt);
             }
         });
 
@@ -148,7 +209,7 @@ public class MainGui extends javax.swing.JFrame {
                 .addGroup(ARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SuspendArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AddArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SuspendArtist1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Sessions, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ARLayout.setVerticalGroup(
@@ -157,7 +218,7 @@ public class MainGui extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(AddArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(SuspendArtist1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Sessions, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(SuspendArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -284,16 +345,6 @@ public class MainGui extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        CreateSession.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        CreateSession.setForeground(new java.awt.Color(255, 255, 255));
-        CreateSession.setText("Create Session");
-        CreateSession.setToolTipText("");
-        CreateSession.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CreateSessionMouseClicked(evt);
-            }
-        });
-
         Artist.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         Artist.setForeground(new java.awt.Color(255, 255, 255));
         Artist.setText("Artist");
@@ -346,29 +397,22 @@ public class MainGui extends javax.swing.JFrame {
             .addGroup(pnlAdminLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAdminLayout.createSequentialGroup()
-                        .addComponent(CreateSession, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnlAdminLayout.createSequentialGroup()
-                        .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Artist, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(WatchRegistered, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Freelancer, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Expertise, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Studio, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(FL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(STD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(Artist, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(WatchRegistered, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Freelancer, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Expertise, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Studio, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(STD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlAdminLayout.setVerticalGroup(
             pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAdminLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(CreateSession, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(72, 72, 72)
                 .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAdminLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -520,12 +564,6 @@ public class MainGui extends javax.swing.JFrame {
         iWindow.openWin(add);
     }//GEN-LAST:event_AddRoomMouseClicked
 
-    private void CreateSessionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreateSessionMouseClicked
-        closeAllPanels();
-        frmCreateSession add = new frmCreateSession();
-        iWindow.openWin(add);
-    }//GEN-LAST:event_CreateSessionMouseClicked
-
     private void SuspendArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuspendArtistMouseClicked
         closeAllPanels();
         frmArtistSuspension add = new frmArtistSuspension();
@@ -562,11 +600,18 @@ public class MainGui extends javax.swing.JFrame {
         iWindow.openWin(add);
     }//GEN-LAST:event_ExpertiseMouseClicked
 
-    private void SuspendArtist1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuspendArtist1MouseClicked
+    private void SessionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SessionsMouseClicked
         closeAllPanels();
-        frmSessions add = new frmSessions();
+        String id = JOptionPane.showInputDialog("Please insert artist ID");
+        if (!ArtistManager.isExists(id)){
+            JOptionPane.showMessageDialog(null, "Artist was not found");
+            updateWin();
+            return;
+        }
+        
+        frmSessionsReport add = new frmSessionsReport(id);
         iWindow.openWin(add);
-    }//GEN-LAST:event_SuspendArtist1MouseClicked
+    }//GEN-LAST:event_SessionsMouseClicked
 
     private void SuspendFreelancer1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuspendFreelancer1MouseClicked
         closeAllPanels();
@@ -594,6 +639,19 @@ public class MainGui extends javax.swing.JFrame {
         updateWin();
     }//GEN-LAST:event_ContentFrameMouseEntered
 
+    private void CreateSession1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreateSession1MouseClicked
+        frmCreateSession add = new frmCreateSession();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_CreateSession1MouseClicked
+
+    private void WatchRegistered1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WatchRegistered1MouseClicked
+        frmRegReport add = new frmRegReport();
+    }//GEN-LAST:event_WatchRegistered1MouseClicked
+
+    private void Sessions1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sessions1MouseClicked
+        frmSessions add = new frmSessions();
+    }//GEN-LAST:event_Sessions1MouseClicked
+
     private void closeAllPanels(){                              
         AR.setVisible(false);
         updateWin();
@@ -612,10 +670,10 @@ public class MainGui extends javax.swing.JFrame {
         FL.setVisible(false);
         STD.setVisible(false);
         //pnlRep.setVisible(false);
-        //pnlAdmin1.setVisible(false);
+        pnlArtist.setVisible(false);
         switch (iRecord.getLoggedUser().getUserAuth()) {
             case Artist:
-                pnlAdmin.setVisible(true);
+                pnlArtist.setVisible(true);
                 break;
                 
             case Freelancer:
@@ -646,17 +704,19 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JLabel AddStudio;
     private javax.swing.JLabel Artist;
     private javax.swing.JPanel ContentFrame;
-    private javax.swing.JLabel CreateSession;
+    private javax.swing.JLabel CreateSession1;
     private javax.swing.JLabel Expertise;
     private javax.swing.JPanel FL;
     private javax.swing.JLabel Freelancer;
     private javax.swing.JPanel STD;
+    private javax.swing.JLabel Sessions;
+    private javax.swing.JLabel Sessions1;
     private javax.swing.JLabel Studio;
     private javax.swing.JLabel SuspendArtist;
-    private javax.swing.JLabel SuspendArtist1;
     private javax.swing.JLabel SuspendFreelancer;
     private javax.swing.JLabel SuspendFreelancer1;
     private javax.swing.JLabel WatchRegistered;
+    private javax.swing.JLabel WatchRegistered1;
     private javax.swing.JLabel bg;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogout;
@@ -665,6 +725,7 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JLabel lblUserType;
     private javax.swing.JLabel lblUsernames;
     private javax.swing.JPanel pnlAdmin;
+    private javax.swing.JPanel pnlArtist;
     // End of variables declaration//GEN-END:variables
 
 }

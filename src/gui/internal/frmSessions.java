@@ -7,6 +7,7 @@ package gui.internal;
 
 import Validators.PositiveValidator;
 import entities.Artist;
+import entities.Person;
 import gui.main.iWindow;
 import iRecord.Controller.RecordingManager;
 import iRecord.iRecord;
@@ -22,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author nisan
  */
 public class frmSessions extends javax.swing.JInternalFrame {
-    private Artist a = null;
+    private Person a = null;
     private Date picked = null;
     private int sessionID;
     private File file;
@@ -266,7 +267,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
     
     
     private void init(){
-        a = (Artist)iRecord.getLoggedUser();
+        a = iRecord.getLoggedUser();
         lblstageName.setText(a.getStageName());
         lblEmail.setText(a.getEmail());
         lblID.setText(a.getID());
