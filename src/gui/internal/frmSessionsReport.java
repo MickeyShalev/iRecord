@@ -255,7 +255,6 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
 
         lblMastered.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblMastered.setForeground(new java.awt.Color(255, 255, 255));
-        lblMastered.setText("1234");
         pnlAdd.add(lblMastered, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, 50, 20));
 
         lblAddr8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -275,22 +274,18 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
 
         lblTotal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblTotal.setForeground(new java.awt.Color(255, 255, 255));
-        lblTotal.setText("1234");
         pnlAdd.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, 50, 20));
 
         lblSket.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblSket.setForeground(new java.awt.Color(255, 255, 255));
-        lblSket.setText("1234");
         pnlAdd.add(lblSket, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 40, 50, 20));
 
         lblDemo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblDemo.setForeground(new java.awt.Color(255, 255, 255));
-        lblDemo.setText("1234");
         pnlAdd.add(lblDemo, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, 50, 20));
 
         lblprec.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblprec.setForeground(new java.awt.Color(255, 255, 255));
-        lblprec.setText("1234");
         pnlAdd.add(lblprec, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 340, 50, 20));
         pnlAdd.add(prog, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 240, 20));
 
@@ -348,12 +343,12 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         lblSket.setText(""+sketelon);
         lblDemo.setText(""+demo);
         lblMastered.setText(""+mastered);
-        int total = other+sketelon+demo+mastered;
-        double precentage;
-        if (total > 0) precentage = ((double)mastered/(double)total);
-        else precentage = 0;
-        lblprec.setText(""+precentage);
-        System.out.println(precentage);
+        int total = other + sketelon + demo + mastered;
+        if (total > 0) {
+            double precentage = (((double)mastered)/((double)total))*100;
+            lblprec.setText(""+precentage);
+        }
+        
         //progress bar code here
         
         lblError.setText("");
@@ -374,6 +369,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
     
     private void tblGenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGenMouseClicked
+        lblError.setText("");
         String id = (String)tblGen.getModel().getValueAt(tblGen.getSelectedRow(), 2);
         sessionID = (int) PositiveValidator.stringToNum(id);
         lblMusicians.setText("");
@@ -386,7 +382,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         String[] songDetails = ReportManager.getSongDetails(sessionID);
         
         if (musicians == null || soundmans == null){
-            lblError.setText("No sessions for were found for artist");
+            lblError.setText("Recording was not uploaded for this session");
             updateWin();
             return;
         } 

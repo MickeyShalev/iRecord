@@ -48,28 +48,28 @@ public class MainGui extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblUsernames = new javax.swing.JLabel();
         lblUserType = new javax.swing.JLabel();
-        pnlArtist = new javax.swing.JPanel();
-        CreateSession1 = new javax.swing.JLabel();
-        WatchRegistered1 = new javax.swing.JLabel();
-        Sessions1 = new javax.swing.JLabel();
         pnlAdmin = new javax.swing.JPanel();
         AR = new javax.swing.JPanel();
         AddArtist = new javax.swing.JLabel();
         SuspendArtist = new javax.swing.JLabel();
         Sessions = new javax.swing.JLabel();
+        STD = new javax.swing.JPanel();
+        AddRoom = new javax.swing.JLabel();
+        AddStudio = new javax.swing.JLabel();
+        Artist = new javax.swing.JLabel();
         FL = new javax.swing.JPanel();
         AddSoundman = new javax.swing.JLabel();
         AddMusician = new javax.swing.JLabel();
         SuspendFreelancer = new javax.swing.JLabel();
         SuspendFreelancer1 = new javax.swing.JLabel();
-        STD = new javax.swing.JPanel();
-        AddRoom = new javax.swing.JLabel();
-        AddStudio = new javax.swing.JLabel();
-        Artist = new javax.swing.JLabel();
-        Freelancer = new javax.swing.JLabel();
         WatchRegistered = new javax.swing.JLabel();
-        Studio = new javax.swing.JLabel();
+        Freelancer = new javax.swing.JLabel();
         Expertise = new javax.swing.JLabel();
+        Studio = new javax.swing.JLabel();
+        pnlArtist = new javax.swing.JPanel();
+        CreateSession1 = new javax.swing.JLabel();
+        WatchRegistered1 = new javax.swing.JLabel();
+        Sessions1 = new javax.swing.JLabel();
         ContentFrame = new javax.swing.JPanel();
         bg = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
@@ -108,6 +108,277 @@ public class MainGui extends javax.swing.JFrame {
         lblUserType.setText("User Type");
         getContentPane().add(lblUserType, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 170, 30));
 
+        pnlAdmin.setOpaque(false);
+
+        AR.setBackground(new Color (0,0,0,120));
+        AR.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ARFocusLost(evt);
+            }
+        });
+
+        AddArtist.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        AddArtist.setForeground(new java.awt.Color(255, 255, 255));
+        AddArtist.setText("Add Artist");
+        AddArtist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddArtistMouseClicked(evt);
+            }
+        });
+
+        SuspendArtist.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        SuspendArtist.setForeground(new java.awt.Color(255, 255, 255));
+        SuspendArtist.setText("Suspend Artist");
+        SuspendArtist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SuspendArtistMouseClicked(evt);
+            }
+        });
+
+        Sessions.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        Sessions.setForeground(new java.awt.Color(255, 255, 255));
+        Sessions.setText("Sessions");
+        Sessions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SessionsMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ARLayout = new javax.swing.GroupLayout(AR);
+        AR.setLayout(ARLayout);
+        ARLayout.setHorizontalGroup(
+            ARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ARLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(ARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(AddArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(SuspendArtist, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                        .addComponent(Sessions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        ARLayout.setVerticalGroup(
+            ARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ARLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(AddArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Sessions)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SuspendArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        STD.setBackground(new Color (0,0,0,120));
+        STD.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                STDFocusLost(evt);
+            }
+        });
+
+        AddRoom.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        AddRoom.setForeground(new java.awt.Color(255, 255, 255));
+        AddRoom.setText("Add Room");
+        AddRoom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddRoomMouseClicked(evt);
+            }
+        });
+
+        AddStudio.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        AddStudio.setForeground(new java.awt.Color(255, 255, 255));
+        AddStudio.setText("Add Studio");
+        AddStudio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddStudioMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout STDLayout = new javax.swing.GroupLayout(STD);
+        STD.setLayout(STDLayout);
+        STDLayout.setHorizontalGroup(
+            STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(STDLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(AddRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AddStudio, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))
+        );
+        STDLayout.setVerticalGroup(
+            STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(STDLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(AddStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AddRoom)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Artist.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Artist.setForeground(new java.awt.Color(255, 255, 255));
+        Artist.setText("Artist");
+        Artist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ArtistMouseClicked(evt);
+            }
+        });
+
+        FL.setBackground(new Color (0,0,0,120));
+        FL.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FLFocusLost(evt);
+            }
+        });
+
+        AddSoundman.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        AddSoundman.setForeground(new java.awt.Color(255, 255, 255));
+        AddSoundman.setText("Add Soundman");
+        AddSoundman.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddSoundmanMouseClicked(evt);
+            }
+        });
+
+        AddMusician.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        AddMusician.setForeground(new java.awt.Color(255, 255, 255));
+        AddMusician.setText("Add Musician");
+        AddMusician.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddMusicianMouseClicked(evt);
+            }
+        });
+
+        SuspendFreelancer.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        SuspendFreelancer.setForeground(new java.awt.Color(255, 255, 255));
+        SuspendFreelancer.setText("Suspend");
+        SuspendFreelancer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SuspendFreelancerMouseClicked(evt);
+            }
+        });
+
+        SuspendFreelancer1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        SuspendFreelancer1.setForeground(new java.awt.Color(255, 255, 255));
+        SuspendFreelancer1.setText("Add to Studio");
+        SuspendFreelancer1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SuspendFreelancer1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout FLLayout = new javax.swing.GroupLayout(FL);
+        FL.setLayout(FLLayout);
+        FLLayout.setHorizontalGroup(
+            FLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FLLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(FLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AddMusician, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SuspendFreelancer1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AddSoundman, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SuspendFreelancer, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        FLLayout.setVerticalGroup(
+            FLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FLLayout.createSequentialGroup()
+                .addComponent(AddMusician, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(AddSoundman)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SuspendFreelancer1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SuspendFreelancer)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        WatchRegistered.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        WatchRegistered.setForeground(new java.awt.Color(255, 255, 255));
+        WatchRegistered.setText("Watch Registered");
+        WatchRegistered.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                WatchRegisteredMouseClicked(evt);
+            }
+        });
+
+        Freelancer.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Freelancer.setForeground(new java.awt.Color(255, 255, 255));
+        Freelancer.setText("Freelancer");
+        Freelancer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FreelancerMouseClicked(evt);
+            }
+        });
+
+        Expertise.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Expertise.setForeground(new java.awt.Color(255, 255, 255));
+        Expertise.setText("Expertise");
+        Expertise.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExpertiseMouseClicked(evt);
+            }
+        });
+
+        Studio.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Studio.setForeground(new java.awt.Color(255, 255, 255));
+        Studio.setText("Studio");
+        Studio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StudioMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlAdminLayout = new javax.swing.GroupLayout(pnlAdmin);
+        pnlAdmin.setLayout(pnlAdminLayout);
+        pnlAdminLayout.setHorizontalGroup(
+            pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAdminLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                        .addComponent(Artist, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(AR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                        .addComponent(Studio, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(STD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                        .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(WatchRegistered, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Freelancer, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Expertise, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(FL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlAdminLayout.setVerticalGroup(
+            pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAdminLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                        .addComponent(Artist, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(WatchRegistered, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(AR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                        .addComponent(Freelancer, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Expertise, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(FL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(Studio, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(STD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(pnlAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 350, 350));
+
         pnlArtist.setOpaque(false);
 
         CreateSession1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -145,299 +416,29 @@ public class MainGui extends javax.swing.JFrame {
             .addGroup(pnlArtistLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CreateSession1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(WatchRegistered1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Sessions1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(208, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlArtistLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(CreateSession1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlArtistLayout.createSequentialGroup()
+                        .addGroup(pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(WatchRegistered1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Sessions1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlArtistLayout.setVerticalGroup(
             pnlArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlArtistLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addComponent(CreateSession1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(WatchRegistered1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Sessions1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addContainerGap(349, Short.MAX_VALUE))
         );
 
-        getContentPane().add(pnlArtist, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 540));
-
-        pnlAdmin.setOpaque(false);
-
-        AR.setBackground(new Color (0,0,0,120));
-        AR.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                ARFocusLost(evt);
-            }
-        });
-
-        AddArtist.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        AddArtist.setForeground(new java.awt.Color(255, 255, 255));
-        AddArtist.setText("Add Artist");
-        AddArtist.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AddArtistMouseClicked(evt);
-            }
-        });
-
-        SuspendArtist.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        SuspendArtist.setForeground(new java.awt.Color(255, 255, 255));
-        SuspendArtist.setText("Suspend Artist");
-        SuspendArtist.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SuspendArtistMouseClicked(evt);
-            }
-        });
-
-        Sessions.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        Sessions.setForeground(new java.awt.Color(255, 255, 255));
-        Sessions.setText("Sessions");
-        Sessions.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SessionsMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout ARLayout = new javax.swing.GroupLayout(AR);
-        AR.setLayout(ARLayout);
-        ARLayout.setHorizontalGroup(
-            ARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ARLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SuspendArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AddArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Sessions, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        ARLayout.setVerticalGroup(
-            ARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ARLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(AddArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Sessions, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(SuspendArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        FL.setBackground(new Color (0,0,0,120));
-        FL.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FLFocusLost(evt);
-            }
-        });
-
-        AddSoundman.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        AddSoundman.setForeground(new java.awt.Color(255, 255, 255));
-        AddSoundman.setText("Add Soundman");
-        AddSoundman.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AddSoundmanMouseClicked(evt);
-            }
-        });
-
-        AddMusician.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        AddMusician.setForeground(new java.awt.Color(255, 255, 255));
-        AddMusician.setText("Add Musician");
-        AddMusician.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AddMusicianMouseClicked(evt);
-            }
-        });
-
-        SuspendFreelancer.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        SuspendFreelancer.setForeground(new java.awt.Color(255, 255, 255));
-        SuspendFreelancer.setText("Suspend");
-        SuspendFreelancer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SuspendFreelancerMouseClicked(evt);
-            }
-        });
-
-        SuspendFreelancer1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        SuspendFreelancer1.setForeground(new java.awt.Color(255, 255, 255));
-        SuspendFreelancer1.setText("Add to Studio");
-        SuspendFreelancer1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SuspendFreelancer1MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout FLLayout = new javax.swing.GroupLayout(FL);
-        FL.setLayout(FLLayout);
-        FLLayout.setHorizontalGroup(
-            FLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FLLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(FLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FLLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(AddMusician, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(FLLayout.createSequentialGroup()
-                        .addGroup(FLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AddSoundman, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SuspendFreelancer, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SuspendFreelancer1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        FLLayout.setVerticalGroup(
-            FLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FLLayout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(AddMusician, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(AddSoundman, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(SuspendFreelancer1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(SuspendFreelancer, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        STD.setBackground(new Color (0,0,0,120));
-        STD.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                STDFocusLost(evt);
-            }
-        });
-
-        AddRoom.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        AddRoom.setForeground(new java.awt.Color(255, 255, 255));
-        AddRoom.setText("Add Room");
-        AddRoom.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AddRoomMouseClicked(evt);
-            }
-        });
-
-        AddStudio.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        AddStudio.setForeground(new java.awt.Color(255, 255, 255));
-        AddStudio.setText("Add Studio");
-        AddStudio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AddStudioMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout STDLayout = new javax.swing.GroupLayout(STD);
-        STD.setLayout(STDLayout);
-        STDLayout.setHorizontalGroup(
-            STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(STDLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AddStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AddRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        STDLayout.setVerticalGroup(
-            STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(STDLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(AddStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(AddRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-
-        Artist.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        Artist.setForeground(new java.awt.Color(255, 255, 255));
-        Artist.setText("Artist");
-        Artist.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ArtistMouseClicked(evt);
-            }
-        });
-
-        Freelancer.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        Freelancer.setForeground(new java.awt.Color(255, 255, 255));
-        Freelancer.setText("Freelancer");
-        Freelancer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                FreelancerMouseClicked(evt);
-            }
-        });
-
-        WatchRegistered.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        WatchRegistered.setForeground(new java.awt.Color(255, 255, 255));
-        WatchRegistered.setText("Watch Registered");
-        WatchRegistered.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                WatchRegisteredMouseClicked(evt);
-            }
-        });
-
-        Studio.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        Studio.setForeground(new java.awt.Color(255, 255, 255));
-        Studio.setText("Studio");
-        Studio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                StudioMouseClicked(evt);
-            }
-        });
-
-        Expertise.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        Expertise.setForeground(new java.awt.Color(255, 255, 255));
-        Expertise.setText("Expertise");
-        Expertise.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ExpertiseMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlAdminLayout = new javax.swing.GroupLayout(pnlAdmin);
-        pnlAdmin.setLayout(pnlAdminLayout);
-        pnlAdminLayout.setHorizontalGroup(
-            pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAdminLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Artist, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(WatchRegistered, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Freelancer, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Expertise, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Studio, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(FL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(STD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pnlAdminLayout.setVerticalGroup(
-            pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAdminLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAdminLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(Artist, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(FL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlAdminLayout.createSequentialGroup()
-                                .addComponent(Freelancer, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(WatchRegistered, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Expertise, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(AR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAdminLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(STD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlAdminLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(Studio, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(pnlAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 540));
+        getContentPane().add(pnlArtist, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 540));
 
         ContentFrame.setBackground(new Color(0,0,0,0));
         ContentFrame.setForeground(new java.awt.Color(255, 51, 102));
@@ -458,10 +459,10 @@ public class MainGui extends javax.swing.JFrame {
         );
         ContentFrameLayout.setVerticalGroup(
             ContentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
 
-        getContentPane().add(ContentFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 830, -1));
+        getContentPane().add(ContentFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 830, 700));
 
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/images/iStudioGui.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 1020, 770));
@@ -546,12 +547,6 @@ public class MainGui extends javax.swing.JFrame {
         iWindow.openWin(add);
     }//GEN-LAST:event_WatchRegisteredMouseClicked
 
-    private void AddMusicianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMusicianMouseClicked
-        closeAllPanels();
-        frmAddMusician add = new frmAddMusician();
-        iWindow.openWin(add);
-    }//GEN-LAST:event_AddMusicianMouseClicked
-
     private void AddStudioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddStudioMouseClicked
         closeAllPanels();
         frmAddStudio add = new frmAddStudio(); 
@@ -570,23 +565,11 @@ public class MainGui extends javax.swing.JFrame {
         iWindow.openWin(add);
     }//GEN-LAST:event_SuspendArtistMouseClicked
 
-    private void AddSoundmanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddSoundmanMouseClicked
-        closeAllPanels();
-        frmAddSoundman add = new frmAddSoundman();
-        iWindow.openWin(add);
-    }//GEN-LAST:event_AddSoundmanMouseClicked
-
     private void AddArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddArtistMouseClicked
         closeAllPanels();
         frmAddArtist add = new frmAddArtist();
         iWindow.openWin(add);
     }//GEN-LAST:event_AddArtistMouseClicked
-
-    private void SuspendFreelancerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuspendFreelancerMouseClicked
-        closeAllPanels();
-        frmFreelancerSuspension add = new frmFreelancerSuspension();
-        iWindow.openWin(add);
-    }//GEN-LAST:event_SuspendFreelancerMouseClicked
 
     private void StudioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StudioMouseClicked
         closeAllPanels();
@@ -613,21 +596,10 @@ public class MainGui extends javax.swing.JFrame {
         iWindow.openWin(add);
     }//GEN-LAST:event_SessionsMouseClicked
 
-    private void SuspendFreelancer1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuspendFreelancer1MouseClicked
-        closeAllPanels();
-        frmFreelancerToStudio add = new frmFreelancerToStudio();
-        iWindow.openWin(add);
-    }//GEN-LAST:event_SuspendFreelancer1MouseClicked
-
     private void ARFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ARFocusLost
         closeAllPanels();
         updateWin();
     }//GEN-LAST:event_ARFocusLost
-
-    private void FLFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FLFocusLost
-        closeAllPanels();
-        updateWin();
-    }//GEN-LAST:event_FLFocusLost
 
     private void STDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_STDFocusLost
         closeAllPanels();
@@ -651,6 +623,35 @@ public class MainGui extends javax.swing.JFrame {
     private void Sessions1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sessions1MouseClicked
         frmSessions add = new frmSessions();
     }//GEN-LAST:event_Sessions1MouseClicked
+
+    private void FLFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FLFocusLost
+        closeAllPanels();
+        updateWin();
+    }//GEN-LAST:event_FLFocusLost
+
+    private void SuspendFreelancer1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuspendFreelancer1MouseClicked
+        closeAllPanels();
+        frmFreelancerToStudio add = new frmFreelancerToStudio();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_SuspendFreelancer1MouseClicked
+
+    private void SuspendFreelancerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuspendFreelancerMouseClicked
+        closeAllPanels();
+        frmFreelancerSuspension add = new frmFreelancerSuspension();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_SuspendFreelancerMouseClicked
+
+    private void AddMusicianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMusicianMouseClicked
+        closeAllPanels();
+        frmAddMusician add = new frmAddMusician();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_AddMusicianMouseClicked
+
+    private void AddSoundmanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddSoundmanMouseClicked
+        closeAllPanels();
+        frmAddSoundman add = new frmAddSoundman();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_AddSoundmanMouseClicked
 
     private void closeAllPanels(){                              
         AR.setVisible(false);
