@@ -124,10 +124,9 @@ public class XMLManager {
         return tsList;
     }
     
+
     /**
-     * On a given artist it will export to xml the show dates of the artist
-     *
-     * @param art
+     * Go through all artists and launch the export xml for them
      */
     public static void ExportXML(){
         List<Artist> arrl = new ArrayList<Artist>();
@@ -151,39 +150,123 @@ public class XMLManager {
                     = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder
                     = dbFactory.newDocumentBuilder();
+            
+            //Create new XML Document Parser
             Document doc = dBuilder.newDocument();
-            // root element
+            // Root element
             Element rootElement = doc.createElement("iRecordXML");
+            //Append to the document (doc)
             doc.appendChild(rootElement);
 
-            //  supercars element
+            //  Free element just to note the time this document was created
             Element time = doc.createElement("DateCreated");
+            /** Append to the element created before (root)
+            <iRecordXML>
+              <DateCreated></DateCreated>
+            </iRecordXML>
+            * */
             rootElement.appendChild(time);
+            
+            //Create a text node and append so it will show: <DateCreated>d/m/Y h:m:s</dateCreated>
             time.appendChild(doc.createTextNode((new java.util.Date()).toString()));
 
+            /**
+             * Now we have:
+             * <iRecordXML>
+             *  <DateCreated>d/m/y h:m:s</datecreated>
+             * </iRecordXML>
+             */
+            
+            //Go through all artists, and for each artist created its' node and sessions
             for (Artist art : arts) {
+                
+                /**Create a new artist element so it will be:
+                * <iRecordXML>
+                 *  <DateCreated>d/m/y h:m:s</datecreated>
+                 *  <Artist></Artist>
+                 *  <Artist></Artist>
+                 *  <Artist></Artist>
+                 *  <Artist></Artist>
+                 * </iRecordXML>
+                */
                 Element artistXML = doc.createElement("Artist");
+                //Append it to the root element (iRecordXML)
                 rootElement.appendChild(artistXML);
                 
-                // setting attribute to element
+                /**
+                 * Set attribute to the element
+                 * Attribute shows as <element ATTRIBUTE="var"></element>
+                 */
+                /**
+                 * Create the attribute ID
+                 * <Artist ID></Artist>
+                */
                 Attr attr = doc.createAttribute("ID");
+                /**
+                 * Set attribute value to be the artist ID 
+                 * <Artist ID="{art.getID()}"></Artist>
+                 */
                 attr.setValue(art.getID());
+                //Append to the artist we created
                 artistXML.setAttributeNode(attr);
 
-                //Run the query and get session dates
+                
+                //Aquire session dates of the artist
+                /** For each session we will create a child elements to the artist
+                 * So we will have:
+                * <iRecordXML>
+                 *  <DateCreated>d/m/y h:m:s</datecreated>
+                 *  <Artist ID="artist id">
+                 *      <Session></Session>
+                 *      <Session></Session>
+                 *      <Session></Session>  
+                 *  </Artist>
+                 * </iRecordXML>
+                * */
                 ResultSet qry = iRecord.getDB().query("SELECT sessionStartDate FROM Session where ArtistID=\"" + art.getID() + "\"");
                 while (qry.next()) {
+                    
+                    /** Create a new session element
+                    * <Session></Session>
+                    */
+                    
                     Element session = doc.createElement("Session");
+                    
+                    /**
+                     * Set text node for session element
+                     * <Session>d/m/y h:m:s</Session>
+                     */
                     session.appendChild(
                             doc.createTextNode(qry.getDate("sessionStartDate").toGMTString()));
 
+                    /**
+                     * Set an attribute with the TimeStamp from SQL
+                     * <Session timestamp="getTime()">d/m/y h:m:s</Session>
+                     */
                     session.setAttribute("timestamp", String.valueOf(qry.getDate("sessionStartDate").getTime()));
+                    //Append it
                     artistXML.appendChild(session);
                 }
             }
-            // carname element
 
-            // write the content into xml file
+
+            /**
+            * We finished!
+            * The document is like this for example:
+            * <iRecordXML>
+            *  <DateCreated>d/m/y h:m:s</datecreated>
+            *  <Artist ID="AR123">
+            *      <Session timestamp="12351251512">12/2/2017 02:50:13</Session>
+            *      <Session timestamp="65161816516">22/2/2016 15:14:13</Session>
+            *      <Session timestamp="65151651656">6/2/2017 02:50:13</Session>
+            *  </Artist>
+            * </iRecordXML>
+             */
+            
+            
+            /**
+             * Stuff to build and export the xml, no need to know anything about it
+             */
             TransformerFactory transformerFactory
                     = TransformerFactory.newInstance();
             Transformer transformer
@@ -194,7 +277,16 @@ public class XMLManager {
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             
+            /**
+             * Name of the file is configured here
+             */
             PrintStream prntstrm = new PrintStream(new File("iRecord-Artist-Sessions.xml"));
+            
+            
+            
+            /**
+             * More stuff no need to know about
+             */
             iRecord.log("Aquiring stream result");
             StreamResult result
                     = new StreamResult(prntstrm);
