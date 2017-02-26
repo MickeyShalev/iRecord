@@ -500,56 +500,69 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Pass1FocusLost
     
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+        picPath = "123";
+        //update was recognzied
         if (s !=null){
+            if (firstName == null || lastName == null || stageName == null || Email ==null
+                    || fullPayment < 0 || birthDate == null  || password ==null || picPath == null || (!isMixTech && !isProducer && !isMasterTech)){
+                lblGen.setForeground(Color.red);
+                lblGen.setText("One or more fields ane missing");
+                updateWin();
+                return;
+            }
             
+            Soundman toAdd = new Soundman(flID, firstName,lastName,stageName,isProducer,isMixTech,isMasterTech, downPayment,fullPayment,0 , birthDate, Email, password, 1);
+            toAdd.setFile(picPath);
+            FreelancerManager.updateSoundman(toAdd);
+            lblGen.setForeground(Color.GREEN);
+            lblGen.setText("Artist was updated succefully");
+            btnAdd.hide();
             
-            
-        }
-        
-        
-        else if (!isMixTech && !isProducer && !isMasterTech){
-            lblGen.setText("You must pick at least one profession for soundman");
-            updateWin();
-            return;
-        }
-        
-        if(downPayment > fullPayment){
-            lblpayError.setText("Down payment can't be greather than full payment");
-            updateWin();
-            return;
-        }
-        
-        if (firstName == null || lastName == null || stageName == null || Email ==null
-                || fullPayment < 0 || downPayment < 0 || birthDate == null  || password ==null || picPath == null ){
-            lblGen.setText("One or more fields ane missing");
-            updateWin();
-            return;
         }
         
         else{
-//            java.util.Date date = new java.util.Date();
-//            java.sql.Date birthdate = new java.sql.Date(birthDate.getTime());
-            Soundman toAdd = new Soundman(flID, firstName,lastName,stageName,isProducer,isMixTech,isMasterTech, downPayment,fullPayment,0 , birthDate, Email, password, 1); 
-            toAdd.setPicPath(picPath);
-            pnlAdd.setVisible(false);
-            //System.out.println(ArtistManager.addArtist(toAdd));
-            //TODO - FIX THIS IF 
-            if (FreelancerManager.addSoundman(toAdd) > 0){
-                lblGen.setForeground(Color.GREEN);
-                lblGen.setText("Artist was added succefully");
-                btnAdd.hide();
+            
+            //new insertion was recognized
+            if (!isMixTech && !isProducer && !isMasterTech){
+                lblGen.setText("You must pick at least one profession for soundman");
+                updateWin();
+                return;
             }
-            else{
-                lblGen.setText("Something went wrong");
-                btnAdd.hide();
+            
+            else if(downPayment > fullPayment){
+                lblpayError.setText("Down payment can't be greather than full payment");
+                updateWin();
+                return;
             }
+            
+            else if (firstName == null || lastName == null || stageName == null || Email ==null
+                    || fullPayment < 0 || downPayment < 0 || birthDate == null  || password ==null || picPath == null ){
+                lblGen.setText("One or more fields ane missing");
+                updateWin();
+                return;
+            }
+            
+                else{
+                Soundman toAdd = new Soundman(flID, firstName,lastName,stageName,isProducer,isMixTech,isMasterTech, downPayment,fullPayment,0 , birthDate, Email, password, 1);
+                toAdd.setPicPath(picPath);
+                pnlAdd.setVisible(false);
+                //TODO - FIX THIS IF
+                if (FreelancerManager.addSoundman(toAdd) > 0){
+                    lblGen.setForeground(Color.GREEN);
+                    lblGen.setText("Artist was added succefully");
+                    btnAdd.hide();
+                }
+                else{
+                    lblGen.setText("Something went wrong");
+                    btnAdd.hide();
+                }
 
-            updateWin();
-            return;
+            }
         }
-         
+        updateWin();
+        return;
     }//GEN-LAST:event_btnAddMouseClicked
-
+    
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed

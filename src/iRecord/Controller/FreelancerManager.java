@@ -244,12 +244,12 @@ public class FreelancerManager {
         ArrayList<String[]> toReturn = null;
         
         String qry = "SELECT SoundmanToSession.SessionID, SoundmanToSession.SoundmanID, Session.sessionStartDate, Studio.StudioID, Studio.sName, Artists.StageName, SoundmanToSession.Role, SoundmanToSession.Role\n" +
-                    "FROM Artists INNER JOIN (([Session] INNER JOIN ((Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]) INNER JOIN SessionInRoom ON (Room.[StudioID] = SessionInRoom.[StudioID]) AND (Room.[RoomNum] = SessionInRoom.[RoomNum])) ON Session.[SessionID] = SessionInRoom.[SessionID]) INNER JOIN SoundmanToSession ON Session.[SessionID] = SoundmanToSession.[SessionID]) ON Artists.ArtistID = Session.ArtistID\n" +
-                    "GROUP BY SoundmanToSession.SessionID, SoundmanToSession.SoundmanID, Session.SessionID, Session.ArtistID, Session.sessionStartDate, Studio.StudioID, Studio.sName, Artists.StageName, SoundmanToSession.Role, SoundmanToSession.Role\n " +
-                    "HAVING (((SoundmanToSession.SoundmanID)=\""+id+"\") AND ((Session.sessionStartDate)>\""+t+"\"))\n" +
-                    "ORDER BY Session.sessionStartDate;";
+                "FROM Artists INNER JOIN (([Session] INNER JOIN ((Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]) INNER JOIN SessionInRoom ON (Room.[StudioID] = SessionInRoom.[StudioID]) AND (Room.[RoomNum] = SessionInRoom.[RoomNum])) ON Session.[SessionID] = SessionInRoom.[SessionID]) INNER JOIN SoundmanToSession ON Session.[SessionID] = SoundmanToSession.[SessionID]) ON Artists.ArtistID = Session.ArtistID\n" +
+                "GROUP BY SoundmanToSession.SessionID, SoundmanToSession.SoundmanID, Session.SessionID, Session.ArtistID, Session.sessionStartDate, Studio.StudioID, Studio.sName, Artists.StageName, SoundmanToSession.Role, SoundmanToSession.Role\n " +
+                "HAVING (((SoundmanToSession.SoundmanID)=\""+id+"\") AND ((Session.sessionStartDate)>\""+t+"\"))\n" +
+                "ORDER BY Session.sessionStartDate;";
         
-                
+        
         ResultSet rs = iRecord.getDB().query(qry);
         
         try {
@@ -272,15 +272,15 @@ public class FreelancerManager {
         return toReturn;
     }
     
-
+    
     public static ArrayList<String[]> getMusicianSessions(String id, Timestamp t){
         ArrayList<String[]> toReturn = null;
         
         String qry = "SELECT Musician.MusicianID, Session.SessionID, Session.sessionStartDate, Studio.StudioID, Studio.sName, Artists.StageName\n" +
-            "FROM Studio INNER JOIN ((Artists INNER JOIN [Session] ON Artists.ArtistID = Session.ArtistID) INNER JOIN ((Room INNER JOIN SessionInRoom ON (Room.StudioID = SessionInRoom.StudioID) AND (Room.RoomNum = SessionInRoom.RoomNum)) INNER JOIN ((Freelancer INNER JOIN Musician ON Freelancer.FreelancerID = Musician.MusicianID) INNER JOIN MusicianToRoom ON Musician.MusicianID = MusicianToRoom.MusicianID) ON (SessionInRoom.StudioID = MusicianToRoom.StudioID) AND (SessionInRoom.RoomNum = MusicianToRoom.RoomNum) AND (SessionInRoom.SessionID = MusicianToRoom.SessionID)) ON Session.SessionID = SessionInRoom.SessionID) ON Studio.StudioID = Room.StudioID\n" +
-            "GROUP BY Musician.MusicianID, Session.SessionID, Session.sessionStartDate, Studio.StudioID, Studio.sName, Artists.StageName\n" +
-            "HAVING (((Musician.MusicianID)=\""+id+"\") AND ((Session.sessionStartDate)>\""+t+"\")) \n" +
-            "ORDER BY Session.sessionStartDate;";
+                "FROM Studio INNER JOIN ((Artists INNER JOIN [Session] ON Artists.ArtistID = Session.ArtistID) INNER JOIN ((Room INNER JOIN SessionInRoom ON (Room.StudioID = SessionInRoom.StudioID) AND (Room.RoomNum = SessionInRoom.RoomNum)) INNER JOIN ((Freelancer INNER JOIN Musician ON Freelancer.FreelancerID = Musician.MusicianID) INNER JOIN MusicianToRoom ON Musician.MusicianID = MusicianToRoom.MusicianID) ON (SessionInRoom.StudioID = MusicianToRoom.StudioID) AND (SessionInRoom.RoomNum = MusicianToRoom.RoomNum) AND (SessionInRoom.SessionID = MusicianToRoom.SessionID)) ON Session.SessionID = SessionInRoom.SessionID) ON Studio.StudioID = Room.StudioID\n" +
+                "GROUP BY Musician.MusicianID, Session.SessionID, Session.sessionStartDate, Studio.StudioID, Studio.sName, Artists.StageName\n" +
+                "HAVING (((Musician.MusicianID)=\""+id+"\") AND ((Session.sessionStartDate)>\""+t+"\")) \n" +
+                "ORDER BY Session.sessionStartDate;";
         
         ResultSet rs = iRecord.getDB().query(qry);
         
@@ -306,14 +306,14 @@ public class FreelancerManager {
     
     /**
      * This method gets all musician details
-     * @return 
+     * @return
      */
     public static Musician getMuicianDetails(String id){
         Musician m = null;
         
         String qry = "SELECT Musician.*, Freelancer.*\n" +
-                    "FROM Freelancer INNER JOIN Musician ON Freelancer.[FreelancerID] = Musician.[MusicianID]\n" +
-                    "WHERE (((Musician.MusicianID)=\""+id+"\"));";
+                "FROM Freelancer INNER JOIN Musician ON Freelancer.[FreelancerID] = Musician.[MusicianID]\n" +
+                "WHERE (((Musician.MusicianID)=\""+id+"\"));";
         
         ResultSet rs = iRecord.getDB().query(qry);
         
@@ -344,7 +344,7 @@ public class FreelancerManager {
     
     /**
      * this method gets all soundman details
-     * @return 
+     * @return
      */
     public static Soundman getSoundmanDetails(String id){
         Soundman s = null;
@@ -385,21 +385,48 @@ public class FreelancerManager {
     /**
      * This method updates musician details
      * @param m
-     * @return 
+     * @return
      */
-    public static boolean updateMusician(Musician m){
-     
-        return false;
+    public static void updateMusician(Musician s){
+        
+        java.sql.Timestamp eDate = new java.sql.Timestamp (s.getBirthdate().getTime());
+        
+        String qry1 = "UPDATE Freelancer"
+                + " SET firstName=\""+s.getFirstName()+"\", lastName=\""+s.getLastName()+"\", stageName=\""+s.getStageName()+"\", birthDate=\"" +eDate+ "\", strEmail=\""+s.getEmail() +"\", Password=\""+s.getPassword()+"\", Status="+s.getStatus()+ ", filePic=\""+s.getPicPath()+"\" "
+                + " WHERE FreelancerID=\"" +s.getFreelancerID() +"\"";
+        
+        String qry2 = "UPDATE Musician"
+                + " SET Payroll="+s.getPayRoll()+" , expertIn="+s.getExpertise().intValue()
+                + " WHERE MusicianID=\"" + s.getFreelancerID() +"\"";
+        
+        iRecord.getDB().executeUpadate(qry1);
+        iRecord.getDB().executeUpadate(qry2);
+        
+        
     }
     
     /**
      * this method updates musician details
      * @param s
-     * @return 
+     * @return
      */
-    public static boolean updateSoundman(Soundman s){
+    public static void updateSoundman(Soundman s){
+             
+        java.sql.Timestamp eDate = new java.sql.Timestamp (s.getBirthdate().getTime());
         
-        return false;
+        String qry1 = "UPDATE Freelancer"   
+                + " SET firstName=\""+s.getFirstName()+"\", lastName=\""+s.getLastName()+"\", stageName=\""+s.getStageName()+"\", birthDate=\"" +eDate+ "\", strEmail=\""+s.getEmail() +"\", Password=\""+s.getPassword()+"\", Status="+s.getStatus()+ ", filePic=\""+s.getPicPath()+"\" "
+                + " WHERE FreelancerID=\"" +s.getFreelancerID() +"\"";
+        
+        String qry2 = "UPDATE Soundman" 
+                + " SET isProducer="+s.getIsProducer()+" ,isMixTech=" +s.getIsMasterTech()+ ", isMasterTech=" +s.getIsMasterTech()+ ",downPayment=" +s.getDownPayment()+ ", FullPayment=" +s.getFullPayment()+" "
+                + " WHERE SoundmanID=\"" + s.getFreelancerID() +"\"";
+        
+        iRecord.getDB().executeUpadate(qry1);
+        iRecord.getDB().executeUpadate(qry2);
+        
+          
+        
     }
     /**
      * ===========================================================
@@ -411,7 +438,7 @@ public class FreelancerManager {
      * String url="jdbc:odbc:MyDsn";
      * Connection conn=DriverManager.getConnection(url);
      * String INSERT_PICTURE = "insert into Img(ID,Image) values (?, ?)";
-     * 
+     *
      * FileInputStream fis = null;
      * PreparedStatement ps = null;
      * try
@@ -432,8 +459,8 @@ public class FreelancerManager {
      * }
      * }
      * }
-     * 
-     * 
+     *
+     *
      */
     
     

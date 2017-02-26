@@ -62,6 +62,8 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         profession = s.getExpertise();
         birthDate = s.getBirthdate();
         
+        initCBE();
+        
     }
     /**
      * Creates new form frmCreateSession
@@ -454,17 +456,29 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Pass1FocusLost
     
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        //System.out.println(flID +" " + firstName + " " + lastName + " " + lastName + " " +Email + " " + birthDate + " " + profession + " " + fullPayment);
+        System.out.println(flID +" " + firstName + " " + lastName + " " + lastName + " " +Email + " " + birthDate + " " + profession + " " + fullPayment +" "+picPath);
         if (s !=null){
+            if (firstName == null || lastName == null || stageName == null || Email ==null
+                || fullPayment < 0 || birthDate == null  || password ==null || picPath == null){
+            lblGen.setForeground(Color.red);
+            lblGen.setText("One or more fields ane missing");
+            updateWin();
+            return;
+            }
             
+            Musician toAdd = new Musician(flID, firstName,lastName,stageName, fullPayment, profession, 0 , birthDate, Email, password, s.getStatus());
+            toAdd.setFile(picPath);
+            FreelancerManager.updateMusician(toAdd);
+            lblGen.setForeground(Color.GREEN);
+            lblGen.setText("Artist was updated succefully");
+            btnAdd.hide();
             
         }
         
         else if (firstName == null || lastName == null || stageName == null || Email ==null
                 || fullPayment < 0 || birthDate == null  || password ==null || picPath == null){
             lblGen.setText("One or more fields ane missing");
-            updateWin();
-            return;
+            
         }
         
         else{
@@ -485,10 +499,11 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
                 btnAdd.hide();
             }
 
-            updateWin();
-            return;
         }
-         
+        
+        updateWin();
+        return;
+        
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
