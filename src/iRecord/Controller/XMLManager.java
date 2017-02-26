@@ -35,8 +35,7 @@ import org.w3c.dom.*;
 public class XMLManager {
     
     public static void main(String[] args) {
-        //importXML("AR002");
-        //TODO
+        importArtistsXML();
     }
     
     public static List<Timestamp> importXML(String ArtistID) {
@@ -50,7 +49,9 @@ public class XMLManager {
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 doc = dBuilder.parse(inputFile);
                 doc.getDocumentElement().normalize();
-            }catch(Exception e){
+            
+            
+            } catch(Exception e){
                 File inputFile = new File("xmlimport/HIA-Artist-" + ArtistID + ".xml");
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -61,8 +62,8 @@ public class XMLManager {
             
             NodeList nList = doc.getElementsByTagName("Artist");
             
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
+            for (int i = 0; i < nList.getLength(); i++) {
+                Node nNode = nList.item(i);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     if (!eElement.getAttribute("ID").equals(ArtistID)) {
@@ -89,32 +90,7 @@ public class XMLManager {
                     }
                     
                 }
-                
-                /* if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nNode;
-                System.out.println("Student roll no : "
-                + eElement.getAttribute("rollno"));
-                System.out.println("First Name : "
-                + eElement
-                .getElementsByTagName("firstname")
-                .item(0)
-                .getTextContent());
-                System.out.println("Last Name : "
-                + eElement
-                .getElementsByTagName("lastname")
-                .item(0)
-                .getTextContent());
-                System.out.println("Nick Name : "
-                + eElement
-                .getElementsByTagName("nickname")
-                .item(0)
-                .getTextContent());
-                System.out.println("Marks : "
-                + eElement
-                .getElementsByTagName("marks")
-                .item(0)
-                .getTextContent());
-                }*/
+
             }
         } catch (Exception e) {
             System.err.println("Could not locate XML File: HIA-Artist-"+ArtistID+".xml");
@@ -143,13 +119,15 @@ public class XMLManager {
         //ExportArtistsXML(arrl.toArray(new Artist[arrl.size()]));
         ExportSessionXML(arrl.toArray(new Artist[arrl.size()]));
     }
+    
+    
+    
+    
     public static void ExportSessionXML(Artist[] arts) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
-            DocumentBuilderFactory dbFactory
-                    = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder
-                    = dbFactory.newDocumentBuilder();
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             
             //Create new XML Document Parser
             Document doc = dBuilder.newDocument();
@@ -306,5 +284,65 @@ public class XMLManager {
         }
 
     }
+    
+    
+    
+    
+    
+    
+    /**
+     * This method reads artists xml file created by HIA system and convert it to list of artist 
+     * @return 
+     */
+    public static ArrayList<String[]> importArtistsXML() {
+        ArrayList<String[]> artists = new ArrayList<String[]>();
+        Document doc;
+        try {
+            //System.out.println("Importing artist details XML from HIA System - Artists ");
+            try{
+                //reading file
+                File inputFile = new File("src/xmlimport/HIA-Artist-Data.xml");
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                doc = dBuilder.parse(inputFile);
+                doc.getDocumentElement().normalize();
+            
+            
+            } catch(Exception e){
+                File inputFile = new File("xmlimport/HIA-Artist-Data.xml");
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                doc = dBuilder.parse(inputFile);
+                doc.getDocumentElement().normalize();
+            }
+            
+            //define the tag name - Artist
+            NodeList nList = doc.getElementsByTagName("Artist");
+            //for each artist
+            for (int i = 0; i < nList.getLength(); i++) {
+                Node nNode = nList.item(i);     //load artist i from xml
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+
+                    //get his relevent details
+                    NodeList dList = nNode.getChildNodes();
+                    String id = eElement.getAttribute("ID");
+                    String stagename = eElement.getElementsByTagName("strStageName").item(0).getTextContent();
+                    String email = eElement.getElementsByTagName("strEmailAddr").item(0).getTextContent();
+                    //System.out.println("Read: " + id + " " + stagename + " " + email);
+                    artists.add(new String[]{id, stagename, email});
+                    
+                }
+
+            }
+        } catch (Exception e) {
+            //System.err.println("Could not locate XML File: HIA-Artist-"+ArtistID+".xml");
+            
+        }
+        
+        return artists;
+    }
+    
+   
     
 }

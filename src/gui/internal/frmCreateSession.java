@@ -1041,7 +1041,6 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         System.err.println("Date Error\nStartTimeSpinner: "+startTimeSpinner.getValue()+" \nEndTimeSpinner: "+endTimeSpinner.getValue()+"\nDate Chosen: "+jXDatePicker1.getDate());
         if(jXDatePicker1.getDate()==null || ((java.util.Date)startTimeSpinner.getValue()).after((java.util.Date)endTimeSpinner.getValue()) || jXDatePicker1.getDate().before(new Date())){
             dateErr.setText("Please choose a valid date and time");
-            
             dateErr.setVisible(true);
             iWindow.update();
             

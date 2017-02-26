@@ -7,13 +7,18 @@ package gui.internal;
 
 import Validators.EmailValidator;
 import entities.*;
+import gui.main.MainGui;
 import gui.main.iWindow;
 import iRecord.Controller.ArtistManager;
 import iRecord.Validators.CharValidator;
 import iRecord.utilities.EAuth;
 import java.awt.Color;
-import java.util.Date;
 import java.util.Random;
+import iRecord.*;
+import gui.main.MainGui;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,6 +29,7 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
     private String stageName;
     private String Email;
     private String password;
+    private boolean HIA = false;
     
     /**
      * Creates new form frmCreateSession
@@ -33,6 +39,20 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         initComponents();
         
         init();
+        
+    }
+    
+    
+    public frmAddArtist(String id, String stageName, String email){
+        initComponents();
+        setTitle("Add Artist Page");
+        HIA = true;
+        this.artistID = id;
+        this.stageName =stageName;
+        this.Email = email;
+        lblID.setText(id);
+        tfEmail.setText(email);
+        tfStageName.setText(stageName);
         
     }
     
@@ -308,6 +328,14 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
                 lblGen.setForeground(Color.GREEN);
                 lblGen.setText("Artist was added succefully");
                 btnAdd.hide();
+                if (HIA){
+                    try {
+                        iRecord.setLoggedUser(toAdd);
+                        MainGui temp = new MainGui();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(frmAddArtist.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
             else{
                 lblGen.setText("Something went wrong");
@@ -337,8 +365,8 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         int num = 0;
         String tempID = null;
         while (true){
-            num = rand.nextInt(9999);
-            if (num > 1000){
+            num = rand.nextInt(999);
+            if (num > 100){
                 tempID = "AR"+num;
                 
                 if (!ArtistManager.isExists(tempID)){

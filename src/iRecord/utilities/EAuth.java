@@ -11,7 +11,7 @@ package iRecord.utilities;
  */
 public enum EAuth {
 
-    Customer, Agent, Artist, Location_Representative, Representative, Administrator, Freelancer;
+    Customer, Agent, Artist, Location_Representative, Representative, Administrator, Freelancer, HIA_Artist;
 
     /**
      * This class returns a toString of a given EAuth object
@@ -27,6 +27,7 @@ public enum EAuth {
             case Location_Representative: toReturn = "Location Representative"; break;
             case Representative: toReturn = "Representative"; break;
             case Administrator: toReturn = "Administrator"; break;
+            case HIA_Artist: toReturn = "HIA Artist"; break;
             default: toReturn = "Unknown Type"; break;
         }
         return toReturn;

@@ -6,6 +6,7 @@
 package iRecord;
 
 import entities.*;
+import iRecord.Controller.XMLManager;
 import java.util.Date;
 import java.sql.*;
 import java.util.logging.Level;
@@ -16,6 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  *
@@ -126,6 +128,7 @@ public class iRecord {
         if (id.substring(0, 2).equals("AR") || id.equals("admin")){
             tmp = iRecord.DB.query("SELECT * FROM Artists WHERE ArtistID=\"" + id + "\" AND strPasswd=\"" + pass + "\"");
             
+            //user is in DB
             if (tmp.next()) {
                 if (tmp.getString(1).length() > 0) {
                     
@@ -136,17 +139,30 @@ public class iRecord {
                     java.sql.Date expireDate = tmp.getDate("dateExpired");
                     java.util.Date d = new java.util.Date(expireDate.getTime());
                     Person p = new Artist(ID, strStageName, strEmailaddr, strPasswd, expireDate, EAuth.Artist);
-                    loggedUser = p;
+                    setLoggedUser(p);
                     log("Artist logged in");
                     
-                    //check if suspended 
-                    if (d.after(new java.util.Date())) {
-                        return false;
-                    }
-                    
+                            //check if suspended 
+                            if (d.after(new java.util.Date())) {
+                                return false;
+                            }
+                            
                     return true;
                 }
                 
+            }
+            //user is not on DB - search in HIA XML
+            else{
+                ArrayList<String[]> artists = XMLManager.importArtistsXML();
+                for (String[] s : artists){
+                    if (!id.equals(s[0])) continue;
+                    Person a = new Artist(s[0]);
+                    a.setStageName(s[1]);
+                    a.setEmail(s[2]);
+                    a.setUserAuth(EAuth.HIA_Artist);
+                    setLoggedUser(a);
+                    return true;
+                }
             }
         }
         
@@ -168,7 +184,7 @@ public class iRecord {
                     //System.err.println("Date: " + expireDate);
                     Person p = new Freelancer(ID, fname, lname, stageName, email, password,  status,  date);
                     // ID,  firstName,  lastName,  stageName,  email,  password,  status,  birthdate
-                    loggedUser = p;
+                    setLoggedUser(p);
                     log("Freelancer logged in");
                     return true;
                 }

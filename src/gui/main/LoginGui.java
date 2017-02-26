@@ -5,6 +5,7 @@
  */
 package gui.main;
 
+import iRecord.Controller.XMLManager;
 import iRecord.iRecord;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -214,6 +215,7 @@ public class LoginGui extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         iRecord.log("Exiting application...");
+        XMLManager.ExportXML();
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 

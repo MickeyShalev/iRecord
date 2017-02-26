@@ -5,12 +5,15 @@
 */
 package gui.main;
 
+import entities.Artist;
 import entities.Musician;
 import entities.Soundman;
 import gui.internal.*;
 import iRecord.Controller.ArtistManager;
 import iRecord.Controller.FreelancerManager;
+import iRecord.Controller.XMLManager;
 import iRecord.iRecord;
+import iRecord.utilities.EAuth;
 import java.sql.SQLException;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -28,7 +31,12 @@ public class MainGui extends javax.swing.JFrame {
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
+        iWindow.setPanel(ContentFrame);
+        iWindow.setLblTitle(lblTitle);
         refreshVars();
+        
+        
+        
         iWindow.setPanel(ContentFrame);
         iWindow.setLblTitle(lblTitle);
         
@@ -83,6 +91,7 @@ public class MainGui extends javax.swing.JFrame {
         bg = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
+        HIA = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -592,6 +601,16 @@ public class MainGui extends javax.swing.JFrame {
         });
         getContentPane().add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 630, 160, 40));
 
+        HIA.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        HIA.setForeground(new java.awt.Color(255, 255, 255));
+        HIA.setText("Add HIA Artist");
+        HIA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                HIAMouseClicked(evt);
+            }
+        });
+        getContentPane().add(HIA, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 180, 50));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
@@ -611,6 +630,7 @@ public class MainGui extends javax.swing.JFrame {
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
         // TODO add your handling code here:
         iRecord.log("Quitting MuzaMusic");
+        XMLManager.ExportXML();
         System.exit(0);
     }//GEN-LAST:event_btnExitMouseClicked
     
@@ -782,6 +802,10 @@ public class MainGui extends javax.swing.JFrame {
         }
         return;
     }//GEN-LAST:event_soundMouseClicked
+
+    private void HIAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HIAMouseClicked
+        
+    }//GEN-LAST:event_HIAMouseClicked
     
     private void closeAllPanels(){
         AR.setVisible(false);
@@ -795,11 +819,13 @@ public class MainGui extends javax.swing.JFrame {
     public void refreshVars() {
         lblTitle.setText("Homepage");
         lblUserType.setText("" + iRecord.getLoggedUser().getUserAuth());
+        //System.out.println(iRecord.getLoggedUser().getUserAuth());
         lblUsernames.setText(iRecord.getLoggedUser().getID()+ " " + iRecord.getLoggedUser().getStageName());
         pnlAdmin.setVisible(false);
         AR.setVisible(false);
         FL.setVisible(false);
         STD.setVisible(false);
+        HIA.setVisible(false);
         pnlFreelancer.setVisible(false);
         pnlArtist.setVisible(false);
         switch (iRecord.getLoggedUser().getUserAuth()) {
@@ -813,6 +839,14 @@ public class MainGui extends javax.swing.JFrame {
                 
             case Administrator:
                 pnlAdmin.setVisible(true);
+                break;
+                
+            case HIA_Artist:
+                HIA.setVisible(true);
+                Artist a = (Artist)iRecord.getLoggedUser();
+                a.setUserAuth(EAuth.HIA_Artist);
+                frmAddArtist add = new frmAddArtist(a.getID(), a.getStageName(), a.getEmail());
+                iWindow.openWin(add);
                 break;
         }
         
@@ -839,6 +873,7 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JLabel Expertise;
     private javax.swing.JPanel FL;
     private javax.swing.JLabel Freelancer;
+    private javax.swing.JLabel HIA;
     private javax.swing.JPanel STD;
     private javax.swing.JLabel Sessions;
     private javax.swing.JLabel Sessions1;

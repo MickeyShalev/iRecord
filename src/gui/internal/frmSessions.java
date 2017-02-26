@@ -441,6 +441,10 @@ public class frmSessions extends javax.swing.JInternalFrame {
             //System.out.println(songDetails[0] + " " +songDetails[1]);
         }
         
+        
+        tblMusicians.setVisible(true);
+        tblSoundmans.setVisible(true);
+                //set soundmans
         DefaultTableModel model1 = (DefaultTableModel) tblSoundmans.getModel();
         model1.setRowCount(0);
         for (String[] s:soundmans){
@@ -450,6 +454,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
             
         }  
         
+        //set musicians
         DefaultTableModel model2 = (DefaultTableModel) tblMusicians.getModel();
         model2.setRowCount(0);
         for (String[] s:musicians){
@@ -457,7 +462,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
             String[] row = {s[0], s[1], s[2]};
             model2.addRow(s);
             
-        }  
+        } 
         
         
         updateWin();

@@ -40,6 +40,10 @@ public class Artist extends Person {
         this.dateExpired = dateExpired;
         
         }
+        
+        public Artist(String id){
+            super(id);
+        }
 
         
     //===================================== Setters and Getters ===========================================    
