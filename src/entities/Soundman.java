@@ -12,12 +12,13 @@ import java.util.Date;
  * @author nisan
  */
 public class Soundman extends Freelancer {
-    private Boolean isProducer, isMixTech, isMasterTech;
-    private Double downPayment, fullPayment;
+    private boolean isProducer, isMixTech, isMasterTech;
+    private double downPayment, fullPayment;
     private Date birthdate;
+    private String file = null;
 
     //================================== Constructors ================================================
-    public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority, Date birthdate, String email, String password, int status) {
+public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority, Date birthdate, String email, String password, int status) {
         super(FreelancerID, firstName, lastName, stageName, email, password, status);
         this.isProducer = isProducer;
         this.isMixTech = isMixTech;
@@ -104,6 +105,13 @@ public class Soundman extends Freelancer {
         return counter;
     }
     
+    public void setFile(String file){
+        this.file = file;
+    }
+    
+    public String getFile(){
+        return this.file;
+    }
     
     
     

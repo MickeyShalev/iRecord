@@ -1,12 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package gui.main;
 
+import entities.Musician;
+import entities.Soundman;
 import gui.internal.*;
 import iRecord.Controller.ArtistManager;
+import iRecord.Controller.FreelancerManager;
 import iRecord.iRecord;
 import java.sql.SQLException;
 import java.awt.Color;
@@ -17,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author Administrator
  */
 public class MainGui extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form MainGui
      */
@@ -28,13 +31,13 @@ public class MainGui extends javax.swing.JFrame {
         refreshVars();
         iWindow.setPanel(ContentFrame);
         iWindow.setLblTitle(lblTitle);
-
-    
+        
+        
         
         
         
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,6 +78,8 @@ public class MainGui extends javax.swing.JFrame {
         joinStudio = new javax.swing.JLabel();
         WatchRegistered2 = new javax.swing.JLabel();
         Sessions2 = new javax.swing.JLabel();
+        music = new javax.swing.JLabel();
+        sound = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
@@ -498,6 +503,24 @@ public class MainGui extends javax.swing.JFrame {
             }
         });
 
+        music.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        music.setForeground(new java.awt.Color(255, 255, 255));
+        music.setText("Edit Musician");
+        music.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                musicMouseClicked(evt);
+            }
+        });
+
+        sound.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        sound.setForeground(new java.awt.Color(255, 255, 255));
+        sound.setText("Edit Soundman");
+        sound.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                soundMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlFreelancerLayout = new javax.swing.GroupLayout(pnlFreelancer);
         pnlFreelancer.setLayout(pnlFreelancerLayout);
         pnlFreelancerLayout.setHorizontalGroup(
@@ -511,7 +534,9 @@ public class MainGui extends javax.swing.JFrame {
                     .addGroup(pnlFreelancerLayout.createSequentialGroup()
                         .addGroup(pnlFreelancerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(WatchRegistered2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Sessions2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Sessions2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sound, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(music, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -524,7 +549,11 @@ public class MainGui extends javax.swing.JFrame {
                 .addComponent(WatchRegistered2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Sessions2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(349, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(sound, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(music, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnlFreelancer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 540));
@@ -565,7 +594,7 @@ public class MainGui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
         // TODO add your handling code here:
         iRecord.log("Logging out..");
@@ -578,76 +607,76 @@ public class MainGui extends javax.swing.JFrame {
         iRecord.log("Activating login screen");
         tmp.setVisible(true);
     }//GEN-LAST:event_btnLogoutMouseClicked
-
+    
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
         // TODO add your handling code here:
         iRecord.log("Quitting MuzaMusic");
         System.exit(0);
     }//GEN-LAST:event_btnExitMouseClicked
-
+    
     private void btnViewReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewReportMouseClicked
-      // frmViewReport add = new frmViewReport();
-      // iWindow.openWin(add);
+        // frmViewReport add = new frmViewReport();
+        // iWindow.openWin(add);
     }//GEN-LAST:event_btnViewReportMouseClicked
-
+    
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutActionPerformed
-
+    
     private void ArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArtistMouseClicked
         closeAllPanels();
         AR.setVisible(true);
         updateWin();
     }//GEN-LAST:event_ArtistMouseClicked
-
+    
     private void FreelancerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FreelancerMouseClicked
         closeAllPanels();
         FL.setVisible(true);
         updateWin();
     }//GEN-LAST:event_FreelancerMouseClicked
-
+    
     private void WatchRegisteredMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WatchRegisteredMouseClicked
         closeAllPanels();
         frmRegReport add = new frmRegReport();
         iWindow.openWin(add);
     }//GEN-LAST:event_WatchRegisteredMouseClicked
-
+    
     private void AddStudioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddStudioMouseClicked
         closeAllPanels();
-        frmAddStudio add = new frmAddStudio(); 
+        frmAddStudio add = new frmAddStudio();
         iWindow.openWin(add);
     }//GEN-LAST:event_AddStudioMouseClicked
-
+    
     private void AddRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddRoomMouseClicked
         closeAllPanels();
         frmAddRoom add = new frmAddRoom();
         iWindow.openWin(add);
     }//GEN-LAST:event_AddRoomMouseClicked
-
+    
     private void SuspendArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuspendArtistMouseClicked
         closeAllPanels();
         frmArtistSuspension add = new frmArtistSuspension();
         iWindow.openWin(add);
     }//GEN-LAST:event_SuspendArtistMouseClicked
-
+    
     private void AddArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddArtistMouseClicked
         closeAllPanels();
         frmAddArtist add = new frmAddArtist();
         iWindow.openWin(add);
     }//GEN-LAST:event_AddArtistMouseClicked
-
+    
     private void StudioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StudioMouseClicked
         closeAllPanels();
         STD.setVisible(true);
         updateWin();
     }//GEN-LAST:event_StudioMouseClicked
-
+    
     private void ExpertiseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExpertiseMouseClicked
         closeAllPanels();
         frmAddExpertise add = new frmAddExpertise();
         iWindow.openWin(add);
     }//GEN-LAST:event_ExpertiseMouseClicked
-
+    
     private void SessionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SessionsMouseClicked
         closeAllPanels();
         String id = JOptionPane.showInputDialog("Please insert artist ID");
@@ -660,90 +689,109 @@ public class MainGui extends javax.swing.JFrame {
         frmSessionsReport add = new frmSessionsReport(id);
         iWindow.openWin(add);
     }//GEN-LAST:event_SessionsMouseClicked
-
+    
     private void ARFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ARFocusLost
         closeAllPanels();
         updateWin();
     }//GEN-LAST:event_ARFocusLost
-
+    
     private void STDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_STDFocusLost
         closeAllPanels();
         updateWin();
     }//GEN-LAST:event_STDFocusLost
-
+    
     private void ContentFrameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContentFrameMouseEntered
         closeAllPanels();
         updateWin();
     }//GEN-LAST:event_ContentFrameMouseEntered
-
+    
     private void CreateSession1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreateSession1MouseClicked
         frmCreateSession add = new frmCreateSession();
         iWindow.openWin(add);
     }//GEN-LAST:event_CreateSession1MouseClicked
-
+    
     private void WatchRegistered1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WatchRegistered1MouseClicked
         frmRegReport add = new frmRegReport();
         iWindow.openWin(add);
     }//GEN-LAST:event_WatchRegistered1MouseClicked
-
+    
     private void Sessions1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sessions1MouseClicked
         frmSessions add = new frmSessions();
         iWindow.openWin(add);
     }//GEN-LAST:event_Sessions1MouseClicked
-
+    
     private void FLFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FLFocusLost
         closeAllPanels();
         updateWin();
     }//GEN-LAST:event_FLFocusLost
-
+    
     private void SuspendFreelancer1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuspendFreelancer1MouseClicked
         closeAllPanels();
         frmFreelancerToStudio add = new frmFreelancerToStudio();
         iWindow.openWin(add);
     }//GEN-LAST:event_SuspendFreelancer1MouseClicked
-
+    
     private void SuspendFreelancerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuspendFreelancerMouseClicked
         closeAllPanels();
         frmFreelancerSuspension add = new frmFreelancerSuspension();
         iWindow.openWin(add);
     }//GEN-LAST:event_SuspendFreelancerMouseClicked
-
+    
     private void AddMusicianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMusicianMouseClicked
         closeAllPanels();
         frmAddMusician add = new frmAddMusician();
         iWindow.openWin(add);
     }//GEN-LAST:event_AddMusicianMouseClicked
-
+    
     private void AddSoundmanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddSoundmanMouseClicked
         closeAllPanels();
         frmAddSoundman add = new frmAddSoundman();
         iWindow.openWin(add);
     }//GEN-LAST:event_AddSoundmanMouseClicked
-
+    
     private void joinStudioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinStudioMouseClicked
         frmFreelancerJoinStudio add = new frmFreelancerJoinStudio();
         iWindow.openWin(add);
     }//GEN-LAST:event_joinStudioMouseClicked
-
+    
     private void WatchRegistered2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WatchRegistered2MouseClicked
         frmRegReport add = new  frmRegReport();
         iWindow.openWin(add);
     }//GEN-LAST:event_WatchRegistered2MouseClicked
-
+    
     private void Sessions2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sessions2MouseClicked
         frmFreelancerSessions add = new frmFreelancerSessions();
         iWindow.openWin(add);
     }//GEN-LAST:event_Sessions2MouseClicked
-
-    private void closeAllPanels(){                              
+    
+    private void musicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_musicMouseClicked
+        Musician m = FreelancerManager.getMuicianDetails(iRecord.getLoggedUser().getID());
+        if (m != null){
+            frmAddMusician add = new frmAddMusician(m);
+            iWindow.openWin(add);
+        }
+        return;
+        
+    }//GEN-LAST:event_musicMouseClicked
+    
+    private void soundMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soundMouseClicked
+        Soundman s = FreelancerManager.getSoundmanDetails(iRecord.getLoggedUser().getID());
+        if (s != null){
+            frmAddSoundman add = new frmAddSoundman(s);
+            iWindow.openWin(add);
+        }
+        return;
+    }//GEN-LAST:event_soundMouseClicked
+    
+    private void closeAllPanels(){
         AR.setVisible(false);
         updateWin();
-        FL.setVisible(false);                        
+        FL.setVisible(false);
         updateWin();
         STD.setVisible(false);
-        updateWin();       
+        updateWin();
     }
-
+    
     public void refreshVars() {
         lblTitle.setText("Homepage");
         lblUserType.setText("" + iRecord.getLoggedUser().getUserAuth());
@@ -762,12 +810,12 @@ public class MainGui extends javax.swing.JFrame {
             case Freelancer:
                 pnlFreelancer.setVisible(true);
                 break;
-            
+                
             case Administrator:
                 pnlAdmin.setVisible(true);
                 break;
         }
-
+        
     }
     
     
@@ -776,8 +824,8 @@ public class MainGui extends javax.swing.JFrame {
         iWindow.update();
         
     }
-
-
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AR;
     private javax.swing.JLabel AddArtist;
@@ -810,9 +858,11 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUserType;
     private javax.swing.JLabel lblUsernames;
+    private javax.swing.JLabel music;
     private javax.swing.JPanel pnlAdmin;
     private javax.swing.JPanel pnlArtist;
     private javax.swing.JPanel pnlFreelancer;
+    private javax.swing.JLabel sound;
     // End of variables declaration//GEN-END:variables
-
+    
 }

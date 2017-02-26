@@ -176,7 +176,7 @@ public class FreelancerManager {
     
     
     /**
-     * Helper method to add artist list to jtable
+     * Helper method to add freelancers list to jtable
      * @return
      */
     public static ArrayList<String[]> getArtistList(String sortType){
@@ -302,6 +302,104 @@ public class FreelancerManager {
         
         
         return toReturn;
+    }
+    
+    /**
+     * This method gets all musician details
+     * @return 
+     */
+    public static Musician getMuicianDetails(String id){
+        Musician m = null;
+        
+        String qry = "SELECT Musician.*, Freelancer.*\n" +
+                    "FROM Freelancer INNER JOIN Musician ON Freelancer.[FreelancerID] = Musician.[MusicianID]\n" +
+                    "WHERE (((Musician.MusicianID)=\""+id+"\"));";
+        
+        ResultSet rs = iRecord.getDB().query(qry);
+        
+        try {
+            if (rs.next()){
+                String sID = rs.getString("Freelancerid");
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
+                String stagename = rs.getString("stagename");
+                Date d = new Date(rs.getTimestamp("birthdate").getTime());
+                String email = rs.getString("strEmail");
+                String password = rs.getString("password");
+                int status = rs.getInt("status");
+                String filepic = rs.getString("filepic");
+                int pay = rs.getInt("payroll");
+                int expert = rs.getInt("expertin");
+                m = new Musician(sID ,firstname, lastname, stagename, pay, expert, 0, d, email, password, status);
+                m.setFile(rs.getString("filePic"));
+                return m;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FreelancerManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return m;
+    }
+    
+    
+    /**
+     * this method gets all soundman details
+     * @return 
+     */
+    public static Soundman getSoundmanDetails(String id){
+        Soundman s = null;
+        
+        String qry = "SELECT Freelancer.*, Soundman.*, Soundman.SoundmanID\n" +
+                "FROM Freelancer INNER JOIN Soundman ON Freelancer.FreelancerID = Soundman.SoundmanID\n" +
+                "WHERE (((Soundman.SoundmanID)=\""+id+"\"));";
+        
+        ResultSet rs = iRecord.getDB().query(qry);
+        
+        try {
+            if (rs.next()){
+                String sID = rs.getString("Freelancerid");
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
+                String stagename = rs.getString("stagename");
+                Date d = new Date(rs.getTimestamp("birthdate").getTime());
+                String email = rs.getString("strEmail");
+                String password = rs.getString("password");
+                int status = rs.getInt("status");
+                String filepic = rs.getString("filepic");
+                boolean isProducer = rs.getBoolean("isproducer");
+                boolean isMixtech = rs.getBoolean("ismixtech");
+                boolean isMastertech = rs.getBoolean("ismastertech");
+                double downpay = rs.getDouble("downpayment");
+                double fullpay = rs.getDouble("fullpayment");
+                s = new Soundman(sID, firstname, lastname, stagename, isProducer, isMixtech, isMastertech, downpay, fullpay, 0, d, email, password, status);
+                s.setFile(rs.getString("filePic"));
+                return s;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FreelancerManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return s;
+    }
+    
+    /**
+     * This method updates musician details
+     * @param m
+     * @return 
+     */
+    public static boolean updateMusician(Musician m){
+     
+        return false;
+    }
+    
+    /**
+     * this method updates musician details
+     * @param s
+     * @return 
+     */
+    public static boolean updateSoundman(Soundman s){
+        
+        return false;
     }
     /**
      * ===========================================================

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package entities;
 
 import iRecord.iRecord;
@@ -14,13 +10,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
 public class Musician extends Freelancer {
     private double payRoll;
     private int expertise;
     private Date birthdDate;
-
-    //==================================== Constructors ===================================================  
+    private String file;
+    
+    //==================================== Constructors ===================================================
     public Musician(String FreelancerID, String firstName, String lastName, String stageName, double payRoll, int expertise, int priority, Date birthdate, String email, String password, int status) {
         super(FreelancerID, firstName, lastName, stageName, email, password, status);
         this.payRoll = payRoll;
@@ -32,29 +28,29 @@ public class Musician extends Freelancer {
         super(FreelancerID);
         
     }
-
+    
     //this contructor is dedicated to session controller
     public Musician(String id, String fname, String lname, String stageName, double pay, int expert, int p) {
         super(id, fname, lname, stageName, " ");
         this.payRoll = payRoll;
         this.expertise = expertise;
         setPriority(p);
-
+        
     }
-
+    
     //=================================== Setters and Getters ===========================================
     public Double getPayRoll() {
         return payRoll;
     }
-
+    
     public void setPayRoll(Double payRoll) {
         this.payRoll = payRoll;
     }
-
+    
     public Integer getExpertise() {
         return expertise;
     }
-
+    
     public Date getBirthdate(){
         return this.birthdDate;
     }
@@ -75,14 +71,14 @@ public class Musician extends Freelancer {
         
         return "";
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 47 * hash + Objects.hashCode(getFreelancerID());
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -99,7 +95,15 @@ public class Musician extends Freelancer {
             return false;
         }
         return true;
-    } 
+    }
     
+    
+    public void setFile(String file){
+        this.file = file;
+    }
+    
+    public String getFile(){
+        return this.file;
+    }
     
 }

@@ -37,7 +37,7 @@ public class PositiveValidator {
             num = Double.parseDouble(snum);
             
         } catch(Exception e){
-            
+            return -1;
         }
         
         return num;

@@ -33,20 +33,41 @@ import javax.swing.JFileChooser;
  * @author nisan
  */
 public class frmAddMusician extends javax.swing.JInternalFrame {
-    private String flID;
-    private String firstName, lastName, stageName;
-    private String Email;
-    private String password, picPath;
+    private String flID, firstName, lastName, stageName, Email, password, picPath;
     private double fullPayment = -1;
     private Date birthDate;
     private int profession;
+    private Musician s = null;
     
-    
+    public frmAddMusician(Musician s){
+        initComponents();
+        this.s = s;
+        tfFirstName.setText(s.getFirstName());
+        tfLastName.setText(s.getLastName());
+        tfStageName.setText(s.getStageName());
+        jXDatePicker1.setDate(s.getBirthdate());
+        Pass1.setText(s.getPassword());
+        Pass2.setText(s.getPassword());
+        tfEmail.setText(s.getEmail());
+        profession = s.getExpertise();
+        tffull.setText(s.getPayRoll()+"");
+        picPath = s.getFile();
+        flID = s.getID();
+        firstName = s.getFirstName();
+        lastName = s.getLastName();
+        stageName = s.getStageName();
+        Email = s.getEmail();
+        password = s.getPassword();
+        fullPayment = s.getPayRoll();
+        profession = s.getExpertise();
+        birthDate = s.getBirthdate();
+        
+    }
     /**
      * Creates new form frmCreateSession
      */
     public frmAddMusician() {
-        setTitle("Add Artist Page");
+        
         initComponents();
         
         init();
@@ -434,8 +455,12 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         //System.out.println(flID +" " + firstName + " " + lastName + " " + lastName + " " +Email + " " + birthDate + " " + profession + " " + fullPayment);
+        if (s !=null){
+            
+            
+        }
         
-        if (firstName == null || lastName == null || stageName == null || Email ==null
+        else if (firstName == null || lastName == null || stageName == null || Email ==null
                 || fullPayment < 0 || birthDate == null  || password ==null || picPath == null){
             lblGen.setText("One or more fields ane missing");
             updateWin();

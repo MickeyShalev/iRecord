@@ -30,24 +30,52 @@ import javax.swing.JFileChooser;
  * @author nisan
  */
 public class frmAddSoundman extends javax.swing.JInternalFrame {
-    private String flID;
-    private String firstName, lastName, stageName;
-    private String Email;
-    private String password, picPath;
+    private String flID, firstName, lastName, stageName, Email, password, picPath;
     private double fullPayment = -1, downPayment = -1;
     private Date birthDate;
     private boolean isProducer = false, isMixTech = false, isMasterTech = false;
+    private Soundman s = null;
     
     
     /**
      * Creates new form frmCreateSession
      */
     public frmAddSoundman() {
-        setTitle("Add Artist Page");
+        
         initComponents();
         
         init();
         
+    }
+    
+        public frmAddSoundman(Soundman s) {
+        initComponents();
+        this.s = s;
+        tfFirstName.setText(s.getFirstName());
+        tfLastName.setText(s.getLastName());
+        tfStageName.setText(s.getStageName());
+        tfEmail.setText(s.getEmail());
+        jXDatePicker1.setDate(s.getBirthdate());
+        Pass1.setText(s.getPassword());
+        Pass2.setText(s.getPassword());
+        cbProducer.setSelected(s.getIsProducer());
+        cbMixTech.setSelected(s.getIsMixTech());
+        cbMasterTech.setSelected(s.getIsMasterTech());
+        tffull.setText(s.getFullPayment()+"");
+        tfdown.setText(s.getDownPayment()+"");
+        picPath = s.getPicPath();
+        flID = s.getID();
+        firstName = s.getFirstName();
+        lastName = s.getLastName();
+        stageName = s.getStageName();
+        Email = s.getEmail();
+        password = s.getPassword();
+        birthDate = s.getBirthdate();
+        isProducer = s.getIsProducer();
+        isMixTech = s.getIsMixTech();
+        isMasterTech = s.getIsMasterTech();
+        downPayment = s.getDownPayment();
+        fullPayment = s.getFullPayment();
     }
     
     /**
@@ -472,7 +500,14 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Pass1FocusLost
     
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        if (!isMixTech && !isProducer && !isMasterTech){
+        if (s !=null){
+            
+            
+            
+        }
+        
+        
+        else if (!isMixTech && !isProducer && !isMasterTech){
             lblGen.setText("You must pick at least one profession for soundman");
             updateWin();
             return;
@@ -576,7 +611,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
 
     private void tfdownFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdownFocusLost
 
-        if (!CharValidator.isNumber(tfdown.getText())){
+        if (PositiveValidator.stringToNum(tfdown.getText()) < 0){
             lblpayError.setText("Invalid number");
             downPayment = -1;
             updateWin();
@@ -610,7 +645,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
 
     private void tffullFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffullFocusLost
         
-        if (!CharValidator.isNumber(tffull.getText())){
+        if (PositiveValidator.stringToNum(tffull.getText()) < 0){
             lblpayError.setText("Invalid number");
             fullPayment = -1;
             updateWin();
