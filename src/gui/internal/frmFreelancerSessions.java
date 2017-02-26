@@ -1,14 +1,11 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
+
 package gui.internal;
 
 import Validators.PositiveValidator;
 import entities.Artist;
 import entities.Person;
 import gui.main.iWindow;
+import iRecord.Controller.FreelancerManager;
 import iRecord.Controller.RecordingManager;
 import iRecord.Controller.ReportManager;
 import iRecord.iRecord;
@@ -23,8 +20,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author nisan
  */
-public class frmSessions extends javax.swing.JInternalFrame {
-    private Person a = null;
+public class frmFreelancerSessions extends javax.swing.JInternalFrame {
+    private Person f = null;
     private Date picked = null;
     private int sessionID;
     private File file;
@@ -33,7 +30,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmCreateSession
      */
-    public frmSessions() {
+    public frmFreelancerSessions() {
         
         initComponents();
         
@@ -67,22 +64,16 @@ public class frmSessions extends javax.swing.JInternalFrame {
         lblAddr5 = new javax.swing.JLabel();
         lblLink = new javax.swing.JLabel();
         lblSongTitle = new javax.swing.JLabel();
-        lblAddr4 = new javax.swing.JLabel();
-        lblAddr9 = new javax.swing.JLabel();
-        lblAddr8 = new javax.swing.JLabel();
         lblAddr10 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
         lblSket = new javax.swing.JLabel();
         lblDemo = new javax.swing.JLabel();
         lblMastered = new javax.swing.JLabel();
-        prog = new javax.swing.JProgressBar();
-        lblprec = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblSoundmans = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
         tblMusicians = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblSoundmans = new javax.swing.JTable();
         lblError = new javax.swing.JLabel();
-        btnAddFile = new javax.swing.JButton();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
@@ -120,20 +111,20 @@ public class frmSessions extends javax.swing.JInternalFrame {
         };
         tblGen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Studio ID", "Studio Name", "Session ID", "Date", "Total Cost", "Status", "Record ID"
+                "Studio ID", "Studio Name", "Session ID", "Date", "Artist"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -151,7 +142,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tblGen);
 
-        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 760, 140));
+        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 750, 140));
 
         getData.setText("Get Data");
         getData.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -177,7 +168,7 @@ public class frmSessions extends javax.swing.JInternalFrame {
 
         lblAddr.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblAddr.setForeground(new java.awt.Color(255, 255, 255));
-        lblAddr.setText("Artist ID");
+        lblAddr.setText("Freelancer");
         pnlAdd.add(lblAddr, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 110, 20));
 
         lblPhone.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -208,44 +199,29 @@ public class frmSessions extends javax.swing.JInternalFrame {
         lblAddr6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblAddr6.setForeground(new java.awt.Color(255, 255, 255));
         lblAddr6.setText("Song Title:");
-        pnlAdd.add(lblAddr6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 110, 20));
+        pnlAdd.add(lblAddr6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 110, 20));
 
         lblAddr5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblAddr5.setForeground(new java.awt.Color(255, 255, 255));
         lblAddr5.setText("Youtube Link:");
-        pnlAdd.add(lblAddr5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 110, 20));
+        pnlAdd.add(lblAddr5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 110, 20));
 
         lblLink.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblLink.setForeground(new java.awt.Color(255, 255, 255));
-        pnlAdd.add(lblLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 590, 20));
+        pnlAdd.add(lblLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 540, 20));
 
         lblSongTitle.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblSongTitle.setForeground(new java.awt.Color(255, 255, 255));
-        pnlAdd.add(lblSongTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 350, 20));
-
-        lblAddr4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblAddr4.setForeground(new java.awt.Color(255, 255, 255));
-        lblAddr4.setText("Mastered");
-        pnlAdd.add(lblAddr4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 80, 20));
-
-        lblAddr9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblAddr9.setForeground(new java.awt.Color(255, 255, 255));
-        lblAddr9.setText("Demo");
-        pnlAdd.add(lblAddr9, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 80, 20));
-
-        lblAddr8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblAddr8.setForeground(new java.awt.Color(255, 255, 255));
-        lblAddr8.setText("Sketelon");
-        pnlAdd.add(lblAddr8, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 40, 80, 20));
+        pnlAdd.add(lblSongTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 630, 20));
 
         lblAddr10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblAddr10.setForeground(new java.awt.Color(255, 255, 255));
         lblAddr10.setText("Total");
-        pnlAdd.add(lblAddr10, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 80, 20));
+        pnlAdd.add(lblAddr10, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 80, 20));
 
         lblTotal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblTotal.setForeground(new java.awt.Color(255, 255, 255));
-        pnlAdd.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, 50, 20));
+        pnlAdd.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 160, 50, 20));
 
         lblSket.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblSket.setForeground(new java.awt.Color(255, 255, 255));
@@ -258,14 +234,40 @@ public class frmSessions extends javax.swing.JInternalFrame {
         lblMastered.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblMastered.setForeground(new java.awt.Color(255, 255, 255));
         pnlAdd.add(lblMastered, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, 50, 20));
-        pnlAdd.add(prog, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 240, 20));
 
-        lblprec.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblprec.setForeground(new java.awt.Color(255, 255, 255));
-        pnlAdd.add(lblprec, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 340, 50, 20));
+        tblMusicians.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Musician ID", "Stage Name", "Expertisr"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblMusicians);
+
+        pnlAdd.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 370, 100));
 
         tblSoundmans.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null}
             },
@@ -276,104 +278,67 @@ public class frmSessions extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblSoundmans);
-
-        pnlAdd.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, 340, 90));
-
-        tblMusicians.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Musician ID", "Stage Name", "Expertise"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            boolean[] canEdit = new boolean [] {
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-        });
-        jScrollPane2.setViewportView(tblMusicians);
 
-        pnlAdd.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 340, 90));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblSoundmans);
+
+        pnlAdd.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, 340, 100));
 
         getContentPane().add(pnlAdd);
-        pnlAdd.setBounds(0, 40, 780, 530);
+        pnlAdd.setBounds(0, 40, 820, 530);
 
         lblError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 51, 51));
         lblError.setText(" ");
         getContentPane().add(lblError);
-        lblError.setBounds(30, 580, 500, 20);
-
-        btnAddFile.setText("Add Recording");
-        btnAddFile.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAddFileMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btnAddFile);
-        btnAddFile.setBounds(570, 580, 190, 23);
+        lblError.setBounds(10, 580, 500, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
     private void getDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_getDataMouseClicked
-        if (a == null || picked == null){
+        if (f == null || picked == null){
             lblError.setText("One or more fields are missing");
             updateWin();
             return;
         }
-        
-        
+
         DefaultTableModel model = (DefaultTableModel) tblGen.getModel();
         model.setRowCount(0);
         //get the sessions of selected studio
         Timestamp t = new Timestamp(picked.getTime());
-        ArrayList <String[]> ses = RecordingManager.getArtistSessions(a.getID(), t);
+        //ArrayList <String[]> ses = FreelancerManager.getMusicianSessions(f.getID(), t);
+        ArrayList <String[]> ses = FreelancerManager.getSoundmamSessions(f.getID(), t);
+        System.out.println(ses.size());
         
-        int mastered = 0, sketelon = 0, demo = 0, other=0;
+        if (ses.size() < 1){
+            lblError.setText("No sessions were found");
+            return;
+        }
+        
+        
+        int other=0;
         //while has next
         for (String[] s:ses){
             if (s == null) break;
-            String[] row = {s[0], s[1], s[2], s[3], s[4], s[5], s[6]};
+            String[] row = {s[0], s[1], s[2], s[3], s[4]};
             model.addRow(row);
-            
-            //count mastered sessions
-            if (s[5].equals("Mastered")) mastered++;
-            else if (s[5].equals("Demo")) demo++;
-            else if (s[5].equals("Sketelon")) sketelon++;
-            else other++;
-            
-        }
-        
-        
-        lblTotal.setText(""+other);
-        lblSket.setText(""+sketelon);
-        lblDemo.setText(""+demo);
-        lblMastered.setText(""+mastered);
-        int total = other + sketelon + demo + mastered;
-        if (total > 0) {
-            double precentage = (((double)mastered)/((double)total))*100;
-            lblprec.setText(""+precentage);
-            
-            //progress bar code here
-            prog.setMaximum(100);
-            prog.setMinimum(0);
-            prog.setForeground(Color.green);
-            prog.setValue((int)precentage);
-        }
-        
 
+            other++;
+            
+        }        
+
+        lblTotal.setText(""+other);
         
         lblError.setText("");
         updateWin();
@@ -392,31 +357,6 @@ public class frmSessions extends javax.swing.JInternalFrame {
         return;
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
 
-    private void btnAddFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddFileMouseClicked
-        //nothing was selected    
-        if (tblGen.getSelectedRow() < 0){
-            lblError.setText("Please select session to add recording");
-            updateWin();
-            return;
-        }
-        
-        //get selected session id
-        String id = (String)tblGen.getModel().getValueAt(tblGen.getSelectedRow(), 2);
-        sessionID = (int) PositiveValidator.stringToNum(id);
-        //System.out.println(sessionID);
-        
-        //if there was a problem with selection
-        if (sessionID < 1){
-            lblError.setText("Please select session to add recording");
-            updateWin();
-            return;
-        }
-        
-        //go to add recording page
-        frmAddRecording add = new frmAddRecording(sessionID);
-        iWindow.openWin(add);
-    }//GEN-LAST:event_btnAddFileMouseClicked
-
     private void tblGenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGenMouseClicked
         lblError.setText("");
         String id = (String)tblGen.getModel().getValueAt(tblGen.getSelectedRow(), 2);
@@ -429,12 +369,10 @@ public class frmSessions extends javax.swing.JInternalFrame {
         String[] songDetails = ReportManager.getSongDetails(sessionID);
         
         if (musicians == null || soundmans == null){
-            tblSoundmans.setVisible(false);
-            tblMusicians.setVisible(false);
             lblError.setText("Recording was not uploaded for this session");
             updateWin();
             return;
-        }
+        } 
         
         //set song details
         if (songDetails != null){
@@ -443,25 +381,25 @@ public class frmSessions extends javax.swing.JInternalFrame {
             //System.out.println(songDetails[0] + " " +songDetails[1]);
         }
         
-        tblSoundmans.setVisible(true);
-        tblMusicians.setVisible(true);
-        DefaultTableModel model1 = (DefaultTableModel) tblSoundmans.getModel();
-        model1.setRowCount(0);
+        
+        DefaultTableModel model = (DefaultTableModel) tblSoundmans.getModel();
+        model.setRowCount(0);
         for (String[] s:soundmans){
             if (s == null) break;
             String[] row = {s[0], s[1], s[2]};
-            model1.addRow(row);
+            model.addRow(row);
             
         }  
         
-        DefaultTableModel model2 = (DefaultTableModel) tblMusicians.getModel();
-        model2.setRowCount(0);
+        model = (DefaultTableModel) tblMusicians.getModel();
+        model.setRowCount(0);
         for (String[] s:musicians){
             if (s == null) break;
             String[] row = {s[0], s[1], s[2]};
-            model2.addRow(s);
+            model.addRow(s);
             
         }  
+        
         
         
         updateWin();
@@ -469,13 +407,10 @@ public class frmSessions extends javax.swing.JInternalFrame {
     
     
     private void init(){
-        a = iRecord.getLoggedUser();
-        lblstageName.setText(a.getStageName());
-        lblEmail.setText(a.getEmail());
-        lblID.setText(a.getID());
-        
-        tblSoundmans.setVisible(false);
-        tblMusicians.setVisible(false);
+        f = iRecord.getLoggedUser();
+        lblstageName.setText(f.getStageName());
+        lblEmail.setText(f.getEmail());
+        lblID.setText(f.getID());
     }
     
     public void updateWin(){
@@ -486,7 +421,6 @@ public class frmSessions extends javax.swing.JInternalFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddFile;
     private javax.swing.JButton getData;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JScrollPane jScrollPane1;
@@ -495,11 +429,8 @@ public class frmSessions extends javax.swing.JInternalFrame {
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JLabel lblAddr;
     private javax.swing.JLabel lblAddr10;
-    private javax.swing.JLabel lblAddr4;
     private javax.swing.JLabel lblAddr5;
     private javax.swing.JLabel lblAddr6;
-    private javax.swing.JLabel lblAddr8;
-    private javax.swing.JLabel lblAddr9;
     private javax.swing.JLabel lblDemo;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblError;
@@ -512,10 +443,8 @@ public class frmSessions extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblSongTitle;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lbldate;
-    private javax.swing.JLabel lblprec;
     private javax.swing.JLabel lblstageName;
     private javax.swing.JPanel pnlAdd;
-    private javax.swing.JProgressBar prog;
     private javax.swing.JTable tblGen;
     private javax.swing.JTable tblMusicians;
     private javax.swing.JTable tblSoundmans;

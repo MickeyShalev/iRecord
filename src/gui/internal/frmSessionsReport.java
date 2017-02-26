@@ -383,15 +383,15 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         lblSongTitle.setText("");
         lblLink.setText("");
         if (sessionID < 1) return;
-        ArrayList<String> musicians = ReportManager.getMusiciansOfSession(sessionID);
-        ArrayList<String> soundmans = ReportManager.getSoundmansOfSession(sessionID);
+        ArrayList<String[]> musicians = ReportManager.getMusiciansOfSession(sessionID);
+        ArrayList<String[]> soundmans = ReportManager.getSoundmansOfSession(sessionID);
         String[] songDetails = ReportManager.getSongDetails(sessionID);
         
         if (musicians == null || soundmans == null){
             lblError.setText("Recording was not uploaded for this session");
             updateWin();
             return;
-        } 
+        }
         
         //set song details
         if (songDetails != null){
@@ -399,26 +399,28 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
             lblLink.setText(songDetails[1].toString());
             //System.out.println(songDetails[0] + " " +songDetails[1]);
         }
+        
+        
         //set musicians
-        for (String s:musicians){
-            //System.out.println(s);
-            if (lblMusicians.getText().length() < 1){
-                lblMusicians.setText(s);
-                continue;
-            }
-            lblMusicians.setText(lblMusicians.getText() + ", " + s);
-        }
-        
-        
-        //set soundmans
-        for (String s:soundmans){
-            //System.out.println(s);
-            if (lblSoundmans.getText().length() < 1){
-                lblSoundmans.setText(s);
-                continue;
-            }
-            lblSoundmans.setText(lblSoundmans.getText() + ", " + s);
-        }
+//        for (String s:musicians){
+//            //System.out.println(s);
+//            if (lblMusicians.getText().length() < 1){
+//                lblMusicians.setText(s);
+//                continue;
+//            }
+//            lblMusicians.setText(lblMusicians.getText() + ", " + s);
+//        }
+//        
+//        
+//        //set soundmans
+//        for (String s:soundmans){
+//            //System.out.println(s);
+//            if (lblSoundmans.getText().length() < 1){
+//                lblSoundmans.setText(s);
+//                continue;
+//            }
+//            lblSoundmans.setText(lblSoundmans.getText() + ", " + s);
+//        }
         
         updateWin();
     }//GEN-LAST:event_tblGenMouseClicked

@@ -15,11 +15,11 @@ public class ReportManager {
     //jdbc:ucanaccess://C:/Users/micke/Documents/NetBeansProjects/iRECORD/iRecord/src/sources/iRecord.accdb
     
     
-    public static ArrayList<String> getSoundmansOfSession(int sessionID){
-        ArrayList<String> toReturn = null;
-        String qry = "SELECT SessionInRoom.SessionID, SessionInRoom.RoomNum, SessionInRoom.StudioID, MusicianToRoom.MusicianID, MusicianToRoom.SessionID, Freelancer.stageName \n" +
-                "FROM Freelancer INNER JOIN (Room INNER JOIN (SessionInRoom INNER JOIN MusicianToRoom ON SessionInRoom.[StudioID] = MusicianToRoom.[StudioID]) ON (Room.StudioID = SessionInRoom.StudioID) AND (Room.RoomNum = SessionInRoom.RoomNum)) ON Freelancer.FreelancerID = MusicianToRoom.MusicianID \n" +
-                "WHERE (((SessionInRoom.SessionID)=[MusicianToRoom].[SessionID]) AND ((SessionInRoom.RoomNum)=[Room].[RoomNum]) AND ((SessionInRoom.StudioID)=[Room].[RoomNum]) AND ((MusicianToRoom.SessionID)="+sessionID+"));";
+    public static ArrayList<String[]> getMusiciansOfSession(int sessionID){
+        ArrayList<String[]> toReturn = null;
+        String qry = "SELECT SessionInRoom.SessionID, SessionInRoom.RoomNum, SessionInRoom.StudioID, MusicianToRoom.MusicianID, MusicianToRoom.SessionID, Freelancer.stageName, Musician.expertIn\n" +
+                     "FROM (Room INNER JOIN (Freelancer INNER JOIN (SessionInRoom INNER JOIN MusicianToRoom ON SessionInRoom.[StudioID] = MusicianToRoom.[StudioID]) ON Freelancer.FreelancerID = MusicianToRoom.MusicianID) ON (Room.StudioID = SessionInRoom.StudioID) AND (Room.RoomNum = SessionInRoom.RoomNum)) INNER JOIN Musician ON (Musician.MusicianID = MusicianToRoom.MusicianID) AND (Freelancer.FreelancerID = Musician.MusicianID) \n" +
+                     "WHERE (((SessionInRoom.SessionID)=[MusicianToRoom].[SessionID]) AND ((SessionInRoom.RoomNum)=[Room].[RoomNum]) AND ((SessionInRoom.StudioID)=[Room].[RoomNum]) AND ((MusicianToRoom.SessionID)="+sessionID+"));";
         
         
         ResultSet rs = iRecord.getDB().query(qry);
@@ -27,8 +27,11 @@ public class ReportManager {
         
         try {
             while(rs.next()){
-                if (toReturn == null) toReturn = new ArrayList<String>();
-                toReturn.add(rs.getString("stageName") + " ("+rs.getString("musicianID")+")");
+                if (toReturn == null) toReturn = new ArrayList<String[]>();
+                String id = rs.getString("musicianID");
+                String stagename = rs.getString("stagename");
+                String expertin = rs.getString("expertin");
+                toReturn.add(new String[]{id, stagename, expertin});
             }
         } catch (SQLException ex) {
             Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -41,13 +44,13 @@ public class ReportManager {
     
     
     
-    public static ArrayList<String> getMusiciansOfSession(int sessionID){
-        ArrayList<String> toReturn = null;
+    public static ArrayList<String[]> getSoundmansOfSession(int sessionID){
+        ArrayList<String[]> toReturn = null;
         
-        String qry = "SELECT SoundmanToSession.SessionID, SoundmanToSession.SoundmanID, Freelancer.FreelancerID, Freelancer.stageName\n" +
-                "FROM Freelancer INNER JOIN ([Session] INNER JOIN SoundmanToSession ON Session.[SessionID] = SoundmanToSession.[SessionID]) ON Freelancer.FreelancerID = SoundmanToSession.SoundmanID\n" +
-                "GROUP BY SoundmanToSession.SessionID, SoundmanToSession.SoundmanID, Freelancer.FreelancerID, Freelancer.stageName\n" +
-                "HAVING (((SoundmanToSession.SessionID)="+sessionID+"));";
+        String qry = "SELECT SoundmanToSession.SessionID, SoundmanToSession.SoundmanID, Freelancer.FreelancerID, Freelancer.stageName, SoundmanToSession.Role\n" +
+                     "FROM Freelancer INNER JOIN ([Session] INNER JOIN SoundmanToSession ON Session.[SessionID] = SoundmanToSession.[SessionID]) ON Freelancer.FreelancerID = SoundmanToSession.SoundmanID\n" +
+                     "GROUP BY SoundmanToSession.SessionID, SoundmanToSession.SoundmanID, Freelancer.FreelancerID, Freelancer.stageName, SoundmanToSession.Role \n" +
+                     "HAVING (((SoundmanToSession.SessionID)="+sessionID+"));";
         
         
         ResultSet rs = iRecord.getDB().query(qry);
@@ -55,8 +58,11 @@ public class ReportManager {
         
         try {
             while(rs.next()){
-                if (toReturn == null) toReturn = new ArrayList<String>();
-                toReturn.add(rs.getString("stageName") + " ("+rs.getString("soundmanID")+")");
+                if (toReturn == null) toReturn = new ArrayList<String[]>();
+                String id = rs.getString("soundmanID");
+                String stagename = rs.getString("stagename");
+                String role = rs.getString("role");
+                toReturn.add(new String[]{id, stagename, role});
             }
         } catch (SQLException ex) {
             Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);

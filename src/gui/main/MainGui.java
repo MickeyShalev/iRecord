@@ -731,7 +731,7 @@ public class MainGui extends javax.swing.JFrame {
     }//GEN-LAST:event_WatchRegistered2MouseClicked
 
     private void Sessions2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sessions2MouseClicked
-        frmSessions add = new frmSessions();
+        frmFreelancerSessions add = new frmFreelancerSessions();
         iWindow.openWin(add);
     }//GEN-LAST:event_Sessions2MouseClicked
 
