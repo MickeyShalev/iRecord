@@ -419,7 +419,7 @@ public class FreelancerManager {
                 + " WHERE FreelancerID=\"" +s.getFreelancerID() +"\"";
         
         String qry2 = "UPDATE Soundman" 
-                + " SET isProducer="+s.getIsProducer()+" ,isMixTech=" +s.getIsMasterTech()+ ", isMasterTech=" +s.getIsMasterTech()+ ",downPayment=" +s.getDownPayment()+ ", FullPayment=" +s.getFullPayment()+" "
+                + " SET isProducer="+s.getIsProducer()+" ,isMixTech=" +s.getIsMixTech()+ ", isMasterTech=" +s.getIsMasterTech()+ ",downPayment=" +s.getDownPayment()+ ", FullPayment=" +s.getFullPayment()+" "
                 + " WHERE SoundmanID=\"" + s.getFreelancerID() +"\"";
         
         iRecord.getDB().executeUpadate(qry1);
