@@ -429,8 +429,6 @@ public class frmSessions extends javax.swing.JInternalFrame {
         String[] songDetails = ReportManager.getSongDetails(sessionID);
         
         if (musicians == null || soundmans == null){
-            tblSoundmans.setVisible(false);
-            tblMusicians.setVisible(false);
             lblError.setText("Recording was not uploaded for this session");
             updateWin();
             return;
@@ -443,8 +441,6 @@ public class frmSessions extends javax.swing.JInternalFrame {
             //System.out.println(songDetails[0] + " " +songDetails[1]);
         }
         
-        tblSoundmans.setVisible(true);
-        tblMusicians.setVisible(true);
         DefaultTableModel model1 = (DefaultTableModel) tblSoundmans.getModel();
         model1.setRowCount(0);
         for (String[] s:soundmans){
