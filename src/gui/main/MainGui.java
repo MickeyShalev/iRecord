@@ -852,7 +852,7 @@ public class MainGui extends javax.swing.JFrame {
         
     }
     
-    
+    //refresh screen
     public void updateWin(){
         
         iWindow.update();

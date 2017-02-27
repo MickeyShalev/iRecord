@@ -6,6 +6,7 @@
 package gui.internal;
 
 import Validators.PositiveValidator;
+import com.itextpdf.text.DocumentException;
 import entities.Artist;
 import gui.main.iWindow;
 import iRecord.Controller.ArtistManager;
@@ -19,7 +20,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import javafx.scene.control.ProgressBar;
 import javax.swing.table.DefaultTableModel;
-
+import iRecord.utilities.PDFManager;
+import iRecord.utilities.PDFManager.PDFFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author nisan
@@ -29,7 +33,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
     private Date picked = null;
     private int sessionID;
     private File file;
-    
+    private int mastered = 0, sketelon = 0, demo = 0, other=0;
     
     /**
      * Creates new form frmCreateSession
@@ -88,6 +92,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         tblMusicians = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSoundmans = new javax.swing.JTable();
+        Export = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
 
@@ -158,7 +163,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tblGen);
 
-        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 760, 150));
+        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 760, 150));
 
         getData.setText("Get Data");
         getData.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -219,21 +224,21 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
 
         lblSongTitle.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblSongTitle.setForeground(new java.awt.Color(255, 255, 255));
-        pnlAdd.add(lblSongTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 360, 20));
+        pnlAdd.add(lblSongTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 360, 20));
 
         lblAddr5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblAddr5.setForeground(new java.awt.Color(255, 255, 255));
         lblAddr5.setText("Youtube Link:");
-        pnlAdd.add(lblAddr5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 110, 20));
+        pnlAdd.add(lblAddr5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 110, 20));
 
         lblLink.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblLink.setForeground(new java.awt.Color(255, 255, 255));
-        pnlAdd.add(lblLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 540, 20));
+        pnlAdd.add(lblLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 540, 20));
 
         lblAddr6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblAddr6.setForeground(new java.awt.Color(255, 255, 255));
         lblAddr6.setText("Song Title:");
-        pnlAdd.add(lblAddr6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 110, 20));
+        pnlAdd.add(lblAddr6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 110, 20));
 
         lblMastered.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblMastered.setForeground(new java.awt.Color(255, 255, 255));
@@ -268,8 +273,8 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
 
         lblprec.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblprec.setForeground(new java.awt.Color(255, 255, 255));
-        pnlAdd.add(lblprec, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 340, 50, 20));
-        pnlAdd.add(prog, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 240, 20));
+        pnlAdd.add(lblprec, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 330, 50, 20));
+        pnlAdd.add(prog, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, 240, 20));
 
         tblMusicians.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -298,7 +303,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblMusicians);
 
-        pnlAdd.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 350, 100));
+        pnlAdd.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 350, 90));
 
         tblSoundmans.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -327,7 +332,20 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tblSoundmans);
 
-        pnlAdd.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 410, 360, 100));
+        pnlAdd.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, 360, 90));
+
+        Export.setText("Export Artist Statistics");
+        Export.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExportMouseClicked(evt);
+            }
+        });
+        Export.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportActionPerformed(evt);
+            }
+        });
+        pnlAdd.add(Export, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, 160, -1));
 
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(0, 40, 780, 520);
@@ -345,7 +363,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         lblError.setForeground(new java.awt.Color(255, 51, 51));
         lblError.setText(" ");
         getContentPane().add(lblError);
-        lblError.setBounds(10, 570, 560, 20);
+        lblError.setBounds(20, 570, 560, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -364,7 +382,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         Timestamp t = new Timestamp(picked.getTime());
         ArrayList <String[]> ses = RecordingManager.getArtistSessions(artist.getID(), t);
         
-        int mastered = 0, sketelon = 0, demo = 0, other=0;
+        mastered = 0; sketelon = 0; demo = 0; other=0;
         //while has next
         for (String[] s:ses){
             if (s == null) break;
@@ -425,12 +443,6 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         ArrayList<String[]> soundmans = ReportManager.getSoundmansOfSession(sessionID);
         String[] songDetails = ReportManager.getSongDetails(sessionID);
         
-        if (musicians == null || soundmans == null){
-            lblError.setText("Recording was not uploaded for this session");
-            updateWin();
-            return;
-        }
-        
         //set song details
         if (songDetails != null){
             lblSongTitle.setText(songDetails[0].toString());
@@ -441,23 +453,26 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         //set soundmans
         DefaultTableModel model1 = (DefaultTableModel) tblSoundmans.getModel();
         model1.setRowCount(0);
-        for (String[] s:soundmans){
-            if (s == null) break;
-            String[] row = {s[0], s[1], s[2]};
-            model1.addRow(row);
-            
-        }  
+        if (soundmans !=null){
+            for (String[] s:soundmans){
+                if (s == null) break;
+                String[] row = {s[0], s[1], s[2]};
+                model1.addRow(row);
+                
+            }
+        }
         
         //set musicians
         DefaultTableModel model2 = (DefaultTableModel) tblMusicians.getModel();
         model2.setRowCount(0);
-        for (String[] s:musicians){
-            if (s == null) break;
-            String[] row = {s[0], s[1], s[2]};
-            model2.addRow(s);
-            
-        } 
-        
+        if (musicians !=null){
+            for (String[] s:musicians){
+                if (s == null) break;
+                String[] row = {s[0], s[1], s[2]};
+                model2.addRow(s);
+                
+            }
+        }
         
         
         updateWin();
@@ -467,6 +482,27 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         frmArtistSuspension add = new frmArtistSuspension();
         iWindow.openWin(add);
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void ExportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExportMouseClicked
+        try {
+            String name = lblID.getText() + " " + new Date().toInstant();
+            PDFManager pdfMan = new PDFManager();
+            pdfMan.createPDF(1, "Artist");
+            pdfMan.createPDF(1, name);
+            pdfMan.getPDFFile(1).addTitlePage("ARTIST SESSIONS");
+            pdfMan.getPDFFile(1).createChapter(1 ,"ARTIST SESSIONS");
+            String[] titles = new String[] {"Studio ID", "Studio Name", "Session ID", "Date", "Total Cost", "Status", "Record ID"};
+            pdfMan.getPDFFile(1).addTable(7, tblGen.getModel().getRowCount(), titles, titles);
+
+        } catch (DocumentException ex) {
+            Logger.getLogger(frmSessions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_ExportMouseClicked
+
+    private void ExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExportActionPerformed
     
     
     private void init(){
@@ -490,6 +526,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Export;
     private javax.swing.JButton getData;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel16;

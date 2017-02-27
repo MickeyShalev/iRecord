@@ -17,8 +17,8 @@ public class ReportManager {
     
     public static ArrayList<String[]> getMusiciansOfSession(int sessionID){
         ArrayList<String[]> toReturn = null;
-        String qry = "SELECT SessionInRoom.SessionID, SessionInRoom.RoomNum, SessionInRoom.StudioID, MusicianToRoom.MusicianID, MusicianToRoom.SessionID, Freelancer.stageName, Musician.expertIn\n" +
-                     "FROM (Room INNER JOIN (Freelancer INNER JOIN (SessionInRoom INNER JOIN MusicianToRoom ON SessionInRoom.[StudioID] = MusicianToRoom.[StudioID]) ON Freelancer.FreelancerID = MusicianToRoom.MusicianID) ON (Room.StudioID = SessionInRoom.StudioID) AND (Room.RoomNum = SessionInRoom.RoomNum)) INNER JOIN Musician ON (Musician.MusicianID = MusicianToRoom.MusicianID) AND (Freelancer.FreelancerID = Musician.MusicianID) \n" +
+        String qry = "SELECT SessionInRoom.SessionID, SessionInRoom.RoomNum, SessionInRoom.StudioID, MusicianToRoom.MusicianID, MusicianToRoom.SessionID, Freelancer.stageName, Musician.expertIn, Expertise.eField \n" +
+                     "FROM Expertise INNER JOIN (Room INNER JOIN ((Freelancer INNER JOIN (SessionInRoom INNER JOIN MusicianToRoom ON SessionInRoom.[StudioID] = MusicianToRoom.[StudioID]) ON Freelancer.FreelancerID = MusicianToRoom.MusicianID) INNER JOIN Musician ON (Musician.MusicianID = MusicianToRoom.MusicianID) AND (Freelancer.FreelancerID = Musician.MusicianID)) ON (Room.StudioID = SessionInRoom.StudioID) AND (Room.RoomNum = SessionInRoom.RoomNum)) ON Expertise.ExpertiseID = Musician.expertIn \n" +
                      "WHERE (((SessionInRoom.SessionID)=[MusicianToRoom].[SessionID]) AND ((SessionInRoom.RoomNum)=[Room].[RoomNum]) AND ((SessionInRoom.StudioID)=[Room].[RoomNum]) AND ((MusicianToRoom.SessionID)="+sessionID+"));";
         
         
@@ -30,7 +30,7 @@ public class ReportManager {
                 if (toReturn == null) toReturn = new ArrayList<String[]>();
                 String id = rs.getString("musicianID");
                 String stagename = rs.getString("stagename");
-                String expertin = rs.getString("expertin");
+                String expertin = rs.getString("efield");
                 toReturn.add(new String[]{id, stagename, expertin});
             }
         } catch (SQLException ex) {

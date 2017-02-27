@@ -369,11 +369,6 @@ public class frmFreelancerSessions extends javax.swing.JInternalFrame {
         ArrayList<String[]> soundmans = ReportManager.getSoundmansOfSession(sessionID);
         String[] songDetails = ReportManager.getSongDetails(sessionID);
         
-        if (musicians == null || soundmans == null){
-            lblError.setText("Recording was not uploaded for this session");
-            updateWin();
-            return;
-        } 
         
         //set song details
         if (songDetails != null){
@@ -385,22 +380,24 @@ public class frmFreelancerSessions extends javax.swing.JInternalFrame {
         
         DefaultTableModel model = (DefaultTableModel) tblSoundmans.getModel();
         model.setRowCount(0);
-        for (String[] s:soundmans){
-            if (s == null) break;
-            String[] row = {s[0], s[1], s[2]};
-            model.addRow(row);
-            
-        }  
-        
+        if (soundmans !=null){
+            for (String[] s:soundmans){
+                if (s == null) break;
+                String[] row = {s[0], s[1], s[2]};
+                model.addRow(row);
+                
+            }
+        }
         model = (DefaultTableModel) tblMusicians.getModel();
         model.setRowCount(0);
-        for (String[] s:musicians){
-            if (s == null) break;
-            String[] row = {s[0], s[1], s[2]};
-            model.addRow(s);
-            
-        }  
-        
+        if (musicians !=null){
+            for (String[] s:musicians){
+                if (s == null) break;
+                String[] row = {s[0], s[1], s[2]};
+                model.addRow(s);
+                
+            }
+        }
         
         
         updateWin();

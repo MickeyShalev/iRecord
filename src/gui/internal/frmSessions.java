@@ -6,6 +6,7 @@
 package gui.internal;
 
 import Validators.PositiveValidator;
+import com.itextpdf.text.DocumentException;
 import entities.Artist;
 import entities.Person;
 import gui.main.iWindow;
@@ -18,6 +19,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+import iRecord.utilities.PDFManager;
+import iRecord.utilities.PDFManager.PDFFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -428,11 +433,6 @@ public class frmSessions extends javax.swing.JInternalFrame {
         ArrayList<String[]> soundmans = ReportManager.getSoundmansOfSession(sessionID);
         String[] songDetails = ReportManager.getSongDetails(sessionID);
         
-        if (musicians == null || soundmans == null){
-            lblError.setText("Recording was not uploaded for this session");
-            updateWin();
-            return;
-        }
         
         //set song details
         if (songDetails != null){
@@ -445,25 +445,27 @@ public class frmSessions extends javax.swing.JInternalFrame {
         tblMusicians.setVisible(true);
         tblSoundmans.setVisible(true);
                 //set soundmans
-        DefaultTableModel model1 = (DefaultTableModel) tblSoundmans.getModel();
-        model1.setRowCount(0);
-        for (String[] s:soundmans){
-            if (s == null) break;
-            String[] row = {s[0], s[1], s[2]};
-            model1.addRow(row);
-            
-        }  
-        
+        if (soundmans !=null){
+            DefaultTableModel model1 = (DefaultTableModel) tblSoundmans.getModel();
+            model1.setRowCount(0);
+            for (String[] s:soundmans){
+                if (s == null) break;
+                String[] row = {s[0], s[1], s[2]};
+                model1.addRow(row);
+                
+            }
+        }
         //set musicians
         DefaultTableModel model2 = (DefaultTableModel) tblMusicians.getModel();
         model2.setRowCount(0);
-        for (String[] s:musicians){
-            if (s == null) break;
-            String[] row = {s[0], s[1], s[2]};
-            model2.addRow(s);
-            
-        } 
-        
+        if (musicians != null){
+            for (String[] s:musicians){
+                if (s == null) break;
+                String[] row = {s[0], s[1], s[2]};
+                model2.addRow(s);
+                
+            }
+        }
         
         updateWin();
     }//GEN-LAST:event_tblGenMouseClicked

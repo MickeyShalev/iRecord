@@ -36,7 +36,7 @@ public class PDFManager {
     private HashMap<Integer, PDFFile> files;
     
     public PDFManager() {
-        files = new HashMap<>();
+        files = new HashMap<Integer, PDFFile>();
     }
     
     public void createPDF(Integer PDFNo, String fileName) {
@@ -52,6 +52,11 @@ public class PDFManager {
     public PDFFile getPDFFile(int fileName) {
         return this.files.get(fileName);
     }
+    
+    
+    
+    
+    
     
     public class PDFFile {
         

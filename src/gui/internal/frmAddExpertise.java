@@ -208,6 +208,7 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
 
     private void btnRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoveMouseClicked
         if (cbExpertise.getSelectedIndex() == 0) return;
+        toRemove = (Expertise)cbExpertise.getSelectedItem();
         if (ExpertieseManager.removeInstrument(toRemove.getNum(), toRemove.getName())){
             lblGen.setForeground(Color.GREEN);
             lblGen.setText("Expertise was removed");
