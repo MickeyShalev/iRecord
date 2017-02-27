@@ -14,6 +14,7 @@ import iRecord.Controller.FreelancerManager;
 import iRecord.Validators.AgeValidator;
 import iRecord.Validators.CharValidator;
 import iRecord.iRecord;
+import iRecord.utilities.FileManager;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         public frmAddSoundman(Soundman s) {
         initComponents();
         this.s = s;
+        lblID.setText(s.getID());
         tfFirstName.setText(s.getFirstName());
         tfLastName.setText(s.getLastName());
         tfStageName.setText(s.getStageName());
@@ -500,7 +502,6 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Pass1FocusLost
     
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        picPath = "123";
         //update was recognzied
         if (s !=null){
             if (firstName == null || lastName == null || stageName == null || Email ==null
@@ -512,7 +513,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
             }
             
             Soundman toAdd = new Soundman(flID, firstName,lastName,stageName,isProducer,isMixTech,isMasterTech, downPayment,fullPayment,0 , birthDate, Email, password, 1);
-            toAdd.setFile(picPath);
+            toAdd.setFileString(picPath);
             FreelancerManager.updateSoundman(toAdd);
             lblGen.setForeground(Color.GREEN);
             lblGen.setText("Artist was updated succefully");
@@ -728,13 +729,16 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         try {
-            long size = Files.size(f.toPath()) / 1000;
-            if(size>5120){
+            double size = Files.size(f.toPath()) / 1000;
+            if(size>2048){
                 //errFile.setIcon(xIcon.getIcon());
-                lblPath.setText("File size can't be larger than 5MB");
+                lblPath.setText("File size can't be larger than 2MB");
                 iWindow.update();
                 return;
             }
+            
+            
+            
             iRecord.log("Attempting to upload file size: "+(Files.size(f.toPath())) / 1000+"KB" );
 
         } catch (IOException ex) {
@@ -754,11 +758,15 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
 
         if(!extension.contains("png") && !extension.contains("jpg") && !extension.contains("gif") && !extension.contains("bmp") && !extension.contains("jpeg")){
             //errFile.setIcon(xIcon.getIcon());
-            lblPath.setText("Up to 5MB picture file only");
+            lblPath.setText("Up to 2MB picture file only");
             iWindow.update();
             return;
         }
 
+        picPath = FileManager.toBase64(f);
+        updateWin();
+        
+        /*
         //Try creating the file
         File uploads = new File("src/sources/pics");
         iRecord.log("Upload dir: "+uploads.getAbsolutePath());
@@ -788,6 +796,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
                 //        }
             picPath = tmp.getAbsolutePath();
             iWindow.update();
+        */
     }//GEN-LAST:event_attachFileMouseClicked
     
     private void init(){
@@ -807,7 +816,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
             if (num > 1000){
                 tempID = "FL"+num;
                 
-                if (!ArtistManager.isExists(tempID)){
+                if (!FreelancerManager.isExists(tempID)){
                     flID = tempID;
                     lblID.setText(tempID);
                     updateWin();

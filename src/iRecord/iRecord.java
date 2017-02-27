@@ -113,6 +113,16 @@ public class iRecord {
        
     }
 
+    
+    /**
+     * This method gets id and password and validates username and password using sql query
+     * if user was found he will be converted to Object for main gui operations
+     * suspended user can't login until admin release
+     * @param id
+     * @param pass
+     * @return true if user is allowed to enter to the system
+     * @throws SQLException 
+     */
     public static boolean logIn(String id, String pass) throws SQLException {
         ResultSet tmp = null;
         log("Attempting login using " + id + "/" + pass);
@@ -184,6 +194,9 @@ public class iRecord {
                     //System.err.println("Date: " + expireDate);
                     Person p = new Freelancer(ID, fname, lname, stageName, email, password,  status,  date);
                     // ID,  firstName,  lastName,  stageName,  email,  password,  status,  birthdate
+                    if (status == 0){
+                        return false;
+                    }
                     setLoggedUser(p);
                     log("Freelancer logged in");
                     return true;

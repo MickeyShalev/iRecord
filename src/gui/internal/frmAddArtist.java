@@ -365,8 +365,8 @@ public class frmAddArtist extends javax.swing.JInternalFrame {
         int num = 0;
         String tempID = null;
         while (true){
-            num = rand.nextInt(999);
-            if (num > 100){
+            num = rand.nextInt(9999);
+            if (num > 1000){
                 tempID = "AR"+num;
                 
                 if (!ArtistManager.isExists(tempID)){

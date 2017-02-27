@@ -14,7 +14,7 @@ public class Musician extends Freelancer {
     private double payRoll;
     private int expertise;
     private Date birthdDate;
-    private String file;
+    private String fileString;
     
     //==================================== Constructors ===================================================
     public Musician(String FreelancerID, String firstName, String lastName, String stageName, double payRoll, int expertise, int priority, Date birthdate, String email, String password, int status) {
@@ -98,12 +98,12 @@ public class Musician extends Freelancer {
     }
     
     
-    public void setFile(String file){
-        this.file = file;
+    public void setFileString(String file){
+        this.fileString = file;
     }
     
-    public String getFile(){
-        return this.file;
+    public String getFileString(){
+        return this.fileString;
     }
     
 }

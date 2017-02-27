@@ -15,6 +15,7 @@ import iRecord.Controller.FreelancerManager;
 import iRecord.Validators.AgeValidator;
 import iRecord.Validators.CharValidator;
 import iRecord.iRecord;
+import iRecord.utilities.FileManager;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +43,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     public frmAddMusician(Musician s){
         initComponents();
         this.s = s;
+        lblID.setText(s.getID());
         tfFirstName.setText(s.getFirstName());
         tfLastName.setText(s.getLastName());
         tfStageName.setText(s.getStageName());
@@ -51,7 +53,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         tfEmail.setText(s.getEmail());
         profession = s.getExpertise();
         tffull.setText(s.getPayRoll()+"");
-        picPath = s.getFile();
+        picPath = s.getFileString();
         flID = s.getID();
         firstName = s.getFirstName();
         lastName = s.getLastName();
@@ -467,7 +469,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
             }
             
             Musician toAdd = new Musician(flID, firstName,lastName,stageName, fullPayment, profession, 0 , birthDate, Email, password, s.getStatus());
-            toAdd.setFile(picPath);
+            toAdd.setFileString(picPath);
             FreelancerManager.updateMusician(toAdd);
             lblGen.setForeground(Color.GREEN);
             lblGen.setText("Artist was updated succefully");
@@ -622,9 +624,9 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         File f = chooser.getSelectedFile();
         try {
             long size = Files.size(f.toPath()) / 1000;
-            if(size>5120){
+            if(size>2048){
                 //errFile.setIcon(xIcon.getIcon());
-                lblPath.setText("File size can't be larger than 5MB");
+                lblPath.setText("File size can't be larger than 2MB");
                 iWindow.update();
                 return;
             }
@@ -647,11 +649,17 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
 
         if(!extension.contains("png") && !extension.contains("jpg") && !extension.contains("gif") && !extension.contains("bmp") && !extension.contains("jpeg")){
             //errFile.setIcon(xIcon.getIcon());
-            lblPath.setText("Up to 5MB picture file only");
+            lblPath.setText("Up to 2MB picture file only");
             iWindow.update();
             return;
         }
+        
+        //convert the pic to binary string
+        picPath = FileManager.toBase64(f);
+        updateWin();
 
+        
+        /*
         //Try creating the file
         File uploads = new File("src/sources/pics");
         iRecord.log("Upload dir: "+uploads.getAbsolutePath());
@@ -681,6 +689,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
                 //        }
             picPath = tmp.getAbsolutePath();
             iWindow.update();
+        */
     }//GEN-LAST:event_attachFileMouseClicked
     
     private void init(){
@@ -714,7 +723,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
             if (num > 1000){
                 tempID = "FL"+num;
                 
-                if (!ArtistManager.isExists(tempID)){
+                if (!FreelancerManager.isExists(tempID)){
                     flID = tempID;
                     lblID.setText(tempID);
                     updateWin();

@@ -15,7 +15,7 @@ public class Soundman extends Freelancer {
     private boolean isProducer, isMixTech, isMasterTech;
     private double downPayment, fullPayment;
     private Date birthdate;
-    private String file = null;
+    private String fileString = null;
 
     //================================== Constructors ================================================
 public Soundman(String FreelancerID, String firstName, String lastName, String stageName, Boolean isProducer, Boolean isMixTech, Boolean isMasterTech, Double downPayment, Double fullPayment, Integer priority, Date birthdate, String email, String password, int status) {
@@ -105,12 +105,12 @@ public Soundman(String FreelancerID, String firstName, String lastName, String s
         return counter;
     }
     
-    public void setFile(String file){
-        this.file = file;
+    public void setFileString(String file){
+        this.fileString = file;
     }
     
-    public String getFile(){
-        return this.file;
+    public String getFileString(){
+        return this.fileString;
     }
     
     

@@ -331,7 +331,7 @@ public class FreelancerManager {
                 int pay = rs.getInt("payroll");
                 int expert = rs.getInt("expertin");
                 m = new Musician(sID ,firstname, lastname, stagename, pay, expert, 0, d, email, password, status);
-                m.setFile(rs.getString("filePic"));
+                m.setFileString(rs.getString("filePic"));
                 return m;
             }
         } catch (SQLException ex) {
@@ -372,7 +372,7 @@ public class FreelancerManager {
                 double downpay = rs.getDouble("downpayment");
                 double fullpay = rs.getDouble("fullpayment");
                 s = new Soundman(sID, firstname, lastname, stagename, isProducer, isMixtech, isMastertech, downpay, fullpay, 0, d, email, password, status);
-                s.setFile(rs.getString("filePic"));
+                s.setFileString(rs.getString("filePic"));
                 return s;
             }
         } catch (SQLException ex) {

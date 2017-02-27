@@ -319,10 +319,11 @@ public class frmFreelancerSessions extends javax.swing.JInternalFrame {
         Timestamp t = new Timestamp(picked.getTime());
         //ArrayList <String[]> ses = FreelancerManager.getMusicianSessions(f.getID(), t);
         ArrayList <String[]> ses = FreelancerManager.getSoundmamSessions(f.getID(), t);
-        System.out.println(ses.size());
+        //System.out.println(ses.size());
         
-        if (ses.size() < 1){
+        if (ses == null || ses.size() < 1){
             lblError.setText("No sessions were found");
+            updateWin();
             return;
         }
         
