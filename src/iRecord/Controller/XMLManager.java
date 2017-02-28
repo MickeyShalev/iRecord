@@ -297,7 +297,7 @@ public class XMLManager {
             //System.out.println("Importing artist details XML from HIA System - Artists ");
             try{
                 //reading file
-                File inputFile = new File("sources/xml/HIA-Artist-Sessions.xml");
+                File inputFile = new File("sources/xml/HIA-Artist-Data.xml");
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 doc = dBuilder.parse(inputFile);
@@ -305,7 +305,7 @@ public class XMLManager {
             
             
             } catch(Exception e){
-                File inputFile = new File("sources/xml/HIA-Artist-Sessions.xml");
+                File inputFile = new File("sources/xml/HIA-Artist-Data.xml");
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 doc = dBuilder.parse(inputFile);

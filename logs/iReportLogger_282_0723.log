@@ -1,0 +1,14 @@
+=================  iRecord v1.0 - Tue Feb 28 19:23:32 IST 2017 ==================
+19:23:32	Attempting connection to MS Access DB
+19:23:32	DB File: C:\Users\micke\Documents\NetBeansProjects\iRECORD\iRecord\sources\iRecord.accdb
+Connecting with: jdbc:ucanaccess://C:\Users\micke\Documents\NetBeansProjects\iRECORD\iRecord\src\sources\iRecord.accdb
+19:23:34	Successfully connected to MS Access DB.
+19:23:34	Opening Login Window through iWindow
+19:23:38	Submitted
+19:23:38	User: AR1 Password: Password
+19:23:38	Attempting login using AR1/Password
+19:23:38	Initiating main UI
+19:23:43	Quitting MuzaMusic
+19:23:44	Aquiring stream result
+19:23:44	Transforming result
+19:23:44	Successfully exported iRecord-Artist-Sessions.xml file for HIA System.
