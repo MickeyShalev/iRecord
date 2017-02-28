@@ -28,6 +28,7 @@ public enum EAuth {
             case Representative: toReturn = "Representative"; break;
             case Administrator: toReturn = "Administrator"; break;
             case HIA_Artist: toReturn = "HIA Artist"; break;
+            case Freelancer: toReturn = "Freelancer"; break;
             default: toReturn = "Unknown Type"; break;
         }
         return toReturn;

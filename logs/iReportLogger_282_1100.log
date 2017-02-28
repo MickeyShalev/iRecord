@@ -1,0 +1,14 @@
+=================  iRecord v1.0 - Tue Feb 28 23:00:46 IST 2017 ==================
+23:00:46	Attempting connection to MS Access DB
+23:00:46	DB File: C:\Users\micke\Documents\NetBeansProjects\iRECORD\iRecord\sources\iRecord.accdb
+23:00:48	Successfully connected to MS Access DB.
+23:00:48	Opening Login Window through iWindow
+23:00:51	Submitted
+23:00:51	User: admin Password: 1111
+23:00:51	Attempting login using admin/1111
+23:00:51	Artist logged in
+23:00:51	Initiating main UI
+23:01:01	select eField from Expertise where ExpertiseID=0
+23:01:01	select eField from Expertise where ExpertiseID=0
+23:01:01	select eField from Expertise where ExpertiseID=0
+23:01:01	select eField from Expertise where ExpertiseID=0

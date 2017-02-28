@@ -1,0 +1,22 @@
+=================  iRecord v1.0 - Tue Feb 28 23:04:01 IST 2017 ==================
+23:04:01	Attempting connection to MS Access DB
+23:04:01	DB File: C:\Users\micke\Documents\NetBeansProjects\iRECORD\iRecord\sources\iRecord.accdb
+23:04:03	Successfully connected to MS Access DB.
+23:04:03	Opening Login Window through iWindow
+23:04:05	Submitted
+23:04:05	User: admin Password: 1111
+23:04:05	Attempting login using admin/1111
+23:04:05	Artist logged in
+23:04:05	Initiating main UI
+23:04:16	select eField from Expertise where ExpertiseID=6
+23:04:16	Found expertise: Flautist
+23:04:16	select eField from Expertise where ExpertiseID=22
+23:04:16	Found expertise: Drummer
+23:04:16	select eField from Expertise where ExpertiseID=7
+23:04:16	Found expertise: Guitarist (Electric, Acoustic)
+23:04:16	select eField from Expertise where ExpertiseID=15
+23:04:16	Found expertise: Violist (Viola player)
+23:04:20	Quitting MuzaMusic
+23:04:20	Aquiring stream result
+23:04:20	Transforming result
+23:04:20	Successfully exported iRecord-Artist-Sessions.xml file for HIA System.

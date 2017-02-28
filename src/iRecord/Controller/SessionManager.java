@@ -79,6 +79,7 @@ public class SessionManager {
             while(qry.next()){
                 //System.err.println("Inserting Musician "+qry.getString("stageName")+" with priority "+qry.getString("Grade"));
                 if (qry.getInt("Status") == 0) continue;
+                System.err.println("EXPERT: "+qry.getInt("expertIn"));
                 musicianMap.put(new Musician(qry.getString("FreelancerID"), qry.getString("firstName"), qry.getString("lastName"), qry.getString("stageName"), qry.getDouble("Payroll"), qry.getInt("expertIn"), qry.getInt("Grade")), null);
                 
             }

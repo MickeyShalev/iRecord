@@ -12,14 +12,15 @@ import java.util.logging.Logger;
 
 public class Musician extends Freelancer {
     private double payRoll;
-    private int expertise;
+    private Integer expertise;
     private Date birthdDate;
     private String fileString;
     
     //==================================== Constructors ===================================================
-    public Musician(String FreelancerID, String firstName, String lastName, String stageName, double payRoll, int expertise, int priority, Date birthdate, String email, String password, int status) {
+    public Musician(String FreelancerID, String firstName, String lastName, String stageName, double payRoll, Integer expertise, int priority, Date birthdate, String email, String password, int status) {
         super(FreelancerID, firstName, lastName, stageName, email, password, status);
         this.payRoll = payRoll;
+        System.err.println("Created with expertise: "+expertise);
         this.expertise = expertise;
         this.birthdDate = birthdate;
     }
@@ -33,7 +34,7 @@ public class Musician extends Freelancer {
     public Musician(String id, String fname, String lname, String stageName, double pay, int expert, int p) {
         super(id, fname, lname, stageName, " ");
         this.payRoll = payRoll;
-        this.expertise = expertise;
+        this.expertise = expert;
         setPriority(p);
         
     }
@@ -61,8 +62,10 @@ public class Musician extends Freelancer {
     
     public String getExpertiseString(){
         ResultSet qry = iRecord.getDB().query("select eField from Expertise where ExpertiseID="+getExpertise());
+        iRecord.log("select eField from Expertise where ExpertiseID="+getExpertise());
         try {
             while(qry.next()){
+                iRecord.log("Found expertise: "+qry.getString(1));
                 return qry.getString(1);
             }
         } catch (SQLException ex) {
@@ -82,5 +85,17 @@ public class Musician extends Freelancer {
     public String getFileString(){
         return this.fileString;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
 }

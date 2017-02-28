@@ -899,10 +899,9 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         });
         SessionManager.getMSMap(chosenMusicians, stud, sessionStartDate, sessionEndDate);
    
-        
-        for(Musician m : chosenMusicians.keySet()){
-            if(chosenSoundmen.contains(new Soundman(m.getFreelancerID())))
-                chosenMusicians.remove(m);
+        for(Soundman s : chosenSoundmen){
+            if(chosenMusicians.containsKey(new Musician(s.getFreelancerID())))
+                chosenMusicians.remove(new Musician(s.getFreelancerID()));
         }
         /**
          * Insert musicians to table
@@ -911,7 +910,7 @@ public class frmCreateSession extends javax.swing.JInternalFrame {
         int i=0;
         
         for(Musician m : chosenMusicians.keySet()){
-            System.err.println("Added Musician "+m.getFreelancerID()+" to table");
+            System.err.println("Added Musician "+m.getFreelancerID()+"(Expert: "+m.getExpertise()+" to table");
             int j=0;
             soundmanList[i][j++]=m;
             soundmanList[i][j++]=m.getExpertiseString();
