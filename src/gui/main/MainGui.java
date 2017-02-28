@@ -900,7 +900,9 @@ public class MainGui extends javax.swing.JFrame {
     }//GEN-LAST:event_studSessionsMouseClicked
 
     private void studFreelancersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studFreelancersMouseClicked
-        // TODO add your handling code here:
+        closeAllPanels();
+        frmStudiosFreelancers add = new frmStudiosFreelancers(Integer.parseInt(iRecord.getLoggedUser().getID()));
+        iWindow.openWin(add);
     }//GEN-LAST:event_studFreelancersMouseClicked
 
     private void studAddRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studAddRoomMouseClicked

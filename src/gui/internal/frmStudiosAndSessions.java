@@ -45,8 +45,12 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
         initComponents();
         
         setStudio(studioID);
-    }
-    
+        
+        lblEmail.setText(s.getsEmail());
+        lblAddress.setText(s.getsAddress());
+        lblPhoneNumber.setText(s.getsPhoneNum());
+        }
+        
     
     /**
      * This method is called from within the constructor to initialize the form.

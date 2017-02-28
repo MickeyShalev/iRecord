@@ -1,5 +1,6 @@
 package iRecord.Controller;
 
+import entities.Freelancer;
 import entities.Room;
 import entities.Session;
 import entities.Studio;
@@ -211,6 +212,38 @@ public class StudioAndRoomManager {
             Logger.getLogger(StudioAndRoomManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
+        return toReturn;
+    }
+    
+    
+    /**
+     * thid method return all freelancers of a studio
+     * @param id
+     * @return 
+     */
+    public static ArrayList<String[]> getStudioFreelancers(int id){
+        ArrayList<String[]> toReturn = new ArrayList<String[]>();
+        
+        String qry = "SELECT FreelancerToStudio.StudioID, FreelancerToStudio.FreelancerID AS FreelancerToStudio_FreelancerID, FreelancerToStudio.Grade, Freelancer.FreelancerID AS Freelancer_FreelancerID, Freelancer.stageName\n" +
+                    "FROM Freelancer INNER JOIN FreelancerToStudio ON Freelancer.[FreelancerID] = FreelancerToStudio.[FreelancerID]\n" +
+                    "WHERE (((FreelancerToStudio.StudioID)="+id+"))\n" +
+                    "ORDER BY FreelancerToStudio.Grade;";
+        
+        ResultSet rs = iRecord.getDB().query(qry);
+        
+        try {
+            while (rs.next()){
+                String fid = rs.getString(2);
+                String stageName = rs.getString(5);
+                int grade = rs.getInt(3);
+                String type = FreelancerManager.getMuicianDetails(fid) == null? "Musician":"Soundman";
+   
+                toReturn.add(new String[] {fid, stageName, type, grade+""});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudioAndRoomManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return toReturn;
     }

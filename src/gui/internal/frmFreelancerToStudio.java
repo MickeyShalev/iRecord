@@ -5,18 +5,12 @@
 */
 package gui.internal;
 
-import Validators.EmailValidator;
 import entities.*;
 import gui.main.iWindow;
-import iRecord.Controller.ArtistManager;
 import iRecord.Controller.FreelancerManager;
 import iRecord.Controller.StudioAndRoomManager;
-import iRecord.Validators.CharValidator;
-import iRecord.utilities.EAuth;
 import java.awt.Color;
-import java.util.Date;
 import java.util.Map;
-import java.util.Random;
 
 /**
  *
@@ -26,15 +20,31 @@ public class frmFreelancerToStudio extends javax.swing.JInternalFrame {
     private Freelancer f = null;
     private Studio s = null;
     private int rating = 0;
+    private boolean flag = false;
     
     /**
      * Creates new form frmCreateSession
      */
     public frmFreelancerToStudio() {
-        setTitle("Add Artist Page");
+        setTitle("Rate Freelancer");
         initComponents();
         
         init();
+        
+        
+    }
+    
+    
+        public frmFreelancerToStudio(Studio s, String FLid) {
+        setTitle("Rate Freelancer");
+        initComponents();
+        this.s = s;
+        setFL(FLid);
+        flag = true;
+        slctStudio.removeAllItems();
+        btnOK.setVisible(false);
+        slctStudio.addItem(s);
+        slctStudio.disable();
         
     }
     
@@ -124,6 +134,9 @@ public class frmFreelancerToStudio extends javax.swing.JInternalFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnOKMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnOKMouseEntered(evt);
+            }
         });
         pnlAdd.add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, -1, -1));
 
@@ -164,33 +177,8 @@ public class frmFreelancerToStudio extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void tfArtistIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfArtistIdFocusGained
-        if (tfArtistId.getText().equals("Enter freelancer id"))
-            tfArtistId.setText("");
-    }//GEN-LAST:event_tfArtistIdFocusGained
-
-    private void btnOKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOKMouseClicked
-        //import artist data
-        
-        f = FreelancerManager.getFreelancer(tfArtistId.getText());
-                
-        if (f == null){
-            lblNameError.setText("Freelancer was not found");
-            updateWin();
-            return;
-        }
-        
-        lblName.setText(f.getStageName());
-        
-        lblGen.setForeground(Color.GREEN);
-        lblGen.setText("");
-        lblNameError.setText("");
-        updateWin();
-        return;
-        
-    }//GEN-LAST:event_btnOKMouseClicked
-
     private void btnDisconnectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisconnectMouseClicked
+        //System.out.println(s1 .getsID() + " " + f.getID());
         if (f == null || s == null){
             
             lblGen.setForeground(Color.red);
@@ -245,16 +233,45 @@ public class frmFreelancerToStudio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnConnectMouseClicked
 
     private void slctStudioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_slctStudioItemStateChanged
-        if (slctStudio.getSelectedIndex() == 0) return;
+        if (slctStudio.getSelectedIndex() == 0 || flag) return;
         s = (Studio) slctStudio.getSelectedItem();
-
+        
         updateWin();
     }//GEN-LAST:event_slctStudioItemStateChanged
 
     
     private void cbRateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbRateItemStateChanged
+        //System.out.println(f.getID());
         rating = cbRate.getSelectedIndex();
     }//GEN-LAST:event_cbRateItemStateChanged
+
+    private void tfArtistIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfArtistIdFocusGained
+        if (tfArtistId.getText().equals("Enter freelancer id"))
+        tfArtistId.setText("");
+    }//GEN-LAST:event_tfArtistIdFocusGained
+
+    private void btnOKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOKMouseClicked
+        //import artist data
+        f = FreelancerManager.getFreelancer(tfArtistId.getText());
+        if (f == null){
+            lblNameError.setText("Freelancer was not found");
+            updateWin();
+            return;
+        }
+
+        lblName.setText(f.getStageName());
+
+        lblGen.setForeground(Color.GREEN);
+        lblGen.setText("");
+        lblNameError.setText("");
+        updateWin();
+        return;
+
+    }//GEN-LAST:event_btnOKMouseClicked
+
+    private void btnOKMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOKMouseEntered
+
+    }//GEN-LAST:event_btnOKMouseEntered
                                         
     private void init(){
         initStudios();
@@ -273,6 +290,19 @@ public class frmFreelancerToStudio extends javax.swing.JInternalFrame {
        
     }
    
+    
+    private void setFL(String FLid){
+        this.f = FreelancerManager.getFreelancer(FLid);
+        tfArtistId.setText(FLid);
+        //System.out.println(f.getID() + " " + s.getsID());
+        tfArtistId.disable();
+        lblName.setText(f.getStageName());
+        lblGen.setForeground(Color.GREEN);
+        lblGen.setText("");
+        lblNameError.setText("");
+        updateWin();
+        return;   
+    }
     
     public void updateWin(){
         
