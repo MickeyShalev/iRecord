@@ -398,6 +398,14 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
             return;
         }
         
+        //check if already previous
+        if (RecordingManager.isAlreadyPrevious(temp)){
+            lblprvERR.setText("Recording is already previous of another recording");
+            updateWin();
+            return;
+        }
+        
+        
         String prevStatus = RecordingManager.getRecordingStatus(temp);
         if (prevStatus.equals("Sketlon") || prevStatus.equals("Demo") && status.equals("Mastered")){
             setRecordingStatus();

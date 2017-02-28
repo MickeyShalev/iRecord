@@ -1,5 +1,5 @@
 package iRecord.utilities;
-    
+
 import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
@@ -61,7 +61,7 @@ public class PDFManager {
     public class PDFFile {
         
         private File pdfFile;
-        public Document document;
+        private Document document;
         private Font catFont;
         private Font redFont;
         private Font subFont;
@@ -78,6 +78,11 @@ public class PDFManager {
             document = new Document(PageSize.A4);
             PdfWriter.getInstance(document, new FileOutputStream(pdfFile));
             document.open();
+        }
+        
+        
+        public Document getDocument(){
+            return this.document;
         }
         
         public void addTitlePage(String title) throws DocumentException {
@@ -154,7 +159,7 @@ public class PDFManager {
                 list.add(new ListItem(s));
             }
             p1.add(list);
-                document.add(p1);
+            document.add(p1);
         }
         
         private void addEmptyLine(Paragraph paragraph, int number) {
@@ -163,21 +168,55 @@ public class PDFManager {
             }
         }
         
-//        public void launchPDF() {
-//            document.close();
-//            try {
-//                if (pdfFile.exists()) {
-//                    if (Desktop.isDesktopSupported()) {
-//                        Desktop.getDesktop().open(pdfFile);
-//                    } else
-//                        JOptionPane.showMessageDialog(WindowManager.getMainFrame(), "Awt Desktop is not supported :(",
-//                                "File error", JOptionPane.ERROR_MESSAGE);
-//                } else
-//                    JOptionPane.showMessageDialog(WindowManager.getMainFrame(),"File not found :(",
-//                            "File error",JOptionPane.ERROR_MESSAGE);
-//            } catch (IOException ex) {
-//                Logger.getLogger(PDFManager.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+        
+        public void addTables(int col, int row, String[] titles, ArrayList<String[]> values) throws BadElementException, DocumentException {
+            if (col == 0 || row == 0) {
+                return;
+            }
+            Paragraph p1 = new Paragraph();
+            addEmptyLine(p1, 1);
+            PdfPTable table = new PdfPTable(col);
+            PdfPCell c1;
+            table.setHeaderRows(0);
+            table.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.setWidthPercentage(100);
+            if (titles != null) {
+                for (int i = 0; i < 1; i++) {
+                    for (int j = 0; j < col; j++) {
+                        c1 = new PdfPCell(new Phrase(titles[j]));
+                        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        table.addCell(c1);
+                    }
+                }
+            }
+            if (values != null) {
+                for (int i = 0; i < values.size(); i++) {
+                    for (int j = 0; j < values.get(i).length; j++) {
+                        c1 = new PdfPCell(new Phrase(values.get(i)[j]));
+                        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        table.addCell(c1);
+                    }
+                }
+            }
+            p1.add(table);
+            document.add(p1);
+        }
+        
+        public void launchPDF() {
+            document.close();
+            try {
+                if (pdfFile.exists()) {
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(pdfFile);
+                    }      
+                }     
+            } catch (IOException ex) {
+                Logger.getLogger(PDFManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
+    
+    
+    
+    
 }

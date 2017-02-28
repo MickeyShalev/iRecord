@@ -123,7 +123,6 @@ public class ArtistManager {
         try {
             while(rs.next()){
                 String id = rs.getString("ArtistID");
-                if(id.equals("Admin") || id.equals("admin")) continue;
                 String stageName = rs.getString("stageName");
                 String email = rs.getString("sEmail");
                 Timestamp t = rs.getTimestamp("dateExpired");

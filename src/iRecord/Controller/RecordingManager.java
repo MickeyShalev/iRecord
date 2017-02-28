@@ -151,5 +151,25 @@ public class RecordingManager {
         
         return toReturn;
     }
+    
+    
+    
+    public static boolean isAlreadyPrevious(String recID) {
+        String qry = "SELECT Recording.* FROM Recording WHERE Recording.priorRecording=\""+recID+"\"";
+        ResultSet rs = iRecord.getDB().query(qry);
+        
+        try {
+            if (rs.next()){
+                return false;
+            }
+         
+               
+        } catch (SQLException ex) {
+            Logger.getLogger(RecordingManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
+    }
+    
  
 }

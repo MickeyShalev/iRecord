@@ -24,6 +24,7 @@ import iRecord.utilities.PDFManager;
 import iRecord.utilities.PDFManager.PDFFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 /**
  *
  * @author nisan
@@ -94,8 +95,9 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSoundmans = new javax.swing.JTable();
         Export = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        ExportAll = new javax.swing.JButton();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
@@ -346,7 +348,12 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
                 ExportActionPerformed(evt);
             }
         });
-        pnlAdd.add(Export, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, 160, -1));
+        pnlAdd.add(Export, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 490, 200, -1));
+
+        lblError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        lblError.setForeground(new java.awt.Color(255, 51, 51));
+        lblError.setText(" ");
+        pnlAdd.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 510, 20));
 
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(0, 50, 780, 520);
@@ -358,13 +365,21 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(600, 570, 160, 23);
+        jButton1.setBounds(560, 570, 200, 23);
 
-        lblError.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
-        lblError.setForeground(new java.awt.Color(255, 51, 51));
-        lblError.setText(" ");
-        getContentPane().add(lblError);
-        lblError.setBounds(20, 570, 560, 20);
+        ExportAll.setText("Export All Artists Statistics");
+        ExportAll.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExportAllMouseClicked(evt);
+            }
+        });
+        ExportAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportAllActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ExportAll);
+        ExportAll.setBounds(20, 570, 200, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -486,35 +501,142 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
 
     private void ExportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExportMouseClicked
         try {
-            String name = lblID.getText() + " - " + lblstageName.getText();
+            String name = lblID.getText() + " " + lblstageName.getText();
             
             PDFManager pdfMan = new PDFManager();
             pdfMan.createPDF(1, name);
-            pdfMan.getPDFFile(1).addTitlePage("ARTIST SESSIONS");
-            //ApdfMan.getPDFFile(1).createChapter(1 ,"ARTIST SESSIONS");
-            /*
-            ArrayList<String> add = new ArrayList<String>();
-            add.add("Total: " + total);
-            add.add("Mstered: " + mastered);
-            add.add("Precentage: " + precentage);
-            
-            pdfMan.getPDFFile(1).addList("Summary", add);
-*/
-            String[] titles = new String[] {"Studio ID", "Studio Name", "Session ID", "Date", "Total Cost", "Status", "Record ID"};
-            pdfMan.getPDFFile(1).addTable(7, tblGen.getModel().getRowCount(), titles, titles);
-            
-            pdfMan.getPDFFile(1).document.close();
+            pdfMan.getPDFFile(1).addTitlePage("ARTIST SESSIONS - " + name);
 
+            //calculate date
+            Date d = new Date();
+            d.setTime(d.getTime() - (long)180*24*3600*1000);
+            System.out.println(d.toString());
+            ArrayList<String[]> ses = RecordingManager.getArtistSessions(artist.getID(), new Timestamp(d.getTime()));
+            String[] titles = new String[] {"Studio ID", "Studio Name", "Session ID", "Date", "Total Cost", "Status", "Record ID"};
+            
+            //for each session
+            for (int i = 0; i < ses.size(); i++){
+                pdfMan.getPDFFile(1).addTable(7, tblGen.getModel().getRowCount(), titles, ses.get(i));
+                int snum = (int)PositiveValidator.stringToNum(ses.get(i)[2]);
+                
+                //get soundmans and print to pdf
+                ArrayList<String[]> soundmans = ReportManager.getSoundmansOfSession(snum);
+                String[] sound = new String[] {"Soundman ID", "Stage Name", "Role"};                
+                if (soundmans != null) pdfMan.getPDFFile(1).addTables(3, 3, sound, soundmans);
+
+                
+                //get musicians and print to pdf
+                String[] mus = new String[] {"Musician ID", "Stage Name", "Expertise"};
+                ArrayList<String[]> musicians = ReportManager.getMusiciansOfSession(sessionID);
+                if (musicians !=null) pdfMan.getPDFFile(1).addTables(3, 3, mus, musicians);
+                    
+ 
+                //calculate statistics for artist
+                if (ses.get(i)[5].equals("Mastered")) mastered++;
+                else if (ses.get(i)[5].equals("Demo")) demo++;
+                else if (ses.get(i)[5].equals("Sketelon")) sketelon++;
+                else other++;
+
+            }
+            
+            total = other + sketelon + demo + mastered;
+                if (total > 0)
+                    precentage = (((double)mastered)/((double)total))*100;
+                
+            //print statistics to pdf
+            String[] heads = new String[] {"Total", "Sketelon", "Demo", "Mstered", "Precentage" };
+            pdfMan.getPDFFile(1).addTable(5, 5, heads, new String[]{total+"", sketelon+"", demo+"", mastered+"", (int)precentage+"%"});
+
+            
+            
+            
+            
+            
+            pdfMan.getPDFFile(1).launchPDF();
+            
             
         } catch (DocumentException ex) {
             Logger.getLogger(frmSessions.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }//GEN-LAST:event_ExportMouseClicked
 
     private void ExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ExportActionPerformed
+
+    private void ExportAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExportAllMouseClicked
+        try {
+            
+            ArrayList<String[]> artists = ArtistManager.getArtistList("artistid");
+            PDFManager pdfMan = new PDFManager();
+            
+            for (String[] a : artists){
+                String name = a[0] + " - " + a[1];
+
+            mastered = 0; sketelon = 0; demo = 0; other=0; total = 0;    
+            
+            pdfMan.createPDF(1, name);
+            pdfMan.getPDFFile(1).addTitlePage("ARTIST SESSIONS - " + name);
+            
+            //calculate date
+            Date d = new Date();
+            d.setTime(d.getTime() - (long)180*24*3600*1000);
+            System.out.println(d.toString());
+            ArrayList<String[]> ses = RecordingManager.getArtistSessions(a[0], new Timestamp(d.getTime()));
+            String[] titles = new String[] {"Studio ID", "Studio Name", "Session ID", "Date", "Total Cost", "Status", "Record ID"};
+            
+            //for each session
+            for (int i = 0; i < ses.size(); i++){
+                pdfMan.getPDFFile(1).addTable(7, tblGen.getModel().getRowCount(), titles, ses.get(i));
+                int snum = (int)PositiveValidator.stringToNum(ses.get(i)[2]);
+                
+                //get soundmans and print to pdf
+                ArrayList<String[]> soundmans = ReportManager.getSoundmansOfSession(snum);
+                String[] sound = new String[] {"Soundman ID", "Stage Name", "Role"};
+                if (soundmans != null) pdfMan.getPDFFile(1).addTables(3, 3, sound, soundmans);
+                
+                
+                //get musicians and print to pdf
+                String[] mus = new String[] {"Musician ID", "Stage Name", "Expertise"};
+                ArrayList<String[]> musicians = ReportManager.getMusiciansOfSession(sessionID);
+                if (musicians !=null) pdfMan.getPDFFile(1).addTables(3, 3, mus, musicians);
+                
+                
+                //calculate statistics for artist
+                if (ses.get(i)[5].equals("Mastered")) mastered++;
+                else if (ses.get(i)[5].equals("Demo")) demo++;
+                else if (ses.get(i)[5].equals("Sketelon")) sketelon++;
+                else other++;
+                
+            }
+            
+            total = other + sketelon + demo + mastered;
+            if (total > 0)
+                precentage = (((double)mastered)/((double)total))*100;
+            
+            //print statistics to pdf
+            String[] heads = new String[] {"Total", "Sketelon", "Demo", "Mstered", "Precentage" };
+            pdfMan.getPDFFile(1).addTable(5, 5, heads, new String[]{total+"", sketelon+"", demo+"", mastered+"", (int)precentage+"%"});
+            
+            
+            pdfMan.getPDFFile(1).getDocument().close();
+            
+            lblError.setForeground(Color.GREEN);
+            lblError.setText("All files were exported to the reports folder");
+            }
+            
+            
+            
+            
+        } catch (DocumentException ex) {
+            Logger.getLogger(frmSessions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ExportAllMouseClicked
+
+    private void ExportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportAllActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExportAllActionPerformed
     
     
     private void init(){
@@ -537,8 +659,19 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
     }
     
     
+    private String[] getRow(int i , JTable tbl){
+        String[] toReturn = new String[tbl.getModel().getColumnCount()];
+        for (int j = 0; j < tbl.getRowCount(); j++){
+            toReturn[j] = (String)tbl.getModel().getValueAt(i, j);
+        }
+
+        return toReturn;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Export;
+    private javax.swing.JButton ExportAll;
     private javax.swing.JButton getData;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel16;
