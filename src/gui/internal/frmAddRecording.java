@@ -10,6 +10,7 @@ import entities.Recording;
 import gui.main.iWindow;
 import iRecord.Controller.RecordingManager;
 import iRecord.iRecord;
+import iRecord.utilities.FileManager;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -456,6 +457,10 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
         }
         
         
+        filePath = FileManager.toBase64(f);
+        updateWin();
+        
+        /*
         //Try creating the file
         File uploads = new File("src/sources/recordings");
         iRecord.log("Upload dir: "+uploads.getAbsolutePath());
@@ -485,7 +490,7 @@ public class frmAddRecording extends javax.swing.JInternalFrame {
 //        }
         filePath = tmp.getAbsolutePath();
         iWindow.update();
-
+*/
     }//GEN-LAST:event_attachFileMouseClicked
 
     private void tfNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNameFocusGained

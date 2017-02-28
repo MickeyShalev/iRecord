@@ -225,8 +225,7 @@ public class frmStudiosFreelancers extends javax.swing.JInternalFrame {
         }
     }
     
-    
-    
+
     public void updateWin(){
         
         iWindow.update();

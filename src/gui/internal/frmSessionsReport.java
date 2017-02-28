@@ -485,26 +485,30 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void ExportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExportMouseClicked
-//        try {
-//            String name = lblID.getText() + " - " + lblstageName.getText();
-//            
-//            PDFManager pdfMan = new PDFManager();
-//            pdfMan.createPDF(1, name);
-//            pdfMan.getPDFFile(1).addTitlePage("ARTIST SESSIONS");
-//            //ApdfMan.getPDFFile(1).createChapter(1 ,"ARTIST SESSIONS");
-//            
-//            ArrayList<String> add = new ArrayList<String>();
-//            add.add("Total: " + total);
-//            add.add("Mstered: " + mastered);
-//            add.add("Precentage: " + precentage);
-//            
-//            pdfMan.getPDFFile(1).addList("Summary", add);
-//            String[] titles = new String[] {"Studio ID", "Studio Name", "Session ID", "Date", "Total Cost", "Status", "Record ID"};
-//            pdfMan.getPDFFile(1).addTable(7, tblGen.getModel().getRowCount(), titles, titles);
-//
-//        } catch (DocumentException ex) {
-//            Logger.getLogger(frmSessions.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            String name = lblID.getText() + " - " + lblstageName.getText();
+            
+            PDFManager pdfMan = new PDFManager();
+            pdfMan.createPDF(1, name);
+            pdfMan.getPDFFile(1).addTitlePage("ARTIST SESSIONS");
+            //ApdfMan.getPDFFile(1).createChapter(1 ,"ARTIST SESSIONS");
+            /*
+            ArrayList<String> add = new ArrayList<String>();
+            add.add("Total: " + total);
+            add.add("Mstered: " + mastered);
+            add.add("Precentage: " + precentage);
+            
+            pdfMan.getPDFFile(1).addList("Summary", add);
+*/
+            String[] titles = new String[] {"Studio ID", "Studio Name", "Session ID", "Date", "Total Cost", "Status", "Record ID"};
+            pdfMan.getPDFFile(1).addTable(7, tblGen.getModel().getRowCount(), titles, titles);
+            
+            pdfMan.getPDFFile(1).document.close();
+
+            
+        } catch (DocumentException ex) {
+            Logger.getLogger(frmSessions.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_ExportMouseClicked
 

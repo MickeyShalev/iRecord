@@ -61,7 +61,7 @@ public class PDFManager {
     public class PDFFile {
         
         private File pdfFile;
-        private Document document;
+        public Document document;
         private Font catFont;
         private Font redFont;
         private Font subFont;

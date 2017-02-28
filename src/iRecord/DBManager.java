@@ -26,9 +26,11 @@ public class DBManager {
         Class.forName(driver); 
         try{
         conn=DriverManager.getConnection("jdbc:ucanaccess://"+dbFile);    
+        System.err.println("Connecting with: jdbc:ucanaccess://"+dbFile);
         }
         catch(Exception e){
             dbFile = (new File("src/sources/iRecord.accdb")).getAbsolutePath();
+            System.err.println("Connecting with: jdbc:ucanaccess://"+dbFile);
             conn=DriverManager.getConnection("jdbc:ucanaccess://"+dbFile);
         }
         
