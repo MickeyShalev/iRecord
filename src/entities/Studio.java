@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import iRecord.*;
+import iRecord.utilities.EAuth;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,9 +21,10 @@ import java.util.logging.Logger;
  * @author Administrator
  */
 public class Studio {
-    private String sName, sAddress, sEmail, sPhoneNum, sDesc;
+    private String sName, sAddress, sEmail, sPhoneNum, sDesc, password;
     private Integer sID;
     private Map<Integer, Room> sRooms;
+    private EAuth studAuth = null;
 //    public Studio(Integer sID, String sName, String sAddress, String sEmail, String sPhoneNum, String sDesc){
 //        this.s
 //    }
@@ -34,6 +36,18 @@ public class Studio {
         this.sPhoneNum = sPhoneNum;
         this.sDesc = sDesc;
         this.sID = sID;
+        this.sRooms = aquireRooms();
+        
+    }
+    
+        public Studio(String sName, String sAddress, String sEmail, String sPhoneNum, String sDesc, Integer sID, String password) {
+        this.sName = sName;
+        this.sAddress = sAddress;
+        this.sEmail = sEmail;
+        this.sPhoneNum = sPhoneNum;
+        this.sDesc = sDesc;
+        this.sID = sID;
+        this.password = password;
         this.sRooms = aquireRooms();
         
     }
@@ -103,6 +117,15 @@ public class Studio {
         this.sRooms = sRooms;
     }
     
+    
+    public void setAuth(EAuth auth){
+        this.studAuth = auth;
+    }
+    
+    public EAuth getAuth(){
+        return this.studAuth;
+    }
+    
     public Map<Integer, Room> aquireRooms(){
         Map<Integer, Room> tmpList = new HashMap<Integer, Room>();
         ResultSet qry = iRecord.getDB().query("select * from Room where StudioID=\""+getsID()+"\"");
@@ -123,6 +146,15 @@ public class Studio {
         return tmpList;
                 
                 
+    }
+
+    public String getPass() {
+        return this.password;
+    }
+    
+    
+    public void setPass(String pass){
+        this.password = pass;
     }
     
 }

@@ -30,8 +30,8 @@ public class StudioAndRoomManager {
     public static int addStudio(Studio s){
         int status = -1;
         
-        String qry = "INSERT INTO Studio (StudioID, sName, sAddress, sEmail, sPhoneNum, sDesc)"
-                + " VALUES ("+s.getsID().intValue() +",\""+s.getsName()+"\", \""+s.getsAddress()+"\", \""+s.getsEmail()+"\",\""+s.getsPhoneNum()+"\", \""+s.getsDesc()+"\")";
+        String qry = "INSERT INTO Studio (StudioID, sName, sAddress, sEmail, sPhoneNum, sDesc, password)"
+                + " VALUES ("+s.getsID().intValue() +",\""+s.getsName()+"\", \""+s.getsAddress()+"\", \""+s.getsEmail()+"\",\""+s.getsPhoneNum()+"\", \""+s.getsDesc()+"\", \""+s.getPass()+"\")";
         
         
         iRecord.getDB().updateReturnID(qry);
@@ -84,7 +84,8 @@ public class StudioAndRoomManager {
                 String sEmail = rs.getString("sEmail");
                 String sPhoneNum = rs.getString("sPhoneNum");
                 String sDesc = rs.getString("sDesc");
-                Studio stud = new Studio(sName, sAddress, sEmail, sPhoneNum, sDesc, StudioID);
+                String pass = rs.getString("password");
+                Studio stud = new Studio(sName, sAddress, sEmail, sPhoneNum, sDesc, StudioID, pass);
                 studios.put(StudioID, stud);
             }
         } catch (SQLException ex) {
@@ -97,7 +98,7 @@ public class StudioAndRoomManager {
 //        }
 
 
-return studios;
+        return studios;
     }
     
     /**
@@ -164,6 +165,7 @@ return studios;
         return false;
     }
  
+    
     public static boolean isStudioExists(int studioID){
         //chech if artist is already exists
         ResultSet rs = iRecord.getDB().query("SELECT Studio.*, Studio.studioid\n" +

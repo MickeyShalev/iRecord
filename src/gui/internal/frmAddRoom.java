@@ -34,11 +34,25 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
      * Creates new form frmCreateSession
      */
     public frmAddRoom() {
-        setTitle("Add Artist Page");
+        setTitle("Add Room");
         initComponents();
         
         init();
         
+    }
+    
+    
+    public frmAddRoom(int id) {
+        setTitle("Add Room");
+        initComponents();
+        studioID = id;
+        slctStudio.disable();
+        
+        int room = StudioAndRoomManager.getNextRoomNum(id);
+        lblNum.setText(Integer.valueOf(room).toString());
+        roomID = room;
+        updateWin(); 
+         
     }
     
     /**
@@ -305,6 +319,7 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
        }
        
     }
+
     
     public void updateWin(){
         

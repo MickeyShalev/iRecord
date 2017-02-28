@@ -5,10 +5,12 @@
 */
 package gui.internal;
 
+import Validators.PositiveValidator;
 import entities.Studio;
 import gui.main.iWindow;
 import iRecord.Controller.ArtistManager;
 import iRecord.Controller.FreelancerManager;
+import iRecord.Controller.ReportManager;
 import iRecord.Controller.StudioAndRoomManager;
 import java.awt.Color;
 import java.sql.Timestamp;
@@ -30,11 +32,19 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
      * Creates new form frmCreateSession
      */
     public frmStudiosAndSessions() {
-        setTitle("Add Artist Page");
+        setTitle("Studio's Sessions");
         initComponents();
         
         init();
         
+    }
+    
+    
+        public frmStudiosAndSessions(int studioID) {
+        setTitle("Studio's Sessions");
+        initComponents();
+        
+        setStudio(studioID);
     }
     
     
@@ -63,6 +73,10 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
         lblAddress = new javax.swing.JLabel();
         lblPhoneNumber = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMusicians = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblSoundmans = new javax.swing.JTable();
 
         setBackground(new Color(0,0,0,0));
         getContentPane().setLayout(null);
@@ -124,9 +138,14 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblGen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblGenMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblGen);
 
-        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 680, 240));
+        pnlAdd.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 680, 180));
 
         getData.setText("Get Data");
         getData.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -198,6 +217,64 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
         lblError.setText(" ");
         pnlAdd.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 370, -1));
 
+        tblMusicians.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Musician ID", "Stage Name", "Expertise"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblMusicians);
+
+        pnlAdd.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 350, 90));
+
+        tblSoundmans.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Soundman ID", "Stage Name", "Role"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblSoundmans);
+
+        pnlAdd.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 410, 360, 90));
+
         getContentPane().add(pnlAdd);
         pnlAdd.setBounds(0, 40, 780, 520);
 
@@ -261,6 +338,43 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
         updateWin();
         return;
     }//GEN-LAST:event_slctStudioItemStateChanged
+
+    private void tblGenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGenMouseClicked
+        lblError.setText("");
+        String id = (String)tblGen.getModel().getValueAt(tblGen.getSelectedRow(), 0);
+        int sessionID = (int) PositiveValidator.stringToNum(id);
+        if (sessionID < 1) return;
+        ArrayList<String[]> musicians = ReportManager.getMusiciansOfSession(sessionID);
+        ArrayList<String[]> soundmans = ReportManager.getSoundmansOfSession(sessionID);
+        
+
+        //set soundmans
+        DefaultTableModel model1 = (DefaultTableModel) tblSoundmans.getModel();
+        model1.setRowCount(0);
+        if (soundmans !=null){
+            for (String[] s:soundmans){
+                if (s == null) break;
+                String[] row = {s[0], s[1], s[2]};
+                model1.addRow(row);
+                
+            }
+        }
+        
+        //set musicians
+        DefaultTableModel model2 = (DefaultTableModel) tblMusicians.getModel();
+        model2.setRowCount(0);
+        if (musicians !=null){
+            for (String[] s:musicians){
+                if (s == null) break;
+                String[] row = {s[0], s[1], s[2]};
+                model2.addRow(s);
+                
+            }
+        }
+        
+        
+        updateWin();
+    }//GEN-LAST:event_tblGenMouseClicked
     
     
     private void init(){
@@ -282,6 +396,19 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
     }
     
     
+    //set studio
+    private void setStudio(int StudioID){
+        Map<Integer,Studio> studios = StudioAndRoomManager.getStudios();
+        for (Studio s:studios.values()){
+            if (s.getsID() == StudioID){
+                this.s = s;
+            }
+        }
+        
+        slctStudio.disable();
+    }
+    
+    
     
     public void updateWin(){
         
@@ -292,6 +419,8 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton getData;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JLabel lblAddr;
@@ -306,5 +435,7 @@ public class frmStudiosAndSessions extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlAdd;
     private javax.swing.JComboBox<Studio> slctStudio;
     private javax.swing.JTable tblGen;
+    private javax.swing.JTable tblMusicians;
+    private javax.swing.JTable tblSoundmans;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,12 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package iRecord;
 
+import Validators.PositiveValidator;
 import entities.*;
 import iRecord.Controller.XMLManager;
+import iRecord.Validators.CharValidator;
 import java.util.Date;
 import java.sql.*;
 import java.util.logging.Level;
@@ -24,16 +26,16 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class iRecord {
-
+    
     private static DBManager DB;
     private static Person loggedUser = null;
     private static String fileName = "iReportLogger";
     private static FileWriter logFile;
     private static PrintStream logWriter;
     private static Person admin;
-
-  
-
+    
+    
+    
     public iRecord() {
         //Reset log
         try {
@@ -51,36 +53,36 @@ public class iRecord {
             System.err.println("Cannot write to log file!");
             System.exit(0);
         }
-
+        
         //Initiate DB
         init();
-
+        
     }
     
     /**
      * This class import artists' dates XML from HandsInAir
-     * @param id 
+     * @param id
      */
-      public static void importXML(String id) {
+    public static void importXML(String id) {
         
     }
-
+    
     public static DBManager getDB() {
         return DB;
     }
-
+    
     public static void setDB(DBManager DB) {
         iRecord.DB = DB;
     }
-
+    
     public static Person getLoggedUser() {
         return loggedUser;
     }
-
+    
     public static void setLoggedUser(Person loggedUser) {
         iRecord.loggedUser = loggedUser;
     }
-
+    
     /**
      * Initiates a DB Connection
      */
@@ -99,7 +101,10 @@ public class iRecord {
         }
         log("Successfully connected to MS Access DB.");
     }
-
+    
+    
+    
+    
     /**
      * Internal Logging
      *
@@ -110,9 +115,9 @@ public class iRecord {
         String strDate = sdfDate.format(now);
         logWriter.print(strDate + "\t" + str + System.getProperty("line.separator"));
         logWriter.flush();
-       
+        
     }
-
+    
     
     /**
      * This method gets id and password and validates username and password using sql query
@@ -121,7 +126,7 @@ public class iRecord {
      * @param id
      * @param pass
      * @return true if user is allowed to enter to the system
-     * @throws SQLException 
+     * @throws SQLException
      */
     public static boolean logIn(String id, String pass) throws SQLException {
         ResultSet tmp = null;
@@ -132,7 +137,15 @@ public class iRecord {
             loggedUser = admin;
             return true;
         }
-
+        
+        //check is studio rep is tring to login
+        if (CharValidator.isNumber(id)){
+            if (tryAsSrudio(id, pass)){
+                return true;
+            }
+        }
+        
+        if (id.length() < 3) return false;
         //System.out.println(id.substring(0,2));
         //Artist is attempting to login
         if (id.substring(0, 2).equals("AR") || id.equals("admin")){
@@ -152,11 +165,11 @@ public class iRecord {
                     setLoggedUser(p);
                     log("Artist logged in");
                     
-                            //check if suspended 
-                            if (d.after(new java.util.Date())) {
-                                return false;
-                            }
-                            
+                    //check if suspended
+                    if (d.after(new java.util.Date())) {
+                        return false;
+                    }
+                    
                     return true;
                 }
                 
@@ -203,17 +216,50 @@ public class iRecord {
                 }
                 
             }
-         
         }
         
         return false;
     }
     
-
     
-
+    /**s
+     * This method checks if a login attempt is from studio rep
+     * @param id
+     * @param pass
+     * @return
+     * @throws SQLException
+     */
+    private static boolean tryAsSrudio(String id, String pass) throws SQLException{
+        
+        int sid = (int) PositiveValidator.stringToNum(id);
+        if (sid < 0) return false;
+        ResultSet tmp = iRecord.DB.query("SELECT * FROM Studio WHERE Studioid=" + sid + " AND password=\"" + pass + "\"");
+        
+        if (tmp.next()) {
+            if (tmp.getString(1).length() > 0) {
+                
+                String ID = tmp.getString("studioid");
+                String stageName = tmp.getString("sname");
+                String email = tmp.getString("semail");
+                String password = tmp.getString("Password");
+                //System.err.println("Date: " + expireDate);
+                Person p = new Person(ID, stageName, password, EAuth.Studio_Representative);
+                // ID,  firstName,  lastName,  stageName,  email,  password,  status,  birthdate
+                
+                setLoggedUser(p);
+                log("Studio logged in");
+                return true;
+            }
+            
+        }
+        
+        
+        return false;
+    }
+    
+    
     public static String getID(String str) {
-
+        
         try {
             String tmp[] = str.split("\\(");
             tmp = tmp[1].split("\\)");
@@ -224,5 +270,5 @@ public class iRecord {
         }
         return str;
     }
-
+    
 }

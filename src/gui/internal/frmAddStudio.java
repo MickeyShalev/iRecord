@@ -28,6 +28,7 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
     private String address;
     private String phone;
     private String description;
+    private String password;
     
     /**
      * Creates new form frmCreateSession
@@ -68,6 +69,11 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         lblPhoneError = new javax.swing.JLabel();
+        Pass2 = new javax.swing.JPasswordField();
+        Pass1 = new javax.swing.JPasswordField();
+        lblPass1 = new javax.swing.JLabel();
+        lblPass2 = new javax.swing.JLabel();
+        lblPass4 = new javax.swing.JLabel();
         lblGen = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -199,8 +205,44 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
         lblPhoneError.setForeground(new java.awt.Color(255, 0, 51));
         pnlAdd.add(lblPhoneError, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 400, 20));
 
+        Pass2.setText("jPasswordField2");
+        Pass2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                Pass2FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Pass2FocusLost(evt);
+            }
+        });
+        pnlAdd.add(Pass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 190, -1));
+
+        Pass1.setText("jPasswordField1");
+        Pass1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                Pass1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Pass1FocusLost(evt);
+            }
+        });
+        pnlAdd.add(Pass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 190, -1));
+
+        lblPass1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblPass1.setForeground(new java.awt.Color(255, 255, 255));
+        lblPass1.setText("Password");
+        pnlAdd.add(lblPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
+
+        lblPass2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblPass2.setForeground(new java.awt.Color(255, 255, 255));
+        lblPass2.setText("Retype Password");
+        pnlAdd.add(lblPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+
+        lblPass4.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        lblPass4.setForeground(new java.awt.Color(255, 0, 51));
+        pnlAdd.add(lblPass4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 400, 20));
+
         getContentPane().add(pnlAdd);
-        pnlAdd.setBounds(0, 40, 780, 260);
+        pnlAdd.setBounds(0, 40, 780, 310);
 
         lblGen.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblGen.setForeground(new java.awt.Color(255, 0, 51));
@@ -214,8 +256,13 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
                 btnAddMouseClicked(evt);
             }
         });
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAdd);
-        btnAdd.setBounds(20, 310, 100, 20);
+        btnAdd.setBounds(10, 370, 100, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -272,9 +319,11 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
             updateWin();
             return;
         }
+        
         else{
             pnlAdd.setVisible(false);
-            Studio toAdd = new Studio (studioName, address ,Email , phone, description, studioID);
+            Studio toAdd = new Studio (studioName, address ,Email , phone, description, studioID, password);
+            
             
             if (StudioAndRoomManager.addStudio(toAdd) > 0){
                 lblGen.setForeground(Color.GREEN);
@@ -344,6 +393,68 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
         iWindow.update();
         
     }//GEN-LAST:event_jTextArea1FocusLost
+
+    private void Pass2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass2FocusGained
+        if (Pass2.getText().equals("jPasswordField2"))
+        Pass2.setText("");
+    }//GEN-LAST:event_Pass2FocusGained
+
+    private void Pass2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass2FocusLost
+        String pass1= Pass1.getText();
+        String pass2 = Pass2.getText();
+        if (pass1.length() < 4){
+            lblPass4.setText("Password must contain at least 4 characters");
+            password =null;
+            updateWin();
+            return;
+        }
+
+        if (!pass1.equals(pass2)){
+            lblPass4.setText("Passwords does not match");
+            password =null;
+            updateWin();
+            return;
+        }
+
+        lblPass4.setText("");
+        password = pass2;
+        updateWin();
+
+    }//GEN-LAST:event_Pass2FocusLost
+
+    private void Pass1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass1FocusGained
+        if (Pass1.getText().equals("jPasswordField1"))
+        Pass1.setText("");
+    }//GEN-LAST:event_Pass1FocusGained
+
+    private void Pass1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Pass1FocusLost
+        String pass1= Pass1.getText();
+        String pass2 = Pass2.getText();
+        if (pass1.length() < 4){
+            lblPass4.setText("Password must contain at least 4 characters");
+            password =null;
+            updateWin();
+            return;
+        }
+
+        if (!pass1.equals(pass2)){
+            if (Pass2.getText().equals("jPasswordField2"))
+            lblPass4.setText("");
+            else{
+                lblPass4.setText("Passwords does not match");
+            }
+            password =null;
+            updateWin();
+            return;
+        }
+
+        updateWin();
+
+    }//GEN-LAST:event_Pass1FocusLost
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
     
     private void init(){
         createStudioID(); 
@@ -366,6 +477,8 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField Pass1;
+    private javax.swing.JPasswordField Pass2;
     private javax.swing.JButton btnAdd;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JScrollPane jScrollPane1;
@@ -377,6 +490,9 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblMailError;
     private javax.swing.JLabel lblNameError;
+    private javax.swing.JLabel lblPass1;
+    private javax.swing.JLabel lblPass2;
+    private javax.swing.JLabel lblPass4;
     private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblPhoneError;
     private javax.swing.JLabel lblStudioID;

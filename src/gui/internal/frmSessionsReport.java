@@ -33,7 +33,8 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
     private Date picked = null;
     private int sessionID;
     private File file;
-    private int mastered = 0, sketelon = 0, demo = 0, other=0;
+    private int mastered = 0, sketelon = 0, demo = 0, other=0, total = 0;
+    private double precentage = 0;
     
     /**
      * Creates new form frmCreateSession
@@ -224,7 +225,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
 
         lblSongTitle.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblSongTitle.setForeground(new java.awt.Color(255, 255, 255));
-        pnlAdd.add(lblSongTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 360, 20));
+        pnlAdd.add(lblSongTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 360, 20));
 
         lblAddr5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblAddr5.setForeground(new java.awt.Color(255, 255, 255));
@@ -348,7 +349,7 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         pnlAdd.add(Export, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, 160, -1));
 
         getContentPane().add(pnlAdd);
-        pnlAdd.setBounds(0, 40, 780, 520);
+        pnlAdd.setBounds(0, 50, 780, 520);
 
         jButton1.setText("Susspend Artist");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -401,9 +402,9 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
         lblSket.setText(""+sketelon);
         lblDemo.setText(""+demo);
         lblMastered.setText(""+mastered);
-        int total = other + sketelon + demo + mastered;
+        total = other + sketelon + demo + mastered;
         if (total > 0) {
-            double precentage = (((double)mastered)/((double)total))*100;
+            precentage = (((double)mastered)/((double)total))*100;
             lblprec.setText(""+precentage);
             
             //progress bar code here
@@ -484,19 +485,26 @@ public class frmSessionsReport extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void ExportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExportMouseClicked
-        try {
-            String name = lblID.getText() + " " + new Date().toInstant();
-            PDFManager pdfMan = new PDFManager();
-            pdfMan.createPDF(1, "Artist");
-            pdfMan.createPDF(1, name);
-            pdfMan.getPDFFile(1).addTitlePage("ARTIST SESSIONS");
-            pdfMan.getPDFFile(1).createChapter(1 ,"ARTIST SESSIONS");
-            String[] titles = new String[] {"Studio ID", "Studio Name", "Session ID", "Date", "Total Cost", "Status", "Record ID"};
-            pdfMan.getPDFFile(1).addTable(7, tblGen.getModel().getRowCount(), titles, titles);
-
-        } catch (DocumentException ex) {
-            Logger.getLogger(frmSessions.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            String name = lblID.getText() + " - " + lblstageName.getText();
+//            
+//            PDFManager pdfMan = new PDFManager();
+//            pdfMan.createPDF(1, name);
+//            pdfMan.getPDFFile(1).addTitlePage("ARTIST SESSIONS");
+//            //ApdfMan.getPDFFile(1).createChapter(1 ,"ARTIST SESSIONS");
+//            
+//            ArrayList<String> add = new ArrayList<String>();
+//            add.add("Total: " + total);
+//            add.add("Mstered: " + mastered);
+//            add.add("Precentage: " + precentage);
+//            
+//            pdfMan.getPDFFile(1).addList("Summary", add);
+//            String[] titles = new String[] {"Studio ID", "Studio Name", "Session ID", "Date", "Total Cost", "Status", "Record ID"};
+//            pdfMan.getPDFFile(1).addTable(7, tblGen.getModel().getRowCount(), titles, titles);
+//
+//        } catch (DocumentException ex) {
+//            Logger.getLogger(frmSessions.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
     }//GEN-LAST:event_ExportMouseClicked
 

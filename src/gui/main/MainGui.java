@@ -67,6 +67,7 @@ public class MainGui extends javax.swing.JFrame {
         STD = new javax.swing.JPanel();
         AddRoom = new javax.swing.JLabel();
         AddStudio = new javax.swing.JLabel();
+        StudiosSessions = new javax.swing.JLabel();
         Artist = new javax.swing.JLabel();
         FL = new javax.swing.JPanel();
         AddSoundman = new javax.swing.JLabel();
@@ -88,6 +89,10 @@ public class MainGui extends javax.swing.JFrame {
         Sessions2 = new javax.swing.JLabel();
         music = new javax.swing.JLabel();
         sound = new javax.swing.JLabel();
+        pnlStud = new javax.swing.JPanel();
+        studSessions = new javax.swing.JLabel();
+        studFreelancers = new javax.swing.JLabel();
+        studAddRoom = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
@@ -211,24 +216,38 @@ public class MainGui extends javax.swing.JFrame {
             }
         });
 
+        StudiosSessions.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        StudiosSessions.setForeground(new java.awt.Color(255, 255, 255));
+        StudiosSessions.setText("Sessions");
+        StudiosSessions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StudiosSessionsMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout STDLayout = new javax.swing.GroupLayout(STD);
         STD.setLayout(STDLayout);
         STDLayout.setHorizontalGroup(
             STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(STDLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AddRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AddStudio, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addGroup(STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(StudiosSessions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(STDLayout.createSequentialGroup()
+                        .addGroup(STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AddRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AddStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         STDLayout.setVerticalGroup(
             STDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(STDLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, STDLayout.createSequentialGroup()
                 .addComponent(AddStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(AddRoom)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(StudiosSessions)
+                .addContainerGap())
         );
 
         Artist.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -388,11 +407,12 @@ public class MainGui extends javax.swing.JFrame {
                 .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAdminLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(Studio, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Studio, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlAdminLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(STD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(STD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         getContentPane().add(pnlAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 350, 350));
@@ -566,6 +586,67 @@ public class MainGui extends javax.swing.JFrame {
         );
 
         getContentPane().add(pnlFreelancer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 540));
+
+        pnlStud.setOpaque(false);
+
+        studSessions.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        studSessions.setForeground(new java.awt.Color(255, 255, 255));
+        studSessions.setText("Sessions");
+        studSessions.setToolTipText("");
+        studSessions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studSessionsMouseClicked(evt);
+            }
+        });
+
+        studFreelancers.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        studFreelancers.setForeground(new java.awt.Color(255, 255, 255));
+        studFreelancers.setText("Freelancers");
+        studFreelancers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studFreelancersMouseClicked(evt);
+            }
+        });
+
+        studAddRoom.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        studAddRoom.setForeground(new java.awt.Color(255, 255, 255));
+        studAddRoom.setText("Add Room");
+        studAddRoom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studAddRoomMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlStudLayout = new javax.swing.GroupLayout(pnlStud);
+        pnlStud.setLayout(pnlStudLayout);
+        pnlStudLayout.setHorizontalGroup(
+            pnlStudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlStudLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlStudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStudLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(studSessions, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlStudLayout.createSequentialGroup()
+                        .addGroup(pnlStudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(studFreelancers, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(studAddRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pnlStudLayout.setVerticalGroup(
+            pnlStudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStudLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(studSessions, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(studFreelancers, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(studAddRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(349, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(pnlStud, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 540));
 
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/images/iStudioGui.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 1020, 770));
@@ -806,6 +887,27 @@ public class MainGui extends javax.swing.JFrame {
     private void HIAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HIAMouseClicked
         
     }//GEN-LAST:event_HIAMouseClicked
+
+    private void StudiosSessionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StudiosSessionsMouseClicked
+        closeAllPanels();
+        frmStudiosAndSessions add = new frmStudiosAndSessions();
+        iWindow.openWin(add);
+    }//GEN-LAST:event_StudiosSessionsMouseClicked
+
+    private void studSessionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studSessionsMouseClicked
+        frmStudiosAndSessions add = new frmStudiosAndSessions(Integer.parseInt(iRecord.getLoggedUser().getID()));
+        iWindow.openWin(add);
+    }//GEN-LAST:event_studSessionsMouseClicked
+
+    private void studFreelancersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studFreelancersMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_studFreelancersMouseClicked
+
+    private void studAddRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studAddRoomMouseClicked
+        closeAllPanels();
+        frmAddRoom add = new frmAddRoom(Integer.parseInt(iRecord.getLoggedUser().getID()));
+        iWindow.openWin(add);
+    }//GEN-LAST:event_studAddRoomMouseClicked
     
     private void closeAllPanels(){
         AR.setVisible(false);
@@ -826,6 +928,7 @@ public class MainGui extends javax.swing.JFrame {
         FL.setVisible(false);
         STD.setVisible(false);
         HIA.setVisible(false);
+        pnlStud.setVisible(false);
         pnlFreelancer.setVisible(false);
         pnlArtist.setVisible(false);
         switch (iRecord.getLoggedUser().getUserAuth()) {
@@ -848,7 +951,14 @@ public class MainGui extends javax.swing.JFrame {
                 frmAddArtist add = new frmAddArtist(a.getID(), a.getStageName(), a.getEmail());
                 iWindow.openWin(add);
                 break;
+                
+                
+            case Studio_Representative:
+                pnlStud.setVisible(true);
+                break;
         }
+        
+        
         
     }
     
@@ -879,6 +989,7 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JLabel Sessions1;
     private javax.swing.JLabel Sessions2;
     private javax.swing.JLabel Studio;
+    private javax.swing.JLabel StudiosSessions;
     private javax.swing.JLabel SuspendArtist;
     private javax.swing.JLabel SuspendFreelancer;
     private javax.swing.JLabel SuspendFreelancer1;
@@ -897,7 +1008,11 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JPanel pnlAdmin;
     private javax.swing.JPanel pnlArtist;
     private javax.swing.JPanel pnlFreelancer;
+    private javax.swing.JPanel pnlStud;
     private javax.swing.JLabel sound;
+    private javax.swing.JLabel studAddRoom;
+    private javax.swing.JLabel studFreelancers;
+    private javax.swing.JLabel studSessions;
     // End of variables declaration//GEN-END:variables
     
 }
