@@ -29,11 +29,11 @@ public class RecordingManager {
     public static ArrayList<String[]> getArtistSessions(String id, Timestamp t){
         ArrayList<String[]> toReturn = new ArrayList<String[]>();
         //get sessions details
-        String qry = "SELECT Artists.ArtistID AS Artists_ArtistID, Studio.StudioID, Studio.sName, Count(Session.SessionID) AS CountOfSessionID, Session.ArtistID AS Session_ArtistID, Session.sessionStartDate, Session.TotalCost, Session.SessionID\n" +
-                     "FROM (Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]) INNER JOIN ((Artists INNER JOIN [Session] ON Artists.[ArtistID] = Session.[ArtistID]) INNER JOIN SessionInRoom ON Session.[SessionID] = SessionInRoom.[SessionID]) ON (Room.[StudioID] = SessionInRoom.[StudioID]) AND (Room.[RoomNum] = SessionInRoom.[RoomNum])\n" +
-                     "GROUP BY Artists.ArtistID, Studio.StudioID, Studio.sName, Session.ArtistID, Session.sessionStartDate, Session.TotalCost, Session.SessionID\n" +
-                     "HAVING (((Session.ArtistID)=\""+id+"\") AND ((Session.sessionStartDate)>\""+t+"\")) "+
-                     "ORDER BY Session.sessionStartDate;";
+        String qry = "SELECT Artists.ArtistID AS Artists_ArtistID, Artists.StageName, Studio.StudioID, Studio.sName, Session.SessionID, Session.sessionStartDate, Session.TotalCost, Recording.RecordID, Recording.iStatus\n" +
+                    "FROM ((Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]) INNER JOIN ((Artists INNER JOIN [Session] ON Artists.[ArtistID] = Session.[ArtistID]) INNER JOIN SessionInRoom ON Session.[SessionID] = SessionInRoom.[SessionID]) ON (Room.[StudioID] = SessionInRoom.[StudioID]) AND (Room.[RoomNum] = SessionInRoom.[RoomNum])) LEFT JOIN Recording ON Session.SessionID = Recording.SessionID\n" +
+                    "GROUP BY Artists.ArtistID, Artists.StageName, Studio.StudioID, Studio.sName, Session.SessionID, Session.sessionStartDate, Session.TotalCost, Recording.RecordID, Recording.iStatus, Session.ArtistID \n" +
+                    "HAVING (((Session.sessionStartDate)>\""+t+"\") AND ((Session.ArtistID)=\""+id+"\"))\n" +
+                    "ORDER BY Session.sessionStartDate DESC";
         
         ResultSet rs = iRecord.getDB().query(qry);
              
@@ -47,9 +47,10 @@ public class RecordingManager {
                 Date date =  new Date(rs.getTimestamp("sessionStartDate").getTime());
                 SimpleDateFormat dft = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
                 dft.setTimeZone(TimeZone.getTimeZone("Asia/Jerusalem"));
-                String[] temp = getSessionStatus(SessionId);
-                if (temp == null) toReturn.add(new String[]{Studioid ,studioName, SessionId, dft.format(date).toString(), cost, "N/A", "N/A"});
-                else  toReturn.add(new String[]{Studioid ,studioName, SessionId, dft.format(date).toString(), cost, temp[0], temp[1]});
+                String rec = rs.getString("recordid") == null? "N/A" : rs.getString("recordid");
+                String status = rs.getString("istatus") == null? "N/A" : rs.getString("istatus");
+                
+                toReturn.add(new String[]{Studioid ,studioName, SessionId, dft.format(date).toString(), cost, rec, status});
                 
             }
         } catch (SQLException ex) {
@@ -173,3 +174,42 @@ public class RecordingManager {
     
  
 }
+
+
+
+
+/**
+ *     public static ArrayList<String[]> getArtistSessions(String id, Timestamp t){
+        ArrayList<String[]> toReturn = new ArrayList<String[]>();
+        //get sessions details
+        String qry = "SELECT Artists.ArtistID AS Artists_ArtistID, Studio.StudioID, Studio.sName, Count(Session.SessionID) AS CountOfSessionID, Session.ArtistID AS Session_ArtistID, Session.sessionStartDate, Session.TotalCost, Session.SessionID\n" +
+                     "FROM (Studio INNER JOIN Room ON Studio.[StudioID] = Room.[StudioID]) INNER JOIN ((Artists INNER JOIN [Session] ON Artists.[ArtistID] = Session.[ArtistID]) INNER JOIN SessionInRoom ON Session.[SessionID] = SessionInRoom.[SessionID]) ON (Room.[StudioID] = SessionInRoom.[StudioID]) AND (Room.[RoomNum] = SessionInRoom.[RoomNum])\n" +
+                     "GROUP BY Artists.ArtistID, Studio.StudioID, Studio.sName, Session.ArtistID, Session.sessionStartDate, Session.TotalCost, Session.SessionID\n" +
+                     "HAVING (((Session.ArtistID)=\""+id+"\") AND ((Session.sessionStartDate)>\""+t+"\")) "+
+                     "ORDER BY Session.sessionStartDate;";
+        
+        ResultSet rs = iRecord.getDB().query(qry);
+             
+        
+        try {
+            while(rs.next()){
+                String Studioid = rs.getString("studioid");
+                String studioName = rs.getString("sName");
+                String SessionId = rs.getString("sessionID");
+                String cost = rs.getString("totalCost");
+                Date date =  new Date(rs.getTimestamp("sessionStartDate").getTime());
+                SimpleDateFormat dft = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
+                dft.setTimeZone(TimeZone.getTimeZone("Asia/Jerusalem"));
+                String[] temp = getSessionStatus(SessionId);
+                if (temp == null) toReturn.add(new String[]{Studioid ,studioName, SessionId, dft.format(date).toString(), cost, "N/A", "N/A"});
+                else  toReturn.add(new String[]{Studioid ,studioName, SessionId, dft.format(date).toString(), cost, temp[0], temp[1]});
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RecordingManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return toReturn;
+    }
+ */
