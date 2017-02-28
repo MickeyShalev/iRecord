@@ -1,0 +1,50 @@
+=================  iRecord v1.0 - Tue Feb 28 21:36:36 IST 2017 ==================
+21:36:36	Attempting connection to MS Access DB
+21:36:36	DB File: C:\Users\nisan\Documents\Git\iRecordz\sources\iRecord.accdb
+Connecting with: jdbc:ucanaccess://C:\Users\nisan\Documents\Git\iRecordz\src\sources\iRecord.accdb
+21:36:37	Successfully connected to MS Access DB.
+21:36:37	Opening Login Window through iWindow
+21:36:39	Submitted
+21:36:39	User: admin Password: 1111
+21:36:39	Attempting login using admin/1111
+21:36:39	Artist logged in
+21:36:39	Initiating main UI
+Importing XML from HIA System - Artist admin
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Mon Mar 13 00:00:00 IST 2017
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+	Room#7
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+Studio#6
+Studio#7
+	Room#1
+	Room#2
+Studio#8
+	Room#1
+	Room#2
+	Room#3
+HighB
+HighB

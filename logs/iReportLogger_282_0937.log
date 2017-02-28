@@ -1,0 +1,252 @@
+=================  iRecord v1.0 - Tue Feb 28 21:37:25 IST 2017 ==================
+21:37:25	Attempting connection to MS Access DB
+21:37:25	DB File: C:\Users\nisan\Documents\Git\iRecordz\sources\iRecord.accdb
+Connecting with: jdbc:ucanaccess://C:\Users\nisan\Documents\Git\iRecordz\src\sources\iRecord.accdb
+21:37:26	Successfully connected to MS Access DB.
+21:37:26	Opening Login Window through iWindow
+21:37:30	Submitted
+21:37:30	User: admin Password: 1111
+21:37:30	Attempting login using admin/1111
+21:37:30	Artist logged in
+21:37:30	Initiating main UI
+Importing XML from HIA System - Artist admin
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Tue Feb 28 00:00:00 IST 2017
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Wed Mar 22 00:00:00 IST 2017
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+	Room#7
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+Studio#6
+Studio#7
+	Room#1
+	Room#2
+Studio#8
+	Room#1
+	Room#2
+	Room#3
+Akicker
+Akicker
+Getting SMMap for studio Akicker
+Added Soundman FL004 to SMMap
+Added Soundman FL003 to SMMap
+Added Soundman FL4266 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL005 to SMMap
+Added Soundman FL001 to SMMap
+A: Amirao
+A: MaliyahN
+A: BBB
+A: RubyC
+A: Marelyw
+A: KaraH
+Session Start Date: Wed Mar 22 15:00:00 IST 2017 EndDate: Wed Mar 22 17:00:00 IST 2017
+Added Soundman A: KaraH to table
+Added Soundman A: MaliyahN to table
+Added Soundman A: BBB to table
+Added Soundman A: Marelyw to table
+Added Soundman A: Amirao to table
+Added Soundman A: RubyC to table
+Getting SMMap for studio Akicker
+Added Soundman FL004 to SMMap
+Added Soundman FL003 to SMMap
+Added Soundman FL4266 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL005 to SMMap
+Added Soundman FL001 to SMMap
+A: Amirao
+A: MaliyahN
+A: BBB
+A: RubyC
+A: Marelyw
+A: KaraH
+Session Start Date: Wed Mar 22 15:00:00 IST 2017 EndDate: Wed Mar 22 17:00:00 IST 2017
+Added Soundman A: KaraH to table
+Added Soundman A: MaliyahN to table
+Added Soundman A: BBB to table
+Added Soundman A: Marelyw to table
+Added Soundman A: Amirao to table
+Added Soundman A: RubyC to table
+Price for A: KaraH
+3 * 0.0
+Current tmp price: $0.0
+A: RubyC
+A: Marelyw
+A: RubyC
+A: Marelyw
+Added Musician A: RubyC to table
+Added Musician A: Marelyw to table
+Importing XML from HIA System - Artist admin
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Wed Mar 22 00:00:00 IST 2017
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+	Room#7
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+Studio#6
+Studio#7
+	Room#1
+	Room#2
+Studio#8
+	Room#1
+	Room#2
+	Room#3
+HighB
+HighB
+Getting SMMap for studio HighB
+Added Soundman FL004 to SMMap
+Added Soundman FL003 to SMMap
+Added Soundman FL4266 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL005 to SMMap
+Added Soundman FL001 to SMMap
+A: Amirao
+A: MaliyahN
+A: BBB
+A: RubyC
+A: Marelyw
+A: KaraH
+Session Start Date: Wed Mar 22 15:00:00 IST 2017 EndDate: Wed Mar 22 17:00:00 IST 2017
+Added Soundman A: KaraH to table
+Added Soundman A: MaliyahN to table
+Added Soundman A: BBB to table
+Added Soundman A: Marelyw to table
+Added Soundman A: Amirao to table
+Added Soundman A: RubyC to table
+Price for A: MaliyahN
+1 * 0.0
+Current tmp price: $0.0
+A: KaraH
+A: Marelyw
+A: RubyC
+A: CAS
+A: Amirao
+A: KaraH
+A: Marelyw
+A: RubyC
+A: CAS
+A: Amirao
+Added Musician A: Marelyw to table
+Added Musician A: RubyC to table
+Added Musician A: CAS to table
+Added Musician A: Amirao to table
+Importing XML from HIA System - Artist admin
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Thu Apr 20 00:00:00 IDT 2017
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+	Room#7
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+Studio#6
+Studio#7
+	Room#1
+	Room#2
+Studio#8
+	Room#1
+	Room#2
+	Room#3
+HighB
+HighB
+Getting SMMap for studio HighB
+Added Soundman FL004 to SMMap
+Added Soundman FL003 to SMMap
+Added Soundman FL4266 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL005 to SMMap
+Added Soundman FL001 to SMMap
+A: Amirao
+A: MaliyahN
+A: BBB
+A: RubyC
+A: Marelyw
+A: KaraH
+Session Start Date: Thu Apr 20 15:00:00 IDT 2017 EndDate: Thu Apr 20 17:00:00 IDT 2017
+Added Soundman A: KaraH to table
+Added Soundman A: MaliyahN to table
+Added Soundman A: BBB to table
+Added Soundman A: Marelyw to table
+Added Soundman A: Amirao to table
+Added Soundman A: RubyC to table
+A: KaraH
+A: Marelyw
+A: RubyC
+A: CAS
+A: Amirao
+A: KaraH
+A: Marelyw
+A: RubyC
+A: CAS
+A: Amirao
+Added Musician A: Marelyw to table
+Added Musician A: RubyC to table
+Added Musician A: CAS to table
+Added Musician A: Amirao to table

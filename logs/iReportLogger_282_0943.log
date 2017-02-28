@@ -1,0 +1,94 @@
+=================  iRecord v1.0 - Tue Feb 28 21:43:56 IST 2017 ==================
+21:43:56	Attempting connection to MS Access DB
+21:43:56	DB File: C:\Users\nisan\Documents\Git\iRecordz\sources\iRecord.accdb
+Connecting with: jdbc:ucanaccess://C:\Users\nisan\Documents\Git\iRecordz\src\sources\iRecord.accdb
+21:43:57	Successfully connected to MS Access DB.
+21:43:57	Opening Login Window through iWindow
+21:44:00	Submitted
+21:44:00	User: admin Password: 1111
+21:44:00	Attempting login using admin/1111
+21:44:00	Artist logged in
+21:44:00	Initiating main UI
+Importing XML from HIA System - Artist admin
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Thu Dec 21 00:00:00 IST 2017
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+	Room#7
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+Studio#6
+Studio#7
+	Room#1
+	Room#2
+Studio#8
+	Room#1
+	Room#2
+	Room#3
+HighB
+HighB
+Getting SMMap for studio HighB
+Added Soundman FL004 to SMMap
+Added Soundman FL003 to SMMap
+Added Soundman FL4266 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL005 to SMMap
+Added Soundman FL001 to SMMap
+Amirao
+MaliyahN
+BBB
+RubyC
+Marelyw
+KaraH
+Session Start Date: Thu Dec 21 15:00:00 IST 2017 EndDate: Thu Dec 21 17:00:00 IST 2017
+Added Soundman KaraH to table
+Added Soundman MaliyahN to table
+Added Soundman BBB to table
+Added Soundman Marelyw to table
+Added Soundman Amirao to table
+Added Soundman RubyC to table
+Price for Amirao
+2 * 0.0
+Current tmp price: $0.0
+KaraH
+Marelyw
+RubyC
+CAS
+Amirao
+KaraH
+Marelyw
+RubyC
+CAS
+Amirao
+Checking if soundman exists for musician list: KaraH (FL001)
+He is here!
+Checking if soundman exists for musician list: MaliyahN (FL003)
+Checking if soundman exists for musician list: BBB (FL4266)
+Checking if soundman exists for musician list: Marelyw (FL005)
+Checking if soundman exists for musician list: Amirao (FL004)
+Checking if soundman exists for musician list: RubyC (FL002)
+Added Musician Marelyw to table
+Added Musician RubyC to table
+Added Musician CAS to table
+Added Musician Amirao to table

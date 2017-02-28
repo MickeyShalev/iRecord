@@ -1,0 +1,102 @@
+=================  iRecord v1.0 - Tue Feb 28 21:35:53 IST 2017 ==================
+21:35:53	Attempting connection to MS Access DB
+21:35:53	DB File: C:\Users\nisan\Documents\Git\iRecordz\sources\iRecord.accdb
+Connecting with: jdbc:ucanaccess://C:\Users\nisan\Documents\Git\iRecordz\src\sources\iRecord.accdb
+21:35:54	Successfully connected to MS Access DB.
+21:35:54	Opening Login Window through iWindow
+21:35:57	Submitted
+21:35:57	User: admin Password: 1111
+21:35:57	Attempting login using admin/1111
+21:35:57	Artist logged in
+21:35:57	Initiating main UI
+Importing XML from HIA System - Artist admin
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Wed Mar 22 00:00:00 IST 2017
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+	Room#7
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+Studio#6
+Studio#7
+	Room#1
+	Room#2
+Studio#8
+	Room#1
+	Room#2
+	Room#3
+HighB
+HighB
+Getting SMMap for studio HighB
+Added Soundman FL004 to SMMap
+Added Soundman FL003 to SMMap
+Added Soundman FL4266 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL005 to SMMap
+Added Soundman FL001 to SMMap
+entities.Soundman@3fdb56b
+entities.Soundman@3fdb56a
+entities.Soundman@7bba9d41
+entities.Soundman@3fdb569
+entities.Soundman@3fdb56c
+entities.Soundman@3fdb568
+Session Start Date: Wed Mar 22 15:00:00 IST 2017 EndDate: Wed Mar 22 17:00:00 IST 2017
+Added Soundman entities.Soundman@3fdb568 to table
+Added Soundman entities.Soundman@3fdb56a to table
+Added Soundman entities.Soundman@7bba9d41 to table
+Added Soundman entities.Soundman@3fdb56c to table
+Added Soundman entities.Soundman@3fdb56b to table
+Added Soundman entities.Soundman@3fdb569 to table
+Price for entities.Soundman@3fdb568
+1 * 0.0
+Current tmp price: $0.0
+Price for entities.Soundman@3fdb56a
+1 * 0.0
+Current tmp price: $0.0
+Price for entities.Soundman@7bba9d41
+1 * 0.0
+Current tmp price: $0.0
+Price for entities.Soundman@3fdb56c
+1 * 0.0
+Current tmp price: $0.0
+Price for entities.Soundman@3fdb56b
+1 * 0.0
+Current tmp price: $0.0
+Price for entities.Soundman@3fdb569
+1 * 0.0
+Current tmp price: $0.0
+entities.Musician@3fdb4f4
+entities.Musician@3fdb4f8
+entities.Musician@3fdb4f5
+entities.Musician@3fdb4f9
+entities.Musician@3fdb4f7
+entities.Musician@3fdb4f4
+entities.Musician@3fdb4f8
+entities.Musician@3fdb4f5
+entities.Musician@3fdb4f9
+entities.Musician@3fdb4f7
+Added Musician entities.Musician@3fdb4f8 to table
+Added Musician entities.Musician@3fdb4f5 to table
+Added Musician entities.Musician@3fdb4f9 to table
+Added Musician entities.Musician@3fdb4f7 to table
