@@ -1,0 +1,89 @@
+=================  iRecord v1.0 - Tue Feb 28 21:47:25 IST 2017 ==================
+21:47:25	Attempting connection to MS Access DB
+21:47:25	DB File: C:\Users\nisan\Documents\Git\iRecordz\sources\iRecord.accdb
+Connecting with: jdbc:ucanaccess://C:\Users\nisan\Documents\Git\iRecordz\src\sources\iRecord.accdb
+21:47:26	Successfully connected to MS Access DB.
+21:47:26	Opening Login Window through iWindow
+21:47:28	Submitted
+21:47:28	User: admin Password: 1111
+21:47:28	Attempting login using admin/1111
+21:47:28	Artist logged in
+21:47:28	Initiating main UI
+Importing XML from HIA System - Artist admin
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Thu Mar 23 00:00:00 IST 2017
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+	Room#7
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+Studio#6
+Studio#7
+	Room#1
+	Room#2
+Studio#8
+	Room#1
+	Room#2
+	Room#3
+HighB
+HighB
+Getting SMMap for studio HighB
+Added Soundman FL004 to SMMap
+Added Soundman FL003 to SMMap
+Added Soundman FL4266 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL005 to SMMap
+Added Soundman FL001 to SMMap
+Amirao
+MaliyahN
+BBB
+RubyC
+Marelyw
+KaraH
+Session Start Date: Thu Mar 23 15:00:00 IST 2017 EndDate: Thu Mar 23 17:00:00 IST 2017
+Added Soundman KaraH to table
+Added Soundman MaliyahN to table
+Added Soundman BBB to table
+Added Soundman Marelyw to table
+Added Soundman Amirao to table
+Added Soundman RubyC to table
+Price for Amirao
+2 * 0.0
+Current tmp price: $0.0
+KaraH
+Marelyw
+RubyC
+CAS
+Amirao
+KaraH
+Marelyw
+RubyC
+CAS
+Amirao
+Checking if soundman exists for musician list: Amirao (FL004)
+He is here!
+Added Musician Marelyw to table
+Added Musician RubyC to table
+Added Musician CAS to table
+Added Musician Amirao to table

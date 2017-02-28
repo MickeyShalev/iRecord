@@ -1,0 +1,142 @@
+=================  iRecord v1.0 - Tue Feb 28 21:34:12 IST 2017 ==================
+21:34:12	Attempting connection to MS Access DB
+21:34:12	DB File: C:\Users\nisan\Documents\Git\iRecordz\sources\iRecord.accdb
+Connecting with: jdbc:ucanaccess://C:\Users\nisan\Documents\Git\iRecordz\src\sources\iRecord.accdb
+21:34:13	Successfully connected to MS Access DB.
+21:34:13	Opening Login Window through iWindow
+21:34:15	Submitted
+21:34:15	User: admin Password: 1111
+21:34:15	Attempting login using admin/1111
+21:34:15	Artist logged in
+21:34:15	Initiating main UI
+Importing XML from HIA System - Artist admin
+Date Error
+StartTimeSpinner: Thu Jan 01 15:00:00 IST 1970 
+EndTimeSpinner: Thu Jan 01 17:00:00 IST 1970
+Date Chosen: Wed Mar 15 00:00:00 IST 2017
+Studio#1
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+	Room#5
+	Room#7
+Studio#2
+	Room#1
+	Room#2
+	Room#3
+Studio#3
+	Room#1
+	Room#2
+	Room#3
+Studio#4
+	Room#1
+	Room#2
+	Room#3
+Studio#5
+	Room#1
+	Room#2
+	Room#3
+	Room#4
+Studio#6
+Studio#7
+	Room#1
+	Room#2
+Studio#8
+	Room#1
+	Room#2
+	Room#3
+HighB
+HighB
+Getting SMMap for studio HighB
+Added Soundman FL004 to SMMap
+Added Soundman FL003 to SMMap
+Added Soundman FL4266 to SMMap
+Added Soundman FL002 to SMMap
+Added Soundman FL005 to SMMap
+Added Soundman FL001 to SMMap
+entities.Soundman@3fdb56b
+entities.Soundman@3fdb56a
+entities.Soundman@7bba9d41
+entities.Soundman@3fdb569
+entities.Soundman@3fdb56c
+entities.Soundman@3fdb568
+Session Start Date: Wed Mar 15 15:00:00 IST 2017 EndDate: Wed Mar 15 17:00:00 IST 2017
+Added Soundman entities.Soundman@3fdb568 to table
+Added Soundman entities.Soundman@3fdb56a to table
+Added Soundman entities.Soundman@7bba9d41 to table
+Added Soundman entities.Soundman@3fdb56c to table
+Added Soundman entities.Soundman@3fdb56b to table
+Added Soundman entities.Soundman@3fdb569 to table
+Price for entities.Soundman@3fdb568
+1 * 0.0
+Current tmp price: $0.0
+Price for entities.Soundman@3fdb56a
+1 * 0.0
+Current tmp price: $0.0
+Price for entities.Soundman@7bba9d41
+1 * 0.0
+Current tmp price: $0.0
+Price for entities.Soundman@3fdb56c
+1 * 0.0
+Current tmp price: $0.0
+Price for entities.Soundman@3fdb56b
+1 * 0.0
+Current tmp price: $0.0
+Price for entities.Soundman@3fdb569
+1 * 0.0
+Current tmp price: $0.0
+entities.Musician@3fdb4f4
+entities.Musician@3fdb4f8
+entities.Musician@3fdb4f5
+entities.Musician@3fdb4f9
+entities.Musician@3fdb4f7
+entities.Musician@3fdb4f4
+entities.Musician@3fdb4f8
+entities.Musician@3fdb4f5
+entities.Musician@3fdb4f9
+entities.Musician@3fdb4f7
+Exception in thread "AWT-EventQueue-0" java.lang.ClassCastException: entities.Freelancer cannot be cast to entities.Musician
+	at gui.internal.frmCreateSession$17.compare(frmCreateSession.java:891)
+	at java.util.TreeMap.getEntryUsingComparator(TreeMap.java:376)
+	at java.util.TreeMap.getEntry(TreeMap.java:345)
+	at java.util.TreeMap.containsKey(TreeMap.java:232)
+	at gui.internal.frmCreateSession.jButton3ActionPerformed(frmCreateSession.java:900)
+	at gui.internal.frmCreateSession.access$900(frmCreateSession.java:39)
+	at gui.internal.frmCreateSession$10.actionPerformed(frmCreateSession.java:450)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:252)
+	at java.awt.Component.processMouseEvent(Component.java:6533)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6298)
+	at java.awt.Container.processEvent(Container.java:2236)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2294)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
+	at java.awt.Container.dispatchEventImpl(Container.java:2280)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.awt.EventQueue$4.run(EventQueue.java:729)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)

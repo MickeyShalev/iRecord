@@ -74,7 +74,7 @@ public class PDFManager {
             subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
             smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
             chapters = new HashMap<>();
-            pdfFile = new File("src/sources/reports/"+fileName+".pdf");
+            pdfFile = new File("sources/reports/"+fileName+".pdf");
             document = new Document(PageSize.A4);
             PdfWriter.getInstance(document, new FileOutputStream(pdfFile));
             document.open();

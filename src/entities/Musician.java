@@ -72,30 +72,7 @@ public class Musician extends Freelancer {
         return "";
     }
     
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 47 * hash + Objects.hashCode(getFreelancerID());
-        return hash;
-    }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Musician other = (Musician) obj;
-        if (!Objects.equals(getFreelancerID(), other.getFreelancerID())) {
-            return false;
-        }
-        return true;
-    }
+   
     
     
     public void setFileString(String file){
