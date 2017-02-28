@@ -39,6 +39,7 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
     private Date birthDate;
     private int profession;
     private Musician s = null;
+    private Freelancer f = null;
     
     public frmAddMusician(Musician s){
         initComponents();
@@ -67,6 +68,34 @@ public class frmAddMusician extends javax.swing.JInternalFrame {
         initCBE();
         
     }
+    
+    
+        public frmAddMusician(Soundman s){
+        initComponents();
+        this.f = (Freelancer) s;
+        lblID.setText(f.getID());
+        tfFirstName.setText(f.getFirstName());
+        tfLastName.setText(f.getLastName());
+        tfStageName.setText(f.getStageName());
+        jXDatePicker1.setDate(s.getBirthdate());
+        Pass1.setText(f.getPassword());
+        Pass2.setText(f.getPassword());
+        tfEmail.setText(f.getEmail());
+
+        picPath = s.getFileString();
+        flID = f.getID();
+        firstName = f.getFirstName();
+        lastName = f.getLastName();
+        stageName = f.getStageName();
+        Email = f.getEmail();
+        password = f.getPassword();
+        birthDate = s.getBirthdate();
+        
+        initCBE();
+        
+    }
+    
+    
     /**
      * Creates new form frmCreateSession
      */

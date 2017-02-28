@@ -112,8 +112,5 @@ public Soundman(String FreelancerID, String firstName, String lastName, String s
     public String getFileString(){
         return this.fileString;
     }
-    
-    
-    
-    
+
 }

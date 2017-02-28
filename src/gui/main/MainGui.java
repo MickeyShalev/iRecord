@@ -6,6 +6,7 @@
 package gui.main;
 
 import entities.Artist;
+import entities.Freelancer;
 import entities.Musician;
 import entities.Soundman;
 import gui.internal.*;
@@ -871,6 +872,14 @@ public class MainGui extends javax.swing.JFrame {
             frmAddMusician add = new frmAddMusician(m);
             iWindow.openWin(add);
         }
+        
+        else{
+            Soundman s = FreelancerManager.getSoundmanDetails(iRecord.getLoggedUser().getID());
+            String pass = JOptionPane.showInputDialog(null, "Enter password to continue registration as musician", "Confirm", JOptionPane.OK_CANCEL_OPTION);
+            if (!iRecord.getLoggedUser().getPassword().equals(pass)) return;
+            frmAddMusician add = new frmAddMusician(s);
+            iWindow.openWin(add);
+        }
         return;
         
     }//GEN-LAST:event_musicMouseClicked
@@ -880,6 +889,15 @@ public class MainGui extends javax.swing.JFrame {
         if (s != null){
             frmAddSoundman add = new frmAddSoundman(s);
             iWindow.openWin(add);
+        }
+        else {
+            Musician m = FreelancerManager.getMuicianDetails(iRecord.getLoggedUser().getID());
+            if (m == null) return;
+            String pass = JOptionPane.showInputDialog(null, "Enter password to continue registration as soundman", "Confirm", JOptionPane.OK_CANCEL_OPTION);
+            if (!iRecord.getLoggedUser().getPassword().equals(pass)) return;
+            frmAddSoundman add = new frmAddSoundman(m);
+            iWindow.openWin(add);
+            
         }
         return;
     }//GEN-LAST:event_soundMouseClicked

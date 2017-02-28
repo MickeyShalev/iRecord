@@ -36,6 +36,7 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
     private Date birthDate;
     private boolean isProducer = false, isMixTech = false, isMasterTech = false;
     private Soundman s = null;
+    private Freelancer f = null;
     
     
     /**
@@ -79,7 +80,33 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         downPayment = s.getDownPayment();
         fullPayment = s.getFullPayment();
     }
-    
+        public frmAddSoundman(Musician m) {
+        initComponents();
+        //this.s = s;
+        this.f = (Freelancer) m;
+        lblID.setText(f.getID());
+        tfFirstName.setText(f.getFirstName());
+        tfLastName.setText(f.getLastName());
+        tfStageName.setText(f.getStageName());
+        tfEmail.setText(f.getEmail());
+        jXDatePicker1.setDate(m.getBirthdate());
+        Pass1.setText(f.getPassword());
+        Pass2.setText(f.getPassword());
+
+        
+        picPath = f.getPicPath();
+        flID = f.getID();
+        firstName = f.getFirstName();
+        lastName = f.getLastName();
+        stageName = f.getStageName();
+        Email = f.getEmail();
+        password = f.getPassword();
+        birthDate = m.getBirthdate();
+
+    }    
+        
+        
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -524,26 +551,31 @@ public class frmAddSoundman extends javax.swing.JInternalFrame {
         else{
             
             //new insertion was recognized
-            if (!isMixTech && !isProducer && !isMasterTech){
+            if (!cbMasterTech.isSelected() && !cbMixTech.isSelected() && !cbProducer.isSelected()){
                 lblGen.setText("You must pick at least one profession for soundman");
                 updateWin();
                 return;
             }
+
             
-            else if(downPayment > fullPayment){
+            
+            if(downPayment > fullPayment){
                 lblpayError.setText("Down payment can't be greather than full payment");
                 updateWin();
                 return;
             }
             
-            else if (firstName == null || lastName == null || stageName == null || Email ==null
+            if (firstName == null || lastName == null || stageName == null || Email ==null
                     || fullPayment < 0 || downPayment < 0 || birthDate == null  || password ==null || picPath == null ){
                 lblGen.setText("One or more fields ane missing");
                 updateWin();
                 return;
             }
             
-                else{
+            else{
+                isProducer = cbProducer.isSelected()? true : false;
+                isMixTech = cbMixTech.isSelected()? true : false;
+                isMasterTech = cbMasterTech.isSelected()? true: false;
                 Soundman toAdd = new Soundman(flID, firstName,lastName,stageName,isProducer,isMixTech,isMasterTech, downPayment,fullPayment,0 , birthDate, Email, password, 1);
                 toAdd.setPicPath(picPath);
                 pnlAdd.setVisible(false);
