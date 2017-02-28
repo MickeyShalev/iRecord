@@ -20,24 +20,16 @@ import java.util.List;
 import java.util.Map;
 import iRecord.Controller.SessionManager;
 import java.awt.Component;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.Period;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
-import javax.swing.JTable;
 import javax.swing.SpinnerDateModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import org.joda.time.DateTime;
 
 /**
  *

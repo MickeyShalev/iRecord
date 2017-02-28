@@ -6,8 +6,6 @@
 package gui.internal;
 
 import Validators.PositiveValidator;
-import com.itextpdf.text.DocumentException;
-import entities.Artist;
 import entities.Person;
 import gui.main.iWindow;
 import iRecord.Controller.RecordingManager;
@@ -19,10 +17,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
-import iRecord.utilities.PDFManager;
-import iRecord.utilities.PDFManager.PDFFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

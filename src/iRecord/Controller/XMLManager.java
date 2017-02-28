@@ -40,11 +40,11 @@ public class XMLManager {
     
     public static List<Timestamp> importXML(String ArtistID) {
         List<Timestamp> tsList = new ArrayList<Timestamp>();
-        Document doc;
+        Document doc = null;
         try {
             System.out.println("Importing XML from HIA System - Artist " + ArtistID);
             try{
-                File inputFile = new File("src/xmlimport/HIA-Artist-" + ArtistID + ".xml");
+                File inputFile = new File("sources/xml/HIA-Artist-Shows.xml");
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 doc = dBuilder.parse(inputFile);
@@ -52,11 +52,7 @@ public class XMLManager {
             
             
             } catch(Exception e){
-                File inputFile = new File("xmlimport/HIA-Artist-" + ArtistID + ".xml");
-                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                doc = dBuilder.parse(inputFile);
-                doc.getDocumentElement().normalize();
+                return tsList;
             }
             
             
@@ -93,7 +89,7 @@ public class XMLManager {
 
             }
         } catch (Exception e) {
-            System.err.println("Could not locate XML File: HIA-Artist-"+ArtistID+".xml");
+            System.err.println("Could not locate XML File: HIA-Artist-Shows.xml");
             
         }
         
@@ -258,7 +254,7 @@ public class XMLManager {
             /**
              * Name of the file is configured here
              */
-            PrintStream prntstrm = new PrintStream(new File("iRecord-Artist-Sessions.xml"));
+            PrintStream prntstrm = new PrintStream(new File("sources/xml/iRecord-Artist-Sessions.xml"));
             
             
             
@@ -301,7 +297,7 @@ public class XMLManager {
             //System.out.println("Importing artist details XML from HIA System - Artists ");
             try{
                 //reading file
-                File inputFile = new File("src/xmlimport/HIA-Artist-Data.xml");
+                File inputFile = new File("sources/xml/HIA-Artist-Sessions.xml");
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 doc = dBuilder.parse(inputFile);
@@ -309,7 +305,7 @@ public class XMLManager {
             
             
             } catch(Exception e){
-                File inputFile = new File("xmlimport/HIA-Artist-Data.xml");
+                File inputFile = new File("sources/xml/HIA-Artist-Sessions.xml");
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 doc = dBuilder.parse(inputFile);

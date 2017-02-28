@@ -155,9 +155,9 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
         pnlAdd.add(lblNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 190, 20));
 
         boxIso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Option", "Yes", "No" }));
-        boxIso.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                boxIsoMouseExited(evt);
+        boxIso.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                boxIsoItemStateChanged(evt);
             }
         });
         pnlAdd.add(boxIso, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 190, -1));
@@ -166,11 +166,6 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
         slctStudio.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 slctStudioItemStateChanged(evt);
-            }
-        });
-        slctStudio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                slctStudioPropertyChange(evt);
             }
         });
         pnlAdd.add(slctStudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 190, -1));
@@ -278,15 +273,6 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
          
     }//GEN-LAST:event_btnAddMouseClicked
 
-    private void boxIsoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boxIsoMouseExited
-        if (boxIso.getSelectedIndex() == 0) return;
-        if (boxIso.getSelectedIndex() == 1) this.hasIsolation = true;
-        else if (boxIso.getSelectedIndex() == 2) this.hasIsolation = false;
-        
-        updateWin();
-        return;
-    }//GEN-LAST:event_boxIsoMouseExited
-
     private void slctStudioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_slctStudioItemStateChanged
        if (slctStudio.getSelectedIndex() == 0) return;
         Studio s = (Studio) slctStudio.getSelectedItem();
@@ -299,9 +285,14 @@ public class frmAddRoom extends javax.swing.JInternalFrame {
         updateWin(); 
     }//GEN-LAST:event_slctStudioItemStateChanged
 
-    private void slctStudioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_slctStudioPropertyChange
+    private void boxIsoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boxIsoItemStateChanged
+        if (boxIso.getSelectedIndex() == 0) return;
+        if (boxIso.getSelectedIndex() == 1) this.hasIsolation = true;
+        else if (boxIso.getSelectedIndex() == 2) this.hasIsolation = false;
         
-    }//GEN-LAST:event_slctStudioPropertyChange
+        updateWin();
+        return;
+    }//GEN-LAST:event_boxIsoItemStateChanged
 
         
     private void init(){

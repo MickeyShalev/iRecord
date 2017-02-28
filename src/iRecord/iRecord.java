@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -43,9 +44,17 @@ public class iRecord {
             Date now = new Date();
             String strDate = sdfDate.format(now);
             
-            logWriter = new PrintStream(new File(fileName+"_"+strDate+".log"));
-            //System.setErr(logWriter);
-            //System.setOut(logWriter);
+            
+            try{
+            File f = new File("logs/");
+            Files.createDirectory(f.toPath());
+            }catch (Exception e){
+               
+            }
+            
+            logWriter = new PrintStream(new File("logs/"+fileName+"_"+strDate+".log")); 
+            System.setErr(logWriter);
+            System.setOut(logWriter);
             logWriter.print("=================  iRecord v1.0 - " + new Date() + " ==================" + System.getProperty("line.separator"));
             
         } catch (IOException ioe) {

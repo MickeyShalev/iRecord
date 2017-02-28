@@ -314,7 +314,7 @@ public class frmAddStudio extends javax.swing.JInternalFrame {
             
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         System.out.println(studioName +" "+ Email+" "+ address+" "+ phone+" "+ description);
-        if (studioName == null || Email == null|| address == null || phone == null || description == null){
+        if (studioName == null || Email == null|| address == null || phone == null || description == null || password == null){
             lblGen.setText("One or more fields ane missing");
             updateWin();
             return;

@@ -33,9 +33,10 @@ public class SessionManager {
      * @return
      */
     public static Map<Integer, Studio> getStudios(){
-        Map<Integer, Studio> toReturn = new HashMap<Integer, Studio>();
+        Map<Integer, Studio> studios = new HashMap<Integer, Studio>();
         
         ResultSet rs = iRecord.getDB().query("select * from Studio");
+        
         try {
             while(rs.next()){
                 //Studio Details
@@ -45,15 +46,21 @@ public class SessionManager {
                 String sEmail = rs.getString("sEmail");
                 String sPhoneNum = rs.getString("sPhoneNum");
                 String sDesc = rs.getString("sDesc");
-                Studio stud = new Studio(sName, sAddress, sEmail, sPhoneNum, sDesc, StudioID);
-                toReturn.put(StudioID, stud);
+                String pass = rs.getString("password");
+                Studio stud = new Studio(sName, sAddress, sEmail, sPhoneNum, sDesc, StudioID, pass);
+                studios.put(StudioID, stud);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return toReturn;
-        
+        //test
+//        for (Studio s:studios.values()){
+//            System.out.println(s.getsID() + " " + s.getsName());
+//        }
+
+
+        return studios;
     }
     
     /**

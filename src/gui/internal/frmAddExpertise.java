@@ -254,7 +254,8 @@ public class frmAddExpertise extends javax.swing.JInternalFrame {
                 
         //Set expertise combo box
         ArrayList<Expertise>  exp = ExpertieseManager.getInstruments();
-         cbExpertise.removeAllItems();        
+         cbExpertise.removeAllItems();  
+         if (exp == null) return;
 
         for (Expertise e : exp){
             cbExpertise.addItem(e);
